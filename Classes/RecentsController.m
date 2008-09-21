@@ -15,6 +15,7 @@
 - (id)initWithStyle:(UITableViewStyle)style {
 	if (self = [super initWithStyle:style]) {
 	}
+
 	return self;
 }
 
@@ -80,6 +81,7 @@
 	[stories release];
 	[item release];
 	[currentTitle release];
+	[myURL release];
 
 	[super dealloc];
 }
@@ -87,6 +89,18 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+
+	stories = [[NSMutableArray alloc] init];
+
+	UIActivityIndicatorView *activityIndicator = [[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)] autorelease];
+	[activityIndicator startAnimating];
+
+	myURL = [[NSURL alloc] initWithString:@"http://sozluk.sourtimes.org/index.asp"];
+
+	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+	refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh	target:self	action:@selector(refresh)];
+	
+	self.navigationItem.rightBarButtonItem = activityItem;		
 }
 
 
@@ -98,11 +112,8 @@
 	[super viewDidAppear:animated];
 	
 	if([stories count] == 0) {
-		NSString *url = @"http://sozluk.sourtimes.org/index.asp";
-		[self parseXMLFileAtURL:url];
+		[self parseXMLFileAtURL:myURL];
 	}
-	
-	cellSize = CGSizeMake([[self tableView] bounds].size.width, 60);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -115,11 +126,15 @@
 	[super didReceiveMemoryWarning];
 }
 
--(void)parseXMLFileAtURL:(NSString *)URL {
-	stories = [[NSMutableArray alloc] init];
+-(void)refresh {
+	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
+	[self parseXMLFileAtURL:myURL];
+}
+
+-(void)parseXMLFileAtURL:(NSURL *)URL {
+	[stories removeAllObjects];
 	
-	NSURL *url = [NSURL URLWithString:URL];
-	parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+	parser = [[NSXMLParser alloc] initWithContentsOfURL:URL];
 	
 	[parser setDelegate:self];
 	[parser setShouldProcessNamespaces:NO];
@@ -127,6 +142,7 @@
 	[parser setShouldResolveExternalEntities:NO];
 	
 	[parser parse];
+	[parser release];
 }
 
 -(void)parserDidStartDocument:(NSXMLParser *)parser {
@@ -166,10 +182,8 @@
 }
 
 -(void)parserDidEndDocument:(NSXMLParser *)parser {
-	[activityIndicator stopAnimating];
-	[activityIndicator removeFromSuperview];
-	
-	[[self tableView] reloadData];
+	[self.tableView reloadData];
+	[self.navigationItem setRightBarButtonItem:refreshItem animated:YES];	
 }
 
 @end

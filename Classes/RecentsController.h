@@ -10,18 +10,17 @@
 
 
 @interface RecentsController : UITableViewController {
-	UIActivityIndicatorView *activityIndicator;
-	
-	CGSize cellSize;
-
 	NSXMLParser *parser;
-	NSMutableArray *stories;
-	
+	NSMutableArray *stories;	
 	NSMutableDictionary *item;
 	NSString *currentElement, *currentLink;
 	NSMutableString *currentTitle;
+	NSURL *myURL;
+	
+	UIBarButtonItem *activityItem;
+	UIBarButtonItem	*refreshItem;
 }
 
--(void)parseXMLFileAtURL:(NSString *)URL;
+-(void)parseXMLFileAtURL:(NSURL *)URL;
 
 @end
