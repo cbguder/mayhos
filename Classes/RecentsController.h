@@ -7,20 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TitleController.h"
 
 @interface RecentsController : UITableViewController {
-	NSXMLParser *parser;
+	NSMutableData *responseData;
 	NSMutableArray *stories;	
-	NSMutableDictionary *item;
-	NSString *currentElement, *currentLink;
-	NSMutableString *currentTitle;
 	NSURL *myURL;
 	
 	UIBarButtonItem *activityItem;
 	UIBarButtonItem	*refreshItem;
 }
 
--(void)parseXMLFileAtURL:(NSURL *)URL;
+-(void)refresh;
 
 @end

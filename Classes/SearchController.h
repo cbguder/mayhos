@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface SearchController : UITableViewController {
-
 }
 
 @end
