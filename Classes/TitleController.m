@@ -43,15 +43,32 @@
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
 	}
 	
-	CGRect frame = CGRectMake(10, 0, 300, 40);
-    UILabel *textView = [[UILabel alloc] initWithFrame:frame];
+    UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 30)];
+	textView.numberOfLines = 0;
 	textView.text = [[[entries objectAtIndex:[indexPath row]] objectForKey:@"content"]
 					 stringByReplacingOccurrencesOfString:@"<br />" withString:@"\n"];
 
 	[cell.contentView addSubview:textView];
+	[textView sizeToFit];
 	[textView release];
 
 	return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if([indexPath row] > [entries count] - 1) {
+		return 40.0;
+	} else {		
+		UILabel *textView = [[UILabel alloc] initWithFrame:CGRectZero];
+		textView.numberOfLines = 0;
+		textView.text = [[[entries objectAtIndex:[indexPath row]] objectForKey:@"content"]
+						 stringByReplacingOccurrencesOfString:@"<br />" withString:@"\n"];
+
+		CGSize size = [textView sizeThatFits:CGSizeMake(300, 40)];
+		[textView release];
+
+		return size.height + 15;
+	}
 }
 
 - (void)dealloc {
