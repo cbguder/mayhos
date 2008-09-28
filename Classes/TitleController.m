@@ -2,8 +2,8 @@
 //  TitleController.m
 //  EksiSozluk
 //
-//  Created by Can Berk Güder on 9/24/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
+//  Created by Can Berk Güder on 2008-09-24.
+//  Copyright 2008 Chocolate IT Solutions. All rights reserved.
 //
 
 #import "TitleController.h"
@@ -12,9 +12,10 @@
 @implementation TitleController
 
 
-- (id)initWithTitle:(NSString *)title {
+- (id)initWithTitle:(NSString *)title URL:(NSURL *)url {
 	if (self = [super init]) {
 		self.title = title;
+		myURL = url;
 	}
 	return self;
 }
@@ -37,18 +38,32 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+/*
 	static NSString *MyIdentifier = @"EntryCell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
 	}
+*/
 	
-    UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 30)];
+	UITableViewCell *cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero] autorelease];
+	NSDictionary *entry = [entries objectAtIndex:[indexPath row]];
+
+	UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(10, 7, 300, 20)];
 	textView.numberOfLines = 0;
-	textView.text = [[[entries objectAtIndex:[indexPath row]] objectForKey:@"content"]
-					 stringByReplacingOccurrencesOfString:@"<br />" withString:@"\n"];
+	textView.lineBreakMode = UILineBreakModeWordWrap;
+	textView.font = [UIFont systemFontOfSize:14];
+	textView.text = [entry objectForKey:@"content"];
+	
+	CGFloat pos = [self tableView:tableView heightForRowAtIndexPath:indexPath] - 24;
+	UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(10, pos, 300, 20)];
+	author.numberOfLines = 1;
+	author.textAlignment = UITextAlignmentRight;
+	author.font = [UIFont systemFontOfSize:14];
+	author.text = [NSString stringWithFormat:@"%@, %@", [entry objectForKey:@"author"], [entry objectForKey:@"date"]];
 
 	[cell.contentView addSubview:textView];
+	[cell.contentView addSubview:author];
 	[textView sizeToFit];
 	[textView release];
 
@@ -56,25 +71,21 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if([indexPath row] > [entries count] - 1) {
-		return 40.0;
-	} else {		
-		UILabel *textView = [[UILabel alloc] initWithFrame:CGRectZero];
-		textView.numberOfLines = 0;
-		textView.text = [[[entries objectAtIndex:[indexPath row]] objectForKey:@"content"]
-						 stringByReplacingOccurrencesOfString:@"<br />" withString:@"\n"];
+	CGSize size = [[[entries objectAtIndex:[indexPath row]] objectForKey:@"content"] sizeWithFont:[UIFont systemFontOfSize:14]
+																				     constrainedToSize:CGSizeMake(300, 4000)
+																					 lineBreakMode:UILineBreakModeWordWrap];
+	return size.height + 15 + 33;
+}
 
-		CGSize size = [textView sizeThatFits:CGSizeMake(300, 40)];
-		[textView release];
-
-		return size.height + 15;
-	}
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	return nil;
 }
 
 - (void)dealloc {
-	[myURL release];
-	[entries release];
 	[responseData release];
+	[connection release];
+	[entries release];
+	[myURL release];
 
 	[super dealloc];
 }
@@ -89,11 +100,9 @@
 	[activityIndicator startAnimating];
 	[activityIndicator sizeToFit];
 
-	myURL = [[NSURL URLWithString:[NSString stringWithFormat:@"http://sozluk.sourtimes.org/show.asp?t=%@", 
-								  [self.title stringByReplacingOccurrencesOfString:@" " withString:@"+"]]] retain];
 	responseData = [[NSMutableData data] retain];
-
 	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+	tumuItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(tumunu_goster)];
 }
 
 
@@ -107,7 +116,7 @@
 	if([entries count] == 0) {
 		[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
 		NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
-		[[NSURLConnection alloc] initWithRequest:request delegate:self];		
+		connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	}
 }
 
@@ -122,12 +131,10 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	NSLog(@"Response");
     [responseData setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	NSLog(@"Data: %d", [data length]);
     [responseData appendData:data];
 }
 
@@ -139,32 +146,77 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	NSLog(@"Finish: %d", [responseData length]);
-
-	NSString *entry;
+	NSString *entry, *author, *date;
+	NSUInteger lastPosition;
 	
-	NSString *LI  = @"<li ";
-	NSString *GT  = @">";
-	NSString *DIV = @"<div class=\"aul\">";
+	NSString *LI     = @"<li ";
+	NSString *GT     = @">";
+	NSString *DIV    = @"<div class=\"aul\">";
+	NSString *ENDA   = @"</a>";
+	NSString *BUTTON = @"<button ";
 	
 	NSString  *content = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1254StringEncoding];
 	NSScanner *scanner = [NSScanner scannerWithString:content];
+	
+	NSString *theXSLTString = @"<?xml version='1.0' encoding='utf-8'?> \
+	<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform' xmlns:xhtml='http://www.w3.org/1999/xhtml'> \
+	<xsl:output method='text'/> \
+	<xsl:template match='xhtml:br'><xsl:text>\n</xsl:text></xsl:template> \
+	<xsl:template match='xhtml:a'><xsl:value-of select='.'/></xsl:template> \
+	</xsl:stylesheet>";
+	
+	tumu_link = nil;
+	[entries removeAllObjects];
 	
 	while([scanner isAtEnd] == NO) {
 		if([scanner scanUpToString:LI intoString:NULL] &&
 		   [scanner scanUpToString:GT intoString:NULL] &&
 		   [scanner scanString:GT intoString:NULL] &&
-		   [scanner scanUpToString:DIV intoString:&entry])
+		   [scanner scanUpToString:DIV intoString:&entry] &&
+		   [scanner scanString:DIV intoString:NULL] &&
+		   [scanner scanUpToString:GT intoString:NULL] &&
+		   [scanner scanString:GT intoString:NULL] &&
+		   [scanner scanUpToString:ENDA intoString:&author] &&
+		   [scanner scanString:ENDA intoString:NULL] &&
+		   [scanner scanString:@", " intoString:NULL] &&
+		   [scanner scanUpToString:@")" intoString:&date])
 		{
-			NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:entry, @"content", nil];
+			lastPosition = [scanner scanLocation];
+			
+			NSXMLDocument *theDocument = [[[NSXMLDocument alloc] initWithXMLString:entry options:NSXMLDocumentTidyHTML error:NULL] autorelease];
+			NSData *theData = [theDocument objectByApplyingXSLTString:theXSLTString arguments:NULL error:NULL];
+			entry = [[[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding] autorelease];
+
+			NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:entry, @"content", author, @"author", date, @"date", nil];
 			[entries addObject:item];
+		} else {
+			[scanner setScanLocation:lastPosition];
+			if([scanner scanUpToString:BUTTON intoString:NULL] &&
+			   [scanner scanUpToString:@"'" intoString:NULL] &&
+			   [scanner scanString:@"'" intoString:NULL] &&
+			   [scanner scanUpToString:@"'" intoString:&tumu_link])
+			{
+				tumu_link = [[tumu_link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"] retain];
+				break;
+			}
 		}
 	}
+
+	if(tumu_link == nil) {
+		[self.navigationItem setRightBarButtonItem:NULL animated:YES];
+	} else {
+		[self.navigationItem setRightBarButtonItem:tumuItem animated:YES];
+	}
 	
-	NSLog(@"Entries: %d", [entries count]);
-	
-	[self.navigationItem setRightBarButtonItem:NULL animated:YES];
 	[self.tableView reloadData];
+}
+
+- (void)tumunu_goster {
+	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
+
+	myURL = [[NSURL alloc] initWithString:tumu_link relativeToURL:myURL];
+	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
+	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 

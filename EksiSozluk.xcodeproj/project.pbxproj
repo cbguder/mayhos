@@ -19,6 +19,7 @@
 		4C02F1240E76BD3C004B38C1 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C02F1230E76BD3C004B38C1 /* Search.xib */; };
 		4C02F1440E76D455004B38C1 /* eksi.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C02F1430E76D455004B38C1 /* eksi.png */; };
 		4C2A2CC10E8A446C00E559DA /* TitleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A2CC00E8A446C00E559DA /* TitleController.m */; };
+		4CC683640E8F845400737EB8 /* EksiLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC683630E8F845400737EB8 /* EksiLinkController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,8 @@
 		4C02F1430E76D455004B38C1 /* eksi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eksi.png; sourceTree = "<group>"; };
 		4C2A2CBF0E8A446C00E559DA /* TitleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleController.h; sourceTree = "<group>"; };
 		4C2A2CC00E8A446C00E559DA /* TitleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleController.m; sourceTree = "<group>"; };
+		4CC683620E8F845400737EB8 /* EksiLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiLinkController.h; sourceTree = "<group>"; };
+		4CC683630E8F845400737EB8 /* EksiLinkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiLinkController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +71,8 @@
 				4C02F1090E76BA57004B38C1 /* RecentsController.m */,
 				4C02F10B0E76BA63004B38C1 /* SearchController.h */,
 				4C02F10C0E76BA63004B38C1 /* SearchController.m */,
+				4CC683620E8F845400737EB8 /* EksiLinkController.h */,
+				4CC683630E8F845400737EB8 /* EksiLinkController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				4C02F10A0E76BA57004B38C1 /* RecentsController.m in Sources */,
 				4C02F10D0E76BA63004B38C1 /* SearchController.m in Sources */,
 				4C2A2CC10E8A446C00E559DA /* TitleController.m in Sources */,
+				4CC683640E8F845400737EB8 /* EksiLinkController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

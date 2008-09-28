@@ -3,101 +3,41 @@
 //  EksiSozluk
 //
 //  Created by Can Berk Güder on 2008-09-09.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
+//  Copyright 2008 Chocolate IT Solutions. All rights reserved.
 //
 
 #import "SearchController.h"
 
-
 @implementation SearchController
 
+@synthesize mySearchBar;
 
-- (id)initWithStyle:(UITableViewStyle)style {
-	if (self = [super initWithStyle:style]) {
-	}
-	return self;
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+	searchBar.showsCancelButton = YES;
 }
 
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+	searchBar.showsCancelButton = NO;
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 0;
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
 }
 
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	static NSString *MyIdentifier = @"MyIdentifier";
-	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
-	}
-	// Configure the cell
-	return cell;
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+	[searchBar resignFirstResponder];
+	searchBar.text = @"";
 }
 
-/*
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-}
-*/
-/*
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	if (editingStyle == UITableViewCellEditingStyleDelete) {
-	}
-	if (editingStyle == UITableViewCellEditingStyleInsert) {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	[searchBar resignFirstResponder];
+	if(![searchBar.text isEqual:@""]) {
+		NSString *url = @"http://sozluk.sourtimes.org/index.asp?a=sr&kw=";
+		url = [url stringByAppendingString:[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSWindowsCP1254StringEncoding]];
+		myURL = [[NSURL alloc] initWithString:url];
+		NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
+		myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	}
 }
-*/
-/*
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-/*
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-/*
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-
-- (void)dealloc {
-	[super dealloc];
-}
-
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-}
-
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-}
-
 
 @end
 
