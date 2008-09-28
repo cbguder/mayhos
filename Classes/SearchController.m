@@ -25,19 +25,30 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
 	[searchBar resignFirstResponder];
-	searchBar.text = @"";
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	[searchBar resignFirstResponder];
-	if(![searchBar.text isEqual:@""]) {
-		NSString *url = @"http://sozluk.sourtimes.org/index.asp?a=sr&kw=";
-		url = [url stringByAppendingString:[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSWindowsCP1254StringEncoding]];
-		myURL = [[NSURL alloc] initWithString:url];
-		NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
-		myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-	}
+
+	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
+
+	NSString *url = @"http://sozluk.sourtimes.org/index.asp?a=sr&kw=";
+	url = [url stringByAppendingString:[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSWindowsCP1254StringEncoding]];
+	myURL = [[NSURL alloc] initWithString:url];
+	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
+	myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	[super connection:connection didFailWithError:error];
+	[self.navigationItem setRightBarButtonItem:NULL animated:YES];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	[super connectionDidFinishLoading:connection];
+	[self.navigationItem setRightBarButtonItem:NULL animated:YES];
+}
+
 
 @end
 

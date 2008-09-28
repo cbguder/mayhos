@@ -102,7 +102,10 @@
 
 	responseData = [[NSMutableData data] retain];
 	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-	tumuItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(tumunu_goster)];
+	tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tumu"
+												style:UIBarButtonItemStyleBordered
+											   target:self
+											   action:@selector(tumunu_goster)];
 }
 
 
