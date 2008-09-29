@@ -27,6 +27,16 @@
 	return self;
 }
 
+- (void) dealloc
+{
+	[author release];
+	[content release];
+	[date release];
+	[lastEdit release];
+	
+	[super dealloc];
+}
+
 - (NSString *)dateString
 {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];

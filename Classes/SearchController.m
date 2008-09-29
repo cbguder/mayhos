@@ -28,6 +28,9 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	[myURL release];
+	[myConnection release];
+
 	[searchBar resignFirstResponder];
 
 	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];

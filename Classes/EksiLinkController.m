@@ -76,6 +76,7 @@
 	NSDictionary *story = [stories objectAtIndex:[indexPath row]];
 	UIViewController *title = [[TitleController alloc] initWithTitle:[story objectForKey:@"title"] URL:[story objectForKey:@"link"]];
 	[self.navigationController pushViewController:title animated:YES];
+	[title release];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {

@@ -48,14 +48,14 @@
 	UITableViewCell *cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero] autorelease];
 	EksiEntry *entry = [entries objectAtIndex:[indexPath row]];
 
-	UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(10, 7, 300, 20)];
+	UILabel *textView = [[[UILabel alloc] initWithFrame:CGRectMake(10, 7, 300, 20)] autorelease];
 	textView.numberOfLines = 0;
 	textView.lineBreakMode = UILineBreakModeWordWrap;
 	textView.font = [UIFont systemFontOfSize:14];
 	textView.text = entry.content;
 	
 	CGFloat pos = [self tableView:tableView heightForRowAtIndexPath:indexPath] - 24;
-	UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(10, pos, 300, 20)];
+	UILabel *author = [[[UILabel alloc] initWithFrame:CGRectMake(10, pos, 300, 20)] autorelease];
 	author.numberOfLines = 1;
 	author.textAlignment = UITextAlignmentRight;
 	author.font = [UIFont systemFontOfSize:14];
@@ -64,7 +64,6 @@
 	[cell.contentView addSubview:textView];
 	[cell.contentView addSubview:author];
 	[textView sizeToFit];
-	[textView release];
 
 	return cell;
 }
@@ -82,13 +81,15 @@
 
 - (void)dealloc {
 	[responseData release];
+	[activityItem release];
 	[connection release];
+	[tumu_link release];
+	[tumuItem release];
 	[entries release];
 	[myURL release];
 
 	[super dealloc];
 }
-
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -99,7 +100,7 @@
 	[activityIndicator startAnimating];
 	[activityIndicator sizeToFit];
 
-	responseData = [[NSMutableData data] retain];
+	responseData = [[NSMutableData alloc] init];
 	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 	tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tumu"
 												style:UIBarButtonItemStyleBordered
@@ -157,7 +158,7 @@
 	NSString *ENDA   = @"</a>";
 	NSString *BUTTON = @"<button ";
 	
-	NSString  *content = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1254StringEncoding];
+	NSString  *content = [[[NSString alloc] initWithData:responseData encoding:NSWindowsCP1254StringEncoding] autorelease];
 	NSScanner *scanner = [NSScanner scannerWithString:content];
 	
 	NSString *theXSLTString = @"<?xml version='1.0' encoding='utf-8'?> \

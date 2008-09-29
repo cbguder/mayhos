@@ -25,7 +25,12 @@
 	}
 }
 
-- (void) refresh {
+- (void)dealloc {
+	[refreshItem release];
+	[super dealloc];
+}
+
+- (void)refresh {
 	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
 	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
     myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
