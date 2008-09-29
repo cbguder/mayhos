@@ -28,6 +28,7 @@
 	
 	responseData = [[NSMutableData alloc] init];
 	entries = [[NSMutableArray alloc] init];
+	hasMoreToLoad = NO;
 
 	return self;
 }
@@ -47,6 +48,10 @@
 
 - (NSArray *)entries {
 	return entries;
+}
+
+- (BOOL) hasMoreToLoad {
+	return hasMoreToLoad;
 }
 
 - (void)loadEntriesWithDelegate:(id)theDelegate
@@ -71,6 +76,12 @@
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [responseData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	if([delegate respondsToSelector:@selector(title:didFailLoadingEntriesWithError:)]) {
+		[delegate title:self didFailLoadingEntriesWithError:error];
+	}	
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -141,7 +152,10 @@
 			{
 				tumu_link = [tumu_link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 				[self setAllURL:[NSURL URLWithString:tumu_link relativeToURL:self.URL]];
+				hasMoreToLoad = YES;
 				break;
+			} else {
+				hasMoreToLoad = NO;
 			}
 		}
 	}

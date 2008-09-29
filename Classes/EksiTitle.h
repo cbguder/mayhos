@@ -13,6 +13,8 @@
 	NSString *title;
 	NSURL *URL;
 	NSURL *allURL;
+	
+	BOOL hasMoreToLoad;
 
 	NSURLConnection *connection;
 	NSMutableData *responseData;
@@ -26,6 +28,7 @@
 - (void) loadEntriesWithDelegate:(id)theDelegate;
 - (void) loadAllEntriesWithDelegate:(id)theDelegate;
 - (NSArray *)entries;
+- (BOOL) hasMoreToLoad;
 
 @property (retain) NSString *title;
 @property (retain) NSURL *allURL;
@@ -36,5 +39,6 @@
 
 @interface NSObject (EksiTitleDelegate)
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title;
+- (void)title:(EksiTitle *)title didFailLoadingEntriesWithError:(NSError *)error;
 @end
 
