@@ -45,22 +45,21 @@
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
 	}
 */
-	
 	UITableViewCell *cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero] autorelease];
-	NSDictionary *entry = [entries objectAtIndex:[indexPath row]];
+	EksiEntry *entry = [entries objectAtIndex:[indexPath row]];
 
 	UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(10, 7, 300, 20)];
 	textView.numberOfLines = 0;
 	textView.lineBreakMode = UILineBreakModeWordWrap;
 	textView.font = [UIFont systemFontOfSize:14];
-	textView.text = [entry objectForKey:@"content"];
+	textView.text = entry.content;
 	
 	CGFloat pos = [self tableView:tableView heightForRowAtIndexPath:indexPath] - 24;
 	UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(10, pos, 300, 20)];
 	author.numberOfLines = 1;
 	author.textAlignment = UITextAlignmentRight;
 	author.font = [UIFont systemFontOfSize:14];
-	author.text = [NSString stringWithFormat:@"%@, %@", [entry objectForKey:@"author"], [entry objectForKey:@"date"]];
+	author.text = [NSString stringWithFormat:@"%@, %@", entry.author, [entry dateString]];
 
 	[cell.contentView addSubview:textView];
 	[cell.contentView addSubview:author];
@@ -71,9 +70,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	CGSize size = [[[entries objectAtIndex:[indexPath row]] objectForKey:@"content"] sizeWithFont:[UIFont systemFontOfSize:14]
-																				     constrainedToSize:CGSizeMake(300, 4000)
-																					 lineBreakMode:UILineBreakModeWordWrap];
+	CGSize size = [[[entries objectAtIndex:[indexPath row]] content] sizeWithFont:[UIFont systemFontOfSize:14]
+																constrainedToSize:CGSizeMake(300, 4000)
+																	lineBreakMode:UILineBreakModeWordWrap];
 	return size.height + 15 + 33;
 }
 
@@ -149,7 +148,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	NSString *entry, *author, *date;
+	NSString *entryContent, *author, *date;
 	NSUInteger lastPosition;
 	
 	NSString *LI     = @"<li ";
@@ -175,7 +174,7 @@
 		if([scanner scanUpToString:LI intoString:NULL] &&
 		   [scanner scanUpToString:GT intoString:NULL] &&
 		   [scanner scanString:GT intoString:NULL] &&
-		   [scanner scanUpToString:DIV intoString:&entry] &&
+		   [scanner scanUpToString:DIV intoString:&entryContent] &&
 		   [scanner scanString:DIV intoString:NULL] &&
 		   [scanner scanUpToString:GT intoString:NULL] &&
 		   [scanner scanString:GT intoString:NULL] &&
@@ -186,12 +185,28 @@
 		{
 			lastPosition = [scanner scanLocation];
 			
-			NSXMLDocument *theDocument = [[[NSXMLDocument alloc] initWithXMLString:entry options:NSXMLDocumentTidyHTML error:NULL] autorelease];
+			NSXMLDocument *theDocument = [[[NSXMLDocument alloc] initWithXMLString:entryContent options:NSXMLDocumentTidyHTML error:NULL] autorelease];
 			NSData *theData = [theDocument objectByApplyingXSLTString:theXSLTString arguments:NULL error:NULL];
-			entry = [[[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding] autorelease];
-
-			NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:entry, @"content", author, @"author", date, @"date", nil];
-			[entries addObject:item];
+			entryContent = [[[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding] autorelease];
+			
+			NSDate *entryDate;
+			NSDate *entryLastEdit;
+			
+			NSArray *dateParts = [date componentsSeparatedByString:@" ~ "];
+			if([dateParts count] == 1) {
+				entryDate = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
+				entryLastEdit = nil;
+			} else if ([dateParts count] > 1) {
+				entryDate     = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
+				entryLastEdit = [EksiEntry parseDate:[dateParts objectAtIndex:1] withBaseDate:[dateParts objectAtIndex:0]];
+			}
+			
+			EksiEntry *entry = [[EksiEntry alloc] initWithAuthor:author
+														 content:entryContent
+															date:entryDate
+														lastEdit:entryLastEdit];
+			[entries addObject:entry];
+			[entry release];
 		} else {
 			[scanner setScanLocation:lastPosition];
 			if([scanner scanUpToString:BUTTON intoString:NULL] &&

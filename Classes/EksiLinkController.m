@@ -114,7 +114,7 @@
 			link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 			link = [[NSURL alloc] initWithString:link relativeToURL:myURL];
 			NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:link, @"link", title, @"title", nil];
-			[stories addObject:item];
+			[stories addObject:item];			
 		}
 	}
 	

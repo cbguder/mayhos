@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EksiEntry.h"
 
 @interface TitleController : UITableViewController {
 	NSURLConnection *connection;
