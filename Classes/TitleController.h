@@ -7,19 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EksiTitle.h"
 #import "EksiEntry.h"
 
 @interface TitleController : UITableViewController {
-	NSURLConnection *connection;
-	NSMutableData *responseData;
-	NSMutableArray *entries;
 	NSString *tumu_link;
+	EksiTitle *eksiTitle;
 	NSURL *myURL;
 
 	UIBarButtonItem *activityItem;
 	UIBarButtonItem	*tumuItem;
 }
 
-- (id)initWithTitle:(NSString *)title URL:(NSURL *)url;
+- (id)initWithTitle:(EksiTitle *)theTitle;
+- (void)setEksiTitle:(EksiTitle *)theTitle;
+
+@property (retain) EksiTitle *eksiTitle;
 
 @end

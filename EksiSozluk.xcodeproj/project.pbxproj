@@ -20,6 +20,7 @@
 		4C81B03D0E90F37800E76220 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C81B03C0E90F37800E76220 /* Foundation.framework */; };
 		4C81B0410E90F37F00E76220 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C81B0400E90F37F00E76220 /* UIKit.framework */; };
 		4C81B0580E90F47400E76220 /* EksiEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C81B0570E90F47400E76220 /* EksiEntry.m */; };
+		4C81B1DB0E91350300E76220 /* EksiTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C81B1DA0E91350300E76220 /* EksiTitle.m */; };
 		4CC683640E8F845400737EB8 /* EksiLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC683630E8F845400737EB8 /* EksiLinkController.m */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,8 @@
 		4C81B0400E90F37F00E76220 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C81B0560E90F47400E76220 /* EksiEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiEntry.h; sourceTree = "<group>"; };
 		4C81B0570E90F47400E76220 /* EksiEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiEntry.m; sourceTree = "<group>"; };
+		4C81B1D90E91350300E76220 /* EksiTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiTitle.h; sourceTree = "<group>"; };
+		4C81B1DA0E91350300E76220 /* EksiTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiTitle.m; sourceTree = "<group>"; };
 		4CC683620E8F845400737EB8 /* EksiLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiLinkController.h; sourceTree = "<group>"; };
 		4CC683630E8F845400737EB8 /* EksiLinkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiLinkController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,9 +78,11 @@
 				4C02F10B0E76BA63004B38C1 /* SearchController.h */,
 				4C02F10C0E76BA63004B38C1 /* SearchController.m */,
 				4CC683620E8F845400737EB8 /* EksiLinkController.h */,
-				4C81B0560E90F47400E76220 /* EksiEntry.h */,
 				4CC683630E8F845400737EB8 /* EksiLinkController.m */,
+				4C81B0560E90F47400E76220 /* EksiEntry.h */,
 				4C81B0570E90F47400E76220 /* EksiEntry.m */,
+				4C81B1D90E91350300E76220 /* EksiTitle.h */,
+				4C81B1DA0E91350300E76220 /* EksiTitle.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 				4C2A2CC10E8A446C00E559DA /* TitleController.m in Sources */,
 				4CC683640E8F845400737EB8 /* EksiLinkController.m in Sources */,
 				4C81B0580E90F47400E76220 /* EksiEntry.m in Sources */,
+				4C81B1DB0E91350300E76220 /* EksiTitle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

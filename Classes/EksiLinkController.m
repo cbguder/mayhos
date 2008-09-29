@@ -12,6 +12,23 @@
 
 @synthesize myTableView;
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	if(self == [super initWithCoder:aDecoder])
+	{
+		responseData = [[NSMutableData alloc] init];
+		stories = [[NSMutableArray alloc] init];
+		
+		UIActivityIndicatorView *activityIndicator = [[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)] autorelease];
+		[activityIndicator startAnimating];
+		[activityIndicator sizeToFit];
+		
+		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+	}
+	
+	return self;
+}
+
 - (void)dealloc {
 	[responseData release];
 	[myConnection release];
@@ -19,31 +36,6 @@
 	[myURL release];
 	
 	[super dealloc];
-}
-
-- (void)viewDidLoad {
-	responseData = [[NSMutableData alloc] init];
-	stories = [[NSMutableArray alloc] init];
-	
-	UIActivityIndicatorView *activityIndicator = [[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)] autorelease];
-	[activityIndicator startAnimating];
-	[activityIndicator sizeToFit];
-	
-	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-}
-
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -54,7 +46,6 @@
 	return [stories count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *MyIdentifier = @"MyIdentifier";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
@@ -64,15 +55,14 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	
-	cell.text = [[stories objectAtIndex:[indexPath row]] objectForKey:@"title"];
+	cell.text = [[stories objectAtIndex:[indexPath row]] title];
 	
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath	animated:YES];
-	NSDictionary *story = [stories objectAtIndex:[indexPath row]];
-	UIViewController *title = [[TitleController alloc] initWithTitle:[story objectForKey:@"title"] URL:[story objectForKey:@"link"]];
+	UIViewController *title = [[TitleController alloc] initWithTitle:[stories objectAtIndex:[indexPath row]]];
 	[self.navigationController pushViewController:title animated:YES];
 	[title release];
 }
@@ -111,9 +101,9 @@
 		   [scanner scanUpToString:@"</a>" intoString:&title])
 		{
 			link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-			link = [[NSURL alloc] initWithString:link relativeToURL:myURL];
-			NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:link, @"link", title, @"title", nil];
-			[stories addObject:item];			
+			EksiTitle *item = [[EksiTitle alloc] initWithTitle:title URL:[NSURL URLWithString:link relativeToURL:myURL]];
+			[stories addObject:item];
+			[item release];
 		}
 	}
 	
