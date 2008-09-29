@@ -10,10 +10,10 @@
 
 @implementation RecentsController
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	if(self == [super initWithCoder:aDecoder])
-	{
+#pragma mark Initialization Methods
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self == [super initWithCoder:aDecoder]) {
 		refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh	target:self	action:@selector(refresh)];
 		myURL = [[NSURL alloc] initWithString:@"http://sozluk.sourtimes.org/index.asp"];
 		todayMode = YES;
@@ -21,6 +21,22 @@
 	
 	return self;
 }
+
+- (void)dealloc {
+	[refreshItem release];
+	[super dealloc];
+}
+
+#pragma mark Other Methods
+
+- (void)refresh {
+	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
+	[myConnection release];
+	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
+    myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+}
+
+#pragma mark UIViewController Methods
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
@@ -30,17 +46,7 @@
 	}
 }
 
-- (void)dealloc {
-	[refreshItem release];
-	[super dealloc];
-}
-
-- (void)refresh {
-	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
-	[myConnection release];
-	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
-    myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-}
+#pragma mark NSURLConnectionDelegate Methods
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	[super connection:connection didFailWithError:error];
@@ -53,4 +59,3 @@
 }
 
 @end
-

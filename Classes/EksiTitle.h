@@ -41,4 +41,3 @@
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title;
 - (void)title:(EksiTitle *)title didFailLoadingEntriesWithError:(NSError *)error;
 @end
-

@@ -10,7 +10,23 @@
 
 @implementation SearchController
 
+#pragma mark Accessors
+
 @synthesize mySearchBar;
+
+#pragma mark NSURLConnectionDelegate Methods
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	[super connection:connection didFailWithError:error];
+	[self.navigationItem setRightBarButtonItem:NULL animated:YES];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	[super connectionDidFinishLoading:connection];
+	[self.navigationItem setRightBarButtonItem:NULL animated:YES];
+}
+
+#pragma mark UISearchBarDelegate Methods
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
 	searchBar.showsCancelButton = YES;
@@ -42,16 +58,4 @@
 	myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[super connection:connection didFailWithError:error];
-	[self.navigationItem setRightBarButtonItem:NULL animated:YES];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[super connectionDidFinishLoading:connection];
-	[self.navigationItem setRightBarButtonItem:NULL animated:YES];
-}
-
-
 @end
-

@@ -12,10 +12,10 @@
 
 @synthesize myTableView;
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	if(self == [super initWithCoder:aDecoder])
-	{
+#pragma mark Initialization Methods
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self == [super initWithCoder:aDecoder]) {
 		responseData = [[NSMutableData alloc] init];
 		stories = [[NSMutableArray alloc] init];
 		
@@ -37,6 +37,8 @@
 	
 	[super dealloc];
 }
+
+#pragma mark UITableViewController Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
@@ -67,6 +69,8 @@
 	[title release];
 }
 
+#pragma mark NSURLConnectionDelegate Methods
+
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [responseData setLength:0];
 }
@@ -92,13 +96,13 @@
 	
 	[stories removeAllObjects];
 	
-	while([scanner isAtEnd] == NO) {
-		if([scanner scanUpToString:AHREF intoString:NULL] &&
-		   [scanner scanString:AHREF intoString:NULL] &&
-		   [scanner scanUpToString:@"\"" intoString:&link] &&
-		   [scanner scanUpToString:GT intoString:NULL] &&
-		   [scanner scanString:GT intoString:NULL] &&
-		   [scanner scanUpToString:@"</a>" intoString:&title])
+	while ([scanner isAtEnd] == NO) {
+		if ([scanner scanUpToString:AHREF intoString:NULL] &&
+		    [scanner scanString:AHREF intoString:NULL] &&
+		    [scanner scanUpToString:@"\"" intoString:&link] &&
+		    [scanner scanUpToString:GT intoString:NULL] &&
+		    [scanner scanString:GT intoString:NULL] &&
+		    [scanner scanUpToString:@"</a>" intoString:&title])
 		{
 			link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 			EksiTitle *item = [[EksiTitle alloc] initWithTitle:title URL:[NSURL URLWithString:link relativeToURL:myURL]];

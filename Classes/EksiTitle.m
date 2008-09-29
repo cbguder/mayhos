@@ -10,18 +10,13 @@
 
 @implementation EksiTitle
 
-@synthesize delegate;
-@synthesize title;
-@synthesize URL;
-@synthesize allURL;
+#pragma mark Initialization Methods
 
-- (id)initWithTitle:(NSString *)theTitle
-{
+- (id)initWithTitle:(NSString *)theTitle {
 	return [self initWithTitle:theTitle URL:nil];
 }
 
-- (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL
-{
+- (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
 	[super init];
 	[self setTitle:theTitle];
 	[self setURL:theURL];
@@ -33,8 +28,7 @@
 	return self;
 }
 
-- (void) dealloc
-{
+- (void) dealloc {
 	[title release];
 	[URL release];
 	[allURL release];
@@ -46,6 +40,13 @@
 	[super dealloc];
 }
 
+#pragma mark Accessors
+
+@synthesize delegate;
+@synthesize title;
+@synthesize URL;
+@synthesize allURL;
+
 - (NSArray *)entries {
 	return entries;
 }
@@ -54,32 +55,32 @@
 	return hasMoreToLoad;
 }
 
-- (void)loadEntriesWithDelegate:(id)theDelegate
-{
+#pragma mark Other Methods
+
+- (void)loadEntriesWithDelegate:(id)theDelegate {
 	[self setDelegate:theDelegate];
 	NSURLRequest *request =	[NSURLRequest requestWithURL:URL];
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
-- (void)loadAllEntriesWithDelegate:(id)theDelegate
-{
+- (void)loadAllEntriesWithDelegate:(id)theDelegate {
 	[self setDelegate:theDelegate];
 	NSURLRequest *request =	[NSURLRequest requestWithURL:allURL];
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
+#pragma mark NSURLConnectionDelegate Methods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [responseData setLength:0];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [responseData appendData:data];
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	if([delegate respondsToSelector:@selector(title:didFailLoadingEntriesWithError:)]) {
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+	if ([delegate respondsToSelector:@selector(title:didFailLoadingEntriesWithError:)])	{
 		[delegate title:self didFailLoadingEntriesWithError:error];
 	}	
 }
@@ -88,16 +89,16 @@
 	NSString *entryContent, *author, *date, *tumu_link;
 	NSUInteger lastPosition;
 	
-	NSString *LI     = @"<li ";
-	NSString *GT     = @">";
-	NSString *DIV    = @"<div class=\"aul\">";
-	NSString *ENDA   = @"</a>";
-	NSString *BUTTON = @"<button ";
+	static NSString *LI     = @"<li ";
+	static NSString *GT     = @">";
+	static NSString *DIV    = @"<div class=\"aul\">";
+	static NSString *ENDA   = @"</a>";
+	static NSString *BUTTON = @"<button ";
 	
 	NSString  *content = [[[NSString alloc] initWithData:responseData encoding:NSWindowsCP1254StringEncoding] autorelease];
 	NSScanner *scanner = [NSScanner scannerWithString:content];
 	
-	NSString *theXSLTString = @"<?xml version='1.0' encoding='utf-8'?> \
+	static NSString *theXSLTString = @"<?xml version='1.0' encoding='utf-8'?> \
 	<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform' xmlns:xhtml='http://www.w3.org/1999/xhtml'> \
 	<xsl:output method='text'/> \
 	<xsl:template match='xhtml:br'><xsl:text>\n</xsl:text></xsl:template> \
@@ -106,18 +107,18 @@
 	
 	[entries removeAllObjects];
 	
-	while([scanner isAtEnd] == NO) {
-		if([scanner scanUpToString:LI intoString:NULL] &&
-		   [scanner scanUpToString:GT intoString:NULL] &&
-		   [scanner scanString:GT intoString:NULL] &&
-		   [scanner scanUpToString:DIV intoString:&entryContent] &&
-		   [scanner scanString:DIV intoString:NULL] &&
-		   [scanner scanUpToString:GT intoString:NULL] &&
-		   [scanner scanString:GT intoString:NULL] &&
-		   [scanner scanUpToString:ENDA intoString:&author] &&
-		   [scanner scanString:ENDA intoString:NULL] &&
-		   [scanner scanString:@", " intoString:NULL] &&
-		   [scanner scanUpToString:@")" intoString:&date])
+	while ([scanner isAtEnd] == NO) {
+		if ([scanner scanUpToString:LI intoString:NULL] &&
+		    [scanner scanUpToString:GT intoString:NULL] &&
+		    [scanner scanString:GT intoString:NULL] &&
+		    [scanner scanUpToString:DIV intoString:&entryContent] &&
+		    [scanner scanString:DIV intoString:NULL] &&
+		    [scanner scanUpToString:GT intoString:NULL] &&
+		    [scanner scanString:GT intoString:NULL] &&
+		    [scanner scanUpToString:ENDA intoString:&author] &&
+		    [scanner scanString:ENDA intoString:NULL] &&
+		    [scanner scanString:@", " intoString:NULL] &&
+		    [scanner scanUpToString:@")" intoString:&date])
 		{
 			lastPosition = [scanner scanLocation];
 			
@@ -145,10 +146,10 @@
 			[entry release];
 		} else {
 			[scanner setScanLocation:lastPosition];
-			if([scanner scanUpToString:BUTTON intoString:NULL] &&
-			   [scanner scanUpToString:@"'" intoString:NULL] &&
-			   [scanner scanString:@"'" intoString:NULL] &&
-			   [scanner scanUpToString:@"'" intoString:&tumu_link])
+			if ([scanner scanUpToString:BUTTON intoString:NULL] &&
+			    [scanner scanUpToString:@"'" intoString:NULL] &&
+			    [scanner scanString:@"'" intoString:NULL] &&
+			    [scanner scanUpToString:@"'" intoString:&tumu_link])
 			{
 				tumu_link = [tumu_link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 				[self setAllURL:[NSURL URLWithString:tumu_link relativeToURL:self.URL]];
@@ -160,7 +161,7 @@
 		}
 	}
 	
-	if([delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
+	if ([delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
 		[delegate titleDidFinishLoadingEntries:self];
 	}
 }

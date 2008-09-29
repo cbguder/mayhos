@@ -10,7 +10,7 @@
 
 @implementation TitleController
 
-@synthesize eksiTitle;
+#pragma mark Initialization Methods
 
 - (id)initWithTitle:(EksiTitle *)theTitle {
 	if (self = [super init]) {
@@ -30,6 +30,19 @@
 	return self;
 }
 
+- (void)dealloc {
+	[activityItem release];
+	[eksiTitle release];
+	[tumu_link release];
+	[tumuItem release];
+
+	[super dealloc];
+}
+
+#pragma mark Accessors
+
+@synthesize eksiTitle;
+
 - (void)setEksiTitle:(EksiTitle *)theTitle {
 	[theTitle retain];
 	[eksiTitle release];
@@ -39,14 +52,14 @@
 	myURL = eksiTitle.URL;
 }
 
-- (void)dealloc {
-	[activityItem release];
-	[eksiTitle release];
-	[tumu_link release];
-	[tumuItem release];
+#pragma mark Other Methods
 
-	[super dealloc];
+- (void)tumunu_goster {
+	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
+	[eksiTitle loadAllEntriesWithDelegate:self];
 }
+
+#pragma mark UIViewController Methods
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
@@ -58,6 +71,8 @@
 		[self.navigationItem setRightBarButtonItem:tumuItem animated:NO];
 	}
 }
+
+#pragma mark UITableViewController Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
@@ -102,6 +117,8 @@
 	return nil;
 }
 
+#pragma mark EksiTitleDelegate Methods
+
 - (void)title:(EksiTitle*)title didFailLoadingEntriesWithError:(NSError *)error {
 	NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
 	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -115,12 +132,8 @@
 	} else {
 		[self.navigationItem setRightBarButtonItem:nil animated:YES];
 	}
-	[self.tableView reloadData];	
-}
 
-- (void)tumunu_goster {
-	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
-	[eksiTitle loadAllEntriesWithDelegate:self];
+	[self.tableView reloadData];
 }
 
 @end
