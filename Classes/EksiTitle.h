@@ -13,12 +13,11 @@
 	NSString *title;
 	NSURL *URL;
 	NSURL *allURL;
-	
+	NSMutableArray *entries;
 	BOOL hasMoreToLoad;
 
 	NSURLConnection *connection;
 	NSMutableData *responseData;
-	NSMutableArray *entries;
 	
 	id delegate;
 }
@@ -27,12 +26,13 @@
 - (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL;
 - (void) loadEntriesWithDelegate:(id)theDelegate;
 - (void) loadAllEntriesWithDelegate:(id)theDelegate;
-- (NSArray *)entries;
-- (BOOL) hasMoreToLoad;
 
 @property (retain) NSString *title;
-@property (retain) NSURL *allURL;
 @property (retain) NSURL *URL;
+@property (retain) NSURL *allURL;
+@property (readonly) NSArray *entries;
+@property (readonly) BOOL hasMoreToLoad;
+
 @property (assign) id delegate;
 
 @end

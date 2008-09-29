@@ -24,7 +24,7 @@
 	responseData = [[NSMutableData alloc] init];
 	entries = [[NSMutableArray alloc] init];
 	hasMoreToLoad = NO;
-
+	
 	return self;
 }
 
@@ -46,14 +46,8 @@
 @synthesize title;
 @synthesize URL;
 @synthesize allURL;
-
-- (NSArray *)entries {
-	return entries;
-}
-
-- (BOOL) hasMoreToLoad {
-	return hasMoreToLoad;
-}
+@synthesize entries;
+@synthesize hasMoreToLoad;
 
 #pragma mark Other Methods
 
