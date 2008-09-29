@@ -8,7 +8,6 @@
 
 #import "EksiEntry.h"
 
-
 @implementation EksiEntry
 
 @synthesize author;

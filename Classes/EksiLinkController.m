@@ -8,11 +8,9 @@
 
 #import "EksiLinkController.h"
 
-
 @implementation EksiLinkController
 
 @synthesize myTableView;
-
 
 - (void)dealloc {
 	[responseData release];

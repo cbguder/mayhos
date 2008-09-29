@@ -238,6 +238,4 @@
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
-
 @end
-
