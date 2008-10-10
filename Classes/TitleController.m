@@ -98,6 +98,8 @@
 	author.textAlignment = UITextAlignmentRight;
 	author.font = [UIFont systemFontOfSize:14];
 	author.text = [NSString stringWithFormat:@"%@, %@", entry.author, [entry dateString]];
+
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	
 	[cell.contentView addSubview:textView];
 	[cell.contentView addSubview:author];
