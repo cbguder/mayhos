@@ -91,7 +91,7 @@
 	NSString *AHREF = @"<a href=\"";
 	NSString *GT    = @">"; 
 	
-	NSString  *content = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1254StringEncoding];
+	NSString  *content = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	NSScanner *scanner = [NSScanner scannerWithString:content];
 	
 	[stories removeAllObjects];

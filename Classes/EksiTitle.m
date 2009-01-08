@@ -89,7 +89,7 @@
 	static NSString *ENDA   = @"</a>";
 	static NSString *BUTTON = @"<button ";
 	
-	NSString  *content = [[[NSString alloc] initWithData:responseData encoding:NSWindowsCP1254StringEncoding] autorelease];
+	NSString  *content = [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease];
 	NSScanner *scanner = [NSScanner scannerWithString:content];
 	
 	static NSString *theXSLTString = @"<?xml version='1.0' encoding='utf-8'?> \

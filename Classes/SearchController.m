@@ -52,7 +52,7 @@
 	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
 
 	NSString *url = @"http://sozluk.sourtimes.org/index.asp?a=sr&kw=";
-	url = [url stringByAppendingString:[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSWindowsCP1254StringEncoding]];
+	url = [url stringByAppendingString:[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 	myURL = [[NSURL alloc] initWithString:url];
 	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
 	myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
