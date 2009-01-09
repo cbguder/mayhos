@@ -19,6 +19,12 @@
 	NSURLConnection *connection;
 	NSMutableData *responseData;
 	
+	EksiEntry *tempEntry;
+	NSMutableString *tempContent;
+	BOOL inEntry;
+	BOOL inAuthor;
+	BOOL inAuthorName;
+	
 	id delegate;
 }
 

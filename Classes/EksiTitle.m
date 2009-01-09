@@ -23,7 +23,11 @@
 	
 	responseData = [[NSMutableData alloc] init];
 	entries = [[NSMutableArray alloc] init];
+
 	hasMoreToLoad = NO;
+	inEntry       = NO;
+	inAuthor      = NO;
+	inAuthorName  = NO;
 	
 	return self;
 }
@@ -63,6 +67,94 @@
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
+#pragma mark NSXMLParserDelegate Methods
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
+	if([elementName isEqualToString:@"li"])
+	{
+		tempEntry = [[EksiEntry alloc] init];
+		tempContent = [[NSMutableString alloc] init];
+		inEntry = YES;
+	}
+	else if(inEntry)
+	{
+		if([elementName isEqualToString:@"br"])
+		{
+			[tempContent appendString:@"\n"];
+		}
+		else if(inAuthor && [elementName isEqualToString:@"a"])
+		{
+			inAuthorName = YES;
+		}
+		else if([elementName isEqualToString:@"div"])
+		{
+			NSString *class = [attributeDict objectForKey:@"class"];
+
+			if(class && [class isEqualToString:@"aul"])
+			{
+				inAuthor = YES;
+			}
+		}
+	}
+}
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
+	if(inEntry)
+	{
+		if(inAuthor)
+		{
+			if(inAuthorName)
+			{
+				tempEntry.author = string;
+			}
+			else if([string characterAtIndex:0] == ',')
+			{
+				NSString *date = [string substringWithRange:NSMakeRange(2, [string length] - 3)];
+				NSLog(date);
+				NSArray *dateParts = [date componentsSeparatedByString:@" ~ "];
+				
+				if([dateParts count] == 1)
+				{
+					tempEntry.date     = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
+					tempEntry.lastEdit = nil;
+				}
+				else if ([dateParts count] > 1)
+				{
+					tempEntry.date     = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
+					tempEntry.lastEdit = [EksiEntry parseDate:[dateParts objectAtIndex:1] withBaseDate:[dateParts objectAtIndex:0]];
+				}				
+			}
+		}
+		else
+		{
+			[tempContent appendString:string];
+		}
+	}
+}
+
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
+	if(inEntry) {
+		if(inAuthor && [elementName isEqualToString:@"div"])
+		{
+			inAuthor = NO;
+		}
+		else if(inAuthorName && [elementName isEqualToString:@"a"])
+		{
+			inAuthorName = NO;
+		}
+		else if([elementName isEqualToString:@"li"])
+		{
+			tempEntry.content = [tempContent mutableCopy];
+			[tempContent release];
+			
+			[entries addObject:tempEntry];
+			[tempEntry release];
+			
+			inEntry = NO;
+		}
+	}
+}
+
 #pragma mark NSURLConnectionDelegate Methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -80,81 +172,10 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	NSString *entryContent, *author, *date, *tumu_link;
-	NSUInteger lastPosition;
-	
-	static NSString *LI     = @"<li ";
-	static NSString *GT     = @">";
-	static NSString *DIV    = @"<div class=\"aul\">";
-	static NSString *ENDA   = @"</a>";
-	static NSString *BUTTON = @"<button ";
-	
-	NSString  *content = [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease];
-	NSScanner *scanner = [NSScanner scannerWithString:content];
-	
-	static NSString *theXSLTString = @"<?xml version='1.0' encoding='utf-8'?> \
-	<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform' xmlns:xhtml='http://www.w3.org/1999/xhtml'> \
-	<xsl:output method='text'/> \
-	<xsl:template match='xhtml:br'><xsl:text>\n</xsl:text></xsl:template> \
-	<xsl:template match='xhtml:a'><xsl:value-of select='.'/></xsl:template> \
-	</xsl:stylesheet>";
-	
-	[entries removeAllObjects];
-	
-	while ([scanner isAtEnd] == NO) {
-		if ([scanner scanUpToString:LI intoString:NULL] &&
-		    [scanner scanUpToString:GT intoString:NULL] &&
-		    [scanner scanString:GT intoString:NULL] &&
-		    [scanner scanUpToString:DIV intoString:&entryContent] &&
-		    [scanner scanString:DIV intoString:NULL] &&
-		    [scanner scanUpToString:GT intoString:NULL] &&
-		    [scanner scanString:GT intoString:NULL] &&
-		    [scanner scanUpToString:ENDA intoString:&author] &&
-		    [scanner scanString:ENDA intoString:NULL] &&
-		    [scanner scanString:@", " intoString:NULL] &&
-		    [scanner scanUpToString:@")" intoString:&date])
-		{
-			lastPosition = [scanner scanLocation];
-			
-			NSXMLDocument *theDocument = [[[NSXMLDocument alloc] initWithXMLString:entryContent options:NSXMLDocumentTidyHTML error:NULL] autorelease];
-			NSData *theData = [theDocument objectByApplyingXSLTString:theXSLTString arguments:NULL error:NULL];
-			entryContent = [[[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding] autorelease];
-			
-			NSDate *entryDate;
-			NSDate *entryLastEdit;
-			
-			NSArray *dateParts = [date componentsSeparatedByString:@" ~ "];
-			if([dateParts count] == 1) {
-				entryDate = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
-				entryLastEdit = nil;
-			} else if ([dateParts count] > 1) {
-				entryDate     = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
-				entryLastEdit = [EksiEntry parseDate:[dateParts objectAtIndex:1] withBaseDate:[dateParts objectAtIndex:0]];
-			}
-			
-			EksiEntry *entry = [[EksiEntry alloc] initWithAuthor:author
-														 content:entryContent
-															date:entryDate
-														lastEdit:entryLastEdit];
-			[entries addObject:entry];
-			[entry release];
-		} else {
-			[scanner setScanLocation:lastPosition];
-			if ([scanner scanUpToString:BUTTON intoString:NULL] &&
-			    [scanner scanUpToString:@"'" intoString:NULL] &&
-			    [scanner scanString:@"'" intoString:NULL] &&
-			    [scanner scanUpToString:@"'" intoString:&tumu_link])
-			{
-				tumu_link = [tumu_link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-				[self setAllURL:[NSURL URLWithString:tumu_link relativeToURL:self.URL]];
-				hasMoreToLoad = YES;
-				break;
-			} else {
-				hasMoreToLoad = NO;
-			}
-		}
-	}
-	
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseData];
+	[parser setDelegate:self];
+	[parser parse];
+
 	if ([delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
 		[delegate titleDidFinishLoadingEntries:self];
 	}
