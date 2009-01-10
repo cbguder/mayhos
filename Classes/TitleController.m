@@ -16,11 +16,6 @@
 	if (self = [super init]) {
 		[self setEksiTitle:theTitle];
 		
-		UIActivityIndicatorView *activityIndicator = [[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)] autorelease];
-		[activityIndicator startAnimating];
-		[activityIndicator sizeToFit];
-		
-		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 		tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tumu"
 													style:UIBarButtonItemStyleBordered
 												   target:self
@@ -31,7 +26,6 @@
 }
 
 - (void)dealloc {
-	[activityItem release];
 	[eksiTitle release];
 	[tumu_link release];
 	[tumuItem release];
@@ -55,7 +49,6 @@
 #pragma mark Other Methods
 
 - (void)tumunu_goster {
-	[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
 	[eksiTitle loadAllEntriesWithDelegate:self];
 }
 
@@ -65,7 +58,6 @@
 	[super viewDidAppear:animated];
 
 	if([eksiTitle.entries count] == 0) {
-		[self.navigationItem setRightBarButtonItem:activityItem animated:YES];
 		[eksiTitle loadEntriesWithDelegate:self];
 	} else if(eksiTitle.hasMoreToLoad) {
 		[self.navigationItem setRightBarButtonItem:tumuItem animated:NO];

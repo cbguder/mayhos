@@ -57,13 +57,15 @@
 
 - (void)loadEntriesWithDelegate:(id)theDelegate {
 	[self setDelegate:theDelegate];
-	NSURLRequest *request =	[NSURLRequest requestWithURL:URL];
+	NSURLRequest *request =	[NSURLRequest requestWithURL:URL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 - (void)loadAllEntriesWithDelegate:(id)theDelegate {
 	[self setDelegate:theDelegate];
-	NSURLRequest *request =	[NSURLRequest requestWithURL:allURL];
+	NSURLRequest *request =	[NSURLRequest requestWithURL:URL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
@@ -110,7 +112,6 @@
 			else if([string characterAtIndex:0] == ',')
 			{
 				NSString *date = [string substringWithRange:NSMakeRange(2, [string length] - 3)];
-				NSLog(date);
 				NSArray *dateParts = [date componentsSeparatedByString:@" ~ "];
 				
 				if([dateParts count] == 1)
@@ -166,12 +167,14 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	if ([delegate respondsToSelector:@selector(title:didFailLoadingEntriesWithError:)])	{
 		[delegate title:self didFailLoadingEntriesWithError:error];
-	}	
+	}
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseData];
 	[parser setDelegate:self];
 	[parser parse];

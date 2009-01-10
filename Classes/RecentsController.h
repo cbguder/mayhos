@@ -11,7 +11,7 @@
 #import "TitleController.h"
 
 @interface RecentsController : EksiLinkController {
-	UIBarButtonItem	*refreshItem;
+	UIBarButtonItem *refreshItem;
 }
 
 -(void)refresh;

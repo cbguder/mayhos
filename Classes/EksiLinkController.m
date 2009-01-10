@@ -18,12 +18,6 @@
 	if (self == [super initWithCoder:aDecoder]) {
 		responseData = [[NSMutableData alloc] init];
 		stories = [[NSMutableArray alloc] init];
-		
-		UIActivityIndicatorView *activityIndicator = [[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)] autorelease];
-		[activityIndicator startAnimating];
-		[activityIndicator sizeToFit];
-		
-		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 	}
 	
 	return self;

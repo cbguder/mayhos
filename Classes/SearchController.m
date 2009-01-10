@@ -54,7 +54,7 @@
 	NSString *url = @"http://sozluk.sourtimes.org/index.asp?a=sr&kw=";
 	url = [url stringByAppendingString:[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 	myURL = [[NSURL alloc] initWithString:url];
-	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL];
+	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
 	myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
