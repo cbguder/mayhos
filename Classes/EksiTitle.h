@@ -3,7 +3,7 @@
 //  EksiSozluk
 //
 //  Created by Can Berk Güder on 9/29/08.
-//  Copyright 2008 Chocolate IT Solutions. All rights reserved.
+//  Copyright 2008 Can Berk Güder. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

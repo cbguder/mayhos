@@ -3,7 +3,7 @@
 //  EksiSozluk
 //
 //  Created by Can Berk Güder on 2008-09-09.
-//  Copyright Chocolate IT Solutions 2008. All rights reserved.
+//  Copyright 2008 Can Berk Güder. All rights reserved.
 //
 
 #import "EksiSozlukAppDelegate.h"

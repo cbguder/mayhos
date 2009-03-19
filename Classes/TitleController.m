@@ -3,7 +3,7 @@
 //  EksiSozluk
 //
 //  Created by Can Berk Güder on 2008-09-24.
-//  Copyright 2008 Chocolate IT Solutions. All rights reserved.
+//  Copyright 2008 Can Berk Güder. All rights reserved.
 //
 
 #import "TitleController.h"
