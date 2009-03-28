@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "EksiLinkController.h"
 #import "TitleController.h"
+#import "EksiTitle.h"
 
-@interface SearchController : EksiLinkController {
+@interface SearchController : EksiLinkController <EksiTitleDelegate> {
 	IBOutlet UISearchBar *mySearchBar;
+	int activeConnections;
 }
 
 @property (nonatomic, retain) UISearchBar *mySearchBar;
+- (void) decrementActiveConnections;
 
 @end

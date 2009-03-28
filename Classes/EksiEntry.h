@@ -21,8 +21,8 @@
 + (NSDate *)parseDate:(NSString *)theDate;
 + (NSDate *)parseDate:(NSString *)theDate withBaseDate:(NSString *)theBaseDate;
 
-@property (retain) NSString *author;
-@property (retain) NSString *content;
+@property (copy) NSString *author;
+@property (copy) NSString *content;
 @property (retain) NSDate *date;
 @property (retain) NSDate *lastEdit;
 

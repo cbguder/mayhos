@@ -9,14 +9,19 @@
 #import "TitleController.h"
 #import "EksiTitleHeaderView.h"
 
+@interface TitleController (Private)
+- (BOOL)hasLinkAtBottom;
+@end
+
 @implementation TitleController
+
+@synthesize eksiTitle;
 
 #pragma mark Initialization Methods
 
 - (id)initWithTitle:(EksiTitle *)theTitle {
 	if (self = [super init]) {
 		[self setEksiTitle:theTitle];
-		hasLinkAtBottom = NO;
 
 		CGSize size = [theTitle.title sizeWithFont:[UIFont boldSystemFontOfSize:16] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
 		
@@ -43,8 +48,6 @@
 
 #pragma mark Accessors
 
-@synthesize eksiTitle;
-
 - (void)setEksiTitle:(EksiTitle *)theTitle {
 	[theTitle retain];
 	[eksiTitle release];
@@ -53,6 +56,10 @@
 	self.title = eksiTitle.title;
 
 	[eksiTitle setDelegate:self];
+}
+
+- (BOOL)hasLinkAtBottom {
+	return (eksiTitle.loadedPages < eksiTitle.pages || eksiTitle.hasMoreToLoad);
 }
 
 #pragma mark UIViewController Methods
@@ -69,7 +76,7 @@
 #pragma mark UITableViewController Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if(hasLinkAtBottom) {
+	if([self hasLinkAtBottom]) {
 		return 2;
 	} else {
 		return 1;
@@ -161,6 +168,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(indexPath.section == 1)
 	{
+		[self.navigationItem setRightBarButtonItem:activityItem];
+
 		if(eksiTitle.hasMoreToLoad)	{
 			[eksiTitle loadAllEntries];
 		} else if(eksiTitle.loadedPages < eksiTitle.pages) {
@@ -183,8 +192,6 @@
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
 	[self.navigationItem setRightBarButtonItem:nil];
-
-	hasLinkAtBottom = title.loadedPages < title.pages || title.hasMoreToLoad;
 	[self.tableView reloadData];
 }
 

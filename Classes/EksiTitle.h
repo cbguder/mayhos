@@ -21,17 +21,19 @@
 	NSMutableData *responseData;
 	
 	EksiEntry *tempEntry;
-	NSMutableString *tempContent;
 	NSMutableString *tempButtonText;
-	BOOL inEntry;
-	BOOL inPagis;
-	BOOL inButton;
+	NSMutableString *tempContent;
+	NSMutableString *tempTitle;
 	BOOL inAuthor;
 	BOOL inAuthorName;
+	BOOL inButton;
+	BOOL inEntry;
+	BOOL inPagis;
+	BOOL inTitle;
 
 	int pages;
 	int loadedPages;
-	
+
 	id delegate;
 }
 
@@ -54,6 +56,7 @@
 @end
 
 @protocol EksiTitleDelegate <NSObject>
+@optional
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title;
 - (void)title:(EksiTitle *)title didFailLoadingEntriesWithError:(NSError *)error;
 @end

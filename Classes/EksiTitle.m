@@ -10,6 +10,15 @@
 
 @implementation EksiTitle
 
+@synthesize delegate;
+@synthesize title;
+@synthesize URL;
+@synthesize allURL;
+@synthesize entries;
+@synthesize hasMoreToLoad;
+@synthesize pages;
+@synthesize loadedPages;
+
 #pragma mark Initialization Methods
 
 - (id)init {
@@ -17,11 +26,12 @@
 		entries = [[NSMutableArray alloc] init];
 
 		hasMoreToLoad = NO;
-		inEntry       = NO;
-		inPagis       = NO;
-		inButton      = NO;
 		inAuthor      = NO;
 		inAuthorName  = NO;
+		inButton      = NO;
+		inEntry       = NO;
+		inPagis       = NO;
+		inTitle       = NO;
 	}
 
 	return self;
@@ -54,17 +64,6 @@
 	[super dealloc];
 }
 
-#pragma mark Accessors
-
-@synthesize delegate;
-@synthesize title;
-@synthesize URL;
-@synthesize allURL;
-@synthesize entries;
-@synthesize hasMoreToLoad;
-@synthesize pages;
-@synthesize loadedPages;
-
 #pragma mark Other Methods
 
 - (void)loadEntries {
@@ -76,6 +75,7 @@
 
 	pages = 0;
 	loadedPages = 0;
+	hasMoreToLoad = NO;
 
 	[self loadEntriesFromURL:allURL];
 }
@@ -142,6 +142,11 @@
 		tempButtonText = [[NSMutableString alloc] init];
 		inButton = YES;
 	}
+	else if([elementName isEqualToString:@"h1"])
+	{
+		tempTitle = [[NSMutableString alloc] init];
+		inTitle = YES;
+	}
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
@@ -179,6 +184,10 @@
 	{
 		[tempButtonText appendString:string];
 	}
+	else if(inTitle)
+	{
+		[tempTitle appendString:string];
+	}
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
@@ -193,7 +202,7 @@
 		}
 		else if([elementName isEqualToString:@"li"])
 		{
-			tempEntry.content = [tempContent mutableCopy];
+			tempEntry.content = tempContent;
 			[tempContent release];
 			
 			[entries addObject:tempEntry];
@@ -211,6 +220,12 @@
 		inButton = NO;
 		hasMoreToLoad = [tempButtonText isEqualToString:@"tümünü göster"];
 		[tempButtonText release];
+	}
+	else if(inTitle && [elementName isEqualToString:@"h1"])
+	{
+		inTitle = NO;
+		self.title = tempTitle;
+		[tempTitle release];
 	}
 }
 

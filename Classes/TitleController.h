@@ -13,7 +13,6 @@
 @interface TitleController : UITableViewController <EksiTitleDelegate> {
 	UIBarButtonItem *activityItem;
 	EksiTitle *eksiTitle;
-	BOOL hasLinkAtBottom;
 }
 
 - (id)initWithTitle:(EksiTitle *)theTitle;

@@ -38,7 +38,6 @@
 - (void)loadURL {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	[self.navigationItem setRightBarButtonItem:activityItem];
-
 	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
