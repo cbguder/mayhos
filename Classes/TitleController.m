@@ -50,7 +50,7 @@
 	[eksiTitle release];
 	eksiTitle = theTitle;
 	
-	self.title = @"baslik";
+	self.title = eksiTitle.title;
 
 	[eksiTitle setDelegate:self];
 }
