@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "EksiEntry.h"
 
+@protocol EksiTitleDelegate;
+
 @interface EksiTitle : NSObject {
 	NSString *title;
 	NSURL *URL;
@@ -47,14 +49,14 @@
 @property (readonly) NSArray *entries;
 @property (readonly) BOOL hasMoreToLoad;
 
-@property (assign) id delegate;
+@property (assign) id<EksiTitleDelegate> delegate;
 
 @property (readonly) int pages;
 @property (readonly) int loadedPages;
 
 @end
 
-@interface NSObject (EksiTitleDelegate)
+@protocol EksiTitleDelegate <NSObject>
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title;
 - (void)title:(EksiTitle *)title didFailLoadingEntriesWithError:(NSError *)error;
 @end

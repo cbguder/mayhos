@@ -10,9 +10,11 @@
 #import "EksiTitle.h"
 #import "EksiEntry.h"
 
-@interface TitleController : UITableViewController {
+@interface TitleController : UITableViewController <EksiTitleDelegate> {
 	EksiTitle *eksiTitle;
 	NSURL *myURL;
+
+	BOOL hasLinkAtBottom;
 }
 
 - (id)initWithTitle:(EksiTitle *)theTitle;

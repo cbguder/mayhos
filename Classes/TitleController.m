@@ -14,13 +14,32 @@
 
 - (id)initWithTitle:(EksiTitle *)theTitle {
 	if (self = [super init]) {
+		hasLinkAtBottom = NO;
 		[self setEksiTitle:theTitle];
 	}
+
+	CGSize size = [theTitle.title sizeWithFont:[UIFont boldSystemFontOfSize:16] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+
+	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, size.height + 20)];
+	headerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+
+	UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, size.height)];
+	headerLabel.backgroundColor = [UIColor clearColor];
+	headerLabel.font = [UIFont boldSystemFontOfSize:16];
+	headerLabel.lineBreakMode = UILineBreakModeWordWrap;
+	headerLabel.numberOfLines = 0;
+	headerLabel.text = theTitle.title;
+
+	[headerView addSubview:headerLabel];
+	self.tableView.tableHeaderView = headerView;
+	[headerLabel release];
+	[headerView release];
 	
 	return self;
 }
 
 - (void)dealloc {
+	[eksiTitle setDelegate:nil];
 	[eksiTitle release];
 
 	[super dealloc];
@@ -47,7 +66,6 @@
 	[super viewDidAppear:animated];
 
 	if([eksiTitle.entries count] == 0) {
-		[eksiTitle setDelegate:self];
 		[eksiTitle loadEntries];
 	}
 }
@@ -55,24 +73,25 @@
 #pragma mark UITableViewController Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
+	if(hasLinkAtBottom) {
+		return 2;
+	} else {
+		return 1;
+	}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if(eksiTitle.loadedPages < eksiTitle.pages || eksiTitle.hasMoreToLoad)
-	{
-		return [eksiTitle.entries count] + 1;
-	}
-	else
-	{
+	if(section == 0) {
 		return [eksiTitle.entries count];
+	} else {
+		return 1;
 	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero] autorelease];
 
-	if(indexPath.row < [eksiTitle.entries count])
+	if(indexPath.section == 0)
 	{
 		EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
 
@@ -95,44 +114,45 @@
 		[cell.contentView addSubview:author];
 		[textView sizeToFit];
 	}
-	else if(eksiTitle.hasMoreToLoad)
+	else
 	{
-		UILabel *loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 20, 300, 20)] autorelease];
-		loadLabel.font = [UIFont boldSystemFontOfSize:14];
-		loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
-		loadLabel.text = @"Tümünü Göster...";
-
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+		UILabel *loadLabel;
+
+		if(eksiTitle.hasMoreToLoad)
+		{
+			loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 20, 300, 20)] autorelease];
+			loadLabel.font = [UIFont boldSystemFontOfSize:14];
+			loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
+			loadLabel.text = @"Tümünü Göster...";
+		}
+		else if(eksiTitle.loadedPages < eksiTitle.pages)
+		{
+			loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 13, 300, 18)] autorelease];
+			loadLabel.font = [UIFont boldSystemFontOfSize:14];
+			loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
+			loadLabel.text = [NSString stringWithFormat:@"%d. Sayfayı Yükle...", eksiTitle.loadedPages + 1];
+
+			UILabel *pagesLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 26, 300, 20)] autorelease];
+			pagesLabel.font = [UIFont systemFontOfSize:12];
+			pagesLabel.textColor = [UIColor darkGrayColor];
+			pagesLabel.backgroundColor = [UIColor clearColor];
+			pagesLabel.text = [NSString stringWithFormat:@"Toplam %d sayfa", eksiTitle.pages];
+
+			[cell.contentView addSubview:pagesLabel];
+		}
 
 		[cell.contentView addSubview:loadLabel];
-	}
-	else if(eksiTitle.loadedPages < eksiTitle.pages)
-	{
-		UILabel *loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 13, 300, 18)] autorelease];
-		loadLabel.font = [UIFont boldSystemFontOfSize:14];
-		loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
-		loadLabel.text = [NSString stringWithFormat:@"%d. Sayfayı Yükle...", eksiTitle.loadedPages + 1];
-
-		UILabel *pagesLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 26, 300, 20)] autorelease];
-		pagesLabel.font = [UIFont systemFontOfSize:12];
-		pagesLabel.textColor = [UIColor darkGrayColor];
-		pagesLabel.backgroundColor = [UIColor clearColor];
-		pagesLabel.text = [NSString stringWithFormat:@"Toplam %d sayfa", eksiTitle.pages];
-
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-
-		[cell.contentView addSubview:loadLabel];
-		[cell.contentView addSubview:pagesLabel];
 	}
 
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(indexPath.row < [eksiTitle.entries count])
+	if(indexPath.section == 0)
 	{
 		CGSize size = [[[eksiTitle.entries objectAtIndex:[indexPath row]] content] sizeWithFont:[UIFont systemFontOfSize:14]
-																			  constrainedToSize:CGSizeMake(300, 4000)
+																			  constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
 																				  lineBreakMode:UILineBreakModeWordWrap];
 		return size.height + 15 + 33;
 	}
@@ -143,14 +163,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(indexPath.row == [eksiTitle.entries count])
+	if(indexPath.section == 1)
 	{
-		if(eksiTitle.hasMoreToLoad)
-		{
+		if(eksiTitle.hasMoreToLoad)	{
 			[eksiTitle loadAllEntries];
-		}
-		else if(eksiTitle.loadedPages < eksiTitle.pages || eksiTitle.hasMoreToLoad)
-		{
+		} else if(eksiTitle.loadedPages < eksiTitle.pages) {
 			[eksiTitle loadOneMorePage];
 		}
 
@@ -167,6 +184,7 @@
 }
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
+	hasLinkAtBottom = title.loadedPages < title.pages || title.hasMoreToLoad;
 	[self.tableView reloadData];
 }
 

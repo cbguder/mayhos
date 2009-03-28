@@ -228,9 +228,9 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	if ([delegate respondsToSelector:@selector(title:didFailLoadingEntriesWithError:)])	{
+
+	if(delegate != nil && [delegate respondsToSelector:@selector(didFailLoadingEntriesWithError:)])
 		[delegate title:self didFailLoadingEntriesWithError:error];
-	}
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -245,9 +245,8 @@
 		pages = loadedPages;
 	}
 
-	if ([delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
+	if(delegate != nil && [delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)])
 		[delegate titleDidFinishLoadingEntries:self];
-	}
 }
 
 @end
