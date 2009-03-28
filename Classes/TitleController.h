@@ -11,12 +11,8 @@
 #import "EksiEntry.h"
 
 @interface TitleController : UITableViewController {
-	NSString *tumu_link;
 	EksiTitle *eksiTitle;
 	NSURL *myURL;
-
-	UIBarButtonItem *activityItem;
-	UIBarButtonItem	*tumuItem;
 }
 
 - (id)initWithTitle:(EksiTitle *)theTitle;

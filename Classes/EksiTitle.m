@@ -26,9 +26,21 @@
 
 	hasMoreToLoad = NO;
 	inEntry       = NO;
+	inPagis       = NO;
+	inButton      = NO;
 	inAuthor      = NO;
 	inAuthorName  = NO;
-	
+
+	NSString *URLString = [theURL absoluteString];
+	if([URLString hasSuffix:@"&a=td"])
+	{
+		[self setAllURL:[NSURL URLWithString:[URLString substringToIndex:[URLString length] - 5]]];
+	}
+	else
+	{
+		[self setAllURL:theURL];
+	}
+
 	return self;
 }
 
@@ -52,19 +64,35 @@
 @synthesize allURL;
 @synthesize entries;
 @synthesize hasMoreToLoad;
+@synthesize pages;
+@synthesize loadedPages;
 
 #pragma mark Other Methods
 
-- (void)loadEntriesWithDelegate:(id)theDelegate {
-	[self setDelegate:theDelegate];
-	NSURLRequest *request =	[NSURLRequest requestWithURL:URL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+- (void)loadEntries {
+	[self loadEntriesFromURL:URL];
 }
 
-- (void)loadAllEntriesWithDelegate:(id)theDelegate {
-	[self setDelegate:theDelegate];
-	NSURLRequest *request =	[NSURLRequest requestWithURL:URL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
+- (void)loadAllEntries {
+	[entries removeAllObjects];
+
+	pages = 0;
+	loadedPages = 0;
+
+	[self loadEntriesFromURL:allURL];
+}
+
+- (void)loadOneMorePage {
+	if(loadedPages < pages)
+	{
+		NSMutableString *pageURLString = [[allURL absoluteString] mutableCopy];
+		[pageURLString appendFormat:@"&p=%d", loadedPages + 1];
+		[self loadEntriesFromURL:[NSURL URLWithString:pageURLString]];
+	}
+}
+
+- (void)loadEntriesFromURL:(NSURL *)theURL {
+	NSURLRequest *request =	[NSURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
@@ -77,6 +105,19 @@
 		tempEntry = [[EksiEntry alloc] init];
 		tempContent = [[NSMutableString alloc] init];
 		inEntry = YES;
+	}
+	else if([elementName isEqualToString:@"select"])
+	{
+		NSString *class = [attributeDict objectForKey:@"class"];
+		if([class isEqualToString:@"pagis"])
+		{
+			inPagis = YES;
+			pages = 0;
+		}
+	}
+	else if(inPagis && [elementName isEqualToString:@"option"])
+	{
+		pages++;
 	}
 	else if(inEntry)
 	{
@@ -97,6 +138,11 @@
 				inAuthor = YES;
 			}
 		}
+	}
+	else if([elementName isEqualToString:@"button"])
+	{
+		tempButtonText = [[NSMutableString alloc] init];
+		inButton = YES;
 	}
 }
 
@@ -131,6 +177,10 @@
 			[tempContent appendString:string];
 		}
 	}
+	else if(inButton)
+	{
+		[tempButtonText appendString:string];
+	}
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
@@ -153,6 +203,16 @@
 			
 			inEntry = NO;
 		}
+		else if(inPagis && [elementName isEqualToString:@"select"])
+		{
+			inPagis = NO;
+		}
+	}
+	else if(inButton && [elementName isEqualToString:@"button"])
+	{
+		inButton = NO;
+		hasMoreToLoad = [tempButtonText isEqualToString:@"tümünü göster"];
+		[tempButtonText release];
 	}
 }
 
@@ -178,6 +238,12 @@
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseData];
 	[parser setDelegate:self];
 	[parser parse];
+
+	loadedPages++;
+
+	if(loadedPages > pages)	{
+		pages = loadedPages;
+	}
 
 	if ([delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
 		[delegate titleDidFinishLoadingEntries:self];

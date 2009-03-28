@@ -21,17 +21,25 @@
 	
 	EksiEntry *tempEntry;
 	NSMutableString *tempContent;
+	NSMutableString *tempButtonText;
 	BOOL inEntry;
+	BOOL inPagis;
+	BOOL inButton;
 	BOOL inAuthor;
 	BOOL inAuthorName;
+
+	int pages;
+	int loadedPages;
 	
 	id delegate;
 }
 
 - (id)initWithTitle:(NSString *)theTitle;
 - (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL;
-- (void) loadEntriesWithDelegate:(id)theDelegate;
-- (void) loadAllEntriesWithDelegate:(id)theDelegate;
+- (void)loadEntries;
+- (void)loadAllEntries;
+- (void)loadOneMorePage;
+- (void)loadEntriesFromURL:(NSURL *)theURL;
 
 @property (retain) NSString *title;
 @property (retain) NSURL *URL;
@@ -40,6 +48,9 @@
 @property (readonly) BOOL hasMoreToLoad;
 
 @property (assign) id delegate;
+
+@property (readonly) int pages;
+@property (readonly) int loadedPages;
 
 @end
 

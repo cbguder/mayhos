@@ -15,11 +15,6 @@
 - (id)initWithTitle:(EksiTitle *)theTitle {
 	if (self = [super init]) {
 		[self setEksiTitle:theTitle];
-		
-		tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tumu"
-													style:UIBarButtonItemStyleBordered
-												   target:self
-												   action:@selector(tumunu_goster)];
 	}
 	
 	return self;
@@ -27,8 +22,6 @@
 
 - (void)dealloc {
 	[eksiTitle release];
-	[tumu_link release];
-	[tumuItem release];
 
 	[super dealloc];
 }
@@ -44,12 +37,8 @@
 	
 	self.title = eksiTitle.title;
 	myURL = eksiTitle.URL;
-}
 
-#pragma mark Other Methods
-
-- (void)tumunu_goster {
-	[eksiTitle loadAllEntriesWithDelegate:self];
+	[eksiTitle setDelegate:self];
 }
 
 #pragma mark UIViewController Methods
@@ -58,9 +47,8 @@
 	[super viewDidAppear:animated];
 
 	if([eksiTitle.entries count] == 0) {
-		[eksiTitle loadEntriesWithDelegate:self];
-	} else if(eksiTitle.hasMoreToLoad) {
-		[self.navigationItem setRightBarButtonItem:tumuItem animated:NO];
+		[eksiTitle setDelegate:self];
+		[eksiTitle loadEntries];
 	}
 }
 
@@ -71,44 +59,103 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [eksiTitle.entries count];
+	if(eksiTitle.loadedPages < eksiTitle.pages || eksiTitle.hasMoreToLoad)
+	{
+		return [eksiTitle.entries count] + 1;
+	}
+	else
+	{
+		return [eksiTitle.entries count];
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero] autorelease];
-	EksiEntry *entry = [eksiTitle.entries objectAtIndex:[indexPath row]];
-	
-	UILabel *textView = [[[UILabel alloc] initWithFrame:CGRectMake(10, 7, 300, 20)] autorelease];
-	textView.numberOfLines = 0;
-	textView.lineBreakMode = UILineBreakModeWordWrap;
-	textView.font = [UIFont systemFontOfSize:14];
-	textView.text = entry.content;
-	
-	CGFloat pos = [self tableView:tableView heightForRowAtIndexPath:indexPath] - 24;
-	UILabel *author = [[[UILabel alloc] initWithFrame:CGRectMake(10, pos, 300, 20)] autorelease];
-	author.numberOfLines = 1;
-	author.textAlignment = UITextAlignmentRight;
-	author.font = [UIFont systemFontOfSize:14];
-	author.text = [NSString stringWithFormat:@"%@, %@", entry.author, [entry dateString]];
 
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	
-	[cell.contentView addSubview:textView];
-	[cell.contentView addSubview:author];
-	[textView sizeToFit];
-	
+	if(indexPath.row < [eksiTitle.entries count])
+	{
+		EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
+
+		UILabel *textView = [[[UILabel alloc] initWithFrame:CGRectMake(10, 7, 300, 20)] autorelease];
+		textView.numberOfLines = 0;
+		textView.lineBreakMode = UILineBreakModeWordWrap;
+		textView.font = [UIFont systemFontOfSize:14];
+		textView.text = entry.content;
+
+		CGFloat pos = [self tableView:tableView heightForRowAtIndexPath:indexPath] - 24;
+		UILabel *author = [[[UILabel alloc] initWithFrame:CGRectMake(10, pos, 300, 20)] autorelease];
+		author.numberOfLines = 1;
+		author.textAlignment = UITextAlignmentRight;
+		author.font = [UIFont systemFontOfSize:14];
+		author.text = [NSString stringWithFormat:@"%@, %@", entry.author, [entry dateString]];
+
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+		[cell.contentView addSubview:textView];
+		[cell.contentView addSubview:author];
+		[textView sizeToFit];
+	}
+	else if(eksiTitle.hasMoreToLoad)
+	{
+		UILabel *loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 20, 300, 20)] autorelease];
+		loadLabel.font = [UIFont boldSystemFontOfSize:14];
+		loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
+		loadLabel.text = @"Tümünü Göster...";
+
+		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+
+		[cell.contentView addSubview:loadLabel];
+	}
+	else if(eksiTitle.loadedPages < eksiTitle.pages)
+	{
+		UILabel *loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 13, 300, 18)] autorelease];
+		loadLabel.font = [UIFont boldSystemFontOfSize:14];
+		loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
+		loadLabel.text = [NSString stringWithFormat:@"%d. Sayfayı Yükle...", eksiTitle.loadedPages + 1];
+
+		UILabel *pagesLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 26, 300, 20)] autorelease];
+		pagesLabel.font = [UIFont systemFontOfSize:12];
+		pagesLabel.textColor = [UIColor darkGrayColor];
+		pagesLabel.backgroundColor = [UIColor clearColor];
+		pagesLabel.text = [NSString stringWithFormat:@"Toplam %d sayfa", eksiTitle.pages];
+
+		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+
+		[cell.contentView addSubview:loadLabel];
+		[cell.contentView addSubview:pagesLabel];
+	}
+
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	CGSize size = [[[eksiTitle.entries objectAtIndex:[indexPath row]] content] sizeWithFont:[UIFont systemFontOfSize:14]
-																		  constrainedToSize:CGSizeMake(300, 4000)
-																			  lineBreakMode:UILineBreakModeWordWrap];
-	return size.height + 15 + 33;
+	if(indexPath.row < [eksiTitle.entries count])
+	{
+		CGSize size = [[[eksiTitle.entries objectAtIndex:[indexPath row]] content] sizeWithFont:[UIFont systemFontOfSize:14]
+																			  constrainedToSize:CGSizeMake(300, 4000)
+																				  lineBreakMode:UILineBreakModeWordWrap];
+		return size.height + 15 + 33;
+	}
+	else
+	{
+		return 60;
+	}
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	return nil;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if(indexPath.row == [eksiTitle.entries count])
+	{
+		if(eksiTitle.hasMoreToLoad)
+		{
+			[eksiTitle loadAllEntries];
+		}
+		else if(eksiTitle.loadedPages < eksiTitle.pages || eksiTitle.hasMoreToLoad)
+		{
+			[eksiTitle loadOneMorePage];
+		}
+
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
 }
 
 #pragma mark EksiTitleDelegate Methods
@@ -116,17 +163,10 @@
 - (void)title:(EksiTitle*)title didFailLoadingEntriesWithError:(NSError *)error {
 	NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
 	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[self.navigationItem setRightBarButtonItem:NULL animated:YES];
 	[errorAlert show];
 }
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
-	if(title.hasMoreToLoad) {
-		[self.navigationItem setRightBarButtonItem:tumuItem animated:YES];
-	} else {
-		[self.navigationItem setRightBarButtonItem:nil animated:YES];
-	}
-
 	[self.tableView reloadData];
 }
 
