@@ -87,10 +87,11 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[self.navigationItem setRightBarButtonItem:nil];
 
 	[responseData release];
 	[connection release];
+
+	[self.navigationItem setRightBarButtonItem:nil];
 
 	NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
 	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -109,6 +110,8 @@
 	[responseData release];
 	[connection release];
 	[parser release];
+
+	[self.navigationItem setRightBarButtonItem:nil];
 
 	[myTableView reloadData];
 }
@@ -141,14 +144,6 @@
 		[tempTitle release];
 		inLink = NO;
 	}
-}
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	[self.navigationItem setRightBarButtonItem:nil];
-}
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	[self.navigationItem setRightBarButtonItem:nil];
 }
 
 @end

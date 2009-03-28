@@ -45,17 +45,18 @@
 	}
 }
 
-#pragma mark NSXMLParserDelegate Methods
+#pragma mark NSURLConnectionDelegate Methods
 
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	[super connection:connection didFailWithError:error];
 	[self.navigationItem setRightBarButtonItem:refreshItem];
 	refreshItem.enabled = YES;
 }
 
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	[super connectionDidFinishLoading:connection];
 	[self.navigationItem setRightBarButtonItem:refreshItem];
 	refreshItem.enabled = YES;
 }
-
 
 @end
