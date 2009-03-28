@@ -12,26 +12,28 @@
 
 #pragma mark Initialization Methods
 
-- (id)initWithTitle:(NSString *)theTitle {
-	return [self initWithTitle:theTitle URL:nil];
+- (id)init {
+	if(self == [super init]) {
+		entries = [[NSMutableArray alloc] init];
+
+		hasMoreToLoad = NO;
+		inEntry       = NO;
+		inPagis       = NO;
+		inButton      = NO;
+		inAuthor      = NO;
+		inAuthorName  = NO;
+	}
+
+	return self;
 }
 
-- (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
-	[super init];
-	[self setTitle:theTitle];
-	[self setURL:theURL];
+- (void)setURL:(NSURL *)theURL {
+	[theURL retain];
+	[URL release];
+	URL = theURL;
 	
-	responseData = [[NSMutableData alloc] init];
-	entries = [[NSMutableArray alloc] init];
-
-	hasMoreToLoad = NO;
-	inEntry       = NO;
-	inPagis       = NO;
-	inButton      = NO;
-	inAuthor      = NO;
-	inAuthorName  = NO;
-
 	NSString *URLString = [theURL absoluteString];
+
 	if([URLString hasSuffix:@"&a=td"])
 	{
 		[self setAllURL:[NSURL URLWithString:[URLString substringToIndex:[URLString length] - 5]]];
@@ -40,8 +42,6 @@
 	{
 		[self setAllURL:theURL];
 	}
-
-	return self;
 }
 
 - (void) dealloc {
@@ -49,8 +49,6 @@
 	[URL release];
 	[allURL release];
 	
-	[connection release];
-	[responseData release];
 	[entries release];
 	
 	[super dealloc];
@@ -94,7 +92,7 @@
 - (void)loadEntriesFromURL:(NSURL *)theURL {
 	NSURLRequest *request =	[NSURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+	[[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 #pragma mark NSXMLParserDelegate Methods
@@ -219,7 +217,7 @@
 #pragma mark NSURLConnectionDelegate Methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    [responseData setLength:0];
+	responseData = [[NSMutableData alloc] init];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -229,24 +227,34 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
-	if(delegate != nil && [delegate respondsToSelector:@selector(didFailLoadingEntriesWithError:)])
+	[responseData release];
+	[connection release];
+
+	if(delegate != nil && [delegate respondsToSelector:@selector(didFailLoadingEntriesWithError:)]) {
 		[delegate title:self didFailLoadingEntriesWithError:error];
+	}
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseData];
 	[parser setDelegate:self];
 	[parser parse];
 
+	[responseData release];
+	[connection release];
+	[parser release];
+
 	loadedPages++;
 
-	if(loadedPages > pages)	{
+	if(loadedPages > pages) {
 		pages = loadedPages;
 	}
 
-	if(delegate != nil && [delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)])
+	if(delegate != nil && [delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
 		[delegate titleDidFinishLoadingEntries:self];
+	}
 }
 
 @end

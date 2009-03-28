@@ -11,9 +11,8 @@
 #import "EksiEntry.h"
 
 @interface TitleController : UITableViewController <EksiTitleDelegate> {
+	UIBarButtonItem *activityItem;
 	EksiTitle *eksiTitle;
-	NSURL *myURL;
-
 	BOOL hasLinkAtBottom;
 }
 

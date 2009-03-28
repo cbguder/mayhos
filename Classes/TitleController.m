@@ -7,6 +7,7 @@
 //
 
 #import "TitleController.h"
+#import "EksiTitleHeaderView.h"
 
 @implementation TitleController
 
@@ -14,26 +15,21 @@
 
 - (id)initWithTitle:(EksiTitle *)theTitle {
 	if (self = [super init]) {
-		hasLinkAtBottom = NO;
 		[self setEksiTitle:theTitle];
+		hasLinkAtBottom = NO;
+
+		CGSize size = [theTitle.title sizeWithFont:[UIFont boldSystemFontOfSize:16] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+		
+		EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, size.height + 20)];
+		[headerView setText:theTitle.title];
+		self.tableView.tableHeaderView = headerView;
+		[headerView release];
+
+		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+		[activityIndicatorView startAnimating];
+		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
+		[activityIndicatorView release];
 	}
-
-	CGSize size = [theTitle.title sizeWithFont:[UIFont boldSystemFontOfSize:16] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
-
-	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, size.height + 20)];
-	headerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-
-	UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, size.height)];
-	headerLabel.backgroundColor = [UIColor clearColor];
-	headerLabel.font = [UIFont boldSystemFontOfSize:16];
-	headerLabel.lineBreakMode = UILineBreakModeWordWrap;
-	headerLabel.numberOfLines = 0;
-	headerLabel.text = theTitle.title;
-
-	[headerView addSubview:headerLabel];
-	self.tableView.tableHeaderView = headerView;
-	[headerLabel release];
-	[headerView release];
 	
 	return self;
 }
@@ -54,8 +50,7 @@
 	[eksiTitle release];
 	eksiTitle = theTitle;
 	
-	self.title = eksiTitle.title;
-	myURL = eksiTitle.URL;
+	self.title = @"baslik";
 
 	[eksiTitle setDelegate:self];
 }
@@ -66,6 +61,7 @@
 	[super viewDidAppear:animated];
 
 	if([eksiTitle.entries count] == 0) {
+		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadEntries];
 	}
 }
@@ -178,12 +174,16 @@
 #pragma mark EksiTitleDelegate Methods
 
 - (void)title:(EksiTitle*)title didFailLoadingEntriesWithError:(NSError *)error {
+	[self.navigationItem setRightBarButtonItem:nil];
+
 	NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
 	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[errorAlert show];
 }
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
+	[self.navigationItem setRightBarButtonItem:nil];
+
 	hasLinkAtBottom = title.loadedPages < title.pages || title.hasMoreToLoad;
 	[self.tableView reloadData];
 }

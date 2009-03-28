@@ -18,7 +18,6 @@
 		[self.navigationItem setRightBarButtonItem:refreshItem];
 
 		myURL = [[NSURL alloc] initWithString:@"http://sozluk.sourtimes.org/index.asp"];
-		todayMode = YES;
 	}
 	
 	return self;
@@ -33,11 +32,7 @@
 
 - (void)refresh {
 	refreshItem.enabled = NO;
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
-	[myConnection release];
-	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
-    myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+	[self loadURL];
 }
 
 #pragma mark UIViewController Methods
@@ -50,18 +45,17 @@
 	}
 }
 
-#pragma mark NSURLConnectionDelegate Methods
+#pragma mark NSXMLParserDelegate Methods
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[super connection:connection didFailWithError:error];
+- (void)parserDidEndDocument:(NSXMLParser *)parser {
+	[self.navigationItem setRightBarButtonItem:refreshItem];
 	refreshItem.enabled = YES;
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[super connectionDidFinishLoading:connection];
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+	[self.navigationItem setRightBarButtonItem:refreshItem];
 	refreshItem.enabled = YES;
 }
+
 
 @end

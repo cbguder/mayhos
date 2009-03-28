@@ -11,15 +11,21 @@
 #import "EksiTitle.h"
 
 @interface EksiLinkController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-	IBOutlet UITableView *myTableView;
-	UIBarButtonItem *activityItem;	
+	UITableView *myTableView;
+	UIBarButtonItem *activityItem;
+
 	NSURLConnection *myConnection;
 	NSMutableData *responseData;
 	NSMutableArray *stories;	
-	BOOL todayMode;
 	NSURL *myURL;
+
+	BOOL inLink;
+	EksiTitle *tempTitle;
+	NSMutableString *tempString;
 }
 
-@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) IBOutlet UITableView *myTableView;
+
+- (void)loadURL;
 
 @end

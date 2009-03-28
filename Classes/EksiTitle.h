@@ -18,7 +18,6 @@
 	NSMutableArray *entries;
 	BOOL hasMoreToLoad;
 
-	NSURLConnection *connection;
 	NSMutableData *responseData;
 	
 	EksiEntry *tempEntry;
@@ -36,14 +35,12 @@
 	id delegate;
 }
 
-- (id)initWithTitle:(NSString *)theTitle;
-- (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL;
 - (void)loadEntries;
 - (void)loadAllEntries;
 - (void)loadOneMorePage;
 - (void)loadEntriesFromURL:(NSURL *)theURL;
 
-@property (retain) NSString *title;
+@property (copy) NSString *title;
 @property (retain) NSURL *URL;
 @property (retain) NSURL *allURL;
 @property (readonly) NSArray *entries;
