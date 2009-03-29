@@ -38,7 +38,9 @@
 - (void)loadURL {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	[self.navigationItem setRightBarButtonItem:activityItem];
-	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
+	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL
+											 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+										 timeoutInterval:60];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
@@ -93,7 +95,11 @@
 	[self.navigationItem setRightBarButtonItem:nil];
 
 	NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
-	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content"
+														  message:errorMessage
+														 delegate:self
+												cancelButtonTitle:@"OK"
+												otherButtonTitles:nil];
 	[errorAlert show];
 }
 

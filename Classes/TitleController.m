@@ -24,8 +24,10 @@
 	if (self = [super init]) {
 		[self setEksiTitle:theTitle];
 
-		CGSize size = [theTitle.title sizeWithFont:[UIFont boldSystemFontOfSize:16] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
-		
+		CGSize size = [[theTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
+								   constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
+									   lineBreakMode:UILineBreakModeWordWrap];
+
 		EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, size.height + 20)];
 		[headerView setText:theTitle.title];
 		self.tableView.tableHeaderView = headerView;
@@ -140,9 +142,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(indexPath.section == 0)
 	{
-		CGSize size = [[[eksiTitle.entries objectAtIndex:[indexPath row]] content] sizeWithFont:[UIFont systemFontOfSize:14]
-																			  constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
-																				  lineBreakMode:UILineBreakModeWordWrap];
+		NSString *content = [[eksiTitle.entries objectAtIndex:[indexPath row]] content];
+
+		CGSize size = [content sizeWithFont:[UIFont systemFontOfSize:14]
+						  constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
+							  lineBreakMode:UILineBreakModeWordWrap];
+
 		return size.height + 54;
 	}
 	else
@@ -172,7 +177,13 @@
 	[self.navigationItem setRightBarButtonItem:nil];
 
 	NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
-	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+
+	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content"
+														  message:errorMessage
+														 delegate:self
+												cancelButtonTitle:@"OK"
+												otherButtonTitles:nil];
+
 	[errorAlert show];
 }
 
