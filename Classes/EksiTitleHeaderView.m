@@ -21,11 +21,12 @@
 
 - (void)drawRect:(CGRect)rect {
 	CGContextRef context = UIGraphicsGetCurrentContext();
-	CGContextSetFillColorWithColor(context, [[UIColor groupTableViewBackgroundColor] CGColor]);
+
+	[[UIColor groupTableViewBackgroundColor] set];
 	CGContextFillRect(context, rect);
 
-	CGContextSetFillColorWithColor(context, [[UIColor darkTextColor] CGColor]);
-	CGContextFillRect(context, CGRectMake(rect.origin.x - 0.5, rect.origin.y + rect.size.height - 0.5, rect.size.width , 1.0));
+	[[UIColor darkTextColor] set];
+	CGContextFillRect(context, CGRectMake(rect.origin.x, rect.origin.y + rect.size.height - 0.5, rect.size.width, 1.0));
 
 	if(text != nil) {
 		[text drawInRect:CGRectMake(rect.origin.x + 10, rect.origin.y + 10, rect.size.width - 20, rect.size.height - 20)

@@ -202,7 +202,7 @@
 		}
 		else if([elementName isEqualToString:@"li"])
 		{
-			tempEntry.content = tempContent;
+			tempEntry.content = [tempContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			[tempContent release];
 			
 			[entries addObject:tempEntry];

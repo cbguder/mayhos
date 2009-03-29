@@ -8,6 +8,7 @@
 
 #import "TitleController.h"
 #import "EksiTitleHeaderView.h"
+#import "EksiEntryCell.h"
 
 @interface TitleController (Private)
 - (BOOL)hasLinkAtBottom;
@@ -92,34 +93,19 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero] autorelease];
+	UITableViewCell *cell;
 
 	if(indexPath.section == 0)
 	{
-		EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
-
-		UILabel *textView = [[[UILabel alloc] initWithFrame:CGRectMake(10, 7, 300, 20)] autorelease];
-		textView.numberOfLines = 0;
-		textView.lineBreakMode = UILineBreakModeWordWrap;
-		textView.font = [UIFont systemFontOfSize:14];
-		textView.text = entry.content;
-
-		CGFloat pos = [self tableView:tableView heightForRowAtIndexPath:indexPath] - 24;
-		UILabel *author = [[[UILabel alloc] initWithFrame:CGRectMake(10, pos, 300, 20)] autorelease];
-		author.numberOfLines = 1;
-		author.textAlignment = UITextAlignmentRight;
-		author.font = [UIFont systemFontOfSize:14];
-		author.text = [NSString stringWithFormat:@"%@, %@", entry.author, [entry dateString]];
-
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-		[cell.contentView addSubview:textView];
-		[cell.contentView addSubview:author];
-		[textView sizeToFit];
+		cell = [[[EksiEntryCell alloc] initWithFrame:CGRectZero] autorelease];
+		[(EksiEntryCell *)cell setEntry:[eksiTitle.entries objectAtIndex:indexPath.row]];
+		[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 	}
 	else
 	{
+		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+
 		UILabel *loadLabel;
 
 		if(eksiTitle.hasMoreToLoad)
@@ -157,7 +143,7 @@
 		CGSize size = [[[eksiTitle.entries objectAtIndex:[indexPath row]] content] sizeWithFont:[UIFont systemFontOfSize:14]
 																			  constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
 																				  lineBreakMode:UILineBreakModeWordWrap];
-		return size.height + 15 + 33;
+		return size.height + 54;
 	}
 	else
 	{
