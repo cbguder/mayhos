@@ -18,6 +18,7 @@
 
 - (id)initWithAuthor:(NSString *)theAuthor content:(NSString *)theContent date:(NSDate *)theDate lastEdit:(NSDate *)theLastEdit;
 - (NSString *)dateString;
+- (NSString *)signature;
 + (NSDate *)parseDate:(NSString *)theDate;
 + (NSDate *)parseDate:(NSString *)theDate withBaseDate:(NSString *)theBaseDate;
 

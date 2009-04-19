@@ -10,34 +10,23 @@
 
 @implementation EksiTitleHeaderView
 
-@synthesize text;
-
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        // Initialization code
-    }
-    return self;
+- (void)setText:(NSString *)aText {
+	[text release];
+	text = [aText copy];
+	[self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {
-	CGContextRef context = UIGraphicsGetCurrentContext();
+	[super drawRect:rect];
 
-	[[UIColor groupTableViewBackgroundColor] set];
-	CGContextFillRect(context, rect);
-
-	[[UIColor darkTextColor] set];
-	CGContextFillRect(context, CGRectMake(rect.origin.x, rect.origin.y + rect.size.height - 0.5, rect.size.width, 1.0));
-
-	if(text != nil) {
-		[text drawInRect:CGRectMake(rect.origin.x + 10, rect.origin.y + 10, rect.size.width - 20, rect.size.height - 20)
-				withFont:[UIFont boldSystemFontOfSize:16]
-		   lineBreakMode:UILineBreakModeWordWrap];
-	}	
+	[textColor set];
+	[text drawInRect:CGRectMake(10, 10, rect.size.width - 20, rect.size.height - 20)
+			withFont:[UIFont boldSystemFontOfSize:16]
+	   lineBreakMode:UILineBreakModeWordWrap];
 }
 
 - (void)dealloc {
 	[text release];
-
     [super dealloc];
 }
 

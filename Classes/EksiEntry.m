@@ -59,6 +59,10 @@
 	}
 }
 
+- (NSString *)signature {
+	return [NSString stringWithFormat:@"%@, %@", author, [self dateString]];
+}
+
 #pragma mark Class Methods
 
 + (NSDate *)parseDate:(NSString *)theDate {

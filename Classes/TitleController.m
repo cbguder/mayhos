@@ -8,6 +8,7 @@
 
 #import "TitleController.h"
 #import "EksiTitleHeaderView.h"
+#import "EntryController.h"
 #import "EksiEntryCell.h"
 
 @interface TitleController (Private)
@@ -101,7 +102,7 @@
 	{
 		cell = [[[EksiEntryCell alloc] initWithFrame:CGRectZero] autorelease];
 		[(EksiEntryCell *)cell setEntry:[eksiTitle.entries objectAtIndex:indexPath.row]];
-		[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	}
 	else
 	{
@@ -145,8 +146,8 @@
 		NSString *content = [[eksiTitle.entries objectAtIndex:[indexPath row]] content];
 
 		CGSize size = [content sizeWithFont:[UIFont systemFontOfSize:14]
-						  constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
-							  lineBreakMode:UILineBreakModeWordWrap];
+						  constrainedToSize:CGSizeMake(280, 54)
+							  lineBreakMode:UILineBreakModeTailTruncation];
 
 		return size.height + 54;
 	}
@@ -157,7 +158,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(indexPath.section == 1)
+	if(indexPath.section == 0)
+	{
+		EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
+		EntryController *entryController = [[EntryController alloc] initWithEntry:entry];
+
+		[self.navigationController pushViewController:entryController animated:YES];
+		[entryController release];
+	}
+	else if(indexPath.section == 1)
 	{
 		[self.navigationItem setRightBarButtonItem:activityItem];
 
@@ -167,8 +176,9 @@
 			[eksiTitle loadOneMorePage];
 		}
 
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
+
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark EksiTitleDelegate Methods

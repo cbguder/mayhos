@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GradientView.h"
 
-@interface EksiTitleHeaderView : UIView {
+@interface EksiTitleHeaderView : GradientView {
 	NSString *text;
 }
 
-@property (nonatomic,copy) NSString *text;
+- (void)setText:(NSString *)text;
 
 @end

@@ -65,8 +65,8 @@
 
 - (void)drawContentView:(CGRect)rect {
 	CGSize contentSize = [[entry content] sizeWithFont:[UIFont systemFontOfSize:14]
-									 constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
-										 lineBreakMode:UILineBreakModeWordWrap];
+									 constrainedToSize:CGSizeMake(280, 54)
+										 lineBreakMode:UILineBreakModeTailTruncation];
 
 	CGContextRef context = UIGraphicsGetCurrentContext();
 
@@ -75,19 +75,17 @@
 
 	[[UIColor darkTextColor] set];
 
-	CGRect contentRect = CGRectMake(10, 10, 300, contentSize.height);
-	CGRect authorRect  = CGRectMake(10, contentSize.height + 28, 300, 20);
+	CGRect contentRect = CGRectMake(10, 10, 280, contentSize.height);
+	CGRect authorRect  = CGRectMake(10, contentSize.height + 28, 280, 20);
 
 	[[entry content] drawInRect:contentRect
 					   withFont:[UIFont systemFontOfSize:14]
-				  lineBreakMode:UILineBreakModeWordWrap];
+				  lineBreakMode:UILineBreakModeTailTruncation];
 
-	NSString *authorText = [NSString stringWithFormat:@"%@, %@", [entry author], [entry dateString]];
-
-	[authorText drawInRect:authorRect
-				  withFont:[UIFont systemFontOfSize:14]
-			 lineBreakMode:UILineBreakModeTailTruncation
-				 alignment:UITextAlignmentRight];
+	[[entry signature] drawInRect:authorRect
+						 withFont:[UIFont systemFontOfSize:14]
+					lineBreakMode:UILineBreakModeTailTruncation
+						alignment:UITextAlignmentRight];
 }
 
 @end
