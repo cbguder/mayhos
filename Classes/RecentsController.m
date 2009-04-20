@@ -41,7 +41,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	
+
 	if([stories count] == 0) {
 		[self refresh];
 	}

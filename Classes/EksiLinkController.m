@@ -32,7 +32,7 @@
 	[activityItem release];
 	[stories release];
 	[myURL release];
-	
+
 	[super dealloc];
 }
 

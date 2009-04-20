@@ -29,7 +29,7 @@
 		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
 		[activityIndicatorView release];
 	}
-	
+
 	return self;
 }
 
@@ -179,7 +179,7 @@
 				loadLabel.font = [UIFont boldSystemFontOfSize:14];
 				loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
 				[cell.contentView addSubview:loadLabel];
-				
+
 				pagesLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 26, 300, 20)] autorelease];
 				pagesLabel.tag = PAGES_TAG;
 				pagesLabel.font = [UIFont systemFontOfSize:12];
@@ -190,7 +190,7 @@
 				loadLabel = (UILabel *)[cell.contentView viewWithTag:LOAD_TAG];
 				pagesLabel = (UILabel *)[cell.contentView viewWithTag:PAGES_TAG];
 			}
-			
+
 			loadLabel.text = [NSString stringWithFormat:@"%d. Sayfayı Yükle...", eksiTitle.loadedPages + 1];
 			pagesLabel.text = [NSString stringWithFormat:@"Toplam %d sayfa", eksiTitle.pages];
 		}

@@ -18,7 +18,7 @@
 	[self setContent:theContent];
 	[self setDate:theDate];
 	[self setLastEdit:theLastEdit];
-	
+
 	return self;
 }
 
@@ -27,7 +27,7 @@
 	[content release];
 	[date release];
 	[lastEdit release];
-	
+
 	[super dealloc];
 }
 
@@ -37,7 +37,7 @@
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-	
+
 	if (lastEdit == nil || [date isEqualToDate:lastEdit]) {
 		return [dateFormatter stringFromDate:date];
 	} else {
@@ -70,7 +70,7 @@
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 	[dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"tr_TR"]];
 	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Istanbul"]];
-	
+
 	if ([theDate length] == 5) {
 		if (theBaseDate == nil) {
 			[dateFormatter setDateStyle:NSDateFormatterNoStyle];
@@ -85,7 +85,7 @@
 	} else if ([theDate length] == 16) {
 		return [dateFormatter dateFromString:theDate];
 	}
-	
+
 	return nil;
 }
 

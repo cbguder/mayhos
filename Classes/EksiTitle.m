@@ -26,7 +26,7 @@
 	[theURL retain];
 	[URL release];
 	URL = theURL;
-	
+
 	NSString *URLString = [theURL absoluteString];
 
 	if([URLString hasSuffix:@"&a=td"]) {
@@ -42,7 +42,7 @@
 	[URL release];
 	[allURL release];
 	[entries release];
-	
+
 	[super dealloc];
 }
 
@@ -150,7 +150,7 @@
 			{
 				NSString *date = [string substringWithRange:NSMakeRange(2, [string length] - 3)];
 				NSArray *dateParts = [date componentsSeparatedByString:@" ~ "];
-				
+
 				if([dateParts count] == 1)
 				{
 					tempEntry.date     = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
@@ -192,10 +192,10 @@
 		{
 			tempEntry.content = [tempContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			[tempContent release];
-			
+
 			[entries addObject:tempEntry];
 			[tempEntry release];
-			
+
 			inEntry = NO;
 		}
 		else if(inPagis && [elementName isEqualToString:@"select"])

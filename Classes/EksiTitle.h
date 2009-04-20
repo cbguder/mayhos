@@ -21,7 +21,7 @@
 	int loadedPages;
 
 	id delegate;
-	
+
 	// NSURLConnection Members
 	NSMutableData *responseData;
 	NSURLConnection *myConnection;
