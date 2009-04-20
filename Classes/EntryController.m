@@ -20,7 +20,7 @@
 		[self.view addSubview:authorView];
 		[authorView release];
 
-		UITextView *contentView = [[UITextView alloc] initWithFrame:CGRectMake(2, 55, 316, 300)];
+		UITextView *contentView = [[UITextView alloc] initWithFrame:CGRectMake(2, 55, 316, 312)];
 		[contentView setFont:[UIFont systemFontOfSize:14]];
 		[contentView setEditable:NO];
 		[contentView setText:[entry content]];
