@@ -17,8 +17,9 @@
 	NSURL *allURL;
 	NSMutableArray *entries;
 	BOOL hasMoreToLoad;
-	int pages;
-	int loadedPages;
+	NSUInteger pages;
+	NSUInteger loadingPage;
+	NSUInteger currentPage;
 
 	id delegate;
 
@@ -41,7 +42,7 @@
 
 - (void)loadEntries;
 - (void)loadAllEntries;
-- (void)loadOneMorePage;
+- (void)loadPage:(NSUInteger)page;
 - (void)loadEntriesFromURL:(NSURL *)theURL;
 
 @property (nonatomic,copy) NSString *title;
@@ -49,8 +50,8 @@
 @property (nonatomic,retain) NSURL *allURL;
 @property (nonatomic,readonly) NSArray *entries;
 @property (nonatomic,readonly) BOOL hasMoreToLoad;
-@property (nonatomic,readonly) int pages;
-@property (nonatomic,readonly) int loadedPages;
+@property (nonatomic,readonly) NSUInteger pages;
+@property (nonatomic,readonly) NSUInteger currentPage;
 
 @property (nonatomic,assign) id<EksiTitleDelegate> delegate;
 

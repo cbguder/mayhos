@@ -69,11 +69,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *MyIdentifier = @"MyIdentifier";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+	static NSString *linkCellIdentifier = @"linkCellIdentifier";
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:linkCellIdentifier];
 
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
+		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:linkCellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 

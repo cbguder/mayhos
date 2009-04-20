@@ -12,13 +12,15 @@
 
 @implementation EksiTitle
 
-@synthesize delegate, title, URL, allURL, entries, hasMoreToLoad, pages, loadedPages, myConnection;
+@synthesize delegate, title, URL, allURL, entries, hasMoreToLoad, pages, currentPage, myConnection;
 
 #pragma mark Initialization Methods
 
 - (id)init {
 	if(self = [super init]) {
         entries = [[NSMutableArray alloc] init];
+		currentPage = 1;
+		pages = 1;
 	}
 
 	return self;
@@ -52,31 +54,34 @@
 }
 
 - (void)loadAllEntries {
-	[entries removeAllObjects];
-
-	pages = 0;
-	loadedPages = 0;
-	hasMoreToLoad = NO;
-
-	[self loadEntriesFromURL:allURL];
+	[self loadPage:1];
 }
 
-- (void)loadOneMorePage {
-	if(loadedPages < pages) {
-		NSMutableString *allURLString = [[allURL absoluteString] mutableCopy];
-		[allURLString appendFormat:@"&p=%d", loadedPages + 1];
-		[self loadEntriesFromURL:[NSURL URLWithString:allURLString]];
-		[allURLString release];
+- (void)loadPage:(NSUInteger)page {
+	hasMoreToLoad = NO;
+	loadingPage = page;
+
+	if(0 < page && page <= pages) {
+		if(page == 1) {
+			[self loadEntriesFromURL:allURL];
+		} else {
+			NSMutableString *allURLString = [[allURL absoluteString] mutableCopy];
+			[allURLString appendFormat:@"&p=%d", page];
+			[self loadEntriesFromURL:[NSURL URLWithString:allURLString]];
+			[allURLString release];
+		}
 	}
 }
 
 - (void)loadEntriesFromURL:(NSURL *)theURL {
+	[entries removeAllObjects];
+
 	if(myConnection != nil) {
         [myConnection cancel];
         self.myConnection = nil;
     }
 
-	NSURLRequest *request =	[NSURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
+	NSURLRequest *request = [NSURLRequest requestWithURL:theURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
 	self.myConnection = [NSURLConnection connectionWithRequest:request delegate:self];
@@ -255,11 +260,9 @@
 	self.myConnection = nil;
 	[parser release];
 
-	loadedPages++;
-
-	// Sanity check
-	if(loadedPages > pages) {
-		pages = loadedPages;
+	if(loadingPage != 0) {
+		currentPage = loadingPage;
+		loadingPage = 0;
 	}
 
 	if(delegate != nil && [delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {

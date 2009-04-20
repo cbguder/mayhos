@@ -9,6 +9,7 @@
 #import "TitleController.h"
 #import "EksiTitleHeaderView.h"
 #import "EntryController.h"
+#import "PagePickerView.h"
 
 @interface TitleController (Private)
 - (BOOL)hasLinkAtBottom;
@@ -18,16 +19,29 @@
 
 @synthesize eksiTitle;
 
+#pragma mark Static Methods
+
+static CGFloat heightForEntry(EksiEntry *entry) {
+	CGSize size = [[entry content] sizeWithFont:[UIFont systemFontOfSize:14]
+							  constrainedToSize:CGSizeMake(280, 54)
+								  lineBreakMode:UILineBreakModeTailTruncation];
+
+	return size.height;
+}
+
 #pragma mark Initialization Methods
 
 - (id)initWithTitle:(EksiTitle *)theTitle {
 	if (self = [super init]) {
-		[self setEksiTitle:theTitle];
-
 		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
 		[activityIndicatorView startAnimating];
 		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
 		[activityIndicatorView release];
+
+		pagesItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked:)];
+		tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümü" style:UIBarButtonItemStyleBordered target:self action:@selector(tumuClicked:)];
+
+		[self setEksiTitle:theTitle];
 	}
 
 	return self;
@@ -36,7 +50,9 @@
 - (void)dealloc {
 	[eksiTitle setDelegate:nil];
 	[activityItem release];
+	[pagePicker release];
 	[eksiTitle release];
+	[tumuItem release];
 
 	[super dealloc];
 }
@@ -60,10 +76,53 @@
 	[headerView release];
 
 	[eksiTitle setDelegate:self];
+
+	if([eksiTitle hasMoreToLoad]) {
+		[self.navigationItem setRightBarButtonItem:tumuItem];
+	} else if(eksiTitle.pages > 1) {
+		[pagesItem setTitle:[NSString stringWithFormat:@"%d/%d", eksiTitle.currentPage, eksiTitle.pages]];
+		[self.navigationItem setRightBarButtonItem:pagesItem];
+	} else {
+		[self.navigationItem setRightBarButtonItem:nil];
+	}
 }
 
-- (BOOL)hasLinkAtBottom {
-	return (eksiTitle.loadedPages < eksiTitle.pages || eksiTitle.hasMoreToLoad);
+#pragma mark Link Buttons
+
+- (void)tumuClicked:(id)sender {
+	if(eksiTitle.hasMoreToLoad)	{
+		[self.navigationItem setRightBarButtonItem:activityItem];
+		[eksiTitle loadAllEntries];
+	}
+}
+
+- (void)pagesClicked:(id)sender {
+	if(pagePicker == nil) {
+		pagePicker = [[PagePickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+		pagePicker.delegate = self;
+	}
+
+	[pagePicker setSelectedPage:eksiTitle.currentPage];
+	[self.view.window addSubview:pagePicker];
+}
+
+- (void)pagePicked:(NSInteger)page {
+	[self.navigationItem setRightBarButtonItem:activityItem];
+	[eksiTitle loadPage:page + 1];
+}
+
+#pragma mark UIPickerView Methods
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	return [NSString stringWithFormat:@"%d", row + 1];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	return [eksiTitle pages];
 }
 
 #pragma mark UIViewController Methods
@@ -80,164 +139,71 @@
 #pragma mark UITableViewController Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if([self hasLinkAtBottom]) {
-		return 2;
-	} else {
-		return 1;
-	}
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if(section == 0) {
-		return [eksiTitle.entries count];
-	} else {
-		return 1;
-	}
+	return [eksiTitle.entries count];
 }
 
 #define CONTENT_TAG 1
 #define AUTHOR_TAG  2
-#define LOAD_TAG    3
-#define PAGES_TAG   4
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell;
+	static NSString *entryCellIdentifier = @"entryCellIdentifier";
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:entryCellIdentifier];
 
-	static NSString *tumuLinkCellIdentifier = @"tumuLinkCell";
-	static NSString *pageLinkCellIdentifier = @"pageLinkCell";
-	static NSString *entryCellIdentifier = @"entryCell";
+	UILabel *contentLabel;
+	UILabel *authorLabel;
 
-	if(indexPath.section == 0)
-	{
-		UILabel *contentLabel;
-		UILabel *authorLabel;
+	if(cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:entryCellIdentifier] autorelease];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-		cell = [tableView dequeueReusableCellWithIdentifier:entryCellIdentifier];
-		if(cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:entryCellIdentifier] autorelease];
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		contentLabel.tag = CONTENT_TAG;
+		contentLabel.font = [UIFont systemFontOfSize:14];
+		contentLabel.lineBreakMode = UILineBreakModeTailTruncation;
+		contentLabel.numberOfLines = 3;
+		[cell.contentView addSubview:contentLabel];
+		[contentLabel release];
 
-			contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-			contentLabel.tag = CONTENT_TAG;
-			contentLabel.font = [UIFont systemFontOfSize:14];
-			contentLabel.lineBreakMode = UILineBreakModeTailTruncation;
-			contentLabel.numberOfLines = 3;
-			[cell.contentView addSubview:contentLabel];
-			[contentLabel release];
-
-			authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-			authorLabel.tag = AUTHOR_TAG;
-			authorLabel.textAlignment = UITextAlignmentRight;
-			authorLabel.font = [UIFont systemFontOfSize:14];
-			[cell.contentView addSubview:authorLabel];
-			[authorLabel release];
-		} else {
-			contentLabel = (UILabel *)[cell.contentView viewWithTag:CONTENT_TAG];
-			authorLabel = (UILabel *)[cell.contentView viewWithTag:AUTHOR_TAG];
-		}
-
-		EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
-		CGFloat height = [self tableView:tableView heightForRowAtIndexPath:indexPath];
-
-		contentLabel.frame = CGRectMake(10, 10, 280, height - 48);
-		authorLabel.frame = CGRectMake(10, height - 28, 280, 18);
-
-		contentLabel.text = entry.content;
-		authorLabel.text = [entry signature];
+		authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		authorLabel.tag = AUTHOR_TAG;
+		authorLabel.textAlignment = UITextAlignmentRight;
+		authorLabel.font = [UIFont systemFontOfSize:14];
+		[cell.contentView addSubview:authorLabel];
+		[authorLabel release];
+	} else {
+		contentLabel = (UILabel *)[cell.contentView viewWithTag:CONTENT_TAG];
+		authorLabel = (UILabel *)[cell.contentView viewWithTag:AUTHOR_TAG];
 	}
-	else
-	{
-		UILabel *loadLabel;
 
-		if(eksiTitle.hasMoreToLoad)
-		{
-			cell = [tableView dequeueReusableCellWithIdentifier:tumuLinkCellIdentifier];
-			if(cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:tumuLinkCellIdentifier] autorelease];
+	EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
+	CGFloat height = heightForEntry(entry);
 
-				loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 20, 300, 20)] autorelease];
-				loadLabel.tag = LOAD_TAG;
-				loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
-				loadLabel.font = [UIFont boldSystemFontOfSize:14];
-				[cell.contentView addSubview:loadLabel];
-			} else {
-				loadLabel = (UILabel *)[cell.contentView viewWithTag:LOAD_TAG];
-			}
+	contentLabel.frame = CGRectMake(10, 10, 280, height);
+	authorLabel.frame = CGRectMake(10, height + 20, 280, 18);
 
-			loadLabel.text = @"Tümünü Göster...";
-		}
-		else if(eksiTitle.loadedPages < eksiTitle.pages)
-		{
-			UILabel *pagesLabel;
-
-			cell = [tableView dequeueReusableCellWithIdentifier:pageLinkCellIdentifier];
-			if(cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:pageLinkCellIdentifier] autorelease];
-
-				loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 13, 300, 18)] autorelease];
-				loadLabel.tag = LOAD_TAG;
-				loadLabel.font = [UIFont boldSystemFontOfSize:14];
-				loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
-				[cell.contentView addSubview:loadLabel];
-
-				pagesLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 26, 300, 20)] autorelease];
-				pagesLabel.tag = PAGES_TAG;
-				pagesLabel.font = [UIFont systemFontOfSize:12];
-				pagesLabel.textColor = [UIColor darkGrayColor];
-				pagesLabel.backgroundColor = [UIColor clearColor];
-				[cell.contentView addSubview:pagesLabel];
-			} else {
-				loadLabel = (UILabel *)[cell.contentView viewWithTag:LOAD_TAG];
-				pagesLabel = (UILabel *)[cell.contentView viewWithTag:PAGES_TAG];
-			}
-
-			loadLabel.text = [NSString stringWithFormat:@"%d. Sayfayı Yükle...", eksiTitle.loadedPages + 1];
-			pagesLabel.text = [NSString stringWithFormat:@"Toplam %d sayfa", eksiTitle.pages];
-		}
-	}
+	contentLabel.text = entry.content;
+	authorLabel.text = [entry signature];
 
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(indexPath.section == 0)
-	{
-		NSString *content = [[eksiTitle.entries objectAtIndex:[indexPath row]] content];
-
-		CGSize size = [content sizeWithFont:[UIFont systemFontOfSize:14]
-						  constrainedToSize:CGSizeMake(280, 54)
-							  lineBreakMode:UILineBreakModeTailTruncation];
-
-		return size.height + 48;
-	}
-	else
-	{
-		return 60;
-	}
+	EksiEntry *entry = [eksiTitle.entries objectAtIndex:[indexPath row]];
+	return heightForEntry(entry) + 48;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-	if(indexPath.section == 0)
-	{
-		EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
-		EntryController *entryController = [[EntryController alloc] initWithEntry:entry];
+	EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
+	EntryController *entryController = [[EntryController alloc] initWithEntry:entry];
 
-		[self.navigationController pushViewController:entryController animated:YES];
-		[entryController release];
-	}
-	else if(indexPath.section == 1)
-	{
-		[self.navigationItem setRightBarButtonItem:activityItem];
-
-		if(eksiTitle.hasMoreToLoad)	{
-			[eksiTitle loadAllEntries];
-		} else if(eksiTitle.loadedPages < eksiTitle.pages) {
-			[eksiTitle loadOneMorePage];
-		}
-
-	}
+	[self.navigationController pushViewController:entryController animated:YES];
+	[entryController release];
 }
 
 #pragma mark EksiTitleDelegate Methods
@@ -257,9 +223,9 @@
 }
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
-	[self.navigationItem setRightBarButtonItem:nil];
 	[self setEksiTitle:title];
 	[self.tableView reloadData];
+	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 }
 
 @end
