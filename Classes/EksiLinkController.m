@@ -36,6 +36,8 @@
 	[super dealloc];
 }
 
+#pragma mark Other Methods
+
 - (void)loadURL {
 	if(myConnection != nil) {
         [myConnection cancel];
@@ -47,7 +49,13 @@
 	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL
 											 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
 										 timeoutInterval:60];
-	myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+	self.myConnection = [NSURLConnection connectionWithRequest:request delegate:self];
+}
+
+- (void)connectionFinished {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[self.navigationItem setRightBarButtonItem:nil];
+	self.myConnection = nil;
 }
 
 #pragma mark UITableViewController Methods
@@ -63,14 +71,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *MyIdentifier = @"MyIdentifier";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-	
+
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
-	
+
 	cell.text = [[stories objectAtIndex:[indexPath row]] title];
-	
+
 	return cell;
 }
 
@@ -93,13 +101,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-
-	[responseData release];
-	[connection release];
-	myConnection = nil;
-
-	[self.navigationItem setRightBarButtonItem:nil];
+	[self connectionFinished];
 
 	NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
 	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content"
@@ -111,21 +113,16 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[self connectionFinished];
 
 	[stories removeAllObjects];
 
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseData];
 	[parser setDelegate:self];
 	[parser parse];
-
-	[responseData release];
-	[connection release];
-	myConnection = nil;
 	[parser release];
 
-	[self.navigationItem setRightBarButtonItem:nil];
-
+	[responseData release];
 	[myTableView reloadData];
 }
 

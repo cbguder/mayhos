@@ -10,8 +10,6 @@
 
 @implementation SearchController
 
-#pragma mark Accessors
-
 @synthesize mySearchBar;
 
 #pragma mark UISearchBarDelegate Methods
@@ -22,9 +20,6 @@
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
 	searchBar.showsCancelButton = NO;
-}
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -57,8 +52,6 @@
 	}
 }
 
-#pragma mark NSURLConnectionDelegate Methods
-
 - (void)decrementActiveConnections {
 	@synchronized(self) {
 		if(activeConnections > 0)
@@ -87,6 +80,8 @@
 	}
 }
 
+#pragma mark NSURLConnectionDelegate Methods
+
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	[super connection:connection didFailWithError:error];
 	[self decrementActiveConnections];
@@ -104,6 +99,8 @@
 
 	[self decrementActiveConnections];
 }
+
+#pragma mark EksiTitleDelegate Methods
 
 - (void)title:(EksiTitle*)title didFailLoadingEntriesWithError:(NSError *)error {
 	[self decrementActiveConnections];

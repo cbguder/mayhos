@@ -13,11 +13,12 @@
 
 @interface SearchController : EksiLinkController <EksiTitleDelegate> {
 	IBOutlet UISearchBar *mySearchBar;
-	int activeConnections;
 	BOOL directSearchSuccess;
+	int activeConnections;
 }
 
 @property (nonatomic, retain) UISearchBar *mySearchBar;
+
 - (void) decrementActiveConnections;
 
 @end
