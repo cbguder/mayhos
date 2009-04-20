@@ -29,12 +29,9 @@
 	
 	NSString *URLString = [theURL absoluteString];
 
-	if([URLString hasSuffix:@"&a=td"])
-	{
+	if([URLString hasSuffix:@"&a=td"]) {
 		[self setAllURL:[NSURL URLWithString:[URLString substringToIndex:[URLString length] - 5]]];
-	}
-	else
-	{
+	} else {
 		[self setAllURL:theURL];
 	}
 }
@@ -44,7 +41,6 @@
 	[title release];
 	[URL release];
 	[allURL release];
-	
 	[entries release];
 	
 	[super dealloc];
@@ -67,8 +63,7 @@
 }
 
 - (void)loadOneMorePage {
-	if(loadedPages < pages)
-	{
+	if(loadedPages < pages) {
 		NSMutableString *pageURLString = [[allURL absoluteString] mutableCopy];
 		[pageURLString appendFormat:@"&p=%d", loadedPages + 1];
 		[self loadEntriesFromURL:[NSURL URLWithString:pageURLString]];

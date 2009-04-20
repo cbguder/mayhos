@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface EksiEntry : NSObject {
 	NSString *author;
 	NSString *content;
