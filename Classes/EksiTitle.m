@@ -193,7 +193,10 @@
 			tempEntry.content = [tempContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			[tempContent release];
 
-			[entries addObject:tempEntry];
+			if(tempEntry.author != nil) {
+				[entries addObject:tempEntry];
+			}
+
 			[tempEntry release];
 
 			inEntry = NO;
