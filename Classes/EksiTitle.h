@@ -19,6 +19,7 @@
 	BOOL hasMoreToLoad;
 
 	NSMutableData *responseData;
+	NSURLConnection *myConnection;
 	
 	EksiEntry *tempEntry;
 	NSMutableString *tempButtonText;
@@ -42,16 +43,17 @@
 - (void)loadOneMorePage;
 - (void)loadEntriesFromURL:(NSURL *)theURL;
 
-@property (copy) NSString *title;
-@property (retain) NSURL *URL;
-@property (retain) NSURL *allURL;
-@property (readonly) NSArray *entries;
-@property (readonly) BOOL hasMoreToLoad;
+@property (nonatomic,copy) NSString *title;
+@property (nonatomic,retain) NSURL *URL;
+@property (nonatomic,retain) NSURL *allURL;
+@property (nonatomic,readonly) NSArray *entries;
+@property (nonatomic,readonly) BOOL hasMoreToLoad;
+@property (nonatomic,retain) NSURLConnection *myConnection;
 
-@property (assign) id<EksiTitleDelegate> delegate;
+@property (nonatomic,assign) id<EksiTitleDelegate> delegate;
 
-@property (readonly) int pages;
-@property (readonly) int loadedPages;
+@property (nonatomic,readonly) int pages;
+@property (nonatomic,readonly) int loadedPages;
 
 @end
 

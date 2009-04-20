@@ -10,28 +10,13 @@
 
 @implementation EksiTitle
 
-@synthesize delegate;
-@synthesize title;
-@synthesize URL;
-@synthesize allURL;
-@synthesize entries;
-@synthesize hasMoreToLoad;
-@synthesize pages;
-@synthesize loadedPages;
+@synthesize delegate, title, URL, allURL, entries, hasMoreToLoad, pages, loadedPages, myConnection;
 
 #pragma mark Initialization Methods
 
 - (id)init {
-	if(self == [super init]) {
-		entries = [[NSMutableArray alloc] init];
-
-		hasMoreToLoad = NO;
-		inAuthor      = NO;
-		inAuthorName  = NO;
-		inButton      = NO;
-		inEntry       = NO;
-		inPagis       = NO;
-		inTitle       = NO;
+	if(self = [super init]) {
+        entries = [[NSMutableArray alloc] init];
 	}
 
 	return self;
@@ -55,6 +40,7 @@
 }
 
 - (void) dealloc {
+	[myConnection release];
 	[title release];
 	[URL release];
 	[allURL release];
@@ -90,9 +76,15 @@
 }
 
 - (void)loadEntriesFromURL:(NSURL *)theURL {
+	if(myConnection != nil) {
+        [myConnection cancel];
+        self.myConnection = nil;
+    }
+
 	NSURLRequest *request =	[NSURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	[[NSURLConnection alloc] initWithRequest:request delegate:self];
+
+	self.myConnection = [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 #pragma mark NSXMLParserDelegate Methods
@@ -224,8 +216,12 @@
 	else if(inTitle && [elementName isEqualToString:@"h1"])
 	{
 		inTitle = NO;
-		self.title = tempTitle;
+
+		NSMutableCharacterSet *suffix = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
+		[suffix addCharactersInString:@"*"];
+		self.title = [tempTitle stringByTrimmingCharactersInSet:suffix];
 		[tempTitle release];
+		[suffix release];
 	}
 }
 
@@ -243,7 +239,7 @@
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
 	[responseData release];
-	[connection release];
+	self.myConnection = nil;
 
 	if(delegate != nil && [delegate respondsToSelector:@selector(didFailLoadingEntriesWithError:)]) {
 		[delegate title:self didFailLoadingEntriesWithError:error];
@@ -258,7 +254,7 @@
 	[parser parse];
 
 	[responseData release];
-	[connection release];
+	self.myConnection = nil;
 	[parser release];
 
 	loadedPages++;
@@ -270,6 +266,11 @@
 	if(delegate != nil && [delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
 		[delegate titleDidFinishLoadingEntries:self];
 	}
+}
+
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
+	self.URL = request.URL;
+	return request;
 }
 
 @end
