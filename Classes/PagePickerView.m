@@ -51,12 +51,26 @@
 	[pickerView selectRow:page - 1 inComponent:0 animated:NO];
 }
 
-- (void)cancel:(id)sender {
+- (void)easeOutFromSuperview {
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
+	[self setFrame:CGRectMake(0, 260, 320, 480)];
+	[UIView commitAnimations];
+}
+
+- (void)animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
 	[self removeFromSuperview];
 }
 
+- (void)cancel:(id)sender {
+	[self easeOutFromSuperview];
+}
+
 - (void)done:(id)sender {
-	[self removeFromSuperview];
+	[self easeOutFromSuperview];
+
 	if(delegate != nil && [delegate respondsToSelector:@selector(pagePicked:)]) {
 		[delegate pagePicked:[pickerView selectedRowInComponent:0]];
 	}

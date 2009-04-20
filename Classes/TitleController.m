@@ -108,12 +108,19 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 
 - (void)pagesClicked:(id)sender {
 	if(pagePicker == nil) {
-		pagePicker = [[PagePickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+		pagePicker = [[PagePickerView alloc] initWithFrame:CGRectMake(0, 260, 320, 480)];
 		pagePicker.delegate = self;
+	} else {
+		[pagePicker setFrame:CGRectMake(0, 260, 320, 480)];
 	}
 
 	[pagePicker setSelectedPage:eksiTitle.currentPage];
 	[self.view.window addSubview:pagePicker];
+
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[pagePicker setFrame:CGRectMake(0, 0, 320, 480)];
+	[UIView commitAnimations];
 }
 
 - (void)pagePicked:(NSInteger)page {
