@@ -10,7 +10,7 @@
 
 @implementation SearchController
 
-@synthesize mySearchBar;
+@synthesize lastSearch, mySearchBar;
 
 #pragma mark UISearchBarDelegate Methods
 
@@ -24,13 +24,18 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
 	[searchBar resignFirstResponder];
+	searchBar.text = lastSearch;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	[searchBar resignFirstResponder];
 
 	NSString *search = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-	if(![search isEqualToString:@""]) {
+	if([search isEqualToString:@""]) {
+		searchBar.text = lastSearch;
+	} else {
+		self.lastSearch = search;
+
 		[stories removeAllObjects];
 		[myTableView reloadData];
 

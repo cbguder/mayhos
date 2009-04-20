@@ -15,9 +15,11 @@
 	IBOutlet UISearchBar *mySearchBar;
 	BOOL directSearchSuccess;
 	int activeConnections;
+	NSString *lastSearch;
 }
 
-@property (nonatomic, retain) UISearchBar *mySearchBar;
+@property (nonatomic,retain) UISearchBar *mySearchBar;
+@property (nonatomic,copy) NSString *lastSearch;
 
 - (void) decrementActiveConnections;
 
