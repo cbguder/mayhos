@@ -35,6 +35,7 @@
 
 - (void)dealloc {
 	[eksiTitle setDelegate:nil];
+	[activityItem release];
 	[eksiTitle release];
 
 	[super dealloc];
@@ -46,7 +47,7 @@
 	[theTitle retain];
 	[eksiTitle release];
 	eksiTitle = theTitle;
-	
+
 	self.title = eksiTitle.title;
 
 	CGSize size = [[eksiTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
