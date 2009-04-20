@@ -16,7 +16,6 @@
 		4C02F1240E76BD3C004B38C1 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C02F1230E76BD3C004B38C1 /* Search.xib */; };
 		4C02F1440E76D455004B38C1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C02F1430E76D455004B38C1 /* Icon.png */; };
 		4C05F87F0F7EC1D60077DB6D /* EksiTitleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C05F87E0F7EC1D60077DB6D /* EksiTitleHeaderView.m */; };
-		4C05FAA70F7EE21A0077DB6D /* EksiEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C05FAA60F7EE21A0077DB6D /* EksiEntryCell.m */; };
 		4C2A2CC10E8A446C00E559DA /* TitleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A2CC00E8A446C00E559DA /* TitleController.m */; };
 		4C54C4C70F19728E00488AE8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C54C4C60F19728E00488AE8 /* Entitlements.plist */; };
 		4C54C5C90F197CE600488AE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C54C5C80F197CE600488AE8 /* CoreGraphics.framework */; };
@@ -47,8 +46,6 @@
 		4C02F1430E76D455004B38C1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		4C05F87D0F7EC1D60077DB6D /* EksiTitleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EksiTitleHeaderView.h; path = Classes/EksiTitleHeaderView.h; sourceTree = "<group>"; };
 		4C05F87E0F7EC1D60077DB6D /* EksiTitleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EksiTitleHeaderView.m; path = Classes/EksiTitleHeaderView.m; sourceTree = "<group>"; };
-		4C05FAA50F7EE21A0077DB6D /* EksiEntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EksiEntryCell.h; path = Classes/EksiEntryCell.h; sourceTree = "<group>"; };
-		4C05FAA60F7EE21A0077DB6D /* EksiEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EksiEntryCell.m; path = Classes/EksiEntryCell.m; sourceTree = "<group>"; };
 		4C2A2CBF0E8A446C00E559DA /* TitleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleController.h; path = Classes/TitleController.h; sourceTree = "<group>"; };
 		4C2A2CC00E8A446C00E559DA /* TitleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleController.m; path = Classes/TitleController.m; sourceTree = "<group>"; };
 		4C54C4C60F19728E00488AE8 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -153,8 +150,6 @@
 		4C05F6A50F7EADE20077DB6D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4C05FAA50F7EE21A0077DB6D /* EksiEntryCell.h */,
-				4C05FAA60F7EE21A0077DB6D /* EksiEntryCell.m */,
 				4C05F87D0F7EC1D60077DB6D /* EksiTitleHeaderView.h */,
 				4C05F87E0F7EC1D60077DB6D /* EksiTitleHeaderView.m */,
 				4CA6E0220F9B6D4D0026304B /* AuthorView.h */,
@@ -260,7 +255,6 @@
 				4C81B0580E90F47400E76220 /* EksiEntry.m in Sources */,
 				4C81B1DB0E91350300E76220 /* EksiTitle.m in Sources */,
 				4C05F87F0F7EC1D60077DB6D /* EksiTitleHeaderView.m in Sources */,
-				4C05FAA70F7EE21A0077DB6D /* EksiEntryCell.m in Sources */,
 				4CA6DFD70F9B6A070026304B /* EntryController.m in Sources */,
 				4CA6E0240F9B6D4D0026304B /* AuthorView.m in Sources */,
 				4CA6E0B50F9B7AFF0026304B /* GradientView.m in Sources */,

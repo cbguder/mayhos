@@ -9,7 +9,6 @@
 #import "TitleController.h"
 #import "EksiTitleHeaderView.h"
 #import "EntryController.h"
-#import "EksiEntryCell.h"
 
 @interface TitleController (Private)
 - (BOOL)hasLinkAtBottom;
@@ -95,46 +94,105 @@
 	}
 }
 
+#define CONTENT_TAG 1
+#define AUTHOR_TAG  2
+#define LOAD_TAG    3
+#define PAGES_TAG   4
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell;
 
+	static NSString *tumuLinkCellIdentifier = @"tumuLinkCell";
+	static NSString *pageLinkCellIdentifier = @"pageLinkCell";
+	static NSString *entryCellIdentifier = @"entryCell";
+
 	if(indexPath.section == 0)
 	{
-		cell = [[[EksiEntryCell alloc] initWithFrame:CGRectZero] autorelease];
-		[(EksiEntryCell *)cell setEntry:[eksiTitle.entries objectAtIndex:indexPath.row]];
-		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+		UILabel *contentLabel;
+		UILabel *authorLabel;
+
+		cell = [tableView dequeueReusableCellWithIdentifier:entryCellIdentifier];
+		if(cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:entryCellIdentifier] autorelease];
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+			contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+			contentLabel.tag = CONTENT_TAG;
+			contentLabel.font = [UIFont systemFontOfSize:14];
+			contentLabel.lineBreakMode = UILineBreakModeTailTruncation;
+			contentLabel.numberOfLines = 3;
+			[cell.contentView addSubview:contentLabel];
+			[contentLabel release];
+
+			authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+			authorLabel.tag = AUTHOR_TAG;
+			authorLabel.textAlignment = UITextAlignmentRight;
+			authorLabel.font = [UIFont systemFontOfSize:14];
+			[cell.contentView addSubview:authorLabel];
+			[authorLabel release];
+		} else {
+			contentLabel = (UILabel *)[cell.contentView viewWithTag:CONTENT_TAG];
+			authorLabel = (UILabel *)[cell.contentView viewWithTag:AUTHOR_TAG];
+		}
+
+		EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
+		CGFloat height = [self tableView:tableView heightForRowAtIndexPath:indexPath];
+
+		contentLabel.frame = CGRectMake(10, 10, 280, height - 48);
+		authorLabel.frame = CGRectMake(10, height - 28, 280, 18);
+
+		contentLabel.text = entry.content;
+		authorLabel.text = [entry signature];
 	}
 	else
 	{
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero] autorelease];
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-
 		UILabel *loadLabel;
 
 		if(eksiTitle.hasMoreToLoad)
 		{
-			loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 20, 300, 20)] autorelease];
-			loadLabel.font = [UIFont boldSystemFontOfSize:14];
-			loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
+			cell = [tableView dequeueReusableCellWithIdentifier:tumuLinkCellIdentifier];
+			if(cell == nil) {
+				cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:tumuLinkCellIdentifier] autorelease];
+
+				loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 20, 300, 20)] autorelease];
+				loadLabel.tag = LOAD_TAG;
+				loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
+				loadLabel.font = [UIFont boldSystemFontOfSize:14];
+				[cell.contentView addSubview:loadLabel];
+			} else {
+				loadLabel = (UILabel *)[cell.contentView viewWithTag:LOAD_TAG];
+			}
+
 			loadLabel.text = @"Tümünü Göster...";
 		}
 		else if(eksiTitle.loadedPages < eksiTitle.pages)
 		{
-			loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 13, 300, 18)] autorelease];
-			loadLabel.font = [UIFont boldSystemFontOfSize:14];
-			loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
+			UILabel *pagesLabel;
+
+			cell = [tableView dequeueReusableCellWithIdentifier:pageLinkCellIdentifier];
+			if(cell == nil) {
+				cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:pageLinkCellIdentifier] autorelease];
+
+				loadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 13, 300, 18)] autorelease];
+				loadLabel.tag = LOAD_TAG;
+				loadLabel.font = [UIFont boldSystemFontOfSize:14];
+				loadLabel.textColor = [UIColor colorWithRed:0.14 green:0.44 blue:0.85 alpha:1.0];
+				[cell.contentView addSubview:loadLabel];
+				
+				pagesLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 26, 300, 20)] autorelease];
+				pagesLabel.tag = PAGES_TAG;
+				pagesLabel.font = [UIFont systemFontOfSize:12];
+				pagesLabel.textColor = [UIColor darkGrayColor];
+				pagesLabel.backgroundColor = [UIColor clearColor];
+				[cell.contentView addSubview:pagesLabel];
+			} else {
+				loadLabel = (UILabel *)[cell.contentView viewWithTag:LOAD_TAG];
+				pagesLabel = (UILabel *)[cell.contentView viewWithTag:PAGES_TAG];
+			}
+			
 			loadLabel.text = [NSString stringWithFormat:@"%d. Sayfayı Yükle...", eksiTitle.loadedPages + 1];
-
-			UILabel *pagesLabel = [[[UILabel alloc] initWithFrame:CGRectMake(15, 26, 300, 20)] autorelease];
-			pagesLabel.font = [UIFont systemFontOfSize:12];
-			pagesLabel.textColor = [UIColor darkGrayColor];
-			pagesLabel.backgroundColor = [UIColor clearColor];
 			pagesLabel.text = [NSString stringWithFormat:@"Toplam %d sayfa", eksiTitle.pages];
-
-			[cell.contentView addSubview:pagesLabel];
 		}
-
-		[cell.contentView addSubview:loadLabel];
 	}
 
 	return cell;
@@ -149,7 +207,7 @@
 						  constrainedToSize:CGSizeMake(280, 54)
 							  lineBreakMode:UILineBreakModeTailTruncation];
 
-		return size.height + 54;
+		return size.height + 48;
 	}
 	else
 	{
@@ -157,7 +215,9 @@
 	}
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+
 	if(indexPath.section == 0)
 	{
 		EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
@@ -177,8 +237,6 @@
 		}
 
 	}
-
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark EksiTitleDelegate Methods
