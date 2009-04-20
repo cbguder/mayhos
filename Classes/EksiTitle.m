@@ -58,10 +58,10 @@
 }
 
 - (void)loadPage:(NSUInteger)page {
-	hasMoreToLoad = NO;
-	loadingPage = page;
-
 	if(0 < page && page <= pages) {
+		hasMoreToLoad = NO;
+		loadingPage = page;
+
 		if(page == 1) {
 			[self loadEntriesFromURL:allURL];
 		} else {
@@ -255,10 +255,10 @@
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseData];
 	[parser setDelegate:self];
 	[parser parse];
+	[parser release];
 
 	[responseData release];
 	self.myConnection = nil;
-	[parser release];
 
 	if(loadingPage != 0) {
 		currentPage = loadingPage;
