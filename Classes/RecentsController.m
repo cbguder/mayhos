@@ -12,17 +12,15 @@
 
 #pragma mark Initialization Methods
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	if(self = [super initWithCoder:aDecoder]) {
-		refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-																	target:self
-																	action:@selector(refresh)];
-		[self.navigationItem setRightBarButtonItem:refreshItem];
+- (void)viewDidLoad {
+	[super viewDidLoad];
 
-		self.myURL = [NSURL URLWithString:@"http://sozluk.sourtimes.org/index.asp"];
-	}
+	refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+																target:self
+																action:@selector(refresh)];
+	[self.navigationItem setRightBarButtonItem:refreshItem];
 
-	return self;
+	self.myURL = [NSURL URLWithString:@"http://sozluk.sourtimes.org/index.asp"];
 }
 
 - (void)dealloc {

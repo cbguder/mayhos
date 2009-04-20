@@ -14,17 +14,13 @@
 
 #pragma mark Initialization Methods
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	if(self = [super initWithCoder:aDecoder]) {
-		stories = [[NSMutableArray alloc] init];
+- (void)viewDidLoad {
+	stories = [[NSMutableArray alloc] init];
 
-		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-		[activityIndicatorView startAnimating];
-		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
-		[activityIndicatorView release];
-	}
-
-	return self;
+	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+	[activityIndicatorView startAnimating];
+	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
+	[activityIndicatorView release];
 }
 
 - (void)dealloc {
