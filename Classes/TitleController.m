@@ -59,24 +59,7 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 
 #pragma mark Accessors
 
-- (void)setEksiTitle:(EksiTitle *)theTitle {
-	[theTitle retain];
-	[eksiTitle release];
-	eksiTitle = theTitle;
-
-	self.title = eksiTitle.title;
-
-	CGSize size = [[eksiTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
-								constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
-									lineBreakMode:UILineBreakModeWordWrap];
-
-	EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, size.height + 20)];
-	[headerView setText:eksiTitle.title];
-	self.tableView.tableHeaderView = headerView;
-	[headerView release];
-
-	[eksiTitle setDelegate:self];
-
+- (void)resetNavigationBar {
 	if([eksiTitle hasMoreToLoad]) {
 		[self.navigationItem setRightBarButtonItem:tumuItem];
 	} else if(eksiTitle.pages > 1) {
@@ -85,6 +68,33 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 	} else {
 		[self.navigationItem setRightBarButtonItem:nil];
 	}
+}
+
+- (void)resetHeaderView {
+	if(![self.title isEqualToString:eksiTitle.title]) {
+		self.title = eksiTitle.title;
+
+		CGSize size = [[eksiTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
+									constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
+										lineBreakMode:UILineBreakModeWordWrap];
+
+		EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, size.height + 20)];
+		[headerView setText:eksiTitle.title];
+		self.tableView.tableHeaderView = headerView;
+		[headerView release];
+	}
+}
+
+- (void)setEksiTitle:(EksiTitle *)theTitle {
+	if(theTitle != eksiTitle) {
+		[eksiTitle setDelegate:nil];
+		[eksiTitle release];
+		eksiTitle = [theTitle retain];
+		[eksiTitle setDelegate:self];
+	}
+
+	[self resetNavigationBar];
+	[self resetHeaderView];
 }
 
 #pragma mark Link Buttons
@@ -107,8 +117,10 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 }
 
 - (void)pagePicked:(NSInteger)page {
-	[self.navigationItem setRightBarButtonItem:activityItem];
-	[eksiTitle loadPage:page + 1];
+	if(eksiTitle.currentPage != page + 1) {
+		[self.navigationItem setRightBarButtonItem:activityItem];
+		[eksiTitle loadPage:page + 1];
+	}
 }
 
 #pragma mark UIPickerView Methods
@@ -209,7 +221,8 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 #pragma mark EksiTitleDelegate Methods
 
 - (void)title:(EksiTitle*)title didFailLoadingEntriesWithError:(NSError *)error {
-	[self.navigationItem setRightBarButtonItem:nil];
+	[self resetNavigationBar];
+	[self.tableView reloadData];
 
 	NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
 
@@ -223,7 +236,8 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 }
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
-	[self setEksiTitle:title];
+	[self resetNavigationBar];
+	[self resetHeaderView];
 	[self.tableView reloadData];
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 }
