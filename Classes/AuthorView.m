@@ -11,15 +11,19 @@
 @implementation AuthorView
 
 - (void)setAuthor:(NSString *)anAuthor {
-	[author release];
-	author = [anAuthor copy];
-	[self setNeedsDisplay];
+	if(![author isEqualToString:anAuthor]) {
+		[author release];
+		author = [anAuthor copy];
+		[self setNeedsDisplay];
+	}
 }
 
 - (void)setDate:(NSString *)aDate {
-	[date release];
-	date = [aDate copy];
-	[self setNeedsDisplay];
+	if(![date isEqualToString:aDate]) {
+		[date release];
+		date = [aDate copy];
+		[self setNeedsDisplay];
+	}
 }
 
 - (void)drawRect:(CGRect)rect {

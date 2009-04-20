@@ -11,9 +11,11 @@
 @implementation EksiTitleHeaderView
 
 - (void)setText:(NSString *)aText {
-	[text release];
-	text = [aText copy];
-	[self setNeedsDisplay];
+	if(![text isEqualToString:aText]) {
+		[text release];
+		text = [aText copy];
+		[self setNeedsDisplay];
+	}
 }
 
 - (void)drawRect:(CGRect)rect {
