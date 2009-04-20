@@ -24,15 +24,6 @@
 	if (self = [super init]) {
 		[self setEksiTitle:theTitle];
 
-		CGSize size = [[theTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
-								   constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
-									   lineBreakMode:UILineBreakModeWordWrap];
-
-		EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, size.height + 20)];
-		[headerView setText:theTitle.title];
-		self.tableView.tableHeaderView = headerView;
-		[headerView release];
-
 		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
 		[activityIndicatorView startAnimating];
 		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
@@ -57,6 +48,15 @@
 	eksiTitle = theTitle;
 	
 	self.title = eksiTitle.title;
+
+	CGSize size = [[eksiTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
+								constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
+									lineBreakMode:UILineBreakModeWordWrap];
+
+	EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, size.height + 20)];
+	[headerView setText:eksiTitle.title];
+	self.tableView.tableHeaderView = headerView;
+	[headerView release];
 
 	[eksiTitle setDelegate:self];
 }
@@ -257,6 +257,7 @@
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
 	[self.navigationItem setRightBarButtonItem:nil];
+	[self setEksiTitle:title];
 	[self.tableView reloadData];
 }
 
