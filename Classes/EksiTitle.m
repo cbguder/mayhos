@@ -7,6 +7,8 @@
 //
 
 #import "EksiTitle.h"
+#import "NSURL+Query.h"
+#import "NSDictionary+URLEncoding.h"
 
 @implementation EksiTitle
 
@@ -27,13 +29,10 @@
 	[URL release];
 	URL = theURL;
 
-	NSString *URLString = [theURL absoluteString];
-
-	if([URLString hasSuffix:@"&a=td"]) {
-		[self setAllURL:[NSURL URLWithString:[URLString substringToIndex:[URLString length] - 5]]];
-	} else {
-		[self setAllURL:theURL];
-	}
+	NSString *t = [[theURL queryDictionary] valueForKey:@"t"];
+	NSString *query = [[NSDictionary dictionaryWithObject:t forKey:@"t"] urlEncodedString];
+	NSString *allURLString = [NSString stringWithFormat:@"http://sozluk.sourtimes.org/show.asp?%@", query];
+	[self setAllURL:[NSURL URLWithString:allURLString]];
 }
 
 - (void) dealloc {
@@ -64,10 +63,10 @@
 
 - (void)loadOneMorePage {
 	if(loadedPages < pages) {
-		NSMutableString *pageURLString = [[allURL absoluteString] mutableCopy];
-		[pageURLString appendFormat:@"&p=%d", loadedPages + 1];
-		[self loadEntriesFromURL:[NSURL URLWithString:pageURLString]];
-		[pageURLString release];
+		NSMutableString *allURLString = [[allURL absoluteString] mutableCopy];
+		[allURLString appendFormat:@"&p=%d", loadedPages + 1];
+		[self loadEntriesFromURL:[NSURL URLWithString:allURLString]];
+		[allURLString release];
 	}
 }
 
