@@ -10,12 +10,12 @@
 
 @implementation EksiLinkController
 
-@synthesize myTableView;
+@synthesize myTableView, myURL, myConnection;
 
 #pragma mark Initialization Methods
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-	if (self == [super initWithCoder:aDecoder]) {
+	if(self = [super initWithCoder:aDecoder]) {
 		stories = [[NSMutableArray alloc] init];
 
 		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
@@ -23,11 +23,12 @@
 		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
 		[activityIndicatorView release];
 	}
-	
+
 	return self;
 }
 
 - (void)dealloc {
+	[myConnection release];
 	[activityItem release];
 	[stories release];
 	[myURL release];
@@ -36,12 +37,17 @@
 }
 
 - (void)loadURL {
+	if(myConnection != nil) {
+        [myConnection cancel];
+        self.myConnection = nil;
+    }
+
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	[self.navigationItem setRightBarButtonItem:activityItem];
 	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL
 											 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
 										 timeoutInterval:60];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+	myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 #pragma mark UITableViewController Methods
@@ -91,6 +97,7 @@
 
 	[responseData release];
 	[connection release];
+	myConnection = nil;
 
 	[self.navigationItem setRightBarButtonItem:nil];
 
@@ -114,6 +121,7 @@
 
 	[responseData release];
 	[connection release];
+	myConnection = nil;
 	[parser release];
 
 	[self.navigationItem setRightBarButtonItem:nil];

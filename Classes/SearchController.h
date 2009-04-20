@@ -14,6 +14,7 @@
 @interface SearchController : EksiLinkController <EksiTitleDelegate> {
 	IBOutlet UISearchBar *mySearchBar;
 	int activeConnections;
+	BOOL directSearchSuccess;
 }
 
 @property (nonatomic, retain) UISearchBar *mySearchBar;

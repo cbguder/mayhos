@@ -13,15 +13,15 @@
 #pragma mark Initialization Methods
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-	if (self == [super initWithCoder:aDecoder]) {
+	if(self = [super initWithCoder:aDecoder]) {
 		refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
 																	target:self
 																	action:@selector(refresh)];
 		[self.navigationItem setRightBarButtonItem:refreshItem];
 
-		myURL = [[NSURL alloc] initWithString:@"http://sozluk.sourtimes.org/index.asp"];
+		self.myURL = [NSURL URLWithString:@"http://sozluk.sourtimes.org/index.asp"];
 	}
-	
+
 	return self;
 }
 

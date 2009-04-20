@@ -34,35 +34,51 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	[searchBar resignFirstResponder];
 
-	[stories removeAllObjects];
-	[myTableView reloadData];
+	NSString *search = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	if(![search isEqualToString:@""]) {
+		[stories removeAllObjects];
+		[myTableView reloadData];
 
-	NSString *query = [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString *query = [search stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-	NSString *searchURL = [NSString stringWithFormat:@"http://sozluk.sourtimes.org/index.asp?a=sr&kw=%@", query];
-	NSString *directURL = [NSString stringWithFormat:@"http://sozluk.sourtimes.org/show.asp?t=%@", query];
+		NSString *searchURL = [NSString stringWithFormat:@"http://sozluk.sourtimes.org/index.asp?a=sr&kw=%@", query];
+		NSString *directURL = [NSString stringWithFormat:@"http://sozluk.sourtimes.org/show.asp?t=%@", query];
 
-	activeConnections = 2;
+		activeConnections = 2;
 
-	[myURL release];
-	myURL = [[NSURL alloc] initWithString:searchURL];
-	[self loadURL];
+		myURL = [NSURL URLWithString:searchURL];
+		[self loadURL];
 
-	EksiTitle *title = [[EksiTitle alloc] init];
-	[title setURL:[NSURL URLWithString:directURL]];
-	[title setDelegate:self];
-	[title loadEntries];
+		directSearchSuccess = NO;
+		EksiTitle *title = [[EksiTitle alloc] init];
+		[title setURL:[NSURL URLWithString:directURL]];
+		[title setDelegate:self];
+		[title loadEntries];
+	}
 }
 
 #pragma mark NSURLConnectionDelegate Methods
 
 - (void)decrementActiveConnections {
 	@synchronized(self) {
-		activeConnections--;
+		if(activeConnections > 0)
+			activeConnections--;
 
 		if(activeConnections == 0) {
 			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 			[self.navigationItem setRightBarButtonItem:nil];
+
+			if(directSearchSuccess && [stories count] > 1) {
+				EksiTitle *firstTitle = (EksiTitle *)[stories objectAtIndex:0];
+				for(int i = 1; i < [stories count]; i++) {
+					EksiTitle *title = (EksiTitle *)[stories objectAtIndex:i];
+					if([title.title isEqualToString:firstTitle.title]) {
+						[stories removeObjectAtIndex:i];
+						break;
+					}
+				}
+			}
+
 			[myTableView reloadData];
 		} else {
 			[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -83,6 +99,7 @@
 
 	[responseData release];
 	[connection release];
+	myConnection = nil;
 	[parser release];
 
 	[self decrementActiveConnections];
@@ -90,6 +107,7 @@
 
 - (void)title:(EksiTitle*)title didFailLoadingEntriesWithError:(NSError *)error {
 	[self decrementActiveConnections];
+	[title release];
 }
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
@@ -97,10 +115,12 @@
 		EksiEntry *firstEntry = [title.entries objectAtIndex:0];
 		if(firstEntry.author != nil) {
 			[stories insertObject:title atIndex:0];
+			directSearchSuccess = YES;
 		}
 	}
 
 	[self decrementActiveConnections];
+	[title release];
 }
 
 @end

@@ -24,7 +24,9 @@
 	NSMutableString *tempString;
 }
 
-@property (nonatomic, retain) IBOutlet UITableView *myTableView;
+@property (nonatomic,retain) IBOutlet UITableView *myTableView;
+@property (nonatomic,retain) NSURLConnection *myConnection;
+@property (nonatomic,retain) NSURL *myURL;
 
 - (void)loadURL;
 
