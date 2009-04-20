@@ -15,15 +15,15 @@
 	NSDate *lastEdit;
 }
 
-- (id)initWithAuthor:(NSString *)theAuthor content:(NSString *)theContent date:(NSDate *)theDate lastEdit:(NSDate *)theLastEdit;
+- (id)initWithAuthor:(NSString *)author content:(NSString *)content date:(NSDate *)date lastEdit:(NSDate *)lastEdit;
 - (NSString *)dateString;
 - (NSString *)signature;
 + (NSDate *)parseDate:(NSString *)theDate;
 + (NSDate *)parseDate:(NSString *)theDate withBaseDate:(NSString *)theBaseDate;
 
-@property (copy) NSString *author;
-@property (copy) NSString *content;
-@property (retain) NSDate *date;
-@property (retain) NSDate *lastEdit;
+@property (nonatomic,copy) NSString *author;
+@property (nonatomic,copy) NSString *content;
+@property (nonatomic,retain) NSDate *date;
+@property (nonatomic,retain) NSDate *lastEdit;
 
 @end

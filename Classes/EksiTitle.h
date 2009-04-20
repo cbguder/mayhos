@@ -17,10 +17,16 @@
 	NSURL *allURL;
 	NSMutableArray *entries;
 	BOOL hasMoreToLoad;
+	int pages;
+	int loadedPages;
 
+	id delegate;
+	
+	// NSURLConnection Members
 	NSMutableData *responseData;
 	NSURLConnection *myConnection;
-	
+
+	// NSXMLParser Members
 	EksiEntry *tempEntry;
 	NSMutableString *tempButtonText;
 	NSMutableString *tempContent;
@@ -31,11 +37,6 @@
 	BOOL inEntry;
 	BOOL inPagis;
 	BOOL inTitle;
-
-	int pages;
-	int loadedPages;
-
-	id delegate;
 }
 
 - (void)loadEntries;
@@ -48,12 +49,12 @@
 @property (nonatomic,retain) NSURL *allURL;
 @property (nonatomic,readonly) NSArray *entries;
 @property (nonatomic,readonly) BOOL hasMoreToLoad;
-@property (nonatomic,retain) NSURLConnection *myConnection;
+@property (nonatomic,readonly) int pages;
+@property (nonatomic,readonly) int loadedPages;
 
 @property (nonatomic,assign) id<EksiTitleDelegate> delegate;
 
-@property (nonatomic,readonly) int pages;
-@property (nonatomic,readonly) int loadedPages;
+@property (nonatomic,retain) NSURLConnection *myConnection;
 
 @end
 

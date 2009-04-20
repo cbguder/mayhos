@@ -10,7 +10,7 @@
 
 @implementation EksiEntry
 
-#pragma mark Initialization Methods
+@synthesize author, content, date, lastEdit;
 
 - (id)initWithAuthor:(NSString *)theAuthor content:(NSString *)theContent date:(NSDate *)theDate lastEdit:(NSDate *)theLastEdit {
 	[super init];
@@ -31,12 +31,7 @@
 	[super dealloc];
 }
 
-#pragma mark Accessors
-
-@synthesize author;
-@synthesize content;
-@synthesize date;
-@synthesize lastEdit;
+#pragma mark Properties
 
 - (NSString *)dateString {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];

@@ -67,6 +67,7 @@
 		NSMutableString *pageURLString = [[allURL absoluteString] mutableCopy];
 		[pageURLString appendFormat:@"&p=%d", loadedPages + 1];
 		[self loadEntriesFromURL:[NSURL URLWithString:pageURLString]];
+		[pageURLString release];
 	}
 }
 
@@ -254,6 +255,7 @@
 
 	loadedPages++;
 
+	// Sanity check
 	if(loadedPages > pages) {
 		pages = loadedPages;
 	}
