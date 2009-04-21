@@ -188,6 +188,7 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 		contentLabel.font = [UIFont systemFontOfSize:14];
 		contentLabel.lineBreakMode = UILineBreakModeTailTruncation;
 		contentLabel.numberOfLines = 3;
+		contentLabel.highlightedTextColor = [UIColor whiteColor];
 		[cell.contentView addSubview:contentLabel];
 		[contentLabel release];
 
@@ -195,6 +196,7 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 		authorLabel.tag = AUTHOR_TAG;
 		authorLabel.textAlignment = UITextAlignmentRight;
 		authorLabel.font = [UIFont systemFontOfSize:14];
+		authorLabel.highlightedTextColor = [UIColor whiteColor];
 		[cell.contentView addSubview:authorLabel];
 		[authorLabel release];
 	} else {
