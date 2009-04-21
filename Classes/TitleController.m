@@ -103,6 +103,8 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 	if(eksiTitle.hasMoreToLoad)	{
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadAllEntries];
+		[self.tableView reloadData];
+		[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 	}
 }
 
@@ -127,6 +129,8 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 	if(eksiTitle.currentPage != page + 1) {
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadPage:page + 1];
+		[self.tableView reloadData];
+		[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 	}
 }
 
