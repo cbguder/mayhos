@@ -12,6 +12,14 @@
 
 @synthesize lastSearch, mySearchBar;
 
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	if(lastSearch != nil) {
+		[mySearchBar setText:lastSearch];
+	}
+}
+
 #pragma mark UISearchBarDelegate Methods
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
