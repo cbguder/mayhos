@@ -21,14 +21,16 @@
 		[self addSubview:toolbar];
 		[toolbar release];
 
+		UIBarButtonItem *lastItem = [[UIBarButtonItem alloc] initWithTitle:@"Son" style:UIBarButtonItemStyleDone target:self action:@selector(last:)];
 		UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-		UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel:)];
-		UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(done:)];
+		UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"İptal" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel:)];
+		UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Tamam" style:UIBarButtonItemStyleDone target:self action:@selector(done:)];
 
-		toolbar.items = [NSArray arrayWithObjects:flexibleSpace, cancelItem, doneItem, nil];
+		toolbar.items = [NSArray arrayWithObjects:lastItem, flexibleSpace, cancelItem, doneItem, nil];
 
 		[flexibleSpace release];
 		[cancelItem release];
+		[lastItem release];
 		[doneItem release];
 
 		pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 264, 0, 0)];
@@ -69,11 +71,20 @@
 }
 
 - (void)done:(id)sender {
-	[self easeOutFromSuperview];
-
 	if(delegate != nil && [delegate respondsToSelector:@selector(pagePicked:)]) {
 		[delegate pagePicked:[pickerView selectedRowInComponent:0]];
 	}
+
+	[self easeOutFromSuperview];
+}
+
+- (void)last:(id)sender {
+	NSUInteger lastPage = [pickerView numberOfRowsInComponent:0] - 1;
+	if(delegate != nil && [delegate respondsToSelector:@selector(pagePicked:)]) {
+		[delegate pagePicked:lastPage];
+	}
+
+	[self easeOutFromSuperview];
 }
 
 - (void)dealloc {
