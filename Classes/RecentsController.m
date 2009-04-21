@@ -10,15 +10,18 @@
 
 @implementation RecentsController
 
+@synthesize refreshItem;
+
 #pragma mark Initialization Methods
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-																target:self
-																action:@selector(refresh)];
+	self.refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+																	 target:self
+																	 action:@selector(refresh)];
 	[self.navigationItem setRightBarButtonItem:refreshItem];
+	[refreshItem release];
 
 	self.myURL = [NSURL URLWithString:@"http://sozluk.sourtimes.org/index.asp"];
 }

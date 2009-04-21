@@ -14,6 +14,8 @@
 	UIBarButtonItem *refreshItem;
 }
 
+@property (nonatomic,retain) UIBarButtonItem *refreshItem;
+
 -(void)refresh;
 
 @end
