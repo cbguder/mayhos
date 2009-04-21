@@ -10,7 +10,10 @@
 #import "EksiEntry.h"
 
 @interface EntryController : UIViewController {
+	EksiEntry *entry;
 }
+
+@property (nonatomic,retain) EksiEntry *entry;
 
 - (id)initWithEntry:(EksiEntry *)entry;
 
