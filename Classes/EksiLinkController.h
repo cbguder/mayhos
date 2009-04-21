@@ -26,6 +26,7 @@
 
 @property (nonatomic,retain) IBOutlet UITableView *myTableView;
 @property (nonatomic,retain) NSURLConnection *myConnection;
+@property (nonatomic,retain) NSMutableArray *stories;
 @property (nonatomic,retain) NSURL *myURL;
 
 - (void)loadURL;

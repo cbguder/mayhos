@@ -10,12 +10,14 @@
 
 @implementation EksiLinkController
 
-@synthesize myTableView, myURL, myConnection;
+@synthesize stories, myTableView, myURL, myConnection;
 
 #pragma mark Initialization Methods
 
 - (void)viewDidLoad {
-	stories = [[NSMutableArray alloc] init];
+	if(stories == nil) {
+		self.stories = [NSMutableArray array];
+	}
 
 	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
 	[activityIndicatorView startAnimating];
