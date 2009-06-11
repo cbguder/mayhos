@@ -153,7 +153,7 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	if([eksiTitle.entries count] == 0) {
+	if([[eksiTitle entries] count] == 0) {
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadEntries];
 	}
@@ -166,7 +166,7 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [eksiTitle.entries count];
+	return [[eksiTitle entries] count];
 }
 
 #define CONTENT_TAG 1
@@ -204,7 +204,7 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 		authorLabel = (UILabel *)[cell.contentView viewWithTag:AUTHOR_TAG];
 	}
 
-	EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
+	EksiEntry *entry = [[eksiTitle entries] objectAtIndex:indexPath.row];
 	CGFloat height = heightForEntry(entry);
 
 	contentLabel.frame = CGRectMake(10, 10, 280, height);
@@ -217,14 +217,14 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	EksiEntry *entry = [eksiTitle.entries objectAtIndex:[indexPath row]];
+	EksiEntry *entry = [[eksiTitle entries] objectAtIndex:indexPath.row];
 	return heightForEntry(entry) + 48;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-	EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
+	EksiEntry *entry = [[eksiTitle entries] objectAtIndex:indexPath.row];
 	EntryController *entryController = [[EntryController alloc] initWithEntry:entry];
 
 	[self.navigationController pushViewController:entryController animated:YES];
