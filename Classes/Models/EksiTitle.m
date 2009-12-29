@@ -18,7 +18,7 @@
 
 - (id)init {
 	if(self = [super init]) {
-        entries = [[NSMutableArray alloc] init];
+		entries = [[NSMutableArray alloc] init];
 		currentPage = 1;
 		pages = 1;
 	}
@@ -77,9 +77,9 @@
 	[entries removeAllObjects];
 
 	if(myConnection != nil) {
-        [myConnection cancel];
-        self.myConnection = nil;
-    }
+		[myConnection cancel];
+		self.myConnection = nil;
+	}
 
 	NSURLRequest *request = [NSURLRequest requestWithURL:theURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -157,12 +157,12 @@
 
 				if([dateParts count] == 1)
 				{
-					tempEntry.date     = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
+					tempEntry.date = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
 					tempEntry.lastEdit = nil;
 				}
 				else if ([dateParts count] > 1)
 				{
-					tempEntry.date     = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
+					tempEntry.date = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
 					tempEntry.lastEdit = [EksiEntry parseDate:[dateParts objectAtIndex:1] withBaseDate:[dateParts objectAtIndex:0]];
 				}				
 			}
@@ -228,6 +228,11 @@
 	}
 }
 
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+	NSLog(@"parse error: %@", [parseError localizedDescription]);
+	NSLog(@"code: %d, line: %d, column: %d", [parseError code], [parser lineNumber], [parser columnNumber]);
+}
+
 #pragma mark NSURLConnectionDelegate Methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -235,7 +240,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [responseData appendData:data];
+	[responseData appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
@@ -254,20 +259,27 @@
 
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseData];
 	[parser setDelegate:self];
-	[parser parse];
-	[parser release];
+	BOOL success = [parser parse];
 
 	[responseData release];
 	self.myConnection = nil;
 
-	if(loadingPage != 0) {
+	if(success && loadingPage != 0) {
 		currentPage = loadingPage;
 		loadingPage = 0;
 	}
 
-	if(delegate != nil && [delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
-		[delegate titleDidFinishLoadingEntries:self];
+	if(delegate != nil) {
+		if(success) {
+			if([delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
+				[delegate titleDidFinishLoadingEntries:self];
+			}
+		} else if([delegate respondsToSelector:@selector(title:didFailLoadingEntriesWithError:)]) {
+			[delegate title:self didFailLoadingEntriesWithError:[parser parserError]];
+		}
 	}
+
+	[parser release];
 }
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {

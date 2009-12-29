@@ -1,9 +1,9 @@
 //
 //  main.m
-//  EksiSozluk
+//  mayhos
 //
-//  Created by Can Berk Güder on 2008-09-09.
-//  Copyright 2008 Can Berk Güder. All rights reserved.
+//  Created by Can Berk Güder on 29/12/2009.
+//  Copyright Can Berk Güder 2009. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -14,4 +14,3 @@ int main(int argc, char *argv[]) {
 	[pool release];
 	return retVal;
 }
-

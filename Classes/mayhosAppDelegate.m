@@ -1,14 +1,14 @@
 //
-//  EksiSozlukAppDelegate.m
-//  EksiSozluk
+//  mayhosAppDelegate.m
+//  mayhos
 //
-//  Created by Can Berk Güder on 2008-09-09.
-//  Copyright 2008 Can Berk Güder. All rights reserved.
+//  Created by Can Berk Güder on 29/12/2009.
+//  Copyright Can Berk Güder 2009. All rights reserved.
 //
 
-#import "EksiSozlukAppDelegate.h"
+#import "mayhosAppDelegate.h"
 
-@implementation EksiSozlukAppDelegate
+@implementation mayhosAppDelegate
 
 @synthesize window;
 @synthesize tabBarController;

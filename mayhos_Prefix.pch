@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'mayhos' target in the 'mayhos' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+#endif

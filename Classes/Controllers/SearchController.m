@@ -121,8 +121,8 @@
 }
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
-	if([[title entries] count] != 0) {
-		EksiEntry *firstEntry = [[title entries] objectAtIndex:0];
+	if([title.entries count] != 0) {
+		EksiEntry *firstEntry = [title.entries objectAtIndex:0];
 		if(firstEntry.author != nil) {
 			[stories insertObject:title atIndex:0];
 			directSearchSuccess = YES;

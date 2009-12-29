@@ -37,7 +37,7 @@
 - (void)dealloc {
 	[author release];
 	[date release];
-    [super dealloc];
+	[super dealloc];
 }
 
 @end

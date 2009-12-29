@@ -29,7 +29,7 @@
 
 - (void)dealloc {
 	[text release];
-    [super dealloc];
+	[super dealloc];
 }
 
 @end

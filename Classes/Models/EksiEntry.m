@@ -41,7 +41,7 @@
 	if (lastEdit == nil || [date isEqualToDate:lastEdit]) {
 		return [dateFormatter stringFromDate:date];
 	} else {
-		long dnDate     = (long) floor(([date timeIntervalSinceReferenceDate] + [[NSTimeZone localTimeZone] secondsFromGMTForDate:date]) / (double)(60*60*24));
+		long dnDate = (long) floor(([date timeIntervalSinceReferenceDate] + [[NSTimeZone localTimeZone] secondsFromGMTForDate:date]) / (double)(60*60*24));
 		long dnLastEdit = (long) floor(([lastEdit timeIntervalSinceReferenceDate] + [[NSTimeZone localTimeZone] secondsFromGMTForDate:lastEdit]) / (double)(60*60*24));
 
 		if (dnDate == dnLastEdit) {
@@ -65,10 +65,11 @@
 }
 
 + (NSDate *)parseDate:(NSString *)theDate withBaseDate:(NSString *)theBaseDate {
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"tr_TR"] autorelease];
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-	[dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"tr_TR"]];
+	[dateFormatter setLocale:locale];
 	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Istanbul"]];
 
 	if ([theDate length] == 5) {

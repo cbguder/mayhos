@@ -1,4 +1,4 @@
 build
-Eksi Sozluk.xcodeproj/*.pbxuser
-Eksi Sozluk.xcodeproj/*.mode1v3
-Eksi Sozluk.xcodeproj/*.mode2v3
+*.pbxuser
+*.mode1v3
+*.mode2v3

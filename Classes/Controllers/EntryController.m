@@ -15,11 +15,11 @@
 @synthesize entry;
 
 - (id)initWithEntry:(EksiEntry *)anEntry {
-    if(self = [super init]) {
+	if(self = [super init]) {
 		[self setEntry:anEntry];
-    }
+	}
 
-    return self;
+	return self;
 }
 
 - (void)loadView {
@@ -41,7 +41,7 @@
 
 - (void)dealloc {
 	[entry release];
-    [super dealloc];
+	[super dealloc];
 }
 
 @end

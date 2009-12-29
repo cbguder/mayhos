@@ -13,7 +13,7 @@
 @synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame {
-    if(self = [super initWithFrame:frame]) {
+	if(self = [super initWithFrame:frame]) {
 		self.backgroundColor = [UIColor clearColor];
 
 		UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 220, 320, 44)];
@@ -37,9 +37,9 @@
 		pickerView.showsSelectionIndicator = YES;
 		[self addSubview:pickerView];
 		[pickerView release];
-    }
+	}
 
-    return self;
+	return self;
 }
 
 - (void)setDelegate:(id<PagePickerDelegate>)aDelegate {
@@ -88,7 +88,7 @@
 }
 
 - (void)dealloc {
-    [super dealloc];
+	[super dealloc];
 }
 
 @end

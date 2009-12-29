@@ -38,9 +38,9 @@
 
 - (void)loadURL {
 	if(myConnection != nil) {
-        [myConnection cancel];
-        self.myConnection = nil;
-    }
+		[myConnection cancel];
+		self.myConnection = nil;
+	}
 
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	[self.navigationItem setRightBarButtonItem:activityItem];
@@ -75,7 +75,7 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
-	cell.text = [[stories objectAtIndex:[indexPath row]] title];
+	cell.textLabel.text = [[stories objectAtIndex:[indexPath row]] title];
 
 	return cell;
 }
@@ -91,11 +91,11 @@
 #pragma mark NSURLConnectionDelegate Methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    responseData = [[NSMutableData alloc] init];
+	responseData = [[NSMutableData alloc] init];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [responseData appendData:data];
+	[responseData appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -108,6 +108,7 @@
 												cancelButtonTitle:@"OK"
 												otherButtonTitles:nil];
 	[errorAlert show];
+	[errorAlert release];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
