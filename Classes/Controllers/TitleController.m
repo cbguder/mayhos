@@ -48,10 +48,13 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 }
 
 - (void)dealloc {
+	[self.navigationItem setRightBarButtonItem:nil];
+
 	[eksiTitle setDelegate:nil];
 	[activityItem release];
 	[pagePicker release];
 	[eksiTitle release];
+	[pagesItem release];
 	[tumuItem release];
 
 	[super dealloc];
