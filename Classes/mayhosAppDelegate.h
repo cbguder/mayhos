@@ -3,7 +3,7 @@
 //  mayhos
 //
 //  Created by Can Berk Güder on 29/12/2009.
-//  Copyright Can Berk Güder 2009. All rights reserved.
+//  Copyright 2009 Can Berk Güder. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

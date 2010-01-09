@@ -1,6 +1,6 @@
 //
 //  EksiTitleHeaderView.m
-//  Eksi Sozluk
+//  mayhos
 //
 //  Created by Can Berk Güder on 28/3/2009.
 //  Copyright 2008 Can Berk Güder. All rights reserved.
