@@ -21,10 +21,10 @@
 
 #pragma mark Static Methods
 
-static CGFloat heightForEntry(EksiEntry *entry) {
-	CGSize size = [[entry content] sizeWithFont:[UIFont systemFontOfSize:14]
-							  constrainedToSize:CGSizeMake(280, 54)
-								  lineBreakMode:UILineBreakModeTailTruncation];
+static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
+	CGSize size = [[entry plainTextContent] sizeWithFont:[UIFont systemFontOfSize:14]
+									   constrainedToSize:CGSizeMake(width, 54)
+										   lineBreakMode:UILineBreakModeTailTruncation];
 
 	return size.height;
 }
@@ -73,18 +73,26 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 	}
 }
 
+- (void)redrawHeader {
+	CGFloat width = 320.0;
+	if(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+		width = 480.0;
+	}
+
+	CGSize size = [[eksiTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
+								constrainedToSize:CGSizeMake(width - 20, CGFLOAT_MAX)
+									lineBreakMode:UILineBreakModeWordWrap];
+
+	EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, width, size.height + 20)];
+	[headerView setText:eksiTitle.title];
+	self.tableView.tableHeaderView = headerView;
+	[headerView release];
+}
+
 - (void)resetHeaderView {
 	if(![self.title isEqualToString:eksiTitle.title]) {
 		self.title = eksiTitle.title;
-
-		CGSize size = [[eksiTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
-									constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)
-										lineBreakMode:UILineBreakModeWordWrap];
-
-		EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, size.height + 20)];
-		[headerView setText:eksiTitle.title];
-		self.tableView.tableHeaderView = headerView;
-		[headerView release];
+		[self redrawHeader];
 	}
 }
 
@@ -106,8 +114,6 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 	if(eksiTitle.hasMoreToLoad)	{
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadAllEntries];
-		[self.tableView reloadData];
-		[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 	}
 }
 
@@ -162,6 +168,15 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 	}
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+	[self redrawHeader];
+	[self.tableView reloadData];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	return YES;
+}
+
 #pragma mark UITableViewController Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -207,54 +222,55 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 		authorLabel = (UILabel *)[cell.contentView viewWithTag:AUTHOR_TAG];
 	}
 
+	CGFloat width = 320.0;
+	if(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+		width = 480.0;
+	}
+	width -= 40.0;
+
 	EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
-	CGFloat height = heightForEntry(entry);
+	CGFloat height = heightForEntry(entry, width);
 
-	contentLabel.frame = CGRectMake(10, 10, 280, height);
-	authorLabel.frame = CGRectMake(10, height + 20, 280, 18);
+	contentLabel.frame = CGRectMake(10, 10, width, height);
+	authorLabel.frame = CGRectMake(10, height + 20, width, 18);
 
-	contentLabel.text = entry.content;
+	contentLabel.text = entry.plainTextContent;
 	authorLabel.text = [entry signature];
 
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	CGFloat width = 320.0;
+	if(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+		width = 480.0;
+	}
+	width -= 40.0;
+
 	EksiEntry *entry = [eksiTitle.entries objectAtIndex:[indexPath row]];
-	return heightForEntry(entry) + 48;
+	return heightForEntry(entry, width) + 48;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-	EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
-	EntryController *entryController = [[EntryController alloc] initWithEntry:entry];
-
+	EntryController *entryController = [[EntryController alloc] initWithEksiTitle:eksiTitle index:indexPath.row];
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
 }
 
 #pragma mark EksiTitleDelegate Methods
 
-- (void)title:(EksiTitle*)title didFailLoadingEntriesWithError:(NSError *)error {
-	[self resetNavigationBar];
-	[self.tableView reloadData];
-
-	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content"
-														  message:[error localizedDescription]
-														 delegate:self
-												cancelButtonTitle:@"OK"
-												otherButtonTitles:nil];
-
-	[errorAlert show];
-	[errorAlert release];
-}
-
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
 	[self resetNavigationBar];
 	[self resetHeaderView];
 	[self.tableView reloadData];
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+}
+
+- (void)title:(EksiTitle*)title didFailWithError:(NSError *)error {
+	[self resetNavigationBar];
+	[self.tableView reloadData];
 }
 
 @end
