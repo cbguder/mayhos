@@ -22,6 +22,10 @@
 }
 
 - (void)setAuthorAndDateFromSignature:(NSString *)signature {
+	if([signature length] <= 2) {
+		return;
+	}
+
 	NSString *reduced = [signature substringWithRange:NSMakeRange(1, [signature length] - 2)];
 	NSArray *parts = [reduced componentsSeparatedByString:@", "];
 
