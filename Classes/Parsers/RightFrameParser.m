@@ -106,8 +106,19 @@
 		for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
 			if(xmlStrEqual(attr->name, (const xmlChar *)"href")) {
 				xmlChar *value = xmlNodeListGetString(node->doc, attr->children, 0);
+				NSString *URLString = [NSString stringWithUTF8String:(const char *)value];
+				BOOL internalLink = [URLString hasPrefix:@"show.asp"] || [URLString hasPrefix:@"index.asp"];
+
 				[tempEntry appendString:@"<a href=\""];
-				[tempEntry appendString:[NSString stringWithUTF8String:(const char *)value]];
+
+				if(internalLink)
+					[tempEntry appendString:@"mayhos://"];
+
+				[tempEntry appendString:URLString];
+
+				if(internalLink)
+					[tempEntry appendString:@"\" class=\"internal"];
+
 				[tempEntry appendString:@"\">"];
 				xmlFree(value);
 			}
