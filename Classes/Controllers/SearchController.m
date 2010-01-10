@@ -10,42 +10,36 @@
 
 @implementation SearchController
 
-@synthesize lastSearch, mySearchBar;
+@synthesize savedSearchTerm, savedScopeButtonIndex, searchWasActive;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	if(lastSearch != nil) {
-		[mySearchBar setText:lastSearch];
+	if(self.savedSearchTerm) {
+		[self.searchDisplayController setActive:self.searchWasActive];
+		[self.searchDisplayController.searchBar setSelectedScopeButtonIndex:self.savedScopeButtonIndex];
+		[self.searchDisplayController.searchBar setText:savedSearchTerm];
+		self.savedSearchTerm = nil;
 	}
 }
 
+- (void)viewDidUnload {
+	self.searchWasActive = [self.searchDisplayController isActive];
+	self.savedSearchTerm = [self.searchDisplayController.searchBar text];
+	self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
+}
+
 #pragma mark UISearchBarDelegate Methods
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-	searchBar.showsCancelButton = YES;
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-	searchBar.showsCancelButton = NO;
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-	[searchBar resignFirstResponder];
-	searchBar.text = lastSearch;
-}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	[searchBar resignFirstResponder];
 
 	NSString *search = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	if([search isEqualToString:@""]) {
-		searchBar.text = lastSearch;
+		[searchBar setText:@""];
 	} else {
-		self.lastSearch = search;
-
-		[stories removeAllObjects];
-		[myTableView reloadData];
+		[titles removeAllObjects];
+		[[self searchDisplayController].searchResultsTableView reloadData];
 
 		NSString *query = [search stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
@@ -54,14 +48,14 @@
 
 		activeConnections = 2;
 
-		myURL = [NSURL URLWithString:searchURL];
+		self.URL = [NSURL URLWithString:searchURL];
 		[self loadURL];
 
 		directSearchSuccess = NO;
-		EksiTitle *title = [[EksiTitle alloc] init];
-		[title setURL:[NSURL URLWithString:directURL]];
-		[title setDelegate:self];
-		[title loadEntries];
+		directTitle = [[EksiTitle alloc] init];
+		[directTitle setURL:[NSURL URLWithString:directURL]];
+		[directTitle setDelegate:self];
+		[directTitle loadEntries];
 	}
 }
 
@@ -71,23 +65,24 @@
 			activeConnections--;
 
 		if(activeConnections == 0) {
-			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 			[self.navigationItem setRightBarButtonItem:nil];
 
-			if(directSearchSuccess && [stories count] > 1) {
-				EksiTitle *firstTitle = (EksiTitle *)[stories objectAtIndex:0];
-				for(int i = 1; i < [stories count]; i++) {
-					EksiTitle *title = (EksiTitle *)[stories objectAtIndex:i];
-					if([title.title isEqualToString:firstTitle.title]) {
-						[stories removeObjectAtIndex:i];
+			if(directSearchSuccess && [titles count] > 0) {
+				for(EksiTitle *title in titles) {
+					if([title.title isEqualToString:directTitle.title]) {
+						[titles removeObject:title];
 						break;
 					}
 				}
+
+				[titles insertObject:directTitle atIndex:0];
+				[directTitle release];
+				directSearchSuccess = NO;
+				directTitle = nil;
 			}
 
-			[myTableView reloadData];
+			[[self searchDisplayController].searchResultsTableView reloadData];
 		} else {
-			[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 			[self.navigationItem setRightBarButtonItem:activityItem];
 		}
 	}
@@ -101,36 +96,50 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseData];
-	[parser setDelegate:self];
-	[parser parse];
+	[super connectionDidFinishLoading:connection];
+	[self decrementActiveConnections];
+}
 
-	[responseData release];
-	[connection release];
-	myConnection = nil;
-	[parser release];
+#pragma mark UISearchDisplayDelegate Methods
 
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+	return NO;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+	return NO;
+}
+
+#pragma mark EksiParserDelegate Methods
+
+- (void)parserDidFinishParsing:(EksiParser *)parser {
+	[super parserDidFinishParsing:parser];
+	[self decrementActiveConnections];
+}
+
+- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
+	[super parser:parser didFailWithError:error];
 	[self decrementActiveConnections];
 }
 
 #pragma mark EksiTitleDelegate Methods
 
-- (void)title:(EksiTitle*)title didFailLoadingEntriesWithError:(NSError *)error {
-	[self decrementActiveConnections];
-	[title release];
-}
-
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
 	if([title.entries count] != 0) {
 		EksiEntry *firstEntry = [title.entries objectAtIndex:0];
 		if(firstEntry.author != nil) {
-			[stories insertObject:title atIndex:0];
 			directSearchSuccess = YES;
 		}
 	}
 
 	[self decrementActiveConnections];
+}
+
+- (void)title:(EksiTitle*)title didFailLoadingtitlesWithError:(NSError *)error {
 	[title release];
+	directTitle = nil;
+
+	[self decrementActiveConnections];
 }
 
 @end

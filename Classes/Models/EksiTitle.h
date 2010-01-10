@@ -8,59 +8,45 @@
 
 #import <UIKit/UIKit.h>
 #import "EksiEntry.h"
+#import "EksiParser.h"
 
 @protocol EksiTitleDelegate;
 
-@interface EksiTitle : NSObject {
+@interface EksiTitle : NSObject <EksiParserDelegate> {
 	NSString *title;
 	NSURL *URL;
 	NSURL *allURL;
-	NSMutableArray *entries;
+
+	NSArray *entries;
 	BOOL hasMoreToLoad;
+
 	NSUInteger pages;
 	NSUInteger loadingPage;
 	NSUInteger currentPage;
 
 	id delegate;
-
-	// NSURLConnection Members
-	NSMutableData *responseData;
-	NSURLConnection *myConnection;
-
-	// NSXMLParser Members
-	EksiEntry *tempEntry;
-	NSMutableString *tempButtonText;
-	NSMutableString *tempContent;
-	NSMutableString *tempTitle;
-	BOOL inAuthor;
-	BOOL inAuthorName;
-	BOOL inButton;
-	BOOL inEntry;
-	BOOL inPagis;
-	BOOL inTitle;
 }
 
 - (void)loadEntries;
 - (void)loadAllEntries;
 - (void)loadPage:(NSUInteger)page;
-- (void)loadEntriesFromURL:(NSURL *)theURL;
 
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,retain) NSURL *URL;
 @property (nonatomic,retain) NSURL *allURL;
-@property (nonatomic,readonly) NSMutableArray *entries;
+
+@property (nonatomic,readonly) NSArray *entries;
 @property (nonatomic,readonly) BOOL hasMoreToLoad;
+
 @property (nonatomic,readonly) NSUInteger pages;
 @property (nonatomic,readonly) NSUInteger currentPage;
 
 @property (nonatomic,assign) id<EksiTitleDelegate> delegate;
 
-@property (nonatomic,retain) NSURLConnection *myConnection;
-
 @end
 
-@protocol EksiTitleDelegate <NSObject>
+@protocol EksiTitleDelegate
 @optional
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title;
-- (void)title:(EksiTitle *)title didFailLoadingEntriesWithError:(NSError *)error;
+- (void)title:(EksiTitle *)title didFailWithError:(NSError *)error;
 @end

@@ -23,7 +23,7 @@
 	[self.navigationItem setRightBarButtonItem:refreshItem];
 	[refreshItem release];
 
-	self.myURL = [NSURL URLWithString:@"http://sozluk.sourtimes.org/index.asp"];
+	self.URL = [NSURL URLWithString:@"http://sozluk.sourtimes.org/index.asp"];
 }
 
 - (void)dealloc {
@@ -43,21 +43,15 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	if([stories count] == 0) {
+	if([titles count] == 0) {
 		[self refresh];
 	}
 }
 
-#pragma mark NSURLConnectionDelegate Methods
+#pragma mark EksiParserDelegate Methods
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[super connection:connection didFailWithError:error];
-	[self.navigationItem setRightBarButtonItem:refreshItem];
-	refreshItem.enabled = YES;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[super connectionDidFinishLoading:connection];
+- (void)parserDidFinishParsing:(EksiParser *)parser {
+	[super parserDidFinishParsing:parser];
 	[self.navigationItem setRightBarButtonItem:refreshItem];
 	refreshItem.enabled = YES;
 }

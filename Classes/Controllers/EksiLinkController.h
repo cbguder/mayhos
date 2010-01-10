@@ -7,27 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <libxml/HTMLparser.h>
 #import "TitleController.h"
-#import "EksiTitle.h"
+#import "EksiParser.h"
 
-@interface EksiLinkController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-	UITableView *myTableView;
+@interface EksiLinkController : UITableViewController <EksiParserDelegate> {
 	UIBarButtonItem *activityItem;
-
-	NSURLConnection *myConnection;
-	NSMutableData *responseData;
-	NSMutableArray *stories;	
-	NSURL *myURL;
-
-	BOOL inLink;
-	EksiTitle *tempTitle;
-	NSMutableString *tempString;
+	NSMutableArray *titles;
+	NSURL *URL;
 }
 
-@property (nonatomic,retain) IBOutlet UITableView *myTableView;
-@property (nonatomic,retain) NSURLConnection *myConnection;
-@property (nonatomic,retain) NSMutableArray *stories;
-@property (nonatomic,retain) NSURL *myURL;
+@property (nonatomic,retain) NSMutableArray *titles;
+@property (nonatomic,retain) NSURL *URL;
 
 - (void)loadURL;
 

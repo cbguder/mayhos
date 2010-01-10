@@ -7,18 +7,15 @@
 //
 
 #import "EksiLinkController.h"
+#import "LeftFrameParser.h"
 
 @implementation EksiLinkController
 
-@synthesize stories, myTableView, myURL, myConnection;
+@synthesize titles, URL;
 
 #pragma mark Initialization Methods
 
 - (void)viewDidLoad {
-	if(stories == nil) {
-		self.stories = [NSMutableArray array];
-	}
-
 	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
 	[activityIndicatorView startAnimating];
 	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
@@ -26,10 +23,9 @@
 }
 
 - (void)dealloc {
-	[myConnection release];
 	[activityItem release];
-	[stories release];
-	[myURL release];
+	[titles release];
+	[URL release];
 
 	[super dealloc];
 }
@@ -37,23 +33,16 @@
 #pragma mark Other Methods
 
 - (void)loadURL {
-	if(myConnection != nil) {
-		[myConnection cancel];
-		self.myConnection = nil;
-	}
-
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	[self.navigationItem setRightBarButtonItem:activityItem];
-	NSURLRequest *request =	[NSURLRequest requestWithURL:myURL
-											 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-										 timeoutInterval:60];
-	self.myConnection = [NSURLConnection connectionWithRequest:request delegate:self];
+
+	LeftFrameParser *parser = [[LeftFrameParser alloc] initWithURL:URL delegate:self];
+	[parser parse];
 }
 
-- (void)connectionFinished {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[self.navigationItem setRightBarButtonItem:nil];
-	self.myConnection = nil;
+#pragma mark UIViewController Methods
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	return YES;
 }
 
 #pragma mark UITableViewController Methods
@@ -63,19 +52,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [stories count];
+	return [titles count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *linkCellIdentifier = @"linkCellIdentifier";
+	static NSString *linkCellIdentifier = @"titleCellIdentifier";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:linkCellIdentifier];
 
-	if (cell == nil) {
+	if(cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:linkCellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
-	cell.textLabel.text = [[stories objectAtIndex:[indexPath row]] title];
+	cell.textLabel.text = [[titles objectAtIndex:[indexPath row]] title];
 
 	return cell;
 }
@@ -83,76 +72,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath	animated:YES];
 
-	UIViewController *title = [[TitleController alloc] initWithTitle:[stories objectAtIndex:[indexPath row]]];
+	UIViewController *title = [[TitleController alloc] initWithEksiTitle:[titles objectAtIndex:[indexPath row]]];
 	[self.navigationController pushViewController:title animated:YES];
 	[title release];
 }
 
-#pragma mark NSURLConnectionDelegate Methods
+#pragma mark EksiParserDelegate Methods
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	responseData = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	[responseData appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[self connectionFinished];
-
-	NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
-	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error Loading Content"
-														  message:errorMessage
-														 delegate:self
-												cancelButtonTitle:@"OK"
-												otherButtonTitles:nil];
-	[errorAlert show];
-	[errorAlert release];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[self connectionFinished];
-
-	[stories removeAllObjects];
-
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseData];
-	[parser setDelegate:self];
-	[parser parse];
+- (void)parserDidFinishParsing:(EksiParser *)parser {
+	self.titles = [NSMutableArray arrayWithArray:parser.results];
 	[parser release];
-
-	[responseData release];
-	[myTableView reloadData];
+	[self.tableView reloadData];
+	[self.navigationItem setRightBarButtonItem:nil];
 }
 
-#pragma mark NSXMLParserDelegate Methods
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-	if([elementName isEqualToString:@"a"]) {
-		NSString *link = [attributeDict objectForKey:@"href"];
-
-		if([link hasPrefix:@"show.asp"]) {
-			tempTitle = [[EksiTitle alloc] init];
-			tempString = [[NSMutableString alloc] init];
-			[tempTitle setURL:[NSURL URLWithString:link relativeToURL:myURL]];
-			inLink = YES;
-		}
-	}
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-	if(inLink)
-		[tempString appendFormat:string];
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	if(inLink && [elementName isEqualToString:@"a"]) {
-		[tempTitle setTitle:tempString];
-		[stories addObject:tempTitle];
-		[tempString release];
-		[tempTitle release];
-		inLink = NO;
-	}
+- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
+	[parser release];
+	[self.navigationItem setRightBarButtonItem:nil];
 }
 
 @end
