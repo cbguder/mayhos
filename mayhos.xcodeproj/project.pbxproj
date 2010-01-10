@@ -31,6 +31,7 @@
 		4C61EB8010EA796F004DE317 /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB7D10EA796F004DE317 /* NSDictionary+URLEncoding.m */; };
 		4C61EB8110EA796F004DE317 /* NSURL+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB7F10EA796F004DE317 /* NSURL+Query.m */; };
 		4C61EBAF10EA7A1B004DE317 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C61EBAE10EA7A1B004DE317 /* MainWindow.xib */; };
+		4CA3BB0110F43EE0002D50A8 /* mayhosTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3BB0010F43EE0002D50A8 /* mayhosTabBarController.m */; };
 		4CA5FECE10F7AAAB002924A5 /* LeftFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FECD10F7AAAB002924A5 /* LeftFrameParser.m */; };
 		4CA5FED710F7ACE9002924A5 /* EksiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FED610F7ACE9002924A5 /* EksiParser.m */; };
 		4CA5FF2510F7B26A002924A5 /* RightFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FF2410F7B26A002924A5 /* RightFrameParser.m */; };
@@ -84,6 +85,8 @@
 		4C61EB7E10EA796F004DE317 /* NSURL+Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Query.h"; sourceTree = "<group>"; };
 		4C61EB7F10EA796F004DE317 /* NSURL+Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Query.m"; sourceTree = "<group>"; };
 		4C61EBAE10EA7A1B004DE317 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		4CA3BAFF10F43EE0002D50A8 /* mayhosTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mayhosTabBarController.h; sourceTree = "<group>"; };
+		4CA3BB0010F43EE0002D50A8 /* mayhosTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mayhosTabBarController.m; sourceTree = "<group>"; };
 		4CA5FECC10F7AAAB002924A5 /* LeftFrameParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftFrameParser.h; sourceTree = "<group>"; };
 		4CA5FECD10F7AAAB002924A5 /* LeftFrameParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftFrameParser.m; sourceTree = "<group>"; };
 		4CA5FED510F7ACE9002924A5 /* EksiParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiParser.h; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				4C61EB5410EA7943004DE317 /* SearchController.m */,
 				4C61EB5510EA7943004DE317 /* TitleController.h */,
 				4C61EB5610EA7943004DE317 /* TitleController.m */,
+				4CA3BAFF10F43EE0002D50A8 /* mayhosTabBarController.h */,
+				4CA3BB0010F43EE0002D50A8 /* mayhosTabBarController.m */,
 				4CDEED3510FA1C0000220062 /* WebController.h */,
 				4CDEED3610FA1C0000220062 /* WebController.m */,
 			);
@@ -328,6 +333,7 @@
 				4C61EB6F10EA7943004DE317 /* PagePickerView.m in Sources */,
 				4C61EB8010EA796F004DE317 /* NSDictionary+URLEncoding.m in Sources */,
 				4C61EB8110EA796F004DE317 /* NSURL+Query.m in Sources */,
+				4CA3BB0110F43EE0002D50A8 /* mayhosTabBarController.m in Sources */,
 				4CA5FECE10F7AAAB002924A5 /* LeftFrameParser.m in Sources */,
 				4CA5FED710F7ACE9002924A5 /* EksiParser.m in Sources */,
 				4CA5FF2510F7B26A002924A5 /* RightFrameParser.m in Sources */,
