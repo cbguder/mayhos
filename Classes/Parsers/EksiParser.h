@@ -30,7 +30,7 @@
 
 @property (nonatomic,retain) NSURL *URL;
 
-@property (nonatomic,retain) id<EksiParserDelegate> delegate;
+@property (nonatomic,assign) id<EksiParserDelegate> delegate;
 
 @property (nonatomic,retain) NSMutableArray *results;
 @property (nonatomic,readonly) NSUInteger pages;
@@ -38,5 +38,7 @@
 @end
 
 @protocol EksiParserDelegate
+@optional
 - (void)parserDidFinishParsing:(EksiParser *)parser;
+- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error;
 @end

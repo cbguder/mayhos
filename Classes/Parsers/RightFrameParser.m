@@ -16,18 +16,19 @@
 - (void)processLiNode:(xmlNodePtr)node;
 
 - (void)extractTextFromNode:(xmlNodePtr)node intoBuffer:(NSMutableString *)buffer;
+- (void)extractEntryPlainTextFromNode:(xmlNodePtr)node intoBuffer:(NSMutableString *)buffer;
 @end
 
 @implementation RightFrameParser
 
-@synthesize title;
+@synthesize title, hasMoreToLoad;
 
 - (id)initWithURL:(NSURL *)theURL delegate:(id<EksiParserDelegate>)theDelegate {
 	if(self = [super initWithURL:theURL delegate:theDelegate]) {
 		title = [[NSMutableString alloc] init];
 		hasMoreToLoad = NO;
 	}
-	
+
 	return self;
 }
 
@@ -44,10 +45,9 @@
 
 - (void)extractTextFromNode:(xmlNodePtr)node intoBuffer:(NSMutableString *)buffer {
 	if(node->type == XML_TEXT_NODE) {
-		[tempAuthor appendString:[NSString stringWithUTF8String:(const char *)node->content]];
+		[buffer appendString:[NSString stringWithUTF8String:(const char *)node->content]];
 	} else {
-		xmlNodePtr child = NULL;
-		for(child = node->children; child; child = child->next) {
+		for(xmlNodePtr child = node->children; child; child = child->next) {
 			[self extractTextFromNode:child intoBuffer:buffer];
 		}
 	}
@@ -68,7 +68,7 @@
 				[self processNode:node->children];
 			}
 		}
-		
+
 		node = node->next;
 	}
 }
@@ -86,7 +86,7 @@
 		[tempEntry appendString:[NSString stringWithUTF8String:(const char *)node->content]];
 		return;
 	}
-	
+
 	if(node->type != XML_ELEMENT_NODE) {
 		return;
 	}
@@ -124,20 +124,35 @@
 }
 
 - (void)processLiNode:(xmlNodePtr)node {
+	NSMutableString *tempPlainTextContent = [[NSMutableString alloc] init];
 	tempEntry = [[NSMutableString alloc] init];
 	tempAuthor = [[NSMutableString alloc] init];
-	title = [[NSMutableString alloc] init];
-	
+
 	[self processEntryNode:node];
-	
+	[self extractEntryPlainTextFromNode:node intoBuffer:tempPlainTextContent];
+
 	EksiEntry *entry = [[EksiEntry alloc] init];
 	[entry setContent:tempEntry];
+	[entry setPlainTextContent:tempPlainTextContent];
 	[entry setAuthorAndDateFromSignature:tempAuthor];
 	[results addObject:entry];
 	[entry release];
-	
+
+	[tempPlainTextContent release];
 	[tempEntry release];
 	[tempAuthor release];
+}
+
+- (void)extractEntryPlainTextFromNode:(xmlNodePtr)node intoBuffer:(NSMutableString *)buffer {
+	if(node->type == XML_TEXT_NODE) {
+		[buffer appendString:[NSString stringWithUTF8String:(const char *)node->content]];
+	} else if(xmlStrEqual(node->name, (const xmlChar *)"br")) {
+		[buffer appendString:@"\n"];
+	} else if(!xmlStrEqual(node->name, (const xmlChar *)"div")) {
+		for(xmlNodePtr child = node->children; child; child = child->next) {
+			[self extractEntryPlainTextFromNode:child intoBuffer:buffer];
+		}
+	}
 }
 
 @end

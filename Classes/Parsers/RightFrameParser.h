@@ -18,5 +18,6 @@
 }
 
 @property (nonatomic,readonly) NSString *title;
+@property (nonatomic,readonly) BOOL hasMoreToLoad;
 
 @end

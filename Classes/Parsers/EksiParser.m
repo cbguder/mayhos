@@ -27,7 +27,6 @@
 }
 
 - (void)dealloc {
-	[delegate release];
 	[results release];
 	[URL release];
 
@@ -43,7 +42,6 @@
 
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	connection = [NSURLConnection connectionWithRequest:request delegate:self];
-	
 }
 
 - (void)getPages:(xmlNodePtr)node {
@@ -59,27 +57,24 @@
 				}
 			}
 		}
-		
+
 		[self getPages:node->children];
-		
+
 		node = node->next;
-	}	
+	}
 }
 
 - (void)parseDocument {
-	[self getPages:root];	
+	[self getPages:root];
+
+	if(pages == 0)
+		pages = 1;
 }
 
-- (void)connectionFinished {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	
+- (void)cleanupLibxml {
 	xmlFreeDoc(context->myDoc);
 	xmlFreeParserCtxt(context);
 	xmlCleanupParser();
-
-	NSLog(@"%d Pages.", pages);
-
-	[delegate parserDidFinishParsing:self];
 }
 
 #pragma mark NSURLConnectionDelegate Methods
@@ -89,6 +84,9 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[self cleanupLibxml];
+
 	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Connection Failed"
 														  message:[error localizedDescription]
 														 delegate:self
@@ -97,15 +95,22 @@
 	[errorAlert show];
 	[errorAlert release];
 
-	[self connectionFinished];
+	if([delegate respondsToSelector:@selector(parser:didFailWithError:)]) {
+		[delegate parser:self didFailWithError:error];
+	}
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
 	htmlParseChunk(context, NULL, 0, YES);
 	root = xmlDocGetRootElement(context->myDoc);
-
 	[self parseDocument];
-	[self connectionFinished];
+	[self cleanupLibxml];
+
+	if([delegate respondsToSelector:@selector(parserDidFinishParsing:)]) {
+		[delegate parserDidFinishParsing:self];
+	}
 }
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
