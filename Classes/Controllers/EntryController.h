@@ -7,14 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EksiEntry.h"
+#import "EksiTitle.h"
+#import "AuthorView.h"
 
-@interface EntryController : UIViewController {
-	EksiEntry *entry;
+@interface EntryController : UIViewController <UIWebViewDelegate> {
+	EksiTitle *eksiTitle;
+	NSUInteger index;
+
+	AuthorView *authorView;
+	UIWebView *contentView;
+	UISegmentedControl *upDownControl;
 }
 
-@property (nonatomic,retain) EksiEntry *entry;
+@property (nonatomic,retain) IBOutlet AuthorView *authorView;
+@property (nonatomic,retain) IBOutlet UIWebView *contentView;
 
-- (id)initWithEntry:(EksiEntry *)entry;
+- (id)initWithEksiTitle:(EksiTitle *)title index:(NSUInteger)index;
 
 @end
