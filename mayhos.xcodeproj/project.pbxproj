@@ -12,11 +12,10 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		4C3580D510F63CB600A0B637 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C3580D410F63CB600A0B637 /* Search.xib */; };
 		4C3C5AF310F6B136001AA58B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3C5AF210F6B135001AA58B /* libxml2.dylib */; };
 		4C61EB1310EA76F3004DE317 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C61EB1110EA76F3004DE317 /* Default.png */; };
 		4C61EB1410EA76F3004DE317 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C61EB1210EA76F3004DE317 /* Icon.png */; };
-		4C61EB4010EA77AE004DE317 /* Recents.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C61EB3E10EA77AE004DE317 /* Recents.xib */; };
-		4C61EB4110EA77AE004DE317 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C61EB3F10EA77AE004DE317 /* Search.xib */; };
 		4C61EB6510EA7943004DE317 /* EksiLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB4E10EA7943004DE317 /* EksiLinkController.m */; };
 		4C61EB6610EA7943004DE317 /* EntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5010EA7943004DE317 /* EntryController.m */; };
 		4C61EB6710EA7943004DE317 /* RecentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5210EA7943004DE317 /* RecentsController.m */; };
@@ -53,11 +52,10 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* mayhos_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mayhos_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4C3580D410F63CB600A0B637 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
 		4C3C5AF210F6B135001AA58B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		4C61EB1110EA76F3004DE317 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4C61EB1210EA76F3004DE317 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		4C61EB3E10EA77AE004DE317 /* Recents.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Recents.xib; sourceTree = "<group>"; };
-		4C61EB3F10EA77AE004DE317 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
 		4C61EB4D10EA7943004DE317 /* EksiLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiLinkController.h; sourceTree = "<group>"; };
 		4C61EB4E10EA7943004DE317 /* EksiLinkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiLinkController.m; sourceTree = "<group>"; };
 		4C61EB4F10EA7943004DE317 /* EntryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryController.h; sourceTree = "<group>"; };
@@ -178,8 +176,7 @@
 				4C61EB1110EA76F3004DE317 /* Default.png */,
 				4C61EB1210EA76F3004DE317 /* Icon.png */,
 				8D1107310486CEB800E47090 /* mayhos-Info.plist */,
-				4C61EB3E10EA77AE004DE317 /* Recents.xib */,
-				4C61EB3F10EA77AE004DE317 /* Search.xib */,
+				4C3580D410F63CB600A0B637 /* Search.xib */,
 				4CDEED3A10FA1C3F00220062 /* Web.xib */,
 			);
 			name = Resources;
@@ -299,9 +296,8 @@
 			files = (
 				4C61EB1310EA76F3004DE317 /* Default.png in Resources */,
 				4C61EB1410EA76F3004DE317 /* Icon.png in Resources */,
-				4C61EB4010EA77AE004DE317 /* Recents.xib in Resources */,
-				4C61EB4110EA77AE004DE317 /* Search.xib in Resources */,
 				4C61EBAF10EA7A1B004DE317 /* MainWindow.xib in Resources */,
+				4C3580D510F63CB600A0B637 /* Search.xib in Resources */,
 				4CA630F710F95E6000094EE3 /* Entry.xib in Resources */,
 				4CA6313B10F9626700094EE3 /* Down.png in Resources */,
 				4CA6313C10F9626700094EE3 /* Up.png in Resources */,
