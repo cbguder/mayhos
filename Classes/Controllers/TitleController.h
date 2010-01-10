@@ -19,9 +19,8 @@
 	EksiTitle *eksiTitle;
 }
 
-- (id)initWithTitle:(EksiTitle *)theTitle;
-- (void)setEksiTitle:(EksiTitle *)theTitle;
+@property (nonatomic,retain) EksiTitle *eksiTitle;
 
-@property (retain) EksiTitle *eksiTitle;
+- (id)initWithEksiTitle:(EksiTitle *)theTitle;
 
 @end

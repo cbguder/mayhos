@@ -31,8 +31,8 @@ static CGFloat heightForEntry(EksiEntry *entry) {
 
 #pragma mark Initialization Methods
 
-- (id)initWithTitle:(EksiTitle *)theTitle {
-	if (self = [super init]) {
+- (id)initWithEksiTitle:(EksiTitle *)theTitle {
+	if(self = [super init]) {
 		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
 		[activityIndicatorView startAnimating];
 		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
