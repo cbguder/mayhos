@@ -30,8 +30,8 @@
 	[super drawRect:rect];
 
 	[textColor set];
-	[author drawInRect:CGRectMake(10, 10, rect.size.width - 20, 20) withFont:[UIFont boldSystemFontOfSize:16]];
-	[date drawInRect:CGRectMake(10, 30, rect.size.width - 20, 20) withFont:[UIFont systemFontOfSize:12]];
+	[author drawInRect:CGRectMake(10, 10, rect.size.width - 20, 20) withFont:[UIFont boldSystemFontOfSize:16] lineBreakMode:UILineBreakModeTailTruncation];
+	[date drawInRect:CGRectMake(10, 30, rect.size.width - 20, 20) withFont:[UIFont systemFontOfSize:12] lineBreakMode:UILineBreakModeTailTruncation];
 }
 
 - (void)dealloc {
