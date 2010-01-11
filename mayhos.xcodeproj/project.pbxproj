@@ -37,6 +37,7 @@
 		4CA630F710F95E6000094EE3 /* Entry.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CA630F610F95E6000094EE3 /* Entry.xib */; };
 		4CA6313B10F9626700094EE3 /* Down.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA6313910F9626700094EE3 /* Down.png */; };
 		4CA6313C10F9626700094EE3 /* Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA6313A10F9626700094EE3 /* Up.png */; };
+		4CB3AB2A10FAA6070072DE2D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3AB2910FAA6070072DE2D /* Constants.m */; };
 		4CDEED3810FA1C0000220062 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDEED3610FA1C0000220062 /* WebController.m */; };
 		4CDEED3B10FA1C3F00220062 /* Web.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CDEED3A10FA1C3F00220062 /* Web.xib */; };
 		4CDEED5210FA1F0C00220062 /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CDEED5010FA1F0C00220062 /* Back.png */; };
@@ -94,6 +95,8 @@
 		4CA630F610F95E6000094EE3 /* Entry.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Entry.xib; sourceTree = "<group>"; };
 		4CA6313910F9626700094EE3 /* Down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Down.png; sourceTree = "<group>"; };
 		4CA6313A10F9626700094EE3 /* Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Up.png; sourceTree = "<group>"; };
+		4CB3AB2810FAA6070072DE2D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		4CB3AB2910FAA6070072DE2D /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		4CDEED3510FA1C0000220062 /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		4CDEED3610FA1C0000220062 /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
 		4CDEED3A10FA1C3F00220062 /* Web.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Web.xib; sourceTree = "<group>"; };
@@ -160,6 +163,8 @@
 			children = (
 				28A0AB4B0D9B1048005BE974 /* mayhos_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				4CB3AB2810FAA6070072DE2D /* Constants.h */,
+				4CB3AB2910FAA6070072DE2D /* Constants.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 				4CA5FED710F7ACE9002924A5 /* EksiParser.m in Sources */,
 				4CA5FF2510F7B26A002924A5 /* RightFrameParser.m in Sources */,
 				4CDEED3810FA1C0000220062 /* WebController.m in Sources */,
+				4CB3AB2A10FAA6070072DE2D /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

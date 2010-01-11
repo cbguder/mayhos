@@ -23,7 +23,7 @@
 	[self.navigationItem setRightBarButtonItem:refreshItem];
 	[refreshItem release];
 
-	self.URL = [NSURL URLWithString:@"http://sozluk.sourtimes.org/index.asp"];
+	self.URL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=td"]];
 }
 
 - (void)dealloc {

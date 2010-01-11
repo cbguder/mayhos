@@ -87,7 +87,7 @@
 
 	if([request.URL.scheme isEqualToString:@"mayhos"]) {
 		NSString *rest = [request.URL.absoluteString substringFromIndex:9];
-		NSURL *realURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://sozluk.sourtimes.org/%@", rest]];
+		NSURL *realURL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:rest]];
 
 		if([rest hasPrefix:@"show.asp"]) {
 			EksiTitle *title = [[EksiTitle alloc] init];

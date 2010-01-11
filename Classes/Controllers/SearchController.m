@@ -43,8 +43,8 @@
 
 		NSString *query = [search stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-		NSString *searchURL = [NSString stringWithFormat:@"http://sozluk.sourtimes.org/index.asp?a=sr&kw=%@", query];
-		NSString *directURL = [NSString stringWithFormat:@"http://sozluk.sourtimes.org/show.asp?t=%@", query];
+		NSString *searchURL = [kSozlukURL stringByAppendingFormat:@"index.asp?a=sr&kw=%@", query];
+		NSString *directURL = [kSozlukURL stringByAppendingFormat:@"show.asp?t=%@", query];
 
 		activeConnections = 2;
 
