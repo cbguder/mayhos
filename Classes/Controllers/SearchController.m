@@ -125,13 +125,7 @@
 #pragma mark EksiTitleDelegate Methods
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
-	if([title.entries count] != 0) {
-		EksiEntry *firstEntry = [title.entries objectAtIndex:0];
-		if(firstEntry.author != nil) {
-			directSearchSuccess = YES;
-		}
-	}
-
+	directSearchSuccess = ![title isEmpty];
 	[self decrementActiveConnections];
 }
 

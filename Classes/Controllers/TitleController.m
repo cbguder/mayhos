@@ -13,6 +13,8 @@
 
 @interface TitleController (Private)
 - (BOOL)hasLinkAtBottom;
+- (void)resetHeaderView;
+- (void)resetNavigationBar;
 @end
 
 @implementation TitleController
@@ -62,6 +64,20 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 #pragma mark Accessors
 
+- (void)setEksiTitle:(EksiTitle *)theTitle {
+	if(theTitle != eksiTitle) {
+		[eksiTitle setDelegate:nil];
+		[eksiTitle release];
+		eksiTitle = [theTitle retain];
+		[eksiTitle setDelegate:self];
+	}
+
+	[self resetNavigationBar];
+	[self resetHeaderView];
+}
+
+#pragma mark Drawing Methods
+
 - (void)resetNavigationBar {
 	if([eksiTitle hasMoreToLoad]) {
 		[self.navigationItem setRightBarButtonItem:tumuItem];
@@ -94,18 +110,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		self.title = eksiTitle.title;
 		[self redrawHeader];
 	}
-}
-
-- (void)setEksiTitle:(EksiTitle *)theTitle {
-	if(theTitle != eksiTitle) {
-		[eksiTitle setDelegate:nil];
-		[eksiTitle release];
-		eksiTitle = [theTitle retain];
-		[eksiTitle setDelegate:self];
-	}
-
-	[self resetNavigationBar];
-	[self resetHeaderView];
 }
 
 #pragma mark Link Buttons
@@ -259,13 +263,31 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[entryController release];
 }
 
+#pragma mark UIAlertViewDelegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark EksiTitleDelegate Methods
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
 	[self resetNavigationBar];
 	[self resetHeaderView];
-	[self.tableView reloadData];
-	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+
+	if([title isEmpty]) {
+		EksiEntry *firstEntry = [title.entries objectAtIndex:0];
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title.title
+															message:firstEntry.plainTextContent
+														   delegate:self
+												  cancelButtonTitle:nil
+												  otherButtonTitles:@"geri git ne bileyim", nil];
+		[alertView show];
+		[alertView release];
+	} else {
+		[self.tableView reloadData];
+		[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+	}
 }
 
 - (void)title:(EksiTitle*)title didFailWithError:(NSError *)error {

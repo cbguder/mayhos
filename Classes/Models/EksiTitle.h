@@ -15,25 +15,27 @@
 @interface EksiTitle : NSObject <EksiParserDelegate> {
 	NSString *title;
 	NSURL *URL;
-	NSURL *allURL;
+	NSURL *moreURL;
+	NSURL *baseURL;
 
 	NSArray *entries;
 	BOOL hasMoreToLoad;
 
 	NSUInteger pages;
-	NSUInteger loadingPage;
 	NSUInteger currentPage;
 
 	id delegate;
 }
 
+- (BOOL)isEmpty;
 - (void)loadEntries;
 - (void)loadAllEntries;
 - (void)loadPage:(NSUInteger)page;
 
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,retain) NSURL *URL;
-@property (nonatomic,retain) NSURL *allURL;
+@property (nonatomic,retain) NSURL *moreURL;
+@property (nonatomic,retain) NSURL *baseURL;
 
 @property (nonatomic,readonly) NSArray *entries;
 @property (nonatomic,readonly) BOOL hasMoreToLoad;

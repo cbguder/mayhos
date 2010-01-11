@@ -17,7 +17,7 @@
 
 @implementation EksiTitle
 
-@synthesize delegate, title, URL, allURL, entries, hasMoreToLoad, pages, currentPage;
+@synthesize delegate, title, URL, moreURL, baseURL, entries, hasMoreToLoad, pages, currentPage;
 
 #pragma mark Initialization Methods
 
@@ -34,7 +34,8 @@
 - (void) dealloc {
 	[title release];
 	[URL release];
-	[allURL release];
+	[moreURL release];
+	[baseURL release];
 	[entries release];
 
 	[super dealloc];
@@ -42,15 +43,17 @@
 
 #pragma mark Accessors
 
-- (void)setURL:(NSURL *)theURL {
-	[theURL retain];
-	[URL release];
-	URL = theURL;
+- (BOOL)isEmpty {
+	if([entries count] > 0) {
+		EksiEntry *firstEntry = [entries objectAtIndex:0];
+		if(firstEntry.author == nil) {
+			return YES;
+		} else {
+			return NO;
+		}
+	}
 
-	NSString *t = [[theURL queryDictionary] valueForKey:@"t"];
-	NSString *query = [[NSDictionary dictionaryWithObject:t forKey:@"t"] urlEncodedString];
-	NSString *allURLString = [NSString stringWithFormat:@"http://sozluk.sourtimes.org/show.asp?%@", query];
-	[self setAllURL:[NSURL URLWithString:allURLString]];
+	return hasMoreToLoad;
 }
 
 #pragma mark Other Methods
@@ -60,18 +63,17 @@
 }
 
 - (void)loadAllEntries {
-	[self loadPage:1];
+	[self loadEntriesFromURL:moreURL];
 }
 
 - (void)loadPage:(NSUInteger)page {
 	if(0 < page && page <= pages) {
 		hasMoreToLoad = NO;
-		loadingPage = page;
 
 		if(page == 1) {
-			[self loadEntriesFromURL:allURL];
+			[self loadEntriesFromURL:baseURL];
 		} else {
-			NSMutableString *allURLString = [[allURL absoluteString] mutableCopy];
+			NSMutableString *allURLString = [[baseURL absoluteString] mutableCopy];
 			[allURLString appendFormat:@"&p=%d", page];
 			[self loadEntriesFromURL:[NSURL URLWithString:allURLString]];
 			[allURLString release];
@@ -90,13 +92,11 @@
 	[entries release];
 	entries = [parser.results copy];
 
-	if(loadingPage != 0) {
-		currentPage = loadingPage;
-		loadingPage = 0;
-	}
-
 	pages = parser.pages;
+	currentPage = parser.currentPage;
 	self.URL = parser.URL;
+	self.moreURL = parser.moreURL;
+	self.baseURL = parser.baseURL;
 
 	NSMutableCharacterSet *suffix = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
 	[suffix addCharactersInString:@"*"];
