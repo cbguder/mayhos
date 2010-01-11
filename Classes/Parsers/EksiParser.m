@@ -7,10 +7,19 @@
 //
 
 #import "EksiParser.h"
+#import "NSURL+Query.h"
+#import "NSDictionary+URLEncoding.h"
+
+@interface EksiParser (Private)
+- (void)_processNode:(xmlNodePtr)node;
+- (void)_processANode:(xmlNodePtr)node;
+- (void)_processOptionNode:(xmlNodePtr)node;
+- (void)_processSelectNode:(xmlNodePtr)node;
+@end
 
 @implementation EksiParser
 
-@synthesize delegate, pages, results, URL;
+@synthesize delegate, pages, currentPage, results, URL, baseURL;
 
 - (id)init {
 	return [self initWithURL:nil delegate:nil];
@@ -44,28 +53,8 @@
 	connection = [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
-- (void)getPages:(xmlNodePtr)node {
-	while(node) {
-		if(node->type == XML_ELEMENT_NODE && xmlStrEqual(node->name, (const xmlChar *)"select")) {
-			for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
-				if(xmlStrEqual(attr->name, (const xmlChar *)"class")) {
-					xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
-					if(xmlStrstr(value, (const xmlChar *)"pagis") != NULL) {
-						pages = xmlChildElementCount(node);
-						return;
-					}
-				}
-			}
-		}
-
-		[self getPages:node->children];
-
-		node = node->next;
-	}
-}
-
 - (void)parseDocument {
-	[self getPages:root];
+	[self _processNode:root];
 
 	if(pages == 0)
 		pages = 1;
@@ -75,6 +64,99 @@
 	xmlFreeDoc(context->myDoc);
 	xmlFreeParserCtxt(context);
 	xmlCleanupParser();
+}
+
+#pragma mark Node Processing Methods
+
+- (void)_processNode:(xmlNodePtr)node {
+	while(node) {
+		if(node->type == XML_ELEMENT_NODE) {
+			if(xmlStrEqual(node->name, (const xmlChar *)"select")) {
+				[self _processSelectNode:node];
+				[self _processNode:node->children];
+			} else if(xmlStrEqual(node->name, (const xmlChar *)"option")) {
+				[self _processOptionNode:node];
+			} else if(xmlStrEqual(node->name, (const xmlChar *)"a")) {
+				[self _processANode:node];
+			} else {
+				[self _processNode:node->children];
+			}
+		}
+
+		node = node->next;
+	}
+}
+
+- (void)_processANode:(xmlNodePtr)node {
+	BOOL pageLink = NO;
+	NSString *pageURL;
+
+	for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+		if(xmlStrEqual(attr->name, (const xmlChar *)"title")) {
+			xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
+			if(xmlStrEqual(value, (const xmlChar *)"önceki sayfa") || xmlStrEqual(value, (const xmlChar *)"sonraki sayfa")) {
+				pageLink = YES;
+			}
+			xmlFree(value);
+		} else if(xmlStrEqual(attr->name, (const xmlChar *)"href")) {
+			xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
+			pageURL = [NSString stringWithUTF8String:(const char *)value];
+			xmlFree(value);
+		}
+	}
+
+	if(pageLink) {
+		NSURL *tempURL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:pageURL]];
+
+		NSDictionary *queryDictionary = [tempURL queryDictionary];
+		NSMutableDictionary *newQueryDictionary = [NSMutableDictionary dictionary];
+
+		for(NSString *key in [queryDictionary allKeys]) {
+			if(![key isEqualToString:@"p"] && ![[queryDictionary valueForKey:key] isEqualToString:@""]) {
+				[newQueryDictionary setObject:[queryDictionary valueForKey:key] forKey:key];
+			}
+		}
+
+		NSString *newString = [kSozlukURL stringByAppendingFormat:@"%@?%@", [[tempURL path] substringFromIndex:1], [newQueryDictionary urlEncodedString]];
+		baseURL = [NSURL URLWithString:newString];
+	}
+}
+
+- (void)_processOptionNode:(xmlNodePtr)node {
+	for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+		if(xmlStrEqual(attr->name, (const xmlChar *)"selected")) {
+			xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
+
+			if(xmlStrEqual(value, (const xmlChar *)"selected")) {
+				currentPage = 0;
+				for(xmlNodePtr child = node->parent->children; child; child = child->next) {
+					currentPage++;
+					if(child == node)
+						break;
+				}
+			}
+
+			xmlFree(value);
+		}
+
+		return;
+	}
+}
+
+- (void)_processSelectNode:(xmlNodePtr)node {
+	for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+		if(xmlStrEqual(attr->name, (const xmlChar *)"class")) {
+			xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
+
+			if(xmlStrstr(value, (const xmlChar *)"pagis") != NULL) {
+				pages = xmlChildElementCount(node);
+			}
+
+			xmlFree(value);
+		}
+
+		return;
+	}
 }
 
 #pragma mark NSURLConnectionDelegate Methods

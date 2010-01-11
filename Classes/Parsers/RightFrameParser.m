@@ -21,7 +21,7 @@
 
 @implementation RightFrameParser
 
-@synthesize title, hasMoreToLoad;
+@synthesize title, hasMoreToLoad, moreURL;
 
 - (id)initWithURL:(NSURL *)theURL delegate:(id<EksiParserDelegate>)theDelegate {
 	if(self = [super initWithURL:theURL delegate:theDelegate]) {
@@ -34,6 +34,7 @@
 
 - (void)dealloc {
 	[title release];
+	[moreURL release];
 
 	[super dealloc];
 }
@@ -74,10 +75,26 @@
 }
 
 - (void)processButtonNode:(xmlNodePtr)node {
-	xmlChar *value = xmlNodeListGetString(node->doc, node->children, 0);
+	xmlChar *value = xmlNodeListGetString(node->doc, node->children, YES);
+
 	if(xmlStrEqual(value, (const xmlChar *)"tümünü göster")) {
 		hasMoreToLoad = YES;
+
+		for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+			if(xmlStrEqual(attr->name, (const xmlChar *)"onclick")) {
+				xmlChar *attrValue = xmlNodeListGetString(node->doc, attr->children, YES);
+				NSString *onclick = [NSString stringWithUTF8String:(const char *)attrValue];
+				xmlFree(attrValue);
+
+				if([onclick hasPrefix:@"location.href='"] && [onclick hasSuffix:@"'"]) {
+					moreURL = [[NSURL alloc] initWithString:
+							   [kSozlukURL stringByAppendingString:[onclick substringWithRange:NSMakeRange(15, onclick.length - 16)]]
+							   ];
+				}
+			}
+		}
 	}
+
 	xmlFree(value);
 }
 
@@ -105,7 +122,7 @@
 
 		for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
 			if(xmlStrEqual(attr->name, (const xmlChar *)"href")) {
-				xmlChar *value = xmlNodeListGetString(node->doc, attr->children, 0);
+				xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
 				NSString *URLString = [NSString stringWithUTF8String:(const char *)value];
 				BOOL internalLink = [URLString hasPrefix:@"show.asp"] || [URLString hasPrefix:@"index.asp"];
 
