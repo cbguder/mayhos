@@ -73,12 +73,16 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
 	NSMutableArray *newItems = [toolbar.items mutableCopy];
 	[newItems replaceObjectAtIndex:4 withObject:activityItem];
 	[toolbar setItems:newItems];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView {
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
 	backItem.enabled = [aWebView canGoBack];
 	forwardItem.enabled = [aWebView canGoForward];
 
