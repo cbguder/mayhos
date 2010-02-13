@@ -13,36 +13,18 @@
 
 @synthesize titles, URL;
 
-#pragma mark Initialization Methods
-
-- (void)viewDidLoad {
-	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-	[activityIndicatorView startAnimating];
-	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
-	[activityIndicatorView release];
-}
-
 - (void)dealloc {
-	[activityItem release];
 	[titles release];
 	[URL release];
 
 	[super dealloc];
 }
 
-#pragma mark Other Methods
-
 - (void)loadURL {
 	[self.navigationItem setRightBarButtonItem:activityItem];
 
 	LeftFrameParser *parser = [[LeftFrameParser alloc] initWithURL:URL delegate:self];
 	[parser parse];
-}
-
-#pragma mark UIViewController Methods
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return YES;
 }
 
 #pragma mark UITableViewController Methods
@@ -60,7 +42,7 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:linkCellIdentifier];
 
 	if(cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:linkCellIdentifier] autorelease];
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:linkCellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
@@ -70,8 +52,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[tableView deselectRowAtIndexPath:indexPath	animated:YES];
-
 	UIViewController *title = [[TitleController alloc] initWithEksiTitle:[titles objectAtIndex:[indexPath row]]];
 	[self.navigationController pushViewController:title animated:YES];
 	[title release];
@@ -83,6 +63,7 @@
 	self.titles = [NSMutableArray arrayWithArray:parser.results];
 	[parser release];
 	[self.tableView reloadData];
+	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 	[self.navigationItem setRightBarButtonItem:nil];
 }
 

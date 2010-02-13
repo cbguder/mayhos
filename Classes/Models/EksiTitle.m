@@ -53,7 +53,7 @@
 		}
 	}
 
-	return hasMoreToLoad;
+	return YES;
 }
 
 #pragma mark Other Methods

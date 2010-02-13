@@ -12,11 +12,35 @@
 
 @synthesize delegate;
 
-- (id)initWithFrame:(CGRect)frame {
-	if(self = [super initWithFrame:frame]) {
+- (void)dealloc {
+	NSLog(@"PagePickerView dealloc");
+	[super dealloc];
+}
+
+- (void)setDelegate:(id<PagePickerDelegate>)aDelegate {
+	delegate = aDelegate;
+
+	pickerView.dataSource = delegate;
+	pickerView.delegate = delegate;
+}
+
+- (id)initWithFrame:(CGRect)aRect {
+	if(self = [super initWithFrame:aRect]) {
 		self.backgroundColor = [UIColor clearColor];
 
-		UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 220, 320, 44)];
+		CGFloat pickerHeight = 216.0;
+		if(aRect.size.width > aRect.size.height) {
+			pickerHeight = 162.0;
+		}
+		CGFloat pickerPos = aRect.size.height - pickerHeight;
+		totalHeight = pickerHeight + 44.0;
+
+		pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0, pickerPos, aRect.size.width, pickerHeight)];
+		pickerView.showsSelectionIndicator = YES;
+		[self addSubview:pickerView];
+		[pickerView release];
+
+		toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0, pickerPos - 44.0, aRect.size.width, 44.0)];
 		toolbar.barStyle = UIBarStyleBlackTranslucent;
 		[self addSubview:toolbar];
 		[toolbar release];
@@ -33,20 +57,10 @@
 		[lastItem release];
 		[doneItem release];
 
-		pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 264, 0, 0)];
-		pickerView.showsSelectionIndicator = YES;
-		[self addSubview:pickerView];
-		[pickerView release];
+		[self setFrame:aRect];
 	}
 
 	return self;
-}
-
-- (void)setDelegate:(id<PagePickerDelegate>)aDelegate {
-	delegate = aDelegate;
-
-	pickerView.dataSource = delegate;
-	pickerView.delegate = delegate;
 }
 
 - (void)setSelectedPage:(NSUInteger)page {
@@ -58,7 +72,7 @@
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
-	[self setFrame:CGRectMake(0, 260, 320, 480)];
+	[self setFrame:CGRectMake(0, totalHeight, self.frame.size.width, self.frame.size.height)];
 	[UIView commitAnimations];
 }
 
@@ -66,29 +80,21 @@
 	[self removeFromSuperview];
 }
 
+#pragma mark UIBarButtonItem Methods
+
 - (void)cancel:(id)sender {
 	[self easeOutFromSuperview];
 }
 
 - (void)done:(id)sender {
-	if(delegate != nil && [delegate respondsToSelector:@selector(pagePicked:)]) {
-		[delegate pagePicked:[pickerView selectedRowInComponent:0]];
-	}
-
+	[delegate pagePicked:[pickerView selectedRowInComponent:0] + 1];
 	[self easeOutFromSuperview];
 }
 
 - (void)last:(id)sender {
-	NSUInteger lastPage = [pickerView numberOfRowsInComponent:0] - 1;
-	if(delegate != nil && [delegate respondsToSelector:@selector(pagePicked:)]) {
-		[delegate pagePicked:lastPage];
-	}
-
+	NSUInteger lastPage = [pickerView numberOfRowsInComponent:0];
+	[delegate pagePicked:lastPage];
 	[self easeOutFromSuperview];
-}
-
-- (void)dealloc {
-	[super dealloc];
 }
 
 @end

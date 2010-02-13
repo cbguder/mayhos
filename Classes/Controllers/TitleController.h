@@ -7,18 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PagedController.h"
 #import "PagePickerView.h"
 #import "EksiTitle.h"
 #import "EksiEntry.h"
 
-@interface TitleController : UITableViewController <EksiTitleDelegate, PagePickerDelegate> {
-	UIBarButtonItem *activityItem;
-	UIBarButtonItem *pagesItem;
+@interface TitleController : PagedController <EksiTitleDelegate> {
 	UIBarButtonItem *tumuItem;
-	PagePickerView *pagePicker;
 	EksiTitle *eksiTitle;
 }
 
+@property (nonatomic,retain) UIBarButtonItem *tumuItem;
 @property (nonatomic,retain) EksiTitle *eksiTitle;
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle;

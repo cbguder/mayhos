@@ -18,15 +18,17 @@
 
 - (id)initWithURL:(NSURL *)URL {
 	if(self = [super initWithNibName:@"Web" bundle:nil]) {
-		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-		[activityIndicatorView startAnimating];
-		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
-		[activityIndicatorView release];
-
 		self.currentURL = URL;
 	}
 
 	return self;	
+}
+
+- (void)viewDidLoad {
+	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+	[activityIndicatorView startAnimating];
+	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
+	[activityIndicatorView release];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -34,6 +36,7 @@
 }
 
 - (void)dealloc {
+	webView.delegate = nil;
 	[webView release];
 	[currentURL release];
 
@@ -47,6 +50,10 @@
 	[super dealloc];
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+}
+
 - (void)showActionSheet:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[currentURL absoluteString]
 															 delegate:self
@@ -54,7 +61,10 @@
 											   destructiveButtonTitle:nil
 													otherButtonTitles:@"Open in Safari", nil];
 
-	[actionSheet showInView:self.view.window];
+	mayhosAppDelegate *appDelegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
+	UIView *parentView = appDelegate.tabBarController.view;
+	[actionSheet showInView:parentView];
+	[actionSheet release];
 }
 
 #pragma mark UIActionSheetDelegate Methods
@@ -74,10 +84,8 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
-	NSMutableArray *newItems = [toolbar.items mutableCopy];
-	[newItems replaceObjectAtIndex:4 withObject:activityItem];
-	[toolbar setItems:newItems];
+	[self.navigationItem setRightBarButtonItem:activityItem];
+	self.title = @"Loading...";
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView {
@@ -85,10 +93,9 @@
 
 	backItem.enabled = [aWebView canGoBack];
 	forwardItem.enabled = [aWebView canGoForward];
+	self.title = [aWebView stringByEvaluatingJavaScriptFromString:@"document.title"];
 
-	NSMutableArray *newItems = [toolbar.items mutableCopy];
-	[newItems replaceObjectAtIndex:4 withObject:reloadItem];
-	[toolbar setItems:newItems];
+	[self.navigationItem setRightBarButtonItem:nil];
 }
 
 - (void)webView:(UIWebView *)aWebView didFailLoadWithError:(NSError *)error {

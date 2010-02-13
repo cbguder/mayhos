@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <libxml/HTMLparser.h>
+#import "PagedController.h"
 #import "TitleController.h"
 #import "EksiParser.h"
 
-@interface EksiLinkController : UITableViewController <EksiParserDelegate> {
-	UIBarButtonItem *activityItem;
+@interface EksiLinkController : PagedController <EksiParserDelegate> {
 	NSMutableArray *titles;
 	NSURL *URL;
 }

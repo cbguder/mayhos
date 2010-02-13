@@ -65,7 +65,7 @@
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
 						</object>
 						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">3</int>
+						<int key="IBUIContentMode">9</int>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 					</object>
 				</object>

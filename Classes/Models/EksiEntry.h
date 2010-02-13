@@ -12,6 +12,7 @@
 	NSString *author;
 	NSString *content;
 	NSString *plainTextContent;
+
 	NSDate *date;
 	NSDate *lastEdit;
 }

@@ -43,14 +43,19 @@
 
 	upDownControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:up, down, nil]];
 	upDownControl.segmentedControlStyle = UISegmentedControlStyleBar;
-	upDownControl.frame = CGRectMake(0, 0, 90, 30);
 	upDownControl.momentary = YES;
+	[upDownControl setWidth:45.0 forSegmentAtIndex:0];
+	[upDownControl setWidth:45.0 forSegmentAtIndex:1];
 	[upDownControl addTarget:self action:@selector(upDown:) forControlEvents:UIControlEventValueChanged];
 
 	UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithCustomView:upDownControl];
 	[self.navigationItem setRightBarButtonItem:bar];
 	[bar release];
 
+	[self refreshViewContent];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
 	[self refreshViewContent];
 }
 
@@ -133,8 +138,8 @@
 	[self refreshViewContent];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return YES;
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
 @end

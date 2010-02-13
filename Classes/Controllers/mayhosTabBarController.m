@@ -10,8 +10,8 @@
 
 @implementation mayhosTabBarController
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return YES;
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
 @end

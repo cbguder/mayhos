@@ -12,6 +12,8 @@
 
 @interface PagePickerView : UIView {
 	UIPickerView *pickerView;
+	UIToolbar *toolbar;
+	CGFloat totalHeight;
 	id delegate;
 }
 
@@ -21,6 +23,6 @@
 
 @end
 
-@protocol PagePickerDelegate <NSObject>
+@protocol PagePickerDelegate <UIPickerViewDataSource,UIPickerViewDelegate>
 - (void)pagePicked:(NSInteger)page;
 @end

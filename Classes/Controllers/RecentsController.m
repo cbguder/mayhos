@@ -20,7 +20,7 @@
 	self.refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
 																	 target:self
 																	 action:@selector(refresh)];
-	[self.navigationItem setRightBarButtonItem:refreshItem];
+	[self.navigationItem setLeftBarButtonItem:refreshItem];
 	[refreshItem release];
 
 	self.URL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=td"]];
@@ -48,12 +48,33 @@
 	}
 }
 
+#pragma mark PagedController Methods
+
+- (void)loadPage:(NSUInteger)page {
+	self.URL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"index.asp?a=td&p=%d", page]];
+	[self loadURL];
+}
+
 #pragma mark EksiParserDelegate Methods
 
 - (void)parserDidFinishParsing:(EksiParser *)parser {
 	[super parserDidFinishParsing:parser];
-	[self.navigationItem setRightBarButtonItem:refreshItem];
+	self.navigationItem.leftBarButtonItem = refreshItem;
 	refreshItem.enabled = YES;
+
+	pages = parser.pages;
+	currentPage = parser.currentPage;
+	[super finishedLoadingPage];
+}
+
+- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
+	[super parser:parser didFailWithError:error];
+	self.navigationItem.leftBarButtonItem = refreshItem;
+	refreshItem.enabled = YES;
+
+	pages = parser.pages;
+	currentPage = parser.currentPage;
+	[super finishedLoadingPage];
 }
 
 @end

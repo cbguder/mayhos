@@ -12,14 +12,14 @@
 #import "PagePickerView.h"
 
 @interface TitleController (Private)
-- (BOOL)hasLinkAtBottom;
 - (void)resetHeaderView;
-- (void)resetNavigationBar;
+- (void)checkEmptyTitle;
+- (void)showAlert;
 @end
 
 @implementation TitleController
 
-@synthesize eksiTitle;
+@synthesize tumuItem, eksiTitle;
 
 #pragma mark Static Methods
 
@@ -35,14 +35,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle {
 	if(self = [super init]) {
-		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-		[activityIndicatorView startAnimating];
-		activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
-		[activityIndicatorView release];
-
-		pagesItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked:)];
-		tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümü" style:UIBarButtonItemStyleBordered target:self action:@selector(tumuClicked:)];
-
 		[self setEksiTitle:theTitle];
 	}
 
@@ -50,13 +42,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)dealloc {
-	[self.navigationItem setRightBarButtonItem:nil];
-
 	[eksiTitle setDelegate:nil];
-	[activityItem release];
-	[pagePicker release];
 	[eksiTitle release];
-	[pagesItem release];
 	[tumuItem release];
 
 	[super dealloc];
@@ -78,20 +65,28 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 #pragma mark Drawing Methods
 
+- (void)showAlert {
+	EksiEntry *firstEntry = [eksiTitle.entries objectAtIndex:0];
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:eksiTitle.title
+														message:firstEntry.plainTextContent
+													   delegate:self
+											  cancelButtonTitle:nil
+											  otherButtonTitles:@"geri git ne bileyim", nil];
+	[alertView show];
+	[alertView release];
+}
+
 - (void)resetNavigationBar {
 	if([eksiTitle hasMoreToLoad]) {
 		[self.navigationItem setRightBarButtonItem:tumuItem];
-	} else if(eksiTitle.pages > 1) {
-		[pagesItem setTitle:[NSString stringWithFormat:@"%d/%d", eksiTitle.currentPage, eksiTitle.pages]];
-		[self.navigationItem setRightBarButtonItem:pagesItem];
 	} else {
-		[self.navigationItem setRightBarButtonItem:nil];
+		[super resetNavigationBar];
 	}
 }
 
 - (void)redrawHeader {
 	CGFloat width = 320.0;
-	if(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
 		width = 480.0;
 	}
 
@@ -121,47 +116,23 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	}
 }
 
-- (void)pagesClicked:(id)sender {
-	if(pagePicker == nil) {
-		pagePicker = [[PagePickerView alloc] initWithFrame:CGRectMake(0, 260, 320, 480)];
-		pagePicker.delegate = self;
-	} else {
-		[pagePicker setFrame:CGRectMake(0, 260, 320, 480)];
-	}
-
-	[pagePicker setSelectedPage:eksiTitle.currentPage];
-	[self.view.window addSubview:pagePicker];
-
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[pagePicker setFrame:CGRectMake(0, 0, 320, 480)];
-	[UIView commitAnimations];
-}
-
-- (void)pagePicked:(NSInteger)page {
-	if(eksiTitle.currentPage != page + 1) {
-		[self.navigationItem setRightBarButtonItem:activityItem];
-		[eksiTitle loadPage:page + 1];
-		[self.tableView reloadData];
-		[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-	}
-}
-
-#pragma mark UIPickerView Methods
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-	return [NSString stringWithFormat:@"%d", row + 1];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-	return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-	return [eksiTitle pages];
+- (void)loadPage:(NSUInteger)page {
+	[eksiTitle loadPage:page];
 }
 
 #pragma mark UIViewController Methods
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümü" style:UIBarButtonItemStyleBordered target:self action:@selector(tumuClicked:)];
+	[tumuItem release];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self redrawHeader];
+}
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
@@ -169,16 +140,17 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	if([eksiTitle.entries count] == 0) {
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadEntries];
+	} else if([eksiTitle isEmpty]) {
+		[self showAlert];
+	} else {
+		[self redrawHeader];
+		[self.tableView reloadData];
 	}
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
 	[self redrawHeader];
 	[self.tableView reloadData];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return YES;
 }
 
 #pragma mark UITableViewController Methods
@@ -188,6 +160,10 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if([eksiTitle isEmpty]) {
+		return 0;
+	}
+
 	return [eksiTitle.entries count];
 }
 
@@ -202,7 +178,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	UILabel *authorLabel;
 
 	if(cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:entryCellIdentifier] autorelease];
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:entryCellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
 		contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -227,7 +203,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	}
 
 	CGFloat width = 320.0;
-	if(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
 		width = 480.0;
 	}
 	width -= 40.0;
@@ -246,7 +222,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat width = 320.0;
-	if(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
 		width = 480.0;
 	}
 	width -= 40.0;
@@ -256,8 +232,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
 	EntryController *entryController = [[EntryController alloc] initWithEksiTitle:eksiTitle index:indexPath.row];
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
@@ -272,18 +246,14 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark EksiTitleDelegate Methods
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
-	[self resetNavigationBar];
+	pages = eksiTitle.pages;
+	currentPage = eksiTitle.currentPage;
+	[super finishedLoadingPage];
+
 	[self resetHeaderView];
 
 	if([title isEmpty]) {
-		EksiEntry *firstEntry = [title.entries objectAtIndex:0];
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title.title
-															message:firstEntry.plainTextContent
-														   delegate:self
-												  cancelButtonTitle:nil
-												  otherButtonTitles:@"geri git ne bileyim", nil];
-		[alertView show];
-		[alertView release];
+		[self showAlert];
 	} else {
 		[self.tableView reloadData];
 		[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
@@ -291,8 +261,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)title:(EksiTitle*)title didFailWithError:(NSError *)error {
-	[self resetNavigationBar];
-	[self.tableView reloadData];
+	pages = eksiTitle.pages;
+	currentPage = eksiTitle.currentPage;
+	[super finishedLoadingPage];
 }
 
 @end
