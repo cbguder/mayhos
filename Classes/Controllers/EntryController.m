@@ -16,6 +16,7 @@
 
 @interface EntryController (Private)
 - (void)refreshViewContent;
+- (void)reloadContentView;
 @end
 
 @implementation EntryController
@@ -55,8 +56,8 @@
 	[self refreshViewContent];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-	[self refreshViewContent];
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+	[self reloadContentView];
 }
 
 - (void)refreshViewContent {
@@ -79,6 +80,12 @@
 		[authorView setDate:[entry dateString]];
 	}
 
+	[self reloadContentView];
+}
+
+- (void)reloadContentView {
+	EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
+
 	if(contentView) {
 		NSString *htmlString = [NSString stringWithFormat:@"<html><head><style type=\"text/css\">body{font-family:sans-serif;font-size:14px;}a{color:#236ed8;text-decoration:none;}a.internal{-webkit-touch-callout:none;}</style></head><body>%@</body></html>", entry.content];
 		[contentView loadHTMLString:htmlString baseURL:nil];
@@ -86,7 +93,7 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	if(navigationType == UIWebViewNavigationTypeOther) {
+	if(navigationType == UIWebViewNavigationTypeOther || navigationType == UIWebViewNavigationTypeReload) {
 		return YES;
 	}
 
