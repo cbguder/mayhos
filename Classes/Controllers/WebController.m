@@ -35,6 +35,10 @@
 	[webView loadRequest:[NSURLRequest requestWithURL:currentURL]];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[webView stopLoading];
+}
+
 - (void)dealloc {
 	webView.delegate = nil;
 	[webView release];
