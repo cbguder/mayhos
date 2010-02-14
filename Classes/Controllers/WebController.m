@@ -21,7 +21,7 @@
 		self.currentURL = URL;
 	}
 
-	return self;	
+	return self;
 }
 
 - (void)viewDidLoad {

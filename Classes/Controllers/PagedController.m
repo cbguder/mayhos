@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
 	pagesItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked:)];
-	
+
 	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 	[activityIndicatorView startAnimating];
 	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
