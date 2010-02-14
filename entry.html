@@ -7,20 +7,25 @@
 		body { font-family:sans-serif; font-size:14px; margin:0; padding:0; }
 		a { color:#236ed8; text-decoration: none; }
 		a.internal { -webkit-touch-callout: none; }
-		#authorInfo, #entry { padding: 8px; }
+		#authorInfo, #entry { padding: 10px; }
+		#authorInfo, #chevron { width: 100%; }
 		#authorInfo {
-			width: 100%;
+			-webkit-user-select: none;
 			border-bottom: 1px solid #535353;
 			background: -webkit-gradient(linear, left top, left bottom, from(#e6e6e6), to(#a6a6a6));
 		}
 		#author { font-size: 16px; font-weight: bold; }
 		#date { font-size: 12px; }
+		#chevron { background: url("Chevron.png") no-repeat center right; }
+		#author, #date { margin-right: 21px; }
 	</style>
 </head>
 <body>
-	<div id="authorInfo">
-		<div id="author">%@</div>
-		<div id="date">%@</div>
+	<div id="authorInfo" onclick="location.href='mayhos://show.asp?t=%@';">
+		<div id="chevron">
+			<div id="author">%@</div>
+			<div id="date">%@</div>
+		</div>
 	</div>
 	<div id="entry">%@</div>
 </body>

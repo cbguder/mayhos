@@ -25,8 +25,10 @@
 		eksiTitle = [theTitle retain];
 		index = theIndex;
 
-		NSString *templatePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"entry" ofType:@"html"];
+		NSBundle *bundle = [NSBundle mainBundle];
+		NSString *templatePath = [bundle pathForResource:@"entry" ofType:@"html"];
 		entryTemplate = [[NSString alloc] initWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
+		baseURL = [[NSURL fileURLWithPath:[bundle bundlePath]] retain];
 	}
 
 	return self;
@@ -35,7 +37,6 @@
 - (void)loadView {
 	UIWebView *webView = [[UIWebView alloc] init];
 	self.view = webView;
-	contentView = webView;
 	[webView release];
 }
 
@@ -43,10 +44,14 @@
 	[entryTemplate release];
 	[upDownControl release];
 	[eksiTitle release];
+	[baseURL release];
 	[super dealloc];
 }
 
 - (void)viewDidLoad {
+	contentView = (UIWebView *)self.view;
+	[contentView setDelegate:self];
+
 	UIImage *up = [UIImage imageNamed:@"Up.png"];
 	UIImage *down = [UIImage imageNamed:@"Down.png"];
 
@@ -89,13 +94,13 @@
 	EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
 
 	if(contentView) {
-		NSString *htmlString = [NSString stringWithFormat:entryTemplate, entry.author, [entry dateString], entry.content];
-		[contentView loadHTMLString:htmlString baseURL:nil];
+		NSString *htmlString = [NSString stringWithFormat:entryTemplate, entry.author, entry.author, [entry dateString], entry.content];
+		[contentView loadHTMLString:htmlString baseURL:baseURL];
 	}
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	if(navigationType == UIWebViewNavigationTypeOther || navigationType == UIWebViewNavigationTypeReload) {
+	if([request.URL.scheme isEqualToString:@"file"]) {
 		return YES;
 	}
 

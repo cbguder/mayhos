@@ -17,6 +17,7 @@
 	UISegmentedControl *upDownControl;
 
 	NSString *entryTemplate;
+	NSURL *baseURL;
 }
 
 - (id)initWithEksiTitle:(EksiTitle *)title index:(NSUInteger)index;
