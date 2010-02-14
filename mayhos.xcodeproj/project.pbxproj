@@ -16,6 +16,7 @@
 		4C3AE3C0110294E600BDB09B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3AE3BF110294E600BDB09B /* Default.png */; };
 		4C3C5AF310F6B136001AA58B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3C5AF210F6B135001AA58B /* libxml2.dylib */; };
 		4C4FDF92110293DE00712960 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4FDF91110293DE00712960 /* Search.png */; };
+		4C5CAF9E11285DB500DADB3D /* entry.html in Resources */ = {isa = PBXBuildFile; fileRef = 4C5CAF9D11285DB500DADB3D /* entry.html */; };
 		4C61EB1410EA76F3004DE317 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C61EB1210EA76F3004DE317 /* Icon.png */; };
 		4C61EB6510EA7943004DE317 /* EksiLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB4E10EA7943004DE317 /* EksiLinkController.m */; };
 		4C61EB6610EA7943004DE317 /* EntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5010EA7943004DE317 /* EntryController.m */; };
@@ -24,7 +25,6 @@
 		4C61EB6910EA7943004DE317 /* TitleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5610EA7943004DE317 /* TitleController.m */; };
 		4C61EB6A10EA7943004DE317 /* EksiEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5910EA7943004DE317 /* EksiEntry.m */; };
 		4C61EB6B10EA7943004DE317 /* EksiTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5B10EA7943004DE317 /* EksiTitle.m */; };
-		4C61EB6C10EA7943004DE317 /* AuthorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5E10EA7943004DE317 /* AuthorView.m */; };
 		4C61EB6D10EA7943004DE317 /* EksiTitleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB6010EA7943004DE317 /* EksiTitleHeaderView.m */; };
 		4C61EB6E10EA7943004DE317 /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB6210EA7943004DE317 /* GradientView.m */; };
 		4C61EB6F10EA7943004DE317 /* PagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB6410EA7943004DE317 /* PagePickerView.m */; };
@@ -36,7 +36,6 @@
 		4CA5FECE10F7AAAB002924A5 /* LeftFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FECD10F7AAAB002924A5 /* LeftFrameParser.m */; };
 		4CA5FED710F7ACE9002924A5 /* EksiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FED610F7ACE9002924A5 /* EksiParser.m */; };
 		4CA5FF2510F7B26A002924A5 /* RightFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FF2410F7B26A002924A5 /* RightFrameParser.m */; };
-		4CA630F710F95E6000094EE3 /* Entry.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CA630F610F95E6000094EE3 /* Entry.xib */; };
 		4CA6313B10F9626700094EE3 /* Down.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA6313910F9626700094EE3 /* Down.png */; };
 		4CA6313C10F9626700094EE3 /* Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA6313A10F9626700094EE3 /* Up.png */; };
 		4CB3AB2A10FAA6070072DE2D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3AB2910FAA6070072DE2D /* Constants.m */; };
@@ -60,6 +59,7 @@
 		4C3AE3BF110294E600BDB09B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4C3C5AF210F6B135001AA58B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		4C4FDF91110293DE00712960 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
+		4C5CAF9D11285DB500DADB3D /* entry.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = entry.html; sourceTree = "<group>"; };
 		4C61EB1210EA76F3004DE317 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		4C61EB4D10EA7943004DE317 /* EksiLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiLinkController.h; sourceTree = "<group>"; };
 		4C61EB4E10EA7943004DE317 /* EksiLinkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiLinkController.m; sourceTree = "<group>"; };
@@ -75,8 +75,6 @@
 		4C61EB5910EA7943004DE317 /* EksiEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiEntry.m; sourceTree = "<group>"; };
 		4C61EB5A10EA7943004DE317 /* EksiTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiTitle.h; sourceTree = "<group>"; };
 		4C61EB5B10EA7943004DE317 /* EksiTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiTitle.m; sourceTree = "<group>"; };
-		4C61EB5D10EA7943004DE317 /* AuthorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorView.h; sourceTree = "<group>"; };
-		4C61EB5E10EA7943004DE317 /* AuthorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorView.m; sourceTree = "<group>"; };
 		4C61EB5F10EA7943004DE317 /* EksiTitleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiTitleHeaderView.h; sourceTree = "<group>"; };
 		4C61EB6010EA7943004DE317 /* EksiTitleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiTitleHeaderView.m; sourceTree = "<group>"; };
 		4C61EB6110EA7943004DE317 /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 		4CA5FED610F7ACE9002924A5 /* EksiParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiParser.m; sourceTree = "<group>"; };
 		4CA5FF2310F7B26A002924A5 /* RightFrameParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightFrameParser.h; sourceTree = "<group>"; };
 		4CA5FF2410F7B26A002924A5 /* RightFrameParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightFrameParser.m; sourceTree = "<group>"; };
-		4CA630F610F95E6000094EE3 /* Entry.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Entry.xib; sourceTree = "<group>"; };
 		4CA6313910F9626700094EE3 /* Down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Down.png; sourceTree = "<group>"; };
 		4CA6313A10F9626700094EE3 /* Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Up.png; sourceTree = "<group>"; };
 		4CB3AB2810FAA6070072DE2D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -185,13 +182,13 @@
 				4CA6313910F9626700094EE3 /* Down.png */,
 				4CDEED5110FA1F0C00220062 /* Forward.png */,
 				4CA6313A10F9626700094EE3 /* Up.png */,
-				4CA630F610F95E6000094EE3 /* Entry.xib */,
 				4C61EBAE10EA7A1B004DE317 /* MainWindow.xib */,
 				4C61EB1210EA76F3004DE317 /* Icon.png */,
 				8D1107310486CEB800E47090 /* mayhos-Info.plist */,
 				4C3580D410F63CB600A0B637 /* Search.xib */,
 				4CDEED3A10FA1C3F00220062 /* Web.xib */,
 				4C3AE3BF110294E600BDB09B /* Default.png */,
+				4C5CAF9D11285DB500DADB3D /* entry.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -245,8 +242,6 @@
 		4C61EB5C10EA7943004DE317 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4C61EB5D10EA7943004DE317 /* AuthorView.h */,
-				4C61EB5E10EA7943004DE317 /* AuthorView.m */,
 				4C61EB5F10EA7943004DE317 /* EksiTitleHeaderView.h */,
 				4C61EB6010EA7943004DE317 /* EksiTitleHeaderView.m */,
 				4C61EB6110EA7943004DE317 /* GradientView.h */,
@@ -315,7 +310,6 @@
 				4C61EB1410EA76F3004DE317 /* Icon.png in Resources */,
 				4C61EBAF10EA7A1B004DE317 /* MainWindow.xib in Resources */,
 				4C3580D510F63CB600A0B637 /* Search.xib in Resources */,
-				4CA630F710F95E6000094EE3 /* Entry.xib in Resources */,
 				4CA6313B10F9626700094EE3 /* Down.png in Resources */,
 				4CA6313C10F9626700094EE3 /* Up.png in Resources */,
 				4CDEED3B10FA1C3F00220062 /* Web.xib in Resources */,
@@ -323,6 +317,7 @@
 				4CDEED5310FA1F0C00220062 /* Forward.png in Resources */,
 				4C4FDF92110293DE00712960 /* Search.png in Resources */,
 				4C3AE3C0110294E600BDB09B /* Default.png in Resources */,
+				4C5CAF9E11285DB500DADB3D /* entry.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,7 +337,6 @@
 				4C61EB6910EA7943004DE317 /* TitleController.m in Sources */,
 				4C61EB6A10EA7943004DE317 /* EksiEntry.m in Sources */,
 				4C61EB6B10EA7943004DE317 /* EksiTitle.m in Sources */,
-				4C61EB6C10EA7943004DE317 /* AuthorView.m in Sources */,
 				4C61EB6D10EA7943004DE317 /* EksiTitleHeaderView.m in Sources */,
 				4C61EB6E10EA7943004DE317 /* GradientView.m in Sources */,
 				4C61EB6F10EA7943004DE317 /* PagePickerView.m in Sources */,

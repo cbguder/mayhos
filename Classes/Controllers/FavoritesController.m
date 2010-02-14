@@ -36,6 +36,19 @@
 
 	if(favoritesOriginal == nil || [favoritesOriginal count] == 0) {
 		favorites = [[NSMutableArray alloc] init];
+
+		NSMutableDictionary *foo = [NSMutableDictionary dictionary];
+		[foo setObject:@"deja vu" forKey:@"title"];
+		[foo setObject:@"http://sozluk.sourtimes.org/index.asp?a=sr&kw=&au=deja+vu&so=y&fd=&fm=&fy=" forKey:@"URL"];
+		[foo setObject:[NSNumber numberWithInt:kFavoriteTypeSearch] forKey:@"type"];
+		[favorites addObject:foo];
+
+		NSMutableDictionary *bar = [NSMutableDictionary dictionary];
+		[bar setObject:@"deja vu" forKey:@"title"];
+		[bar setObject:@"http://sozluk.sourtimes.org/show.asp?t=deja+vu" forKey:@"URL"];
+		[bar setObject:[NSNumber numberWithInt:kFavoriteTypeTitle] forKey:@"type"];
+		[favorites addObject:bar];
+
 		[self saveFavorites];
 	} else {
 		favorites = [favoritesOriginal mutableCopy];

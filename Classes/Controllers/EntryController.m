@@ -7,7 +7,6 @@
 //
 
 #import "EntryController.h"
-#import "AuthorView.h"
 #import "EksiEntry.h"
 #import "WebController.h"
 #import "TitleController.h"
@@ -21,18 +20,27 @@
 
 @implementation EntryController
 
-@synthesize authorView, contentView;
-
 - (id)initWithEksiTitle:(EksiTitle *)theTitle index:(NSUInteger)theIndex {
-	if(self = [super initWithNibName:@"Entry" bundle:nil]) {
+	if(self = [super initWithNibName:nil bundle:nil]) {
 		eksiTitle = [theTitle retain];
 		index = theIndex;
+
+		NSString *templatePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"entry" ofType:@"html"];
+		entryTemplate = [[NSString alloc] initWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
 	}
 
 	return self;
 }
 
+- (void)loadView {
+	UIWebView *webView = [[UIWebView alloc] init];
+	self.view = webView;
+	contentView = webView;
+	[webView release];
+}
+
 - (void)dealloc {
+	[entryTemplate release];
 	[upDownControl release];
 	[eksiTitle release];
 	[super dealloc];
@@ -67,17 +75,11 @@
 		return;
 	}
 
-	EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
 	self.title = [NSString stringWithFormat:@"%d of %d", index+1, entryCount];
 
 	if(upDownControl.numberOfSegments == 2) {
 		[upDownControl setEnabled:(index != 0) forSegmentAtIndex:0];
 		[upDownControl setEnabled:(index+1 != entryCount) forSegmentAtIndex:1];
-	}
-
-	if(authorView) {
-		[authorView setAuthor:[entry author]];
-		[authorView setDate:[entry dateString]];
 	}
 
 	[self reloadContentView];
@@ -87,7 +89,7 @@
 	EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
 
 	if(contentView) {
-		NSString *htmlString = [NSString stringWithFormat:@"<html><head><style type=\"text/css\">body{font-family:sans-serif;font-size:14px;}a{color:#236ed8;text-decoration:none;}a.internal{-webkit-touch-callout:none;}</style></head><body>%@</body></html>", entry.content];
+		NSString *htmlString = [NSString stringWithFormat:entryTemplate, entry.author, [entry dateString], entry.content];
 		[contentView loadHTMLString:htmlString baseURL:nil];
 	}
 }

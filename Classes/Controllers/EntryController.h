@@ -8,19 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "EksiTitle.h"
-#import "AuthorView.h"
 
 @interface EntryController : UIViewController <UIWebViewDelegate> {
 	EksiTitle *eksiTitle;
 	NSUInteger index;
 
-	AuthorView *authorView;
 	UIWebView *contentView;
 	UISegmentedControl *upDownControl;
-}
 
-@property (nonatomic,retain) IBOutlet AuthorView *authorView;
-@property (nonatomic,retain) IBOutlet UIWebView *contentView;
+	NSString *entryTemplate;
+}
 
 - (id)initWithEksiTitle:(EksiTitle *)title index:(NSUInteger)index;
 
