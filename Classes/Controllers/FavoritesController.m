@@ -55,6 +55,10 @@
 	}
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+}
+
 #pragma mark UITableViewController Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
