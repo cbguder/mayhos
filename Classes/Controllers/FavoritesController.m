@@ -16,12 +16,10 @@
 
 - (void)dealloc {
 	[favorites release];
-
     [super dealloc];
 }
 
 - (void)saveFavorites {
-	NSLog(@"saveFavorites");
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:favorites forKey:@"favorites"];
 	[defaults synchronize];
@@ -34,7 +32,7 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *favoritesOriginal = [defaults arrayForKey:@"favorites"];
 
-	if(favoritesOriginal == nil || [favoritesOriginal count] == 0) {
+	if(favoritesOriginal == nil) {
 		favorites = [[NSMutableArray alloc] init];
 
 		NSMutableDictionary *foo = [NSMutableDictionary dictionary];
@@ -44,8 +42,8 @@
 		[favorites addObject:foo];
 
 		NSMutableDictionary *bar = [NSMutableDictionary dictionary];
-		[bar setObject:@"deja vu" forKey:@"title"];
-		[bar setObject:@"http://sozluk.sourtimes.org/show.asp?t=deja+vu" forKey:@"URL"];
+		[bar setObject:@"mayhoş" forKey:@"title"];
+		[bar setObject:@"http://sozluk.sourtimes.org/show.asp?t=mayhoş" forKey:@"URL"];
 		[bar setObject:[NSNumber numberWithInt:kFavoriteTypeTitle] forKey:@"type"];
 		[favorites addObject:bar];
 
