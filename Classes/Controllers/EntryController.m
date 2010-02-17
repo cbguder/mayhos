@@ -70,13 +70,15 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	UIViewController *topViewController = self.navigationController.topViewController;
+	if(![self.navigationController.viewControllers containsObject:self]) {
+		UIViewController *topViewController = self.navigationController.topViewController;
 
-	if([topViewController isMemberOfClass:[TitleController class]]) {
-		UITableView *tableView = (UITableView *)topViewController.view;
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-		[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
-		[tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+		if([topViewController isMemberOfClass:[TitleController class]]) {
+			UITableView *tableView = (UITableView *)topViewController.view;
+			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+			[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
+			[tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+		}
 	}
 }
 
