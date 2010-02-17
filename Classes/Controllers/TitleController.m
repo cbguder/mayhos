@@ -209,10 +209,10 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	width -= 40.0;
 
 	EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
-	CGFloat height = heightForEntry(entry, width);
+	CGFloat height = [self tableView:tableView heightForRowAtIndexPath:indexPath];
 
-	contentLabel.frame = CGRectMake(10, 10, width, height);
-	authorLabel.frame = CGRectMake(10, height + 20, width, 18);
+	contentLabel.frame = CGRectMake(10, 10, width, height - 48.0);
+	authorLabel.frame = CGRectMake(10, height - 28.0, width, 18);
 
 	contentLabel.text = entry.plainTextContent;
 	authorLabel.text = [entry signature];
@@ -227,8 +227,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	}
 	width -= 40.0;
 
-	EksiEntry *entry = [eksiTitle.entries objectAtIndex:[indexPath row]];
-	return heightForEntry(entry, width) + 48;
+	EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
+	return heightForEntry(entry, width) + 48.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
