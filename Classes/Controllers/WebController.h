@@ -12,25 +12,23 @@
 	UIWebView *webView;
 	NSURL *currentURL;
 
-	UIToolbar *toolbar;
 	UIBarButtonItem *backItem;
 	UIBarButtonItem *forwardItem;
 	UIBarButtonItem *reloadItem;
+	UIBarButtonItem *stopItem;
 	UIBarButtonItem *actionItem;
 	UIBarButtonItem *activityItem;
 }
 
-@property (nonatomic,retain) IBOutlet UIWebView *webView;
 @property (nonatomic,retain) NSURL *currentURL;
 
-@property (nonatomic,retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic,retain) IBOutlet UIBarButtonItem *backItem;
-@property (nonatomic,retain) IBOutlet UIBarButtonItem *forwardItem;
-@property (nonatomic,retain) IBOutlet UIBarButtonItem *reloadItem;
-@property (nonatomic,retain) IBOutlet UIBarButtonItem *actionItem;
+@property (nonatomic,retain) UIBarButtonItem *backItem;
+@property (nonatomic,retain) UIBarButtonItem *forwardItem;
+@property (nonatomic,retain) UIBarButtonItem *reloadItem;
+@property (nonatomic,retain) UIBarButtonItem *stopItem;
+@property (nonatomic,retain) UIBarButtonItem *actionItem;
 @property (nonatomic,retain) UIBarButtonItem *activityItem;
 
 - (id)initWithURL:(NSURL *)URL;
-- (IBAction)showActionSheet:(id)sender;
 
 @end

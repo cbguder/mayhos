@@ -42,7 +42,6 @@
 		4CB3AB2A10FAA6070072DE2D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3AB2910FAA6070072DE2D /* Constants.m */; };
 		4CB3ABFA10FAB9DB0072DE2D /* PagedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3ABF910FAB9DB0072DE2D /* PagedController.m */; };
 		4CDEED3810FA1C0000220062 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDEED3610FA1C0000220062 /* WebController.m */; };
-		4CDEED3B10FA1C3F00220062 /* Web.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CDEED3A10FA1C3F00220062 /* Web.xib */; };
 		4CDEED5210FA1F0C00220062 /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CDEED5010FA1F0C00220062 /* Back.png */; };
 		4CDEED5310FA1F0C00220062 /* Forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CDEED5110FA1F0C00220062 /* Forward.png */; };
 /* End PBXBuildFile section */
@@ -106,7 +105,6 @@
 		4CB3ABF910FAB9DB0072DE2D /* PagedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedController.m; sourceTree = "<group>"; };
 		4CDEED3510FA1C0000220062 /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		4CDEED3610FA1C0000220062 /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
-		4CDEED3A10FA1C3F00220062 /* Web.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Web.xib; sourceTree = "<group>"; };
 		4CDEED5010FA1F0C00220062 /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
 		4CDEED5110FA1F0C00220062 /* Forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Forward.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* mayhos-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mayhos-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 				4C61EB1210EA76F3004DE317 /* Icon.png */,
 				8D1107310486CEB800E47090 /* mayhos-Info.plist */,
 				4C3580D410F63CB600A0B637 /* Search.xib */,
-				4CDEED3A10FA1C3F00220062 /* Web.xib */,
 				4C3AE3BF110294E600BDB09B /* Default.png */,
 				4C5CAF9D11285DB500DADB3D /* entry.html */,
 			);
@@ -315,7 +312,6 @@
 				4C3580D510F63CB600A0B637 /* Search.xib in Resources */,
 				4CA6313B10F9626700094EE3 /* Down.png in Resources */,
 				4CA6313C10F9626700094EE3 /* Up.png in Resources */,
-				4CDEED3B10FA1C3F00220062 /* Web.xib in Resources */,
 				4CDEED5210FA1F0C00220062 /* Back.png in Resources */,
 				4CDEED5310FA1F0C00220062 /* Forward.png in Resources */,
 				4C4FDF92110293DE00712960 /* Search.png in Resources */,
