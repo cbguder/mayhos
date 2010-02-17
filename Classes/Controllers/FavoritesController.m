@@ -64,7 +64,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSLog(@"fave count: %d", [favorites count]);
 	return [favorites count];
 }
 
