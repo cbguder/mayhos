@@ -35,17 +35,19 @@
 	if(favoritesOriginal == nil) {
 		favorites = [[NSMutableArray alloc] init];
 
-		NSMutableDictionary *foo = [NSMutableDictionary dictionary];
-		[foo setObject:@"deja vu" forKey:@"title"];
-		[foo setObject:@"http://sozluk.sourtimes.org/index.asp?a=sr&kw=&au=deja+vu&so=y&fd=&fm=&fy=" forKey:@"URL"];
-		[foo setObject:[NSNumber numberWithInt:kFavoriteTypeSearch] forKey:@"type"];
-		[favorites addObject:foo];
+		NSMutableDictionary *dejavu = [NSMutableDictionary dictionary];
+		[dejavu setObject:@"deja vu" forKey:@"title"];
+		[dejavu setObject:@"http://sozluk.sourtimes.org/index.asp?a=sr&kw=&au=deja+vu&so=y&fd=&fm=&fy=" forKey:@"URL"];
+		[dejavu setObject:[NSNumber numberWithInt:kFavoriteTypeSearch] forKey:@"type"];
+		[favorites addObject:dejavu];
+		[dejavu release];
 
-		NSMutableDictionary *bar = [NSMutableDictionary dictionary];
-		[bar setObject:@"mayhoş" forKey:@"title"];
-		[bar setObject:@"http://sozluk.sourtimes.org/show.asp?t=mayhoş" forKey:@"URL"];
-		[bar setObject:[NSNumber numberWithInt:kFavoriteTypeTitle] forKey:@"type"];
-		[favorites addObject:bar];
+		NSMutableDictionary *mayhos = [NSMutableDictionary dictionary];
+		[mayhos setObject:@"mayhoş" forKey:@"title"];
+		[mayhos setObject:@"http://sozluk.sourtimes.org/show.asp?t=mayhoş" forKey:@"URL"];
+		[mayhos setObject:[NSNumber numberWithInt:kFavoriteTypeTitle] forKey:@"type"];
+		[favorites addObject:mayhos];
+		[mayhos release];
 
 		[self saveFavorites];
 	} else {
