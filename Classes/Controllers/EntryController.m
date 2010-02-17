@@ -35,7 +35,7 @@
 }
 
 - (void)loadView {
-	UIWebView *webView = [[UIWebView alloc] init];
+	webView = [[UIWebView alloc] init];
 	self.view = webView;
 	[webView release];
 }
@@ -49,8 +49,8 @@
 }
 
 - (void)viewDidLoad {
-	contentView = (UIWebView *)self.view;
-	[contentView setDelegate:self];
+	webView.delegate = self;
+	webView.dataDetectorTypes = UIDataDetectorTypeNone;
 
 	UIImage *up = [UIImage imageNamed:@"Up.png"];
 	UIImage *down = [UIImage imageNamed:@"Down.png"];
@@ -76,8 +76,13 @@
 		if([topViewController isMemberOfClass:[TitleController class]]) {
 			UITableView *tableView = (UITableView *)topViewController.view;
 			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-			[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
-			[tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+
+			@try {
+				[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
+				[tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+			} @catch (NSException * e) {
+				;
+			}
 		}
 	}
 }
@@ -106,9 +111,9 @@
 - (void)reloadContentView {
 	EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
 
-	if(contentView) {
+	if(webView) {
 		NSString *htmlString = [NSString stringWithFormat:entryTemplate, entry.author, entry.author, [entry dateString], entry.content];
-		[contentView loadHTMLString:htmlString baseURL:baseURL];
+		[webView loadHTMLString:htmlString baseURL:baseURL];
 	}
 }
 

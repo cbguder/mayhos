@@ -13,7 +13,7 @@
 	EksiTitle *eksiTitle;
 	NSUInteger index;
 
-	UIWebView *contentView;
+	UIWebView *webView;
 	UISegmentedControl *upDownControl;
 
 	NSString *entryTemplate;
