@@ -12,11 +12,6 @@
 
 @synthesize delegate;
 
-- (void)dealloc {
-	NSLog(@"PagePickerView dealloc");
-	[super dealloc];
-}
-
 - (void)setDelegate:(id<PagePickerDelegate>)aDelegate {
 	delegate = aDelegate;
 
