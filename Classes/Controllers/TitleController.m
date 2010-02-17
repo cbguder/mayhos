@@ -36,6 +36,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (id)initWithEksiTitle:(EksiTitle *)theTitle {
 	if(self = [super init]) {
 		[self setEksiTitle:theTitle];
+		self.hidesBottomBarWhenPushed = YES;
 	}
 
 	return self;

@@ -13,6 +13,14 @@
 
 @synthesize titles, URL;
 
+- (id)init {
+	if(self = [super init]) {
+		self.hidesBottomBarWhenPushed = YES;
+	}
+
+	return self;
+}
+
 - (void)dealloc {
 	[titles release];
 	[URL release];
