@@ -58,6 +58,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[eksiTitle release];
 		eksiTitle = [theTitle retain];
 		[eksiTitle setDelegate:self];
+
+		pages = eksiTitle.pages;
+		currentPage = eksiTitle.currentPage;
 	}
 
 	[self resetNavigationBar];
