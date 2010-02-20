@@ -127,8 +127,11 @@
 		NSURL *realURL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:rest]];
 
 		if([rest hasPrefix:@"show.asp"]) {
+			NSString *titleText = [[[realURL queryDictionary] objectForKey:@"t"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+
 			EksiTitle *title = [[EksiTitle alloc] init];
 			[title setURL:realURL];
+			[title setTitle:titleText];
 
 			TitleController *titleController = [[TitleController alloc] initWithEksiTitle:title];
 			[self.navigationController pushViewController:titleController animated:YES];
