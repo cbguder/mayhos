@@ -174,7 +174,8 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
+	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
 @end
