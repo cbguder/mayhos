@@ -26,7 +26,10 @@
 		return;
 	}
 
-	NSString *reduced = [signature substringWithRange:NSMakeRange(1, [signature length] - 2)];
+	NSMutableCharacterSet *set = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
+	[set addCharactersInString:@"()"];
+	NSString *reduced = [signature stringByTrimmingCharactersInSet:set];
+	[set release];
 	NSArray *parts = [reduced componentsSeparatedByString:@", "];
 
 	self.author = [parts objectAtIndex:0];
