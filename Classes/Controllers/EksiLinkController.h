@@ -24,7 +24,7 @@
 @property (nonatomic,assign) BOOL refreshEnabled;
 @property (nonatomic,retain) NSURL *URL;
 
-- (void)refresh;
 - (void)loadURL;
+- (void)refresh;
 
 @end

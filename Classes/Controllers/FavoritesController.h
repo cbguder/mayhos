@@ -12,4 +12,6 @@
 	NSMutableArray *favorites;
 }
 
+@property (nonatomic,retain) NSMutableArray *favorites;
+
 @end

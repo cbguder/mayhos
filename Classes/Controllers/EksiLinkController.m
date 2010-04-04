@@ -13,6 +13,9 @@
 
 @synthesize titles, URL, refreshItem, refreshEnabled;
 
+#pragma mark -
+#pragma mark Initialization
+
 - (id)init {
 	if(self = [self initWithCoder:nil]) {
 		self.hidesBottomBarWhenPushed = YES;
@@ -32,27 +35,8 @@
 	return self;
 }
 
-- (void)dealloc {
-	[refreshItem release];
-	[titles release];
-	[URL release];
-
-	[super dealloc];
-}
-
-- (void)loadURL {
-	[self.navigationItem setRightBarButtonItem:activityItem];
-
-	LeftFrameParser *parser = [[LeftFrameParser alloc] initWithURL:URL delegate:self];
-	[parser parse];
-}
-
-- (void)refresh {
-	refreshItem.enabled = NO;
-	[self loadURL];
-}
-
-#pragma mark UIViewController Methods
+#pragma mark -
+#pragma mark View lifecycle
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -70,11 +54,8 @@
 	}
 }
 
-#pragma mark UITableViewController Methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
+#pragma mark -
+#pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return [titles count];
@@ -94,13 +75,28 @@
 	return cell;
 }
 
+#pragma mark -
+#pragma mark Table view delegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	UIViewController *title = [[TitleController alloc] initWithEksiTitle:[titles objectAtIndex:[indexPath row]]];
 	[self.navigationController pushViewController:title animated:YES];
 	[title release];
 }
 
-#pragma mark EksiParserDelegate Methods
+#pragma mark -
+#pragma mark Memory management
+
+- (void)dealloc {
+	[refreshItem release];
+	[titles release];
+	[URL release];
+
+	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark Parser delegate
 
 - (void)parserDidFinishParsing:(EksiParser *)parser {
 	self.titles = [NSMutableArray arrayWithArray:parser.results];
@@ -133,6 +129,20 @@
 
 	[parser release];
 	[self.navigationItem setRightBarButtonItem:nil];
+}
+
+#pragma mark -
+
+- (void)loadURL {
+	[self.navigationItem setRightBarButtonItem:activityItem];
+
+	LeftFrameParser *parser = [[LeftFrameParser alloc] initWithURL:URL delegate:self];
+	[parser parse];
+}
+
+- (void)refresh {
+	refreshItem.enabled = NO;
+	[self loadURL];
 }
 
 @end

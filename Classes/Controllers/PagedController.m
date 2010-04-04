@@ -12,13 +12,8 @@
 
 @synthesize activityItem, pagesItem;
 
-- (void)dealloc {
-	[activityItem release];
-	[pagesItem release];
-	[super dealloc];
-}
-
-#pragma mark UIViewController Methods
+#pragma mark -
+#pragma mark View lifecycle
 
 - (void)viewDidLoad {
 	self.pagesItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked:)];
@@ -40,7 +35,48 @@
 	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
-#pragma mark Other Methods
+#pragma mark -
+#pragma mark Picker view data source
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	return pages;
+}
+
+#pragma mark -
+#pragma mark Picker view delegate
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	return [NSString stringWithFormat:@"%d", row + 1];
+}
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)dealloc {
+	[activityItem release];
+	[pagesItem release];
+	[super dealloc];
+}
+
+- (void)viewDidUnload {
+	self.activityItem = nil;
+	self.pagesItem = nil;
+}
+
+#pragma mark -
+
+- (void)resetNavigationBar {
+	if(pages > 1) {
+		[pagesItem setTitle:[NSString stringWithFormat:@"%d/%d", currentPage, pages]];
+		[self.navigationItem setRightBarButtonItem:pagesItem];
+	} else {
+		[self.navigationItem setRightBarButtonItem:nil];
+	}
+}
 
 - (void)pagesClicked:(id)sender {
 	CGRect initialFrame;
@@ -72,12 +108,9 @@
 	[UIView commitAnimations];
 }
 
-- (void)resetNavigationBar {
-	if(pages > 1) {
-		[pagesItem setTitle:[NSString stringWithFormat:@"%d/%d", currentPage, pages]];
-		[self.navigationItem setRightBarButtonItem:pagesItem];
-	} else {
-		[self.navigationItem setRightBarButtonItem:nil];
+- (void)pagePicked:(NSInteger)page {
+	if(currentPage != page) {
+		[self loadPage:page];
 	}
 }
 
@@ -86,30 +119,6 @@
 
 - (void)finishedLoadingPage {
 	[self resetNavigationBar];
-}
-
-#pragma mark PagePickerDelegate Methods
-
-- (void)pagePicked:(NSInteger)page {
-	if(currentPage != page) {
-		[self loadPage:page];
-	}
-}
-
-#pragma mark UIPickerViewDataSource Methods
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-	return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-	return pages;
-}
-
-#pragma mark UIPickerViewDelegate Methods
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-	return [NSString stringWithFormat:@"%d", row + 1];
 }
 
 @end

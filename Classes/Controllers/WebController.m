@@ -16,10 +16,12 @@
 - (void)action:(id)sender;
 @end
 
-
 @implementation WebController
 
 @synthesize currentURL, backItem, forwardItem, reloadItem, stopItem, actionItem, activityItem;
+
+#pragma mark -
+#pragma mark Initialization
 
 - (id)init {
 	return [self initWithURL:nil];
@@ -32,6 +34,9 @@
 
 	return self;
 }
+
+#pragma mark -
+#pragma mark View lifecycle
 
 - (void)loadView {
 	webView = [[UIWebView alloc] init];
@@ -109,26 +114,13 @@
 	[webView stopLoading];
 }
 
-- (void)dealloc {
-	[webView setDelegate:nil];
-	[currentURL release];
-
-	[backItem release];
-	[forwardItem release];
-	[reloadItem release];
-	[stopItem release];
-	[actionItem release];
-	[activityItem release];
-
-	[super dealloc];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
 	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
-#pragma mark Toolbar Buttons
+#pragma mark -
+#pragma mark Toolbar
 
 - (void)back:(id)sender {
 	if([webView canGoBack])
@@ -159,7 +151,8 @@
 	[actionSheet release];
 }
 
-#pragma mark UIActionSheetDelegate Methods
+#pragma mark -
+#pragma mark Action sheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if(buttonIndex == 0) {
@@ -167,7 +160,8 @@
 	}
 }
 
-#pragma mark UIWebViewDelegate Methods
+#pragma mark -
+#pragma mark Web view delegate
 
 - (BOOL)webView:(UIWebView *)aWebView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	self.currentURL = request.mainDocumentURL;
@@ -200,6 +194,32 @@
 
 - (void)webView:(UIWebView *)aWebView didFailLoadWithError:(NSError *)error {
 	[self webViewDidFinishLoad:aWebView];
+}
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)dealloc {
+	[webView setDelegate:nil];
+	[currentURL release];
+
+	[backItem release];
+	[forwardItem release];
+	[reloadItem release];
+	[stopItem release];
+	[actionItem release];
+	[activityItem release];
+
+	[super dealloc];
+}
+
+- (void)viewDidUnload {
+	self.backItem = nil;
+	self.forwardItem = nil;
+	self.reloadItem = nil;
+	self.stopItem = nil;
+	self.actionItem = nil;
+	self.activityItem = nil;
 }
 
 @end

@@ -12,24 +12,22 @@
 #define kFavoriteTypeTitle  0
 #define kFavoriteTypeSearch 1
 
+@interface FavoritesController (Private)
+- (void)saveFavorites;
+@end
+
 @implementation FavoritesController
 
-- (void)dealloc {
-	[favorites release];
-    [super dealloc];
-}
+@synthesize favorites;
 
-- (void)saveFavorites {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:favorites forKey:@"favorites"];
-	[defaults synchronize];
-}
+#pragma mark -
+#pragma mark View lifecycle
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-	favorites = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"favorites"] mutableCopy];
+	self.favorites = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"favorites"]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -37,11 +35,8 @@
 	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
-#pragma mark UITableViewController Methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
+#pragma mark -
+#pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return [favorites count];
@@ -70,6 +65,35 @@
 	return cell;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if(editingStyle == UITableViewCellEditingStyleDelete) {
+		[favorites removeObjectAtIndex:indexPath.row];
+		[self saveFavorites];
+
+		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+	}
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+	if(fromIndexPath.row != toIndexPath.row) {
+		id obj = [favorites objectAtIndex:fromIndexPath.row];
+		[obj retain];
+		[favorites removeObjectAtIndex:fromIndexPath.row];
+
+		if(toIndexPath.row >= [favorites count]) {
+			[favorites addObject:obj];
+		} else {
+			[favorites insertObject:obj atIndex:toIndexPath.row];
+		}
+
+		[obj release];
+		[self saveFavorites];
+	}
+}
+
+#pragma mark -
+#pragma mark Table view delegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSDictionary *favorite = [favorites objectAtIndex:indexPath.row];
 
@@ -96,30 +120,24 @@
 	}
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(editingStyle == UITableViewCellEditingStyleDelete) {
-		[favorites removeObjectAtIndex:indexPath.row];
-		[self saveFavorites];
+#pragma mark -
+#pragma mark Memory management
 
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-	}
+- (void)dealloc {
+	[favorites release];
+    [super dealloc];
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-	if(fromIndexPath.row != toIndexPath.row) {
-		id obj = [favorites objectAtIndex:fromIndexPath.row];
-		[obj retain];
-		[favorites removeObjectAtIndex:fromIndexPath.row];
+- (void)viewDidUnload {
+	self.favorites = nil;
+}
 
-		if(toIndexPath.row >= [favorites count]) {
-			[favorites addObject:obj];
-		} else {
-			[favorites insertObject:obj atIndex:toIndexPath.row];
-		}
+#pragma mark -
 
-		[obj release];
-		[self saveFavorites];
-	}
+- (void)saveFavorites {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:favorites forKey:@"favorites"];
+	[defaults synchronize];
 }
 
 @end
