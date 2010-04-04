@@ -17,6 +17,9 @@
 	NSUInteger currentPage;
 }
 
+@property (nonatomic,retain) UIBarButtonItem *activityItem;
+@property (nonatomic,retain) UIBarButtonItem *pagesItem;
+
 - (void)pagesClicked:(id)sender;
 - (void)loadPage:(NSUInteger)page;
 - (void)finishedLoadingPage;

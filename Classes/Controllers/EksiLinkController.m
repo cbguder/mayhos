@@ -11,17 +11,29 @@
 
 @implementation EksiLinkController
 
-@synthesize titles, URL;
+@synthesize titles, URL, refreshItem, refreshEnabled;
 
 - (id)init {
-	if(self = [super init]) {
+	if(self = [self initWithCoder:nil]) {
 		self.hidesBottomBarWhenPushed = YES;
 	}
 
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if(self = [super initWithCoder:aDecoder]) {
+		self.refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+																		 target:self
+																		 action:@selector(refresh)];
+		[refreshItem release];
+	}
+
+	return self;
+}
+
 - (void)dealloc {
+	[refreshItem release];
 	[titles release];
 	[URL release];
 
@@ -33,6 +45,29 @@
 
 	LeftFrameParser *parser = [[LeftFrameParser alloc] initWithURL:URL delegate:self];
 	[parser parse];
+}
+
+- (void)refresh {
+	refreshItem.enabled = NO;
+	[self loadURL];
+}
+
+#pragma mark UIViewController Methods
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	if(refreshEnabled) {
+		[self.navigationItem setLeftBarButtonItem:refreshItem];
+	}
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+
+	if([titles count] == 0 && URL != nil) {
+		[self refresh];
+	}
 }
 
 #pragma mark UITableViewController Methods
@@ -69,13 +104,33 @@
 
 - (void)parserDidFinishParsing:(EksiParser *)parser {
 	self.titles = [NSMutableArray arrayWithArray:parser.results];
-	[parser release];
+
 	[self.tableView reloadData];
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 	[self.navigationItem setRightBarButtonItem:nil];
+
+	if(refreshEnabled) {
+		[self.navigationItem setLeftBarButtonItem:refreshItem];
+		[refreshItem setEnabled:YES];
+	}
+
+	pages = parser.pages;
+	currentPage = parser.currentPage;
+
+	[parser release];
+
+	[self finishedLoadingPage];
 }
 
 - (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
+	if(refreshEnabled) {
+		[self.navigationItem setLeftBarButtonItem:refreshItem];
+		[refreshItem setEnabled:YES];
+	}
+
+	pages = parser.pages;
+	currentPage = parser.currentPage;
+
 	[parser release];
 	[self.navigationItem setRightBarButtonItem:nil];
 }

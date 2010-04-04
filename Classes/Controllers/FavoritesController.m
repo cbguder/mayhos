@@ -91,7 +91,6 @@
 		EksiLinkController *linkController = [[EksiLinkController alloc] init];
 		[linkController setTitle:title];
 		[linkController setURL:URL];
-		[linkController loadURL];
 		[self.navigationController pushViewController:linkController animated:YES];
 		[linkController release];
 	}

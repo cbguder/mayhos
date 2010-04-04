@@ -10,6 +10,8 @@
 
 @implementation PagedController
 
+@synthesize activityItem, pagesItem;
+
 - (void)dealloc {
 	[activityItem release];
 	[pagesItem release];
@@ -19,12 +21,14 @@
 #pragma mark UIViewController Methods
 
 - (void)viewDidLoad {
-	pagesItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked:)];
+	self.pagesItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked:)];
+	[pagesItem release];
 
 	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 	[activityIndicatorView startAnimating];
-	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
+	self.activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
 	[activityIndicatorView release];
+	[activityItem release];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
