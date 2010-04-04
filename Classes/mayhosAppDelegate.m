@@ -37,7 +37,20 @@
 	[super dealloc];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+- (void)lockOrientation:(UIInterfaceOrientation)toOrientation {
+	orientation = toOrientation;
 }
+
+- (void)unlockOrientation {
+	orientation = UIDeviceOrientationUnknown;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	if(orientation == UIDeviceOrientationUnknown) {
+		return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+	} else {
+		return toInterfaceOrientation == orientation;
+	}
+}
+
 @end

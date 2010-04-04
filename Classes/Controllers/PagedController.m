@@ -42,6 +42,9 @@
 	CGRect initialFrame;
 	CGRect finalFrame;
 
+	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[delegate lockOrientation:self.interfaceOrientation];
+
 	if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
 		initialFrame = CGRectMake(0, 260, 320, 480);
 		finalFrame = CGRectMake(0, 0, 320, 480);

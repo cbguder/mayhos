@@ -69,6 +69,9 @@
 	[UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
 	[self setFrame:CGRectMake(0, totalHeight, self.frame.size.width, self.frame.size.height)];
 	[UIView commitAnimations];
+
+	mayhosAppDelegate *appDelegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appDelegate unlockOrientation];
 }
 
 - (void)animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context {

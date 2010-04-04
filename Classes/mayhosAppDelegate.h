@@ -11,10 +11,15 @@
 @interface mayhosAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
 	UIWindow *window;
 	UITabBarController *tabBarController;
+
+	UIDeviceOrientation orientation;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 
+- (void)lockOrientation:(UIInterfaceOrientation)orientation;
+- (void)unlockOrientation;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
+
 @end
