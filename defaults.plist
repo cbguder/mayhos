@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>favorites</key>
+	<array>
+		<dict>
+			<key>title</key>
+			<string>deja vu</string>
+			<key>type</key>
+			<integer>1</integer>
+			<key>URL</key>
+			<string>http://sozluk.sourtimes.org/index.asp?a=sr&amp;au=deja+vu&amp;so=y</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>mayhoş</string>
+			<key>type</key>
+			<integer>0</integer>
+			<key>URL</key>
+			<string>http://sozluk.sourtimes.org/show.asp?t=mayhoş</string>
+		</dict>
+	</array>
+	<key>history</key>
+	<array/>
+	<key>selectedIndex</key>
+	<integer>0</integer>
+</dict>
+</plist>

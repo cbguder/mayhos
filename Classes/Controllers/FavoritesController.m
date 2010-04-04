@@ -29,30 +29,7 @@
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSArray *favoritesOriginal = [defaults arrayForKey:@"favorites"];
-
-	if(favoritesOriginal == nil) {
-		favorites = [[NSMutableArray alloc] init];
-
-		NSMutableDictionary *dejavu = [NSMutableDictionary dictionary];
-		[dejavu setObject:@"deja vu" forKey:@"title"];
-		[dejavu setObject:@"http://sozluk.sourtimes.org/index.asp?a=sr&kw=&au=deja+vu&so=y&fd=&fm=&fy=" forKey:@"URL"];
-		[dejavu setObject:[NSNumber numberWithInt:kFavoriteTypeSearch] forKey:@"type"];
-		[favorites addObject:dejavu];
-		[dejavu release];
-
-		NSMutableDictionary *mayhos = [NSMutableDictionary dictionary];
-		[mayhos setObject:@"mayhoş" forKey:@"title"];
-		[mayhos setObject:@"http://sozluk.sourtimes.org/show.asp?t=mayhoş" forKey:@"URL"];
-		[mayhos setObject:[NSNumber numberWithInt:kFavoriteTypeTitle] forKey:@"type"];
-		[favorites addObject:mayhos];
-		[mayhos release];
-
-		[self saveFavorites];
-	} else {
-		favorites = [favoritesOriginal mutableCopy];
-	}
+	favorites = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"favorites"] mutableCopy];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
