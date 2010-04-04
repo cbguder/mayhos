@@ -7,133 +7,172 @@
 //
 
 #import "SearchController.h"
+#import "AdvancedSearchController.h"
+
+@interface SearchController (Private)
+- (void)saveHistory;
+- (void)saveSearch:(NSString *)search;
+- (void)search:(NSString *)query;
+- (void)go:(NSString *)query;
+@end
 
 @implementation SearchController
 
-@synthesize savedSearchTerm, savedScopeButtonIndex, searchWasActive;
+@synthesize history, matches, searchTerm, advancedSearchItem;
+
+#pragma mark -
+#pragma mark View lifecycle
 
 - (void)viewDidLoad {
-	[super viewDidLoad];
+	NSArray *original = [[NSUserDefaults standardUserDefaults] arrayForKey:@"history"];
+	self.history = [NSMutableSet setWithArray:original];
+}
 
-	if(self.savedSearchTerm) {
-		[self.searchDisplayController setActive:self.searchWasActive];
-		[self.searchDisplayController.searchBar setSelectedScopeButtonIndex:self.savedScopeButtonIndex];
-		[self.searchDisplayController.searchBar setText:savedSearchTerm];
-		self.savedSearchTerm = nil;
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
+	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+}
+
+#pragma mark -
+#pragma mark Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if(tableView == self.searchDisplayController.searchResultsTableView) {
+		if(section == 0) {
+			return 2;
+		} else {
+			return [self.matches count];
+		}
+	} else {
+		return 0;
 	}
 }
 
-- (void)viewDidUnload {
-	self.searchWasActive = [self.searchDisplayController isActive];
-	self.savedSearchTerm = [self.searchDisplayController.searchBar text];
-	self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	static NSString *CellIdentifier = @"Cell";
+
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if(cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+	}
+
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+	if(indexPath.section == 0) {
+		cell.textLabel.textColor = [UIColor colorWithRed:36.0/255.0 green:112.0/255.0 blue:216.0/255.0 alpha:1.0];
+
+		if(indexPath.row == 0) {
+			cell.textLabel.text = @"getir";
+		} else {
+			cell.textLabel.text = @"ara";
+		}
+	} else {
+		cell.textLabel.text = [self.matches objectAtIndex:indexPath.row];
+	}
+
+	return cell;
 }
 
-#pragma mark UISearchBarDelegate Methods
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+	return (indexPath.section == 1);
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if(editingStyle == UITableViewCellEditingStyleDelete) {
+		[self.history removeObject:[self.matches objectAtIndex:indexPath.row]];
+		[self.matches removeObjectAtIndex:indexPath.row];
+		[self saveHistory];
+		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+	}
+}
+
+#pragma mark -
+#pragma mark Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if(indexPath.section == 0) {
+		if(indexPath.row == 0) {
+			[self go:searchTerm];
+		} else {
+			[self search:searchTerm];
+		}
+	} else {
+		[self search:[self.matches objectAtIndex:indexPath.row]];
+	}
+}
+
+#pragma mark -
+#pragma mark Search bar delegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	[searchBar resignFirstResponder];
-
-	NSString *search = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-	if([search isEqualToString:@""]) {
-		[searchBar setText:@""];
-	} else {
-		[titles removeAllObjects];
-		[[self searchDisplayController].searchResultsTableView reloadData];
-
-		NSString *query = [search stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
-		NSString *searchURL = [kSozlukURL stringByAppendingFormat:@"index.asp?a=sr&kw=%@", query];
-		NSString *directURL = [kSozlukURL stringByAppendingFormat:@"show.asp?t=%@", query];
-
-		activeConnections = 2;
-
-		self.URL = [NSURL URLWithString:searchURL];
-		[self loadURL];
-
-		directSearchSuccess = NO;
-		directTitle = [[EksiTitle alloc] init];
-		[directTitle setURL:[NSURL URLWithString:directURL]];
-		[directTitle setDelegate:self];
-		[directTitle loadEntries];
-	}
+	[self search:searchTerm];
 }
 
-- (void)decrementActiveConnections {
-	@synchronized(self) {
-		if(activeConnections > 0)
-			activeConnections--;
-
-		if(activeConnections == 0) {
-			[self.navigationItem setRightBarButtonItem:nil];
-
-			if(directSearchSuccess && [titles count] > 0) {
-				for(EksiTitle *title in titles) {
-					if([title.title isEqualToString:directTitle.title]) {
-						[titles removeObject:title];
-						break;
-					}
-				}
-
-				[titles insertObject:directTitle atIndex:0];
-				[directTitle release];
-				directSearchSuccess = NO;
-				directTitle = nil;
-			}
-
-			[[self searchDisplayController].searchResultsTableView reloadData];
-		} else {
-			[self.navigationItem setRightBarButtonItem:activityItem];
-		}
-	}
-}
-
-#pragma mark NSURLConnectionDelegate Methods
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[super connection:connection didFailWithError:error];
-	[self decrementActiveConnections];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[super connectionDidFinishLoading:connection];
-	[self decrementActiveConnections];
-}
-
-#pragma mark UISearchDisplayDelegate Methods
+#pragma mark -
+#pragma mark Search display controller delegate
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-	return NO;
+	self.searchTerm = searchString;
+
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF like[c] %@", [NSString stringWithFormat:@"*%@*", searchString]];
+	self.matches = [NSMutableArray arrayWithArray:[self.history allObjects]];
+	[self.matches filterUsingPredicate:predicate];
+	[self.matches sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+
+	return YES;
 }
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
-	return NO;
+#pragma mark -
+#pragma mark Memory management
+
+- (void)viewDidUnload {
+	self.history = nil;
 }
 
-#pragma mark EksiParserDelegate Methods
+#pragma mark -
+#pragma mark Search
 
-- (void)parserDidFinishParsing:(EksiParser *)parser {
-	[super parserDidFinishParsing:parser];
-	[self decrementActiveConnections];
+- (void)saveHistory {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:[self.history allObjects] forKey:@"history"];
+	[defaults synchronize];
 }
 
-- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
-	[super parser:parser didFailWithError:error];
-	[self decrementActiveConnections];
+- (void)saveSearch:(NSString *)search {
+	self.searchTerm = search;
+	[self.history addObject:search];
+	[self saveHistory];
 }
 
-#pragma mark EksiTitleDelegate Methods
+- (void)search:(NSString *)query {
+	[self saveSearch:query];
 
-- (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
-	directSearchSuccess = ![title isEmpty];
-	[self decrementActiveConnections];
+	NSURL *searchURL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"index.asp?a=sr&kw=%@", query]];
+
+	EksiLinkController *linkController = [[EksiLinkController alloc] init];
+	linkController.URL = searchURL;
+	linkController.title = query;
+
+	[self.navigationController pushViewController:linkController animated:YES];
+	[linkController release];
 }
 
-- (void)title:(EksiTitle*)title didFailLoadingtitlesWithError:(NSError *)error {
-	[title release];
-	directTitle = nil;
+- (void)go:(NSString *)query {
+	NSURL *titleURL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"/show.asp?t=%@", query]];
 
-	[self decrementActiveConnections];
+	EksiTitle *eksiTitle = [[EksiTitle alloc] init];
+	eksiTitle.URL = titleURL;
+	eksiTitle.title = query;
+
+	TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
+	[eksiTitle release];
+
+	[self.navigationController pushViewController:titleController animated:YES];
+	[titleController release];
 }
 
 @end

@@ -11,20 +11,18 @@
 #import "TitleController.h"
 #import "EksiTitle.h"
 
-@interface SearchController : EksiLinkController <EksiTitleDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
-	BOOL directSearchSuccess;
-	EksiTitle *directTitle;
-	int activeConnections;
+@interface SearchController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate> {
+	NSMutableSet *history;
+	NSMutableArray *matches;
+	NSString *searchTerm;
 
-	NSString *savedSearchTerm;
-	NSInteger savedScopeButtonIndex;
-	BOOL searchWasActive;
+	UIBarButtonItem *advancedSearchItem;
 }
 
-@property (nonatomic, copy) NSString *savedSearchTerm;
-@property (nonatomic) NSInteger savedScopeButtonIndex;
-@property (nonatomic) BOOL searchWasActive;
+@property (nonatomic,retain) NSMutableSet *history;
+@property (nonatomic,retain) NSMutableArray *matches;
+@property (nonatomic,copy) NSString *searchTerm;
 
-- (void) decrementActiveConnections;
+@property (nonatomic,retain) UIBarButtonItem *advancedSearchItem;
 
 @end
