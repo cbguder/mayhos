@@ -162,7 +162,7 @@
 }
 
 - (void)go:(NSString *)query {
-	NSURL *titleURL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"/show.asp?t=%@", query]];
+	NSURL *titleURL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"show.asp?t=%@", query]];
 
 	EksiTitle *eksiTitle = [[EksiTitle alloc] init];
 	eksiTitle.URL = titleURL;
