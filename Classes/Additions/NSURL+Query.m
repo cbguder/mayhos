@@ -10,7 +10,7 @@
 
 @implementation NSURL (Query)
 
-- (NSDictionary *)queryDictionary {
+- (NSMutableDictionary *)queryDictionary {
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 
 	if([self query]) {
