@@ -16,15 +16,8 @@
 - (void)viewDidLoad {
 	self.refreshEnabled = YES;
 	self.URL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=td"]];
+	self.pagePath = @"index.asp?a=td&p=%d";
 	[super viewDidLoad];
-}
-
-#pragma mark -
-#pragma mark PagedController methods
-
-- (void)loadPage:(NSUInteger)page {
-	self.URL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"index.asp?a=td&p=%d", page]];
-	[self loadURL];
 }
 
 @end

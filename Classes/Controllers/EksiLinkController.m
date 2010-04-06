@@ -11,7 +11,7 @@
 
 @implementation EksiLinkController
 
-@synthesize titles, URL, refreshItem, refreshEnabled;
+@synthesize titles, refreshItem, refreshEnabled, pagePath, URL;
 
 #pragma mark -
 #pragma mark Initialization
@@ -90,6 +90,8 @@
 - (void)dealloc {
 	[refreshItem release];
 	[titles release];
+
+	[pagePath release];
 	[URL release];
 
 	[super dealloc];
@@ -142,6 +144,11 @@
 
 - (void)refresh {
 	refreshItem.enabled = NO;
+	[self loadURL];
+}
+
+- (void)loadPage:(NSUInteger)page {
+	self.URL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:self.pagePath, page]];
 	[self loadURL];
 }
 
