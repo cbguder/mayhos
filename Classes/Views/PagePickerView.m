@@ -19,23 +19,23 @@
 	pickerView.delegate = delegate;
 }
 
-- (id)initWithFrame:(CGRect)aRect {
-	if(self = [super initWithFrame:aRect]) {
+- (id)initWithFrame:(CGRect)frame {
+	if(self = [super initWithFrame:frame]) {
 		self.backgroundColor = [UIColor clearColor];
 
 		CGFloat pickerHeight = 216.0;
-		if(aRect.size.width > aRect.size.height) {
+		if(frame.size.width > frame.size.height) {
 			pickerHeight = 162.0;
 		}
-		CGFloat pickerPos = aRect.size.height - pickerHeight;
+		CGFloat pickerPos = frame.size.height - pickerHeight;
 		totalHeight = pickerHeight + 44.0;
 
-		pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0, pickerPos, aRect.size.width, pickerHeight)];
+		pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0, pickerPos, frame.size.width, pickerHeight)];
 		pickerView.showsSelectionIndicator = YES;
 		[self addSubview:pickerView];
 		[pickerView release];
 
-		toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0, pickerPos - 44.0, aRect.size.width, 44.0)];
+		toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0, pickerPos - 44.0, frame.size.width, 44.0)];
 		toolbar.barStyle = UIBarStyleBlackTranslucent;
 		[self addSubview:toolbar];
 		[toolbar release];
@@ -52,7 +52,7 @@
 		[lastItem release];
 		[doneItem release];
 
-		[self setFrame:aRect];
+		[self setFrame:frame];
 	}
 
 	return self;
