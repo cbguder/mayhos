@@ -13,6 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		4C1C1634116EC4B70078F764 /* OptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C1633116EC4B70078F764 /* OptionController.m */; };
+		4C19A87F116F706100A61088 /* ModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C19A87E116F706100A61088 /* ModalPickerView.m */; };
 		4C3580D510F63CB600A0B637 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C3580D410F63CB600A0B637 /* Search.xib */; };
 		4C3AE3C0110294E600BDB09B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3AE3BF110294E600BDB09B /* Default.png */; };
 		4C3C5AF310F6B136001AA58B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3C5AF210F6B135001AA58B /* libxml2.dylib */; };
@@ -61,6 +62,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C1C1632116EC4B70078F764 /* OptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionController.h; sourceTree = "<group>"; };
 		4C1C1633116EC4B70078F764 /* OptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionController.m; sourceTree = "<group>"; };
+		4C19A87D116F706100A61088 /* ModalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalPickerView.h; sourceTree = "<group>"; };
+		4C19A87E116F706100A61088 /* ModalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalPickerView.m; sourceTree = "<group>"; };
 		4C3580D410F63CB600A0B637 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
 		4C3AE3BF110294E600BDB09B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4C3C5AF210F6B135001AA58B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -250,6 +253,8 @@
 				4C61EB6010EA7943004DE317 /* EksiTitleHeaderView.m */,
 				4C61EB6110EA7943004DE317 /* GradientView.h */,
 				4C61EB6210EA7943004DE317 /* GradientView.m */,
+				4C19A87D116F706100A61088 /* ModalPickerView.h */,
+				4C19A87E116F706100A61088 /* ModalPickerView.m */,
 				4C61EB6310EA7943004DE317 /* PagePickerView.h */,
 				4C61EB6410EA7943004DE317 /* PagePickerView.m */,
 			);
@@ -384,6 +389,7 @@
 				4C8DCA20116B8A6100667DA9 /* NSDictionary+URLEncoding.m in Sources */,
 				4C8DCA21116B8A6100667DA9 /* NSURL+Query.m in Sources */,
 				4C1C1634116EC4B70078F764 /* OptionController.m in Sources */,
+				4C19A87F116F706100A61088 /* ModalPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,15 +21,6 @@
 
 - (id)initWithFrame:(CGRect)frame {
 	if(self = [super initWithFrame:frame]) {
-		self.backgroundColor = [UIColor clearColor];
-
-		CGFloat pickerHeight = 216.0;
-		if(frame.size.width > frame.size.height) {
-			pickerHeight = 162.0;
-		}
-		CGFloat pickerPos = frame.size.height - pickerHeight;
-		totalHeight = pickerHeight + 44.0;
-
 		pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0, pickerPos, frame.size.width, pickerHeight)];
 		pickerView.showsSelectionIndicator = YES;
 		[self addSubview:pickerView];
@@ -51,8 +42,6 @@
 		[cancelItem release];
 		[lastItem release];
 		[doneItem release];
-
-		[self setFrame:frame];
 	}
 
 	return self;
@@ -60,22 +49,6 @@
 
 - (void)setSelectedPage:(NSUInteger)page {
 	[pickerView selectRow:page - 1 inComponent:0 animated:NO];
-}
-
-- (void)easeOutFromSuperview {
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
-	[self setFrame:CGRectMake(0, totalHeight, self.frame.size.width, self.frame.size.height)];
-	[UIView commitAnimations];
-
-	mayhosAppDelegate *appDelegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appDelegate unlockOrientation];
-}
-
-- (void)animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
-	[self removeFromSuperview];
 }
 
 #pragma mark UIBarButtonItem Methods

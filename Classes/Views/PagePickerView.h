@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ModalPickerView.h"
 
 @protocol PagePickerDelegate;
 
-@interface PagePickerView : UIView {
+@interface PagePickerView : ModalPickerView {
 	UIPickerView *pickerView;
-	UIToolbar *toolbar;
-	CGFloat totalHeight;
 	id delegate;
 }
 
