@@ -93,8 +93,7 @@
 		finalFrame = CGRectMake(0, 0, 480, 320);
 	}
 
-	mayhosAppDelegate *appDelegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
-	UIView *parentView = appDelegate.tabBarController.view;
+	UIView *parentView = delegate.tabBarController.view;
 
 	PagePickerView *pagePicker = [[PagePickerView alloc] initWithFrame:initialFrame];
 	[pagePicker setDelegate:self];
