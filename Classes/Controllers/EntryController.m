@@ -20,6 +20,9 @@
 
 @implementation EntryController
 
+#pragma mark -
+#pragma mark Initialization
+
 - (id)initWithEksiTitle:(EksiTitle *)theTitle index:(NSUInteger)theIndex {
 	if(self = [super initWithNibName:nil bundle:nil]) {
 		eksiTitle = [theTitle retain];
@@ -34,18 +37,13 @@
 	return self;
 }
 
+#pragma mark -
+#pragma mark View lifecycle
+
 - (void)loadView {
 	webView = [[UIWebView alloc] init];
 	self.view = webView;
 	[webView release];
-}
-
-- (void)dealloc {
-	[entryTemplate release];
-	[upDownControl release];
-	[eksiTitle release];
-	[baseURL release];
-	[super dealloc];
 }
 
 - (void)viewDidLoad {
@@ -86,35 +84,17 @@
 	}
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
+	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+}
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
 	[self reloadContentView];
 }
 
-- (void)refreshViewContent {
-	NSUInteger entryCount = [eksiTitle.entries count];
-
-	if(index < 0 || index >= entryCount) {
-		return;
-	}
-
-	self.title = [NSString stringWithFormat:@"%d of %d", index+1, entryCount];
-
-	if(upDownControl.numberOfSegments == 2) {
-		[upDownControl setEnabled:(index != 0) forSegmentAtIndex:0];
-		[upDownControl setEnabled:(index+1 != entryCount) forSegmentAtIndex:1];
-	}
-
-	[self reloadContentView];
-}
-
-- (void)reloadContentView {
-	EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
-
-	if(webView) {
-		NSString *htmlString = [NSString stringWithFormat:entryTemplate, entry.author, entry.author, [entry dateString], entry.content];
-		[webView loadHTMLString:htmlString baseURL:baseURL];
-	}
-}
+#pragma mark -
+#pragma mark Web view delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	if([request.URL.scheme isEqualToString:@"file"]) {
@@ -156,6 +136,44 @@
 	return NO;
 }
 
+#pragma mark -
+#pragma mark Memory management
+
+- (void)dealloc {
+	[entryTemplate release];
+	[upDownControl release];
+	[eksiTitle release];
+	[baseURL release];
+	[super dealloc];
+}
+
+#pragma mark -
+
+- (void)refreshViewContent {
+	NSUInteger entryCount = [eksiTitle.entries count];
+
+	if(index < 0 || index >= entryCount) {
+		return;
+	}
+
+	self.title = [NSString stringWithFormat:@"%d of %d", index+1, entryCount];
+
+	if(upDownControl.numberOfSegments == 2) {
+		[upDownControl setEnabled:(index != 0) forSegmentAtIndex:0];
+		[upDownControl setEnabled:(index+1 != entryCount) forSegmentAtIndex:1];
+	}
+
+	[self reloadContentView];
+}
+
+- (void)reloadContentView {
+	if(webView) {
+		EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
+		NSString *htmlString = [NSString stringWithFormat:entryTemplate, entry.author, entry.author, [entry dateString], entry.content];
+		[webView loadHTMLString:htmlString baseURL:baseURL];
+	}
+}
+
 - (void)upDown:(id)sender {
 	UISegmentedControl *control = sender;
 
@@ -169,11 +187,6 @@
 	}
 
 	[self refreshViewContent];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
-	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
 @end
