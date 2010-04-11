@@ -2,7 +2,7 @@
 //  EksiTitle.m
 //  EksiSozluk
 //
-//  Created by Can Berk Güder on 9/29/08.
+//  Created by Can Berk Güder on 29/9/2008.
 //  Copyright 2008 Can Berk Güder. All rights reserved.
 //
 

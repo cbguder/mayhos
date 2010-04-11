@@ -2,7 +2,7 @@
 //  SearchController.m
 //  EksiSozluk
 //
-//  Created by Can Berk Güder on 2008-09-09.
+//  Created by Can Berk Güder on 9/9/2008.
 //  Copyright 2008 Can Berk Güder. All rights reserved.
 //
 

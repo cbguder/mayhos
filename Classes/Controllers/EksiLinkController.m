@@ -2,7 +2,7 @@
 //  EksiLinkController.m
 //  EksiSozluk
 //
-//  Created by Can Berk Güder on 9/28/08.
+//  Created by Can Berk Güder on 28/9/2008.
 //  Copyright 2008 Can Berk Güder. All rights reserved.
 //
 
