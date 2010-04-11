@@ -8,14 +8,6 @@
 
 #import "WebController.h"
 
-@interface WebController (Private)
-- (void)back:(id)sender;
-- (void)forward:(id)sender;
-- (void)reload:(id)sender;
-- (void)stop:(id)sender;
-- (void)action:(id)sender;
-@end
-
 @implementation WebController
 
 @synthesize currentURL, backItem, forwardItem, reloadItem, stopItem, actionItem, activityItem;
@@ -53,7 +45,7 @@
 	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
 	[activityIndicatorView release];
 
-	stopItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(stop:)];
+	stopItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(stop)];
 
 	NSMutableArray *items = [NSMutableArray arrayWithCapacity:9];
 
@@ -64,7 +56,7 @@
 	[items addObject:space];
 	[space release];
 
-	self.backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
+	self.backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(back)];
 	backItem.enabled = NO;
 	[items addObject:backItem];
 	[backItem release];
@@ -74,7 +66,7 @@
 	[items addObject:space];
 	[space release];
 
-	self.forwardItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Forward.png"] style:UIBarButtonItemStylePlain target:self action:@selector(forward:)];
+	self.forwardItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Forward.png"] style:UIBarButtonItemStylePlain target:self action:@selector(forward)];
 	forwardItem.enabled = NO;
 	[items addObject:forwardItem];
 	[forwardItem release];
@@ -83,7 +75,7 @@
 	[items addObject:space];
 	[space release];
 
-	self.reloadItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reload:)];
+	self.reloadItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reload)];
 	[items addObject:reloadItem];
 	[reloadItem release];
 
@@ -92,7 +84,7 @@
 	[items addObject:space];
 	[space release];
 
-	self.actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(action:)];
+	self.actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(action)];
 	[items addObject:actionItem];
 	[actionItem release];
 
@@ -124,25 +116,25 @@
 #pragma mark -
 #pragma mark Toolbar
 
-- (void)back:(id)sender {
+- (void)back {
 	if([webView canGoBack])
 		[webView goBack];
 }
 
-- (void)forward:(id)sender {
+- (void)forward {
 	if([webView canGoForward])
 		[webView goForward];
 }
 
-- (void)reload:(id)sender {
+- (void)reload {
 	[webView reload];
 }
 
-- (void)stop:(id)sender {
+- (void)stop {
 	[webView stopLoading];
 }
 
-- (void)action:(id)sender {
+- (void)action {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[currentURL absoluteString]
 															 delegate:self
 													cancelButtonTitle:@"Cancel"

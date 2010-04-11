@@ -85,7 +85,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümü" style:UIBarButtonItemStyleBordered target:self action:@selector(tumuClicked:)];
+	self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümü" style:UIBarButtonItemStyleBordered target:self action:@selector(tumu)];
 	[self.tumuItem release];
 
 	if(!searchMode) {
@@ -93,14 +93,14 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
-		self.searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
+		self.searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search)];
 		self.searchItem.enabled = NO;
 		[items addObject:self.searchItem];
 		[self.searchItem release];
 
 		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
-		self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StarHollow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite:)];
+		self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StarHollow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
 		self.favoriteItem.enabled = NO;
 		[items addObject:self.favoriteItem];
 		[self.favoriteItem release];
@@ -357,14 +357,14 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[eksiTitle loadPage:page];
 }
 
-- (void)tumuClicked:(id)sender {
+- (void)tumu {
 	if(eksiTitle.hasMoreToLoad)	{
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadAllEntries];
 	}
 }
 
-- (void)favorite:(id)sender {
+- (void)favorite {
 	if(favorited) {
 		[[FavoritesManager sharedManager] deleteFavoriteForTitle:eksiTitle.title];
 	} else {
@@ -374,7 +374,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	self.favorited = !self.favorited;
 }
 
-- (void)search:(id)sender {
+- (void)search {
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"başlık içinde ara"
 														message:nil
 													   delegate:self

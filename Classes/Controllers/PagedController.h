@@ -21,7 +21,6 @@
 @property (nonatomic,retain) UIBarButtonItem *pagesItem;
 
 - (void)resetNavigationBar;
-- (void)pagesClicked:(id)sender;
 - (void)loadPage:(NSUInteger)page;
 - (void)finishedLoadingPage;
 

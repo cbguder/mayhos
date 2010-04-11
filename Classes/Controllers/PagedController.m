@@ -16,7 +16,7 @@
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
-	self.pagesItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked:)];
+	self.pagesItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked)];
 	[pagesItem release];
 
 	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -79,7 +79,7 @@
 	}
 }
 
-- (void)pagesClicked:(id)sender {
+- (void)pagesClicked {
 	CGRect initialFrame;
 	CGRect finalFrame;
 

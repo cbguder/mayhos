@@ -31,10 +31,10 @@
 		[self addSubview:toolbar];
 		[toolbar release];
 
-		UIBarButtonItem *lastItem = [[UIBarButtonItem alloc] initWithTitle:@"Son" style:UIBarButtonItemStyleDone target:self action:@selector(last:)];
+		UIBarButtonItem *lastItem = [[UIBarButtonItem alloc] initWithTitle:@"Son" style:UIBarButtonItemStyleDone target:self action:@selector(last)];
 		UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-		UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"İptal" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel:)];
-		UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Tamam" style:UIBarButtonItemStyleDone target:self action:@selector(done:)];
+		UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"İptal" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
+		UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Tamam" style:UIBarButtonItemStyleDone target:self action:@selector(done)];
 
 		toolbar.items = [NSArray arrayWithObjects:lastItem, flexibleSpace, cancelItem, doneItem, nil];
 
@@ -53,16 +53,16 @@
 
 #pragma mark UIBarButtonItem Methods
 
-- (void)cancel:(id)sender {
+- (void)cancel {
 	[self easeOutFromSuperview];
 }
 
-- (void)done:(id)sender {
+- (void)done {
 	[delegate pagePicked:[pickerView selectedRowInComponent:0] + 1];
 	[self easeOutFromSuperview];
 }
 
-- (void)last:(id)sender {
+- (void)last {
 	NSUInteger lastPage = [pickerView numberOfRowsInComponent:0];
 	[delegate pagePicked:lastPage];
 	[self easeOutFromSuperview];
