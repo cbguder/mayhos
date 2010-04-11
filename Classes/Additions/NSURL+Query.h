@@ -11,5 +11,6 @@
 @interface NSURL (Query)
 
 - (NSMutableDictionary *)queryDictionary;
+- (NSURL *)URLBySettingQueryDictionary:(NSDictionary *)dictionary;
 
 @end

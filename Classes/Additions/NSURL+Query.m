@@ -7,6 +7,7 @@
 //
 
 #import "NSURL+Query.h"
+#import "NSDictionary+URLEncoding.h"
 
 @implementation NSURL (Query)
 
@@ -27,13 +28,17 @@
 			key = [key stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-			if(key) {
-				[dictionary setValue:value forKey:key];
+			if(key != nil && value != nil) {
+				[dictionary setObject:value forKey:key];
 			}
 		}
 	}
 
 	return dictionary;
+}
+
+- (NSURL *)URLBySettingQueryDictionary:(NSDictionary *)dictionary {
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@?%@", [self scheme], [self host], [self path], [dictionary urlEncodedString]]];
 }
 
 @end

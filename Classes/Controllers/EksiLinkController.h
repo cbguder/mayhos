@@ -17,7 +17,6 @@
 	NSMutableArray *titles;
 	BOOL refreshEnabled;
 
-	NSString *pagePath;
 	NSURL *URL;
 }
 
@@ -25,7 +24,6 @@
 @property (nonatomic,retain) NSMutableArray *titles;
 @property (nonatomic,assign) BOOL refreshEnabled;
 
-@property (nonatomic,copy) NSString *pagePath;
 @property (nonatomic,retain) NSURL *URL;
 
 - (void)loadURL;

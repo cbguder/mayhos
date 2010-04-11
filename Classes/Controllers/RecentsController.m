@@ -15,7 +15,6 @@
 
 - (void)viewDidLoad {
 	self.refreshEnabled = YES;
-	self.pagePath = @"index.asp?a=td&p=%d";
 	self.URL = [API todayURL];
 	[super viewDidLoad];
 }

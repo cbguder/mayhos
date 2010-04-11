@@ -8,10 +8,11 @@
 
 #import "EksiLinkController.h"
 #import "LeftFrameParser.h"
+#import "NSURL+Query.h"
 
 @implementation EksiLinkController
 
-@synthesize titles, refreshItem, refreshEnabled, pagePath, URL;
+@synthesize titles, refreshItem, refreshEnabled, URL;
 
 #pragma mark -
 #pragma mark Initialization
@@ -90,10 +91,7 @@
 - (void)dealloc {
 	[refreshItem release];
 	[titles release];
-
-	[pagePath release];
 	[URL release];
-
 	[super dealloc];
 }
 
@@ -148,7 +146,9 @@
 }
 
 - (void)loadPage:(NSUInteger)page {
-	self.URL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:self.pagePath, page]];
+	NSMutableDictionary *queryDictionary = [self.URL queryDictionary];
+	[queryDictionary setObject:[NSNumber numberWithUnsignedInteger:page] forKey:@"p"];
+	self.URL = [self.URL URLBySettingQueryDictionary:queryDictionary];
 	[self loadURL];
 }
 
