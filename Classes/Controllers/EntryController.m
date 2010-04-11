@@ -67,6 +67,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 	if(![self.navigationController.viewControllers containsObject:self]) {
 		UIViewController *topViewController = self.navigationController.topViewController;
 

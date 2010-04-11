@@ -135,6 +135,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 	if(!searchMode) {
 		[self.navigationController setToolbarHidden:YES animated:YES];
 	}

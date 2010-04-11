@@ -16,6 +16,7 @@
 #pragma mark View lifecycle
 
 - (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
 	if ([delegate respondsToSelector:@selector(pickedOption:)]) {
 		[delegate pickedOption:selectedIndex];
 	}

@@ -106,10 +106,12 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	[webView loadRequest:[NSURLRequest requestWithURL:currentURL]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 	[self.navigationController setToolbarHidden:YES animated:YES];
 	[webView stopLoading];
 }
