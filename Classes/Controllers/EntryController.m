@@ -109,21 +109,22 @@
 			NSString *titleText = [[[realURL queryDictionary] objectForKey:@"t"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 
 			EksiTitle *title = [[EksiTitle alloc] init];
-			[title setURL:realURL];
-			[title setTitle:titleText];
+			title.title = titleText;
+			title.URL = realURL;
 
 			TitleController *titleController = [[TitleController alloc] initWithEksiTitle:title];
-			[self.navigationController pushViewController:titleController animated:YES];
-
-			[titleController release];
 			[title release];
+
+			[self.navigationController pushViewController:titleController animated:YES];
+			[titleController release];
 		} else if([rest hasPrefix:@"index.asp"]) {
 			NSString *kw = [[realURL queryDictionary] objectForKey:@"kw"];
 			NSString *query = [kw stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 
 			EksiLinkController *linkController = [[EksiLinkController alloc] init];
-			[linkController setTitle:query];
-			[linkController setURL:realURL];
+			linkController.title = query;
+			linkController.URL = realURL;
+
 			[self.navigationController pushViewController:linkController animated:YES];
 			[linkController release];
 		}

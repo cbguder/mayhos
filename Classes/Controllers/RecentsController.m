@@ -10,9 +10,6 @@
 
 @implementation RecentsController
 
-#pragma mark -
-#pragma mark View lifecycle
-
 - (void)viewDidLoad {
 	self.refreshEnabled = YES;
 	self.URL = [API todayURL];

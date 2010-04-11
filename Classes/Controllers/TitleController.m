@@ -148,10 +148,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark -
 #pragma mark Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if([eksiTitle isEmpty]) {
 		return 0;
@@ -164,12 +160,12 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #define AUTHOR_TAG  2
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *entryCellIdentifier = @"entryCellIdentifier";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:entryCellIdentifier];
+	static NSString *entryCellIdentifier = @"Cell";
 
 	UILabel *contentLabel;
 	UILabel *authorLabel;
 
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:entryCellIdentifier];
 	if(cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:entryCellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

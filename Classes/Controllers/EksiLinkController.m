@@ -43,7 +43,7 @@
 	[super viewDidLoad];
 
 	if(refreshEnabled) {
-		[self.navigationItem setLeftBarButtonItem:refreshItem];
+		self.navigationItem.leftBarButtonItem = refreshItem;
 	}
 }
 
@@ -63,15 +63,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *linkCellIdentifier = @"titleCellIdentifier";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:linkCellIdentifier];
+	static NSString *linkCellIdentifier = @"Cell";
 
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:linkCellIdentifier];
 	if(cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:linkCellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
-	cell.textLabel.text = [[titles objectAtIndex:[indexPath row]] title];
+	cell.textLabel.text = [[titles objectAtIndex:indexPath.row] title];
 
 	return cell;
 }
@@ -80,9 +80,9 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	UIViewController *title = [[TitleController alloc] initWithEksiTitle:[titles objectAtIndex:[indexPath row]]];
-	[self.navigationController pushViewController:title animated:YES];
-	[title release];
+	TitleController *titleController = [[TitleController alloc] initWithEksiTitle:[titles objectAtIndex:indexPath.row]];
+	[self.navigationController pushViewController:titleController animated:YES];
+	[titleController release];
 }
 
 #pragma mark -
