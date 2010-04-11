@@ -15,13 +15,17 @@
 - (void)resetHeaderView;
 - (void)checkEmptyTitle;
 - (void)showAlert;
+- (void)resetNavigationBar;
+- (void)resetHeaderView;
+- (void)redrawHeader;
 @end
 
 @implementation TitleController
 
 @synthesize tumuItem, eksiTitle;
 
-#pragma mark Static Methods
+#pragma mark -
+#pragma mark Static methods
 
 static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	CGSize size = [[entry plainTextContent] sizeWithFont:[UIFont systemFontOfSize:14]
@@ -31,7 +35,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	return size.height;
 }
 
-#pragma mark Initialization Methods
+#pragma mark -
+#pragma mark Initialization
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle {
 	if(self = [super init]) {
@@ -42,14 +47,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	return self;
 }
 
-- (void)dealloc {
-	[eksiTitle setDelegate:nil];
-	[eksiTitle release];
-	[tumuItem release];
-
-	[super dealloc];
-}
-
+#pragma mark -
 #pragma mark Accessors
 
 - (void)setEksiTitle:(EksiTitle *)theTitle {
@@ -67,64 +65,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[self resetHeaderView];
 }
 
-#pragma mark Drawing Methods
-
-- (void)showAlert {
-	EksiEntry *firstEntry = [eksiTitle.entries objectAtIndex:0];
-	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:eksiTitle.title
-														message:firstEntry.plainTextContent
-													   delegate:self
-											  cancelButtonTitle:nil
-											  otherButtonTitles:@"geri git ne bileyim", nil];
-	[alertView show];
-	[alertView release];
-}
-
-- (void)resetNavigationBar {
-	if([eksiTitle hasMoreToLoad]) {
-		[self.navigationItem setRightBarButtonItem:tumuItem];
-	} else {
-		[super resetNavigationBar];
-	}
-}
-
-- (void)redrawHeader {
-	CGFloat width = 320.0;
-	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-		width = 480.0;
-	}
-
-	CGSize size = [[eksiTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
-								constrainedToSize:CGSizeMake(width - 20, CGFLOAT_MAX)
-									lineBreakMode:UILineBreakModeWordWrap];
-
-	EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, width, size.height + 20)];
-	[headerView setText:eksiTitle.title];
-	self.tableView.tableHeaderView = headerView;
-	[headerView release];
-}
-
-- (void)resetHeaderView {
-	if(![self.title isEqualToString:eksiTitle.title]) {
-		self.title = eksiTitle.title;
-		[self redrawHeader];
-	}
-}
-
-#pragma mark Link Buttons
-
-- (void)tumuClicked:(id)sender {
-	if(eksiTitle.hasMoreToLoad)	{
-		[self.navigationItem setRightBarButtonItem:activityItem];
-		[eksiTitle loadAllEntries];
-	}
-}
-
-- (void)loadPage:(NSUInteger)page {
-	[eksiTitle loadPage:page];
-}
-
-#pragma mark UIViewController Methods
+#pragma mark -
+#pragma mark View lifecycle
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -157,7 +99,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[self.tableView reloadData];
 }
 
-#pragma mark UITableViewController Methods
+#pragma mark -
+#pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
@@ -224,6 +167,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	return cell;
 }
 
+#pragma mark -
+#pragma mark Table view delegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat width = 320.0;
 	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
@@ -241,13 +187,15 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[entryController release];
 }
 
-#pragma mark UIAlertViewDelegate Methods
+#pragma mark -
+#pragma mark Alert view delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark EksiTitleDelegate Methods
+#pragma mark -
+#pragma mark Title delegate
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
 	pages = eksiTitle.pages;
@@ -268,6 +216,74 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	pages = eksiTitle.pages;
 	currentPage = eksiTitle.currentPage;
 	[super finishedLoadingPage];
+}
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)dealloc {
+	[eksiTitle setDelegate:nil];
+	[eksiTitle release];
+	[tumuItem release];
+	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark Drawing
+
+- (void)showAlert {
+	EksiEntry *firstEntry = [eksiTitle.entries objectAtIndex:0];
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:eksiTitle.title
+														message:firstEntry.plainTextContent
+													   delegate:self
+											  cancelButtonTitle:nil
+											  otherButtonTitles:@"geri git ne bileyim", nil];
+	[alertView show];
+	[alertView release];
+}
+
+- (void)resetNavigationBar {
+	if([eksiTitle hasMoreToLoad]) {
+		[self.navigationItem setRightBarButtonItem:tumuItem];
+	} else {
+		[super resetNavigationBar];
+	}
+}
+
+- (void)resetHeaderView {
+	if(![self.title isEqualToString:eksiTitle.title]) {
+		self.title = eksiTitle.title;
+		[self redrawHeader];
+	}
+}
+
+- (void)redrawHeader {
+	CGFloat width = 320.0;
+	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+		width = 480.0;
+	}
+
+	CGSize size = [[eksiTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
+								constrainedToSize:CGSizeMake(width - 20, CGFLOAT_MAX)
+									lineBreakMode:UILineBreakModeWordWrap];
+
+	EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, width, size.height + 20)];
+	[headerView setText:eksiTitle.title];
+	self.tableView.tableHeaderView = headerView;
+	[headerView release];
+}
+
+#pragma mark -
+
+- (void)tumuClicked:(id)sender {
+	if(eksiTitle.hasMoreToLoad)	{
+		[self.navigationItem setRightBarButtonItem:activityItem];
+		[eksiTitle loadAllEntries];
+	}
+}
+
+- (void)loadPage:(NSUInteger)page {
+	[eksiTitle loadPage:page];
 }
 
 @end
