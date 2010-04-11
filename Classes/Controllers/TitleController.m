@@ -17,7 +17,6 @@
 #define kAlertViewSearch   1
 
 @interface TitleController (Private)
-- (void)resetHeaderView;
 - (void)checkEmptyTitle;
 - (void)showAlert;
 - (void)resetNavigationBar;
