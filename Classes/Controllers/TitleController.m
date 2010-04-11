@@ -10,6 +10,10 @@
 #import "EksiTitleHeaderView.h"
 #import "EntryController.h"
 #import "PagePickerView.h"
+#import "NSDictionary+URLEncoding.h"
+
+#define kAlertViewNotFound 0
+#define kAlertViewSearch   1
 
 @interface TitleController (Private)
 - (void)resetHeaderView;
@@ -73,11 +77,30 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 	self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümü" style:UIBarButtonItemStyleBordered target:self action:@selector(tumuClicked:)];
 	[tumuItem release];
+
+	NSMutableArray *items = [NSMutableArray array];
+
+	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+
+	UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
+	[items addObject:searchItem];
+	[searchItem release];
+
+	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+
+	UIBarButtonItem *favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StarHollow.png"] style:UIBarButtonItemStylePlain target:nil action:nil];
+	[items addObject:favoriteItem];
+	[favoriteItem release];
+
+	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+
+	self.toolbarItems = items;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self redrawHeader];
+	[self.navigationController setToolbarHidden:NO animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -92,6 +115,10 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[self redrawHeader];
 		[self.tableView reloadData];
 	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[self.navigationController setToolbarHidden:YES animated:YES];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -191,7 +218,25 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Alert view delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	[self.navigationController popViewControllerAnimated:YES];
+	if(alertView.tag == kAlertViewNotFound) {
+		[self.navigationController popViewControllerAnimated:YES];
+	} else if(alertView.tag == kAlertViewSearch) {
+		if(buttonIndex == 1) {
+			NSString *searchText = [[alertView textField] text];
+
+			if([searchText isEqualToString:@""]) {
+				return;
+			}
+
+			EksiTitle *searchTitle = [[EksiTitle alloc] init];
+			searchTitle.title = eksiTitle.title;
+			searchTitle.URL = [API URLForTitle:eksiTitle.title withSearchQuery:searchText];
+
+			TitleController *searchController = [[TitleController alloc] initWithEksiTitle:searchTitle];
+			[searchTitle release];
+			[self.navigationController pushViewController:searchController animated:YES];
+		}
+	}
 }
 
 #pragma mark -
@@ -228,6 +273,10 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[super dealloc];
 }
 
+- (void)viewDidUnload {
+	self.toolbarItems = nil;
+}
+
 #pragma mark -
 #pragma mark Drawing
 
@@ -238,6 +287,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 													   delegate:self
 											  cancelButtonTitle:nil
 											  otherButtonTitles:@"geri git ne bileyim", nil];
+	[alertView setTag:kAlertViewNotFound];
 	[alertView show];
 	[alertView release];
 }
@@ -275,6 +325,10 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 #pragma mark -
 
+- (void)loadPage:(NSUInteger)page {
+	[eksiTitle loadPage:page];
+}
+
 - (void)tumuClicked:(id)sender {
 	if(eksiTitle.hasMoreToLoad)	{
 		[self.navigationItem setRightBarButtonItem:activityItem];
@@ -282,8 +336,17 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	}
 }
 
-- (void)loadPage:(NSUInteger)page {
-	[eksiTitle loadPage:page];
+- (void)search:(id)sender {
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"başlık içinde ara"
+														message:nil
+													   delegate:self
+											  cancelButtonTitle:@"Cancel"
+											  otherButtonTitles:@"Search", nil];
+
+	[alertView setTag:kAlertViewSearch];
+	[alertView addTextFieldWithValue:nil label:nil];
+	[[alertView textField] setAutocorrectionType:UITextAutocorrectionTypeNo];
+	[alertView show];
 }
 
 @end
