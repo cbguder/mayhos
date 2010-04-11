@@ -254,7 +254,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 			TitleController *searchController = [[TitleController alloc] initWithEksiTitle:searchTitle];
 			searchController.searchMode = YES;
 			[searchTitle release];
+
 			[self.navigationController pushViewController:searchController animated:YES];
+			[searchController release];
 		}
 	}
 }
