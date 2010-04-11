@@ -14,9 +14,9 @@
 	NSMutableArray *parts = [NSMutableArray array];
 
 	for(id key in self) {
-		id value = [self objectForKey: key];
+		id value = [self objectForKey:key];
 		NSString *part = [NSString stringWithFormat: @"%@=%@", urlEncode(key), urlEncode(value)];
-		[parts addObject: part];
+		[parts addObject:part];
 	}
 
 	return [parts componentsJoinedByString: @"&"];
