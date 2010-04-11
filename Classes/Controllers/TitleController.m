@@ -26,7 +26,7 @@
 
 @implementation TitleController
 
-@synthesize eksiTitle, favoriteItem, searchItem, tumuItem, favorited;
+@synthesize eksiTitle, favoriteItem, searchItem, tumuItem, searchMode, favorited;
 
 #pragma mark -
 #pragma mark Static methods
@@ -88,31 +88,36 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümü" style:UIBarButtonItemStyleBordered target:self action:@selector(tumuClicked:)];
 	[self.tumuItem release];
 
-	NSMutableArray *items = [NSMutableArray array];
+	if(!searchMode) {
+		NSMutableArray *items = [NSMutableArray arrayWithCapacity:3];
 
-	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
-	self.searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
-	self.searchItem.enabled = NO;
-	[items addObject:self.searchItem];
-	[self.searchItem release];
+		self.searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
+		self.searchItem.enabled = NO;
+		[items addObject:self.searchItem];
+		[self.searchItem release];
 
-	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
-	self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StarHollow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite:)];
-	self.favoriteItem.enabled = NO;
-	[items addObject:self.favoriteItem];
-	[self.favoriteItem release];
+		self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StarHollow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite:)];
+		self.favoriteItem.enabled = NO;
+		[items addObject:self.favoriteItem];
+		[self.favoriteItem release];
 
-	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
-	self.toolbarItems = items;
+		self.toolbarItems = items;
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self redrawHeader];
-	[self.navigationController setToolbarHidden:NO animated:YES];
+
+	if(!searchMode) {
+		[self.navigationController setToolbarHidden:NO animated:YES];
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -130,7 +135,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[self.navigationController setToolbarHidden:YES animated:YES];
+	if(!searchMode) {
+		[self.navigationController setToolbarHidden:YES animated:YES];
+	}
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -245,6 +252,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 			searchTitle.URL = [API URLForTitle:eksiTitle.title withSearchQuery:searchText];
 
 			TitleController *searchController = [[TitleController alloc] initWithEksiTitle:searchTitle];
+			searchController.searchMode = YES;
 			[searchTitle release];
 			[self.navigationController pushViewController:searchController animated:YES];
 		}
@@ -268,9 +276,11 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 	}
 
-	self.favorited = [[FavoritesManager sharedManager] hasFavoriteForTitle:eksiTitle.title];
-	self.favoriteItem.enabled = YES;
-	self.searchItem.enabled = YES;
+	if(!searchMode) {
+		self.favorited = [[FavoritesManager sharedManager] hasFavoriteForTitle:eksiTitle.title];
+		self.favoriteItem.enabled = YES;
+		self.searchItem.enabled = YES;
+	}
 }
 
 - (void)title:(EksiTitle*)title didFailWithError:(NSError *)error {
@@ -312,7 +322,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)resetNavigationBar {
-	if([eksiTitle hasMoreToLoad]) {
+	if([eksiTitle hasMoreToLoad] && !searchMode) {
 		[self.navigationItem setRightBarButtonItem:tumuItem];
 	} else {
 		[super resetNavigationBar];

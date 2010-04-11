@@ -19,6 +19,7 @@
 	UIBarButtonItem *searchItem;
 	UIBarButtonItem *tumuItem;
 
+	BOOL searchMode;
 	BOOL favorited;
 }
 
@@ -28,6 +29,7 @@
 @property (nonatomic,retain) UIBarButtonItem *searchItem;
 @property (nonatomic,retain) UIBarButtonItem *tumuItem;
 
+@property (nonatomic,assign) BOOL searchMode;
 @property (nonatomic,assign) BOOL favorited;
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle;
