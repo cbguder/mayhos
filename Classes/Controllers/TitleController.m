@@ -11,6 +11,7 @@
 #import "EntryController.h"
 #import "PagePickerView.h"
 #import "NSDictionary+URLEncoding.h"
+#import "FavoritesManager.h"
 
 #define kAlertViewNotFound 0
 #define kAlertViewSearch   1
@@ -26,7 +27,7 @@
 
 @implementation TitleController
 
-@synthesize tumuItem, eksiTitle;
+@synthesize eksiTitle, favoriteItem, searchItem, tumuItem, favorited;
 
 #pragma mark -
 #pragma mark Static methods
@@ -69,6 +70,16 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[self resetHeaderView];
 }
 
+- (void)setFavorited:(BOOL)theFavorited {
+	if(theFavorited) {
+		self.favoriteItem.image = [UIImage imageNamed:@"Star.png"];
+	} else {
+		self.favoriteItem.image = [UIImage imageNamed:@"StarHollow.png"];
+	}
+
+	favorited = theFavorited;
+}
+
 #pragma mark -
 #pragma mark View lifecycle
 
@@ -76,21 +87,23 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[super viewDidLoad];
 
 	self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümü" style:UIBarButtonItemStyleBordered target:self action:@selector(tumuClicked:)];
-	[tumuItem release];
+	[self.tumuItem release];
 
 	NSMutableArray *items = [NSMutableArray array];
 
 	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
-	UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
-	[items addObject:searchItem];
-	[searchItem release];
+	self.searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
+	self.searchItem.enabled = NO;
+	[items addObject:self.searchItem];
+	[self.searchItem release];
 
 	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
-	UIBarButtonItem *favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StarHollow.png"] style:UIBarButtonItemStylePlain target:nil action:nil];
-	[items addObject:favoriteItem];
-	[favoriteItem release];
+	self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StarHollow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite:)];
+	self.favoriteItem.enabled = NO;
+	[items addObject:self.favoriteItem];
+	[self.favoriteItem release];
 
 	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
@@ -255,6 +268,10 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[self.tableView reloadData];
 		[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 	}
+
+	self.favorited = [[FavoritesManager sharedManager] hasFavoriteForTitle:eksiTitle.title];
+	self.favoriteItem.enabled = YES;
+	self.searchItem.enabled = YES;
 }
 
 - (void)title:(EksiTitle*)title didFailWithError:(NSError *)error {
@@ -274,6 +291,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)viewDidUnload {
+	self.favoriteItem = nil;
+	self.searchItem = nil;
+	self.tumuItem = nil;
 	self.toolbarItems = nil;
 }
 
@@ -334,6 +354,16 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadAllEntries];
 	}
+}
+
+- (void)favorite:(id)sender {
+	if(favorited) {
+		[[FavoritesManager sharedManager] deleteFavoriteForTitle:eksiTitle.title];
+	} else {
+		[[FavoritesManager sharedManager] createFavoriteForTitle:eksiTitle.title];
+	}
+
+	self.favorited = !self.favorited;
 }
 
 - (void)search:(id)sender {

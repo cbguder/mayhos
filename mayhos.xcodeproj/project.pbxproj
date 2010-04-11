@@ -41,6 +41,7 @@
 		4C8DCA19116B8A1A00667DA9 /* Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DCA11116B8A1A00667DA9 /* Up.png */; };
 		4C8DCA20116B8A6100667DA9 /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DCA1D116B8A6100667DA9 /* NSDictionary+URLEncoding.m */; };
 		4C8DCA21116B8A6100667DA9 /* NSURL+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DCA1F116B8A6100667DA9 /* NSURL+Query.m */; };
+		4C8F6D4211715ADA0045784B /* FavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F6D4111715ADA0045784B /* FavoritesManager.m */; };
 		4CA3BB0110F43EE0002D50A8 /* mayhosTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3BB0010F43EE0002D50A8 /* mayhosTabBarController.m */; };
 		4CA5FECE10F7AAAB002924A5 /* LeftFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FECD10F7AAAB002924A5 /* LeftFrameParser.m */; };
 		4CA5FED710F7ACE9002924A5 /* EksiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FED610F7ACE9002924A5 /* EksiParser.m */; };
@@ -106,6 +107,8 @@
 		4C8DCA1D116B8A6100667DA9 /* NSDictionary+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+URLEncoding.m"; sourceTree = "<group>"; };
 		4C8DCA1E116B8A6100667DA9 /* NSURL+Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Query.h"; sourceTree = "<group>"; };
 		4C8DCA1F116B8A6100667DA9 /* NSURL+Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Query.m"; sourceTree = "<group>"; };
+		4C8F6D4011715ADA0045784B /* FavoritesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesManager.h; sourceTree = "<group>"; };
+		4C8F6D4111715ADA0045784B /* FavoritesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesManager.m; sourceTree = "<group>"; };
 		4CA3BAFF10F43EE0002D50A8 /* mayhosTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mayhosTabBarController.h; sourceTree = "<group>"; };
 		4CA3BB0010F43EE0002D50A8 /* mayhosTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mayhosTabBarController.m; sourceTree = "<group>"; };
 		4CA5FECC10F7AAAB002924A5 /* LeftFrameParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftFrameParser.h; sourceTree = "<group>"; };
@@ -312,6 +315,8 @@
 			children = (
 				4CE51C5E1171286E00267E08 /* API.h */,
 				4CE51C5F1171286E00267E08 /* API.m */,
+				4C8F6D4011715ADA0045784B /* FavoritesManager.h */,
+				4C8F6D4111715ADA0045784B /* FavoritesManager.m */,
 				4CE51C61117128A400267E08 /* Util.h */,
 				4CE51C62117128A400267E08 /* Util.m */,
 			);
@@ -410,6 +415,7 @@
 				4C19A87F116F706100A61088 /* ModalPickerView.m in Sources */,
 				4CE51C601171286E00267E08 /* API.m in Sources */,
 				4CE51C63117128A400267E08 /* Util.m in Sources */,
+				4C8F6D4211715ADA0045784B /* FavoritesManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

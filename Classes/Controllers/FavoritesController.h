@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface FavoritesController : UITableViewController {
-	NSMutableArray *favorites;
 }
-
-@property (nonatomic,retain) NSMutableArray *favorites;
 
 @end

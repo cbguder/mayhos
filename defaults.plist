@@ -5,20 +5,18 @@
 	<key>favorites</key>
 	<array>
 		<dict>
-			<key>title</key>
-			<string>deja vu</string>
 			<key>type</key>
 			<integer>1</integer>
+			<key>title</key>
+			<string>deja vu</string>
 			<key>URL</key>
 			<string>http://sozluk.sourtimes.org/index.asp?a=sr&amp;au=deja+vu&amp;so=y</string>
 		</dict>
 		<dict>
-			<key>title</key>
-			<string>mayhoş</string>
 			<key>type</key>
 			<integer>0</integer>
-			<key>URL</key>
-			<string>http://sozluk.sourtimes.org/show.asp?t=mayhoş</string>
+			<key>title</key>
+			<string>mayhoş</string>
 		</dict>
 	</array>
 	<key>history</key>

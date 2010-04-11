@@ -13,12 +13,22 @@
 #import "EksiEntry.h"
 
 @interface TitleController : PagedController <EksiTitleDelegate> {
-	UIBarButtonItem *tumuItem;
 	EksiTitle *eksiTitle;
+
+	UIBarButtonItem *favoriteItem;
+	UIBarButtonItem *searchItem;
+	UIBarButtonItem *tumuItem;
+
+	BOOL favorited;
 }
 
-@property (nonatomic,retain) UIBarButtonItem *tumuItem;
 @property (nonatomic,retain) EksiTitle *eksiTitle;
+
+@property (nonatomic,retain) UIBarButtonItem *favoriteItem;
+@property (nonatomic,retain) UIBarButtonItem *searchItem;
+@property (nonatomic,retain) UIBarButtonItem *tumuItem;
+
+@property (nonatomic,assign) BOOL favorited;
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle;
 

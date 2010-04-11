@@ -8,17 +8,9 @@
 
 #import "FavoritesController.h"
 #import "EksiLinkController.h"
-
-#define kFavoriteTypeTitle  0
-#define kFavoriteTypeSearch 1
-
-@interface FavoritesController (Private)
-- (void)saveFavorites;
-@end
+#import "FavoritesManager.h"
 
 @implementation FavoritesController
-
-@synthesize favorites;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -26,8 +18,10 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
 
-	self.favorites = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"favorites"]];
+- (void)viewWillAppear:(BOOL)animated {
+	[self.tableView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -39,7 +33,7 @@
 #pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [favorites count];
+	return [[[FavoritesManager sharedManager] favorites] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -52,10 +46,10 @@
 
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-	NSDictionary *favorite = [favorites objectAtIndex:indexPath.row];
+	NSDictionary *favorite = [[[FavoritesManager sharedManager] favorites] objectAtIndex:indexPath.row];
 	cell.textLabel.text = [favorite objectForKey:@"title"];
 
-	if([[favorite objectForKey:@"type"] isEqualToNumber:[NSNumber numberWithInt:kFavoriteTypeSearch]]) {
+	if([[favorite objectForKey:@"type"] isEqualToNumber:[NSNumber numberWithUnsignedInt:FavoriteTypeSearch]]) {
 		cell.imageView.image = [UIImage imageNamed:@"Search.png"];
 	} else {
 		cell.indentationLevel = 1;
@@ -67,77 +61,41 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(editingStyle == UITableViewCellEditingStyleDelete) {
-		[favorites removeObjectAtIndex:indexPath.row];
-		[self saveFavorites];
-
+		[[FavoritesManager sharedManager] deleteFavoriteAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
 	}
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-	if(fromIndexPath.row != toIndexPath.row) {
-		id obj = [favorites objectAtIndex:fromIndexPath.row];
-		[obj retain];
-		[favorites removeObjectAtIndex:fromIndexPath.row];
-
-		if(toIndexPath.row >= [favorites count]) {
-			[favorites addObject:obj];
-		} else {
-			[favorites insertObject:obj atIndex:toIndexPath.row];
-		}
-
-		[obj release];
-		[self saveFavorites];
-	}
+	[[FavoritesManager sharedManager] moveFavoriteAtIndex:fromIndexPath.row toIndex:toIndexPath.row];
 }
 
 #pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary *favorite = [favorites objectAtIndex:indexPath.row];
+	NSDictionary *favorite = [[[FavoritesManager sharedManager] favorites] objectAtIndex:indexPath.row];
 
+	FavoriteType type = [[favorite objectForKey:@"type"] unsignedIntValue];
 	NSString *title = [favorite objectForKey:@"title"];
-	NSURL *URL = [NSURL URLWithString:[favorite objectForKey:@"URL"]];
-	NSUInteger type = [[favorite objectForKey:@"type"] unsignedIntValue];
 
-	if(type == kFavoriteTypeTitle) {
+	if(type == FavoriteTypeTitle) {
 		EksiTitle *eksiTitle = [[EksiTitle alloc] init];
-		[eksiTitle setTitle:title];
-		[eksiTitle setURL:URL];
+		eksiTitle.title = title;
+		eksiTitle.URL = [API URLForTitle:title];
 
 		TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
 		[self.navigationController pushViewController:titleController animated:YES];
 
 		[titleController release];
 		[eksiTitle release];
-	} else if(type == kFavoriteTypeSearch) {
+	} else if(type == FavoriteTypeSearch) {
 		EksiLinkController *linkController = [[EksiLinkController alloc] init];
-		[linkController setTitle:title];
-		[linkController setURL:URL];
+		linkController.title = title;
+		linkController.URL = [NSURL URLWithString:[favorite objectForKey:@"URL"]];
 		[self.navigationController pushViewController:linkController animated:YES];
 		[linkController release];
 	}
-}
-
-#pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-	[favorites release];
-    [super dealloc];
-}
-
-- (void)viewDidUnload {
-	self.favorites = nil;
-}
-
-#pragma mark -
-
-- (void)saveFavorites {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:favorites forKey:@"favorites"];
-	[defaults synchronize];
 }
 
 @end
