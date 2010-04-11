@@ -49,6 +49,8 @@
 		4CB3ABFA10FAB9DB0072DE2D /* PagedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3ABF910FAB9DB0072DE2D /* PagedController.m */; };
 		4CC6A04B1166AC7D007D8175 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6A04A1166AC7D007D8175 /* defaults.plist */; };
 		4CDEED3810FA1C0000220062 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDEED3610FA1C0000220062 /* WebController.m */; };
+		4CE51C601171286E00267E08 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE51C5F1171286E00267E08 /* API.m */; };
+		4CE51C63117128A400267E08 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE51C62117128A400267E08 /* Util.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +121,10 @@
 		4CC6A04A1166AC7D007D8175 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaults.plist; sourceTree = "<group>"; };
 		4CDEED3510FA1C0000220062 /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		4CDEED3610FA1C0000220062 /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
+		4CE51C5E1171286E00267E08 /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
+		4CE51C5F1171286E00267E08 /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
+		4CE51C61117128A400267E08 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		4CE51C62117128A400267E08 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* mayhos-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mayhos-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +148,7 @@
 			children = (
 				4C8DCA1B116B8A6100667DA9 /* Additions */,
 				4C61EB4C10EA7943004DE317 /* Controllers */,
+				4CE51C5D1171286E00267E08 /* Helpers */,
 				4C61EB5710EA7943004DE317 /* Models */,
 				4CA5FECB10F7AA72002924A5 /* Parsers */,
 				4C61EB5C10EA7943004DE317 /* Views */,
@@ -300,6 +307,17 @@
 			path = Parsers;
 			sourceTree = "<group>";
 		};
+		4CE51C5D1171286E00267E08 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4CE51C5E1171286E00267E08 /* API.h */,
+				4CE51C5F1171286E00267E08 /* API.m */,
+				4CE51C61117128A400267E08 /* Util.h */,
+				4CE51C62117128A400267E08 /* Util.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,6 +408,8 @@
 				4C8DCA21116B8A6100667DA9 /* NSURL+Query.m in Sources */,
 				4C1C1634116EC4B70078F764 /* OptionController.m in Sources */,
 				4C19A87F116F706100A61088 /* ModalPickerView.m in Sources */,
+				4CE51C601171286E00267E08 /* API.m in Sources */,
+				4CE51C63117128A400267E08 /* Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

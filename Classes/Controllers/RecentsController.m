@@ -15,8 +15,8 @@
 
 - (void)viewDidLoad {
 	self.refreshEnabled = YES;
-	self.URL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=td"]];
 	self.pagePath = @"index.asp?a=td&p=%d";
+	self.URL = [API todayURL];
 	[super viewDidLoad];
 }
 

@@ -8,15 +8,6 @@
 
 #import "NSDictionary+URLEncoding.h"
 
-static NSString *toString(id object) {
-	return [NSString stringWithFormat: @"%@", object];
-}
-
-static NSString *urlEncode(id object) {
-	NSString *string = toString(object);
-	return [(NSString *) CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)string, NULL, CFSTR("￼=,!$&'()*+;@?\n\"<>#\t :/"), kCFStringEncodingUTF8) autorelease];
-}
-
 @implementation NSDictionary (URLEncoding)
 
 - (NSString*)urlEncodedString {

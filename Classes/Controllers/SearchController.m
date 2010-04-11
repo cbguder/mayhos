@@ -151,10 +151,8 @@
 - (void)search:(NSString *)query {
 	[self saveSearch:query];
 
-	NSURL *searchURL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"index.asp?a=sr&kw=%@", query]];
-
 	EksiLinkController *linkController = [[EksiLinkController alloc] init];
-	linkController.URL = searchURL;
+	linkController.URL = [API URLForSearchQuery:query];
 	linkController.title = query;
 
 	[self.navigationController pushViewController:linkController animated:YES];
@@ -162,10 +160,8 @@
 }
 
 - (void)go:(NSString *)query {
-	NSURL *titleURL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"show.asp?t=%@", query]];
-
 	EksiTitle *eksiTitle = [[EksiTitle alloc] init];
-	eksiTitle.URL = titleURL;
+	eksiTitle.URL = [API URLForTitle:query];
 	eksiTitle.title = query;
 
 	TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
