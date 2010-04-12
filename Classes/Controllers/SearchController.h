@@ -12,14 +12,12 @@
 #import "EksiTitle.h"
 
 @interface SearchController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate> {
-	NSMutableSet *history;
 	NSMutableArray *matches;
 	NSString *searchTerm;
 
 	UIBarButtonItem *advancedSearchItem;
 }
 
-@property (nonatomic,retain) NSMutableSet *history;
 @property (nonatomic,retain) NSMutableArray *matches;
 @property (nonatomic,copy) NSString *searchTerm;
 

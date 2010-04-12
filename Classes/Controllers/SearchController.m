@@ -8,9 +8,9 @@
 
 #import "SearchController.h"
 #import "AdvancedSearchController.h"
+#import "HistoryManager.h"
 
 @interface SearchController (Private)
-- (void)saveHistory;
 - (void)saveSearch:(NSString *)search;
 - (void)search:(NSString *)query;
 - (void)go:(NSString *)query;
@@ -18,14 +18,16 @@
 
 @implementation SearchController
 
-@synthesize history, matches, searchTerm, advancedSearchItem;
+@synthesize matches, searchTerm, advancedSearchItem;
 
 #pragma mark -
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
-	NSArray *original = [[NSUserDefaults standardUserDefaults] arrayForKey:@"history"];
-	self.history = [NSMutableSet setWithArray:original];
+	self.advancedSearchItem = [[UIBarButtonItem alloc] initWithTitle:@"hayvan ara" style:UIBarButtonItemStyleBordered target:self action:@selector(advancedSearch)];
+	[self.advancedSearchItem release];
+
+	self.navigationItem.leftBarButtonItem = self.advancedSearchItem;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -83,9 +85,8 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(editingStyle == UITableViewCellEditingStyleDelete) {
-		[self.history removeObject:[self.matches objectAtIndex:indexPath.row]];
+		[[HistoryManager sharedManager] removeString:[self.matches objectAtIndex:indexPath.row]];
 		[self.matches removeObjectAtIndex:indexPath.row];
-		[self saveHistory];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
 	}
 }
@@ -119,7 +120,7 @@
 	self.searchTerm = searchString;
 
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF like[c] %@", [NSString stringWithFormat:@"*%@*", searchString]];
-	self.matches = [NSMutableArray arrayWithArray:[self.history allObjects]];
+	self.matches = [NSMutableArray arrayWithArray:[[HistoryManager sharedManager].history allObjects]];
 	[self.matches filterUsingPredicate:predicate];
 	[self.matches sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
@@ -129,23 +130,21 @@
 #pragma mark -
 #pragma mark Memory management
 
+- (void)dealloc {
+	[advancedSearchItem release];
+	[super dealloc];
+}
+
 - (void)viewDidUnload {
-	self.history = nil;
+	self.advancedSearchItem = nil;
 }
 
 #pragma mark -
 #pragma mark Search
 
-- (void)saveHistory {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:[self.history allObjects] forKey:@"history"];
-	[defaults synchronize];
-}
-
 - (void)saveSearch:(NSString *)search {
 	self.searchTerm = search;
-	[self.history addObject:search];
-	[self saveHistory];
+	[[HistoryManager sharedManager] addString:search];
 }
 
 - (void)search:(NSString *)query {
@@ -169,6 +168,16 @@
 
 	[self.navigationController pushViewController:titleController animated:YES];
 	[titleController release];
+}
+
+- (void)advancedSearch {
+	AdvancedSearchController *advancedSearchController = [[AdvancedSearchController alloc] initWithStyle:UITableViewStyleGrouped];
+	advancedSearchController.initialQuery = self.searchTerm;
+	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:advancedSearchController];
+	[self presentModalViewController:navigationController animated:YES];
+
+	[advancedSearchController release];
+	[navigationController release];
 }
 
 @end
