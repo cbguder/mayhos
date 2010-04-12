@@ -56,8 +56,7 @@
 	self.authorField.delegate = self;
 	[self.authorField release];
 
-	self.guzelSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(206, 8, 0, 0)];
-	self.guzelSwitch.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+	self.guzelSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
 	[self.guzelSwitch release];
 }
 
@@ -115,7 +114,7 @@
 			}
 		} else {
 			cell.textLabel.text = @"güzelinden olsun";
-			[cell addSubview:guzelSwitch];
+			cell.accessoryView = guzelSwitch;
 		}
 	}
 	
