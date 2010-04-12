@@ -43,8 +43,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Initialization
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle {
-	if(self = [super init]) {
-		[self setEksiTitle:theTitle];
+	if(self = [super initWithStyle:UITableViewStylePlain]) {
+		self.eksiTitle = theTitle;
 		self.hidesBottomBarWhenPushed = YES;
 	}
 
