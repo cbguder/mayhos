@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+	SortAlphabetically,
+	SortByDate,
+	SortRandom,
+	SortGudik
+} SortCriteria;
+
 @interface API : NSObject {
 }
 
@@ -15,6 +22,7 @@
 + (NSURL *)yesterdayURL;
 
 + (NSURL *)URLForSearchQuery:(NSString *)query;
++ (NSURL *)URLForAdvancedSearchQuery:(NSString *)query author:(NSString *)author sortCriteria:(SortCriteria)sortCriteria date:(NSDate *)date guzel:(BOOL)guzel;
 
 + (NSURL *)URLForTitle:(NSString *)title;
 + (NSURL *)URLForTitle:(NSString *)title withSearchQuery:(NSString *)query;

@@ -109,8 +109,12 @@
 #pragma mark -
 #pragma mark Search bar delegate
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+	self.searchTerm = nil;
+}
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	[self search:searchTerm];
+	[self search:searchBar.text];
 }
 
 #pragma mark -
@@ -132,6 +136,7 @@
 
 - (void)dealloc {
 	[advancedSearchItem release];
+	[searchTerm release];
 	[super dealloc];
 }
 
@@ -172,7 +177,7 @@
 
 - (void)advancedSearch {
 	AdvancedSearchController *advancedSearchController = [[AdvancedSearchController alloc] initWithStyle:UITableViewStyleGrouped];
-	advancedSearchController.initialQuery = self.searchTerm;
+
 	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:advancedSearchController];
 	[self presentModalViewController:navigationController animated:YES];
 

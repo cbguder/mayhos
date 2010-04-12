@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import	"OptionController.h"
+#import "OptionController.h"
 #import "DatePickerView.h"
+#import "SearchController.h"
 
 @interface AdvancedSearchController : UITableViewController <UITextFieldDelegate,OptionControllerDelegate,DatePickerDelegate> {
 	UIBarButtonItem *cancelItem;
@@ -23,8 +24,6 @@
 	NSUInteger selectedSortOption;
 
 	NSDate *selectedDate;
-
-	NSString *initialQuery;
 }
 
 @property (nonatomic,retain) UIBarButtonItem *cancelItem;
@@ -37,7 +36,5 @@
 
 @property (nonatomic,retain) NSArray *sortOptions;
 @property (nonatomic,retain) NSDate *selectedDate;
-
-@property (nonatomic,copy) NSString *initialQuery;
 
 @end

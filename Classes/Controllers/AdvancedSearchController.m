@@ -8,10 +8,11 @@
 
 #import "AdvancedSearchController.h"
 #import "DatePickerView.h"
+#import "API.h"
 
 @implementation AdvancedSearchController
 
-@synthesize cancelItem, searchItem, queryField, authorField, guzelSwitch, sortOptions, selectedDate, initialQuery;
+@synthesize cancelItem, searchItem, queryField, authorField, guzelSwitch, sortOptions, selectedDate;
 
 #pragma mark -
 #pragma mark Initialization
@@ -42,6 +43,7 @@
 	self.queryField = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 25)];
 	self.queryField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	self.queryField.textColor = [UIColor colorWithRed:49/255.0 green:81/255.0 blue:133/255.0 alpha:1.0];
+	self.queryField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	self.queryField.returnKeyType = UIReturnKeyNext;
 	self.queryField.delegate = self;
 	[self.queryField release];
@@ -49,6 +51,7 @@
 	self.authorField = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 25)];
 	self.authorField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	self.authorField.textColor = [UIColor colorWithRed:49/255.0 green:81/255.0 blue:133/255.0 alpha:1.0];
+	self.authorField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	self.authorField.returnKeyType = UIReturnKeyDone;
 	self.authorField.delegate = self;
 	[self.authorField release];
@@ -56,8 +59,6 @@
 	self.guzelSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(206, 8, 0, 0)];
 	self.guzelSwitch.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 	[self.guzelSwitch release];
-
-	self.queryField.text = initialQuery;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -196,6 +197,7 @@
 	[authorField release];
 	[guzelSwitch release];
 	[sortOptions release];
+
 	[super dealloc];
 }
 
@@ -214,6 +216,21 @@
 }
 
 - (void)search {
+	EksiLinkController *linkController = [[EksiLinkController alloc] init];
+	linkController.URL = [API URLForAdvancedSearchQuery:queryField.text
+												 author:authorField.text
+										   sortCriteria:selectedSortOption
+												   date:selectedDate
+												  guzel:guzelSwitch.on];
+
+	if(![queryField.text isEqualToString:@""]) {
+		linkController.title = queryField.text;
+	} else if(![authorField.text isEqualToString:@""]) {
+		linkController.title = authorField.text;
+	}
+
+	[self.navigationController pushViewController:linkController animated:YES];
+	[linkController release];
 }
 
 - (void)pickedOption:(NSUInteger)option {

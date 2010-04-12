@@ -7,6 +7,7 @@
 //
 
 #import "API.h"
+#import "NSDictionary+URLEncoding.h"
 
 @implementation API
 
@@ -20,6 +21,46 @@
 
 + (NSURL *)URLForSearchQuery:(NSString *)query {
 	NSString *URLString = [kSozlukURL stringByAppendingFormat:@"index.asp?a=sr&kw=%@", urlEncode(query)];
+	return [NSURL URLWithString:URLString];
+}
+
++ (NSURL *)URLForAdvancedSearchQuery:(NSString *)query author:(NSString *)author sortCriteria:(SortCriteria)sortCriteria date:(NSDate *)date guzel:(BOOL)guzel {
+	NSMutableDictionary *searchDictionary = [NSMutableDictionary dictionary];
+	[searchDictionary setObject:@"sr" forKey:@"a"];
+
+	if(query) {
+		[searchDictionary setObject:query forKey:@"kw"];
+	}
+
+	if(author) {
+		[searchDictionary setObject:author forKey:@"au"];
+	}
+
+	if(sortCriteria == SortAlphabetically) {
+		[searchDictionary setObject:@"a" forKey:@"so"];
+	} else if(sortCriteria == SortByDate) {
+		[searchDictionary setObject:@"y" forKey:@"so"];
+	} else if(sortCriteria == SortRandom) {
+		[searchDictionary setObject:@"r" forKey:@"so"];
+	} else if(sortCriteria == SortGudik) {
+		[searchDictionary setObject:@"g" forKey:@"so"];
+	}
+
+	if(date) {
+		NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+		NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:date];
+		[gregorian release];
+
+		[searchDictionary setObject:[NSNumber numberWithInteger:dateComponents.day] forKey:@"fd"];
+		[searchDictionary setObject:[NSNumber numberWithInteger:dateComponents.month] forKey:@"fm"];
+		[searchDictionary setObject:[NSNumber numberWithInteger:dateComponents.year] forKey:@"fy"];
+	}
+
+	if(guzel) {
+		[searchDictionary setObject:@"y" forKey:@"cr"];
+	}
+
+	NSString *URLString = [kSozlukURL stringByAppendingFormat:@"index.asp?%@", [searchDictionary urlEncodedString]];
 	return [NSURL URLWithString:URLString];
 }
 
