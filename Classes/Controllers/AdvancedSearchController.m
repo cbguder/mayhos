@@ -32,11 +32,11 @@
 - (void)viewDidLoad {
 	self.title = @"hayvan ara";
 
-	self.cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+	self.cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"İptal" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
 	[self.cancelItem release];
 	self.navigationItem.leftBarButtonItem = self.cancelItem;
 
-	self.searchItem = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(search)];
+	self.searchItem = [[UIBarButtonItem alloc] initWithTitle:@"Ara" style:UIBarButtonItemStyleDone target:self action:@selector(search)];
 	[self.searchItem release];
 	self.navigationItem.rightBarButtonItem = self.searchItem;
 
