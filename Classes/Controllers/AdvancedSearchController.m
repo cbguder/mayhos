@@ -141,6 +141,9 @@
 			[self.navigationController pushViewController:optionController animated:YES];
 			[optionController release];
 		} else {
+			[queryField resignFirstResponder];
+			[authorField resignFirstResponder];
+
 			CGRect initialFrame;
 			CGRect finalFrame;
 
@@ -240,6 +243,10 @@
 - (void)datePicked:(NSDate *)date {
 	self.selectedDate = date;
 	[self.tableView reloadData];
+}
+
+- (void)datePickerCancelled {
+	[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 @end

@@ -41,6 +41,7 @@
 #pragma mark UIBarButtonItem Methods
 
 - (void)cancel {
+	[delegate datePickerCancelled];
 	[self easeOutFromSuperview];
 }
 
