@@ -13,6 +13,6 @@
 	NSString *text;
 }
 
-- (void)setText:(NSString *)text;
+@property (nonatomic,copy) NSString *text;
 
 @end

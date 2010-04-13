@@ -11,9 +11,12 @@
 #import "PagePickerView.h"
 #import "EksiTitle.h"
 #import "EksiEntry.h"
+#import "EksiTitleHeaderView.h"
 
 @interface TitleController : PagedController <EksiTitleDelegate> {
 	EksiTitle *eksiTitle;
+
+	EksiTitleHeaderView *headerView;
 
 	UIBarButtonItem *favoriteItem;
 	UIBarButtonItem *searchItem;
@@ -24,6 +27,8 @@
 }
 
 @property (nonatomic,retain) EksiTitle *eksiTitle;
+
+@property (nonatomic,retain) EksiTitleHeaderView *headerView;
 
 @property (nonatomic,retain) UIBarButtonItem *favoriteItem;
 @property (nonatomic,retain) UIBarButtonItem *searchItem;

@@ -21,12 +21,11 @@
 - (void)showAlert;
 - (void)resetNavigationBar;
 - (void)resetHeaderView;
-- (void)redrawHeader;
 @end
 
 @implementation TitleController
 
-@synthesize eksiTitle, favoriteItem, searchItem, tumuItem, searchMode, favorited;
+@synthesize eksiTitle, headerView, favoriteItem, searchItem, tumuItem, searchMode, favorited;
 
 #pragma mark -
 #pragma mark Static methods
@@ -109,11 +108,22 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 		self.toolbarItems = items;
 	}
+
+	CGFloat width = 320.0;
+	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+		width = 480.0;
+	}
+
+	self.headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, width, 0)];
+	headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	headerView.text = eksiTitle.title;
+	[headerView release];
+
+	self.tableView.tableHeaderView = headerView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self redrawHeader];
 
 	if(!searchMode) {
 		[self.navigationController setToolbarHidden:NO animated:YES];
@@ -129,21 +139,22 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	} else if([eksiTitle isEmpty]) {
 		[self showAlert];
 	} else {
-		[self redrawHeader];
 		[self.tableView reloadData];
+		self.tableView.tableHeaderView = headerView;
 	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
+
 	if(!searchMode) {
 		[self.navigationController setToolbarHidden:YES animated:YES];
 	}
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-	[self redrawHeader];
 	[self.tableView reloadData];
+	self.tableView.tableHeaderView = headerView;
 }
 
 #pragma mark -
@@ -294,14 +305,16 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)dealloc {
 	[eksiTitle setDelegate:nil];
 	[eksiTitle release];
-	[tumuItem release];
 	[super dealloc];
 }
 
 - (void)viewDidUnload {
+	self.headerView = nil;
+
 	self.favoriteItem = nil;
 	self.searchItem = nil;
 	self.tumuItem = nil;
+
 	self.toolbarItems = nil;
 }
 
@@ -331,24 +344,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)resetHeaderView {
 	if(![self.title isEqualToString:eksiTitle.title]) {
 		self.title = eksiTitle.title;
-		[self redrawHeader];
+		headerView.text = eksiTitle.title;
 	}
-}
-
-- (void)redrawHeader {
-	CGFloat width = 320.0;
-	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-		width = 480.0;
-	}
-
-	CGSize size = [[eksiTitle title] sizeWithFont:[UIFont boldSystemFontOfSize:16]
-								constrainedToSize:CGSizeMake(width - 20, CGFLOAT_MAX)
-									lineBreakMode:UILineBreakModeWordWrap];
-
-	EksiTitleHeaderView *headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, width, size.height + 20)];
-	[headerView setText:eksiTitle.title];
-	self.tableView.tableHeaderView = headerView;
-	[headerView release];
 }
 
 #pragma mark -
