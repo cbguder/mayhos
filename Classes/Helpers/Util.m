@@ -14,5 +14,5 @@ NSString *toString(id object) {
 
 NSString *urlEncode(id object) {
 	NSString *string = toString(object);
-	return [(NSString *) CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)string, NULL, CFSTR("￼=,!$&'()*+;@?\n\"<>#\t :/"), kCFStringEncodingUTF8) autorelease];
+	return [(NSString *) CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)string, NULL, CFSTR("￼=,!$&'()*;@?\n\"<>#\t :/"), kCFStringEncodingUTF8) autorelease];
 }
