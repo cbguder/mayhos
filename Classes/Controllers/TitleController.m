@@ -18,8 +18,8 @@
 @interface TitleController (Private)
 - (void)checkEmptyTitle;
 - (void)showAlert;
-- (void)resetNavigationBar;
 - (void)resetHeaderView;
+- (NSArray *)toolbarItemsIncludingTumuItem:(BOOL)includeTumuItem;
 @end
 
 @implementation TitleController
@@ -68,13 +68,13 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)setFavorited:(BOOL)theFavorited {
-	if(theFavorited) {
+	favorited = theFavorited;
+
+	if(favorited) {
 		self.favoriteItem.image = [UIImage imageNamed:@"Star.png"];
 	} else {
 		self.favoriteItem.image = [UIImage imageNamed:@"StarHollow.png"];
 	}
-
-	favorited = theFavorited;
 }
 
 #pragma mark -
@@ -83,29 +83,19 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümü" style:UIBarButtonItemStyleBordered target:self action:@selector(tumu)];
-	[self.tumuItem release];
-
 	if(!searchMode) {
-		NSMutableArray *items = [NSMutableArray array];
-
-		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
-
 		self.searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search)];
 		self.searchItem.enabled = NO;
-		[items addObject:self.searchItem];
 		[self.searchItem release];
 
-		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+		self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümünü göster" style:UIBarButtonItemStyleBordered target:self action:@selector(tumu)];
+		[self.tumuItem release];
 
 		self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StarHollow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
 		self.favoriteItem.enabled = NO;
-		[items addObject:self.favoriteItem];
 		[self.favoriteItem release];
 
-		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
-
-		self.toolbarItems = items;
+		self.toolbarItems = [self toolbarItemsIncludingTumuItem:NO];
 	}
 
 	self.titleView = [[TitleView alloc] initWithFrame:CGRectMake(0, 0, 400, 32)];
@@ -323,10 +313,10 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)resetNavigationBar {
-	if([eksiTitle hasMoreToLoad] && !searchMode) {
-		[self.navigationItem setRightBarButtonItem:tumuItem];
-	} else {
-		[super resetNavigationBar];
+	[super resetNavigationBar];
+
+	if(!searchMode && [self isViewLoaded]) {
+		self.toolbarItems = [self toolbarItemsIncludingTumuItem:[eksiTitle hasMoreToLoad]];
 	}
 }
 
@@ -373,6 +363,21 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[[alertView textField] setAutocorrectionType:UITextAutocorrectionTypeNo];
 	[alertView show];
 	[alertView release];
+}
+
+- (NSArray *)toolbarItemsIncludingTumuItem:(BOOL)includeTumuItem {
+	NSMutableArray *items = [NSMutableArray array];
+	[items addObject:self.searchItem];
+	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+
+	if(includeTumuItem) {
+		[items addObject:self.tumuItem];
+		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+	}
+
+	[items addObject:self.favoriteItem];
+
+	return items;
 }
 
 @end
