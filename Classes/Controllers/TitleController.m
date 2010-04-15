@@ -372,6 +372,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[alertView addTextFieldWithValue:nil label:nil];
 	[[alertView textField] setAutocorrectionType:UITextAutocorrectionTypeNo];
 	[alertView show];
+	[alertView release];
 }
 
 @end
