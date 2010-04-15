@@ -11,9 +11,13 @@
 @implementation TitleView
 
 - (void)adjustFontSize {
-	CGFloat firstSize = self.superview.frame.size.width > 320.0f ? 16 : 20;
+	if(!self.superview)
+		return;
+
+	CGFloat initialSize = self.superview.frame.size.width > 320 ? 16 : 20;
 	CGFloat actualSize;
-	[label.text sizeWithFont:[UIFont systemFontOfSize:firstSize]
+
+	[label.text sizeWithFont:[UIFont boldSystemFontOfSize:initialSize]
 				 minFontSize:13
 			  actualFontSize:&actualSize
 					forWidth:label.frame.size.width
@@ -31,7 +35,6 @@
 		label.numberOfLines = 2;
 
 		[self addSubview:label];
-		[self adjustFontSize];
 	}
 
 	return self;
@@ -43,12 +46,16 @@
 
 - (void)setText:(NSString *)text {
 	label.text = text;
+	[self adjustFontSize];
 }
 
 - (void)layoutSubviews {
 	CGFloat left = self.frame.origin.x;
 	CGFloat right = self.superview.frame.size.width - (left + self.frame.size.width);
 	CGFloat labelWidth = self.superview.frame.size.width - 2*MAX(left, right);
+
+	if(labelWidth < 150.0)
+		labelWidth = self.frame.size.width;
 
 	CGFloat labelX = 0;
 	if(right > left)
