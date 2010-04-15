@@ -117,7 +117,7 @@
 			cell.accessoryView = guzelSwitch;
 		}
 	}
-	
+
 	return cell;
 }
 

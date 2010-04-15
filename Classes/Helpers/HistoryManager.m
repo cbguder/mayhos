@@ -28,7 +28,7 @@ static HistoryManager *SharedManager = nil;
 	if(self = [super init]) {
 		history = [[NSMutableSet alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"history"]];
 	}
-	
+
 	return self;
 }
 

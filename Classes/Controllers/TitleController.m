@@ -87,7 +87,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[self.tumuItem release];
 
 	if(!searchMode) {
-		NSMutableArray *items = [NSMutableArray arrayWithCapacity:3];
+		NSMutableArray *items = [NSMutableArray array];
 
 		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
