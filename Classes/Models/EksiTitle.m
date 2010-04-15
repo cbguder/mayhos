@@ -10,6 +10,7 @@
 #import "NSURL+Query.h"
 #import "NSDictionary+URLEncoding.h"
 #import "RightFrameParser.h"
+#import "EksiEntry.h"
 
 @interface EksiTitle (Private)
 - (void)loadEntriesFromURL:(NSURL *)theURL;

@@ -6,7 +6,7 @@
 //  Copyright 2008 Can Berk Güder. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @interface EksiEntry : NSObject {
 	NSString *author;
@@ -17,18 +17,19 @@
 	NSDate *lastEdit;
 }
 
-- (void)setAuthorAndDateFromSignature:(NSString *)signature;
+@property (nonatomic,copy) NSString *author;
+@property (nonatomic,copy) NSString *content;
+@property (nonatomic,copy) NSString *plainTextContent;
 
-- (NSString *)dateString;
-- (NSString *)signature;
+@property (nonatomic,retain) NSDate *date;
+@property (nonatomic,retain) NSDate *lastEdit;
 
 + (NSDate *)parseDate:(NSString *)theDate;
 + (NSDate *)parseDate:(NSString *)theDate withBaseDate:(NSString *)theBaseDate;
 
-@property (nonatomic,copy) NSString *author;
-@property (nonatomic,copy) NSString *content;
-@property (nonatomic,copy) NSString *plainTextContent;
-@property (nonatomic,retain) NSDate *date;
-@property (nonatomic,retain) NSDate *lastEdit;
+- (void)setAuthorAndDateFromSignature:(NSString *)signature;
+
+- (NSString *)dateString;
+- (NSString *)signature;
 
 @end

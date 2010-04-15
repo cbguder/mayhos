@@ -6,8 +6,7 @@
 //  Copyright 2008 Can Berk Güder. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "EksiEntry.h"
+#import <Foundation/Foundation.h>
 #import "EksiParser.h"
 #import "EksiLink.h"
 
@@ -28,13 +27,6 @@
 	id delegate;
 }
 
-+ (EksiTitle *)titleForLink:(EksiLink *)link;
-
-- (BOOL)isEmpty;
-- (void)loadEntries;
-- (void)loadAllEntries;
-- (void)loadPage:(NSUInteger)page;
-
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,retain) NSURL *URL;
 @property (nonatomic,retain) NSURL *moreURL;
@@ -47,6 +39,13 @@
 @property (nonatomic,readonly) NSUInteger currentPage;
 
 @property (nonatomic,assign) id<EksiTitleDelegate> delegate;
+
++ (EksiTitle *)titleForLink:(EksiLink *)link;
+
+- (BOOL)isEmpty;
+- (void)loadEntries;
+- (void)loadAllEntries;
+- (void)loadPage:(NSUInteger)page;
 
 @end
 
