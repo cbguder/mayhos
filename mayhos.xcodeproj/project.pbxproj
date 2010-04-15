@@ -28,7 +28,6 @@
 		4C61EB6910EA7943004DE317 /* TitleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5610EA7943004DE317 /* TitleController.m */; };
 		4C61EB6A10EA7943004DE317 /* EksiEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5910EA7943004DE317 /* EksiEntry.m */; };
 		4C61EB6B10EA7943004DE317 /* EksiTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB5B10EA7943004DE317 /* EksiTitle.m */; };
-		4C61EB6D10EA7943004DE317 /* EksiTitleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB6010EA7943004DE317 /* EksiTitleHeaderView.m */; };
 		4C61EB6E10EA7943004DE317 /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB6210EA7943004DE317 /* GradientView.m */; };
 		4C61EB6F10EA7943004DE317 /* PagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB6410EA7943004DE317 /* PagePickerView.m */; };
 		4C61EBAF10EA7A1B004DE317 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C61EBAE10EA7A1B004DE317 /* MainWindow.xib */; };
@@ -93,8 +92,6 @@
 		4C61EB5910EA7943004DE317 /* EksiEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiEntry.m; sourceTree = "<group>"; };
 		4C61EB5A10EA7943004DE317 /* EksiTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiTitle.h; sourceTree = "<group>"; };
 		4C61EB5B10EA7943004DE317 /* EksiTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiTitle.m; sourceTree = "<group>"; };
-		4C61EB5F10EA7943004DE317 /* EksiTitleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiTitleHeaderView.h; sourceTree = "<group>"; };
-		4C61EB6010EA7943004DE317 /* EksiTitleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiTitleHeaderView.m; sourceTree = "<group>"; };
 		4C61EB6110EA7943004DE317 /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
 		4C61EB6210EA7943004DE317 /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
 		4C61EB6310EA7943004DE317 /* PagePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagePickerView.h; sourceTree = "<group>"; };
@@ -272,8 +269,6 @@
 			children = (
 				4C19A755116F60FD00A61088 /* DatePickerView.h */,
 				4C19A756116F60FD00A61088 /* DatePickerView.m */,
-				4C61EB5F10EA7943004DE317 /* EksiTitleHeaderView.h */,
-				4C61EB6010EA7943004DE317 /* EksiTitleHeaderView.m */,
 				4C61EB6110EA7943004DE317 /* GradientView.h */,
 				4C61EB6210EA7943004DE317 /* GradientView.m */,
 				4C19A87D116F706100A61088 /* ModalPickerView.h */,
@@ -413,7 +408,6 @@
 				4C61EB6910EA7943004DE317 /* TitleController.m in Sources */,
 				4C61EB6A10EA7943004DE317 /* EksiEntry.m in Sources */,
 				4C61EB6B10EA7943004DE317 /* EksiTitle.m in Sources */,
-				4C61EB6D10EA7943004DE317 /* EksiTitleHeaderView.m in Sources */,
 				4C61EB6E10EA7943004DE317 /* GradientView.m in Sources */,
 				4C61EB6F10EA7943004DE317 /* PagePickerView.m in Sources */,
 				4CA3BB0110F43EE0002D50A8 /* mayhosTabBarController.m in Sources */,

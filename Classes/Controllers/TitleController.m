@@ -7,7 +7,6 @@
 //
 
 #import "TitleController.h"
-#import "EksiTitleHeaderView.h"
 #import "EntryController.h"
 #import "PagePickerView.h"
 #import "NSDictionary+URLEncoding.h"
@@ -25,7 +24,7 @@
 
 @implementation TitleController
 
-@synthesize eksiTitle, headerView, favoriteItem, searchItem, tumuItem, searchMode, favorited;
+@synthesize eksiTitle, favoriteItem, searchItem, tumuItem, searchMode, favorited;
 
 #pragma mark -
 #pragma mark Static methods
@@ -109,17 +108,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		self.toolbarItems = items;
 	}
 
-	CGFloat width = 320.0;
-	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-		width = 480.0;
-	}
 
-	self.headerView = [[EksiTitleHeaderView alloc] initWithFrame:CGRectMake(0, 0, width, 0)];
-	headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	headerView.text = eksiTitle.title;
-	[headerView release];
-
-	self.tableView.tableHeaderView = headerView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -140,7 +129,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[self showAlert];
 	} else {
 		[self.tableView reloadData];
-		self.tableView.tableHeaderView = headerView;
 	}
 }
 
@@ -154,7 +142,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
 	[self.tableView reloadData];
-	self.tableView.tableHeaderView = headerView;
 }
 
 #pragma mark -
@@ -309,7 +296,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)viewDidUnload {
-	self.headerView = nil;
 
 	self.favoriteItem = nil;
 	self.searchItem = nil;
@@ -344,7 +330,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)resetHeaderView {
 	if(![self.title isEqualToString:eksiTitle.title]) {
 		self.title = eksiTitle.title;
-		headerView.text = eksiTitle.title;
 	}
 }
 
