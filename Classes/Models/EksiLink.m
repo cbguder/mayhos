@@ -12,4 +12,21 @@
 
 @synthesize title, URL;
 
++ (id)linkWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
+	return [[[EksiLink alloc] initWithTitle:theTitle URL:theURL] autorelease];
+}
+
+- (id)init {
+	return [self initWithTitle:nil URL:nil];
+}
+
+- (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
+	if(self = [super init]) {
+		self.title = theTitle;
+		self.URL = theURL;
+	}
+
+	return self;
+}
+
 @end

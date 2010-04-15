@@ -16,4 +16,8 @@
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,retain) NSURL *URL;
 
++ (id)linkWithTitle:(NSString *)title URL:(NSURL *)URL;
+
+- (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL;
+
 @end

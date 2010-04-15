@@ -164,13 +164,8 @@
 }
 
 - (void)go:(NSString *)query {
-	EksiTitle *eksiTitle = [[EksiTitle alloc] init];
-	eksiTitle.URL = [API URLForTitle:query];
-	eksiTitle.title = query;
-
+	EksiTitle *eksiTitle = [EksiTitle titleWithTitle:query URL:[API URLForTitle:query]];
 	TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
-	[eksiTitle release];
-
 	[self.navigationController pushViewController:titleController animated:YES];
 	[titleController release];
 }

@@ -40,7 +40,10 @@
 
 @property (nonatomic,assign) id<EksiTitleDelegate> delegate;
 
-+ (EksiTitle *)titleForLink:(EksiLink *)link;
++ (id)titleForLink:(EksiLink *)link;
++ (id)titleWithTitle:(NSString *)title URL:(NSURL *)URL;
+
+- (id)initWithTitle:(NSString *)title URL:(NSURL *)URL;
 
 - (BOOL)isEmpty;
 - (void)loadEntries;

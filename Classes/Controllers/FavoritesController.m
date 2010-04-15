@@ -80,15 +80,10 @@
 	NSString *title = [favorite objectForKey:@"title"];
 
 	if(type == FavoriteTypeTitle) {
-		EksiTitle *eksiTitle = [[EksiTitle alloc] init];
-		eksiTitle.title = title;
-		eksiTitle.URL = [API URLForTitle:title];
-
+		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:title URL:[API URLForTitle:title]];
 		TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
 		[self.navigationController pushViewController:titleController animated:YES];
-
 		[titleController release];
-		[eksiTitle release];
 	} else if(type == FavoriteTypeSearch) {
 		EksiLinkController *linkController = [[EksiLinkController alloc] init];
 		linkController.title = title;

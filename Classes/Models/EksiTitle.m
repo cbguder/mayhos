@@ -20,17 +20,25 @@
 
 @synthesize delegate, title, URL, moreURL, baseURL, entries, hasMoreToLoad, pages, currentPage;
 
-+ (EksiTitle *)titleForLink:(EksiLink *)link {
-	EksiTitle *title = [[[EksiTitle alloc] init] autorelease];
-	title.title = link.title;
-	title.URL = link.URL;
-	return title;
++ (id)titleForLink:(EksiLink *)link {
+	return [EksiTitle titleWithTitle:link.title URL:link.URL];
+}
+
++ (id)titleWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
+	return [[[EksiTitle alloc] initWithTitle:theTitle URL:theURL] autorelease];
 }
 
 #pragma mark Initialization Methods
 
 - (id)init {
+	return [self initWithTitle:nil URL:nil];
+}
+
+- (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
 	if(self = [super init]) {
+		self.title = theTitle;
+		self.URL = theURL;
+
 		entries = [[NSMutableArray alloc] init];
 		currentPage = 1;
 		pages = 1;

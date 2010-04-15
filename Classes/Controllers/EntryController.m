@@ -109,13 +109,8 @@
 		if([rest hasPrefix:@"show.asp"]) {
 			NSString *titleText = [[[realURL queryDictionary] objectForKey:@"t"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 
-			EksiTitle *title = [[EksiTitle alloc] init];
-			title.title = titleText;
-			title.URL = realURL;
-
+			EksiTitle *title = [EksiTitle titleWithTitle:titleText URL:realURL];
 			TitleController *titleController = [[TitleController alloc] initWithEksiTitle:title];
-			[title release];
-
 			[self.navigationController pushViewController:titleController animated:YES];
 			[titleController release];
 		} else if([rest hasPrefix:@"index.asp"]) {

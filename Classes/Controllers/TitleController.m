@@ -248,13 +248,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 				return;
 			}
 
-			EksiTitle *searchTitle = [[EksiTitle alloc] init];
-			searchTitle.title = eksiTitle.title;
-			searchTitle.URL = [API URLForTitle:eksiTitle.title withSearchQuery:searchText];
-
+			EksiTitle *searchTitle = [EksiTitle titleWithTitle:eksiTitle.title URL:[API URLForTitle:eksiTitle.title withSearchQuery:searchText]];
 			TitleController *searchController = [[TitleController alloc] initWithEksiTitle:searchTitle];
 			searchController.searchMode = YES;
-			[searchTitle release];
 
 			[self.navigationController pushViewController:searchController animated:YES];
 			[searchController release];
