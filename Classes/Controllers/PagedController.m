@@ -108,7 +108,7 @@
 	[UIView commitAnimations];
 }
 
-- (void)pagePicked:(NSInteger)page {
+- (void)pagePicker:(PagePickerView *)pagePicker pickedPage:(NSInteger)page {
 	if(currentPage != page) {
 		[self loadPage:page];
 	}

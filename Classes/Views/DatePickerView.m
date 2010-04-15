@@ -41,12 +41,12 @@
 #pragma mark UIBarButtonItem Methods
 
 - (void)cancel {
-	[delegate datePickerCancelled];
+	[delegate datePickerCancelled:self];
 	[self easeOutFromSuperview];
 }
 
 - (void)done {
-	[delegate datePicked:datePicker.date];
+	[delegate datePicker:self pickedDate:datePicker.date];
 	[self easeOutFromSuperview];
 }
 

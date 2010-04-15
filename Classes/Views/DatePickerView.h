@@ -23,6 +23,6 @@
 @end
 
 @protocol DatePickerDelegate
-- (void)datePicked:(NSDate *)date;
-- (void)datePickerCancelled;
+- (void)datePicker:(DatePickerView *)datePicker pickedDate:(NSDate *)date;
+- (void)datePickerCancelled:(DatePickerView *)datePicker;
 @end

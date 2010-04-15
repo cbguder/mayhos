@@ -23,5 +23,5 @@
 @end
 
 @protocol PagePickerDelegate <UIPickerViewDataSource,UIPickerViewDelegate>
-- (void)pagePicked:(NSInteger)page;
+- (void)pagePicker:(PagePickerView *)pagePicker pickedPage:(NSInteger)page;
 @end

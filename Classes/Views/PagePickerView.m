@@ -58,13 +58,13 @@
 }
 
 - (void)done {
-	[delegate pagePicked:[pickerView selectedRowInComponent:0] + 1];
+	[delegate pagePicker:self pickedPage:[pickerView selectedRowInComponent:0] + 1];
 	[self easeOutFromSuperview];
 }
 
 - (void)last {
 	NSUInteger lastPage = [pickerView numberOfRowsInComponent:0];
-	[delegate pagePicked:lastPage];
+	[delegate pagePicker:self pickedPage:lastPage];
 	[self easeOutFromSuperview];
 }
 

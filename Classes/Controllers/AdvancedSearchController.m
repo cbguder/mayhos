@@ -240,12 +240,12 @@
 	[self.tableView reloadData];
 }
 
-- (void)datePicked:(NSDate *)date {
+- (void)datePicker:(DatePickerView *)datePicker pickedDate:(NSDate *)date {
 	self.selectedDate = date;
 	[self.tableView reloadData];
 }
 
-- (void)datePickerCancelled {
+- (void)datePickerCancelled:(DatePickerView *)datePicker {
 	[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
