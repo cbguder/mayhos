@@ -48,6 +48,7 @@
 		4CA5FECE10F7AAAB002924A5 /* LeftFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FECD10F7AAAB002924A5 /* LeftFrameParser.m */; };
 		4CA5FED710F7ACE9002924A5 /* EksiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FED610F7ACE9002924A5 /* EksiParser.m */; };
 		4CA5FF2510F7B26A002924A5 /* RightFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5FF2410F7B26A002924A5 /* RightFrameParser.m */; };
+		4CAC21A011767E2800B5896F /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC219F11767E2800B5896F /* TitleView.m */; };
 		4CB3AB2A10FAA6070072DE2D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3AB2910FAA6070072DE2D /* Constants.m */; };
 		4CB3ABFA10FAB9DB0072DE2D /* PagedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3ABF910FAB9DB0072DE2D /* PagedController.m */; };
 		4CC6A04B1166AC7D007D8175 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6A04A1166AC7D007D8175 /* defaults.plist */; };
@@ -123,6 +124,8 @@
 		4CA5FED610F7ACE9002924A5 /* EksiParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiParser.m; sourceTree = "<group>"; };
 		4CA5FF2310F7B26A002924A5 /* RightFrameParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightFrameParser.h; sourceTree = "<group>"; };
 		4CA5FF2410F7B26A002924A5 /* RightFrameParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightFrameParser.m; sourceTree = "<group>"; };
+		4CAC219E11767E2800B5896F /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
+		4CAC219F11767E2800B5896F /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
 		4CB3AB2810FAA6070072DE2D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		4CB3AB2910FAA6070072DE2D /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		4CB3ABF810FAB9DB0072DE2D /* PagedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedController.h; sourceTree = "<group>"; };
@@ -275,6 +278,8 @@
 				4C19A87E116F706100A61088 /* ModalPickerView.m */,
 				4C61EB6310EA7943004DE317 /* PagePickerView.h */,
 				4C61EB6410EA7943004DE317 /* PagePickerView.m */,
+				4CAC219E11767E2800B5896F /* TitleView.h */,
+				4CAC219F11767E2800B5896F /* TitleView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 				4CE51C63117128A400267E08 /* Util.m in Sources */,
 				4C8F6D4211715ADA0045784B /* FavoritesManager.m in Sources */,
 				4C7A751F1173A57300329608 /* HistoryManager.m in Sources */,
+				4CAC21A011767E2800B5896F /* TitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

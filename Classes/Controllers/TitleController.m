@@ -24,7 +24,7 @@
 
 @implementation TitleController
 
-@synthesize eksiTitle, favoriteItem, searchItem, tumuItem, searchMode, favorited;
+@synthesize eksiTitle, titleView, favoriteItem, searchItem, tumuItem, searchMode, favorited;
 
 #pragma mark -
 #pragma mark Static methods
@@ -108,7 +108,12 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		self.toolbarItems = items;
 	}
 
+	self.titleView = [[TitleView alloc] initWithFrame:CGRectMake(0, 0, 400, 32)];
+	titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	titleView.text = eksiTitle.title;
+	[titleView release];
 
+	self.navigationItem.titleView = titleView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -129,6 +134,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[self showAlert];
 	} else {
 		[self.tableView reloadData];
+		self.navigationItem.titleView = titleView;
 	}
 }
 
@@ -296,6 +302,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)viewDidUnload {
+	self.titleView = nil;
 
 	self.favoriteItem = nil;
 	self.searchItem = nil;
@@ -329,7 +336,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 - (void)resetHeaderView {
 	if(![self.title isEqualToString:eksiTitle.title]) {
-		self.title = eksiTitle.title;
+		self.navigationItem.title = eksiTitle.title;
+		self.titleView.text = eksiTitle.title;
+		self.navigationItem.titleView = titleView;
 	}
 }
 
