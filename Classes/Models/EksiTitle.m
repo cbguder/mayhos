@@ -19,6 +19,13 @@
 
 @synthesize delegate, title, URL, moreURL, baseURL, entries, hasMoreToLoad, pages, currentPage;
 
++ (EksiTitle *)titleForLink:(EksiLink *)link {
+	EksiTitle *title = [[[EksiTitle alloc] init] autorelease];
+	title.title = link.title;
+	title.URL = link.URL;
+	return title;
+}
+
 #pragma mark Initialization Methods
 
 - (id)init {

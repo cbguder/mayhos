@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EksiEntry.h"
 #import "EksiParser.h"
+#import "EksiLink.h"
 
 @protocol EksiTitleDelegate;
 
@@ -26,6 +27,8 @@
 
 	id delegate;
 }
+
++ (EksiTitle *)titleForLink:(EksiLink *)link;
 
 - (BOOL)isEmpty;
 - (void)loadEntries;

@@ -13,14 +13,14 @@
 
 @interface EksiLinkController : PagedController <EksiParserDelegate> {
 	UIBarButtonItem *refreshItem;
-	NSMutableArray *titles;
+	NSArray *links;
 	BOOL refreshEnabled;
 
 	NSURL *URL;
 }
 
 @property (nonatomic,retain) UIBarButtonItem *refreshItem;
-@property (nonatomic,retain) NSMutableArray *titles;
+@property (nonatomic,retain) NSArray *links;
 @property (nonatomic,assign) BOOL refreshEnabled;
 
 @property (nonatomic,retain) NSURL *URL;

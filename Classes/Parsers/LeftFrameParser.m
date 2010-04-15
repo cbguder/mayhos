@@ -7,7 +7,7 @@
 //
 
 #import "LeftFrameParser.h"
-#import "EksiTitle.h"
+#import "EksiLink.h"
 
 @interface LeftFrameParser (Private)
 - (void)processNode:(xmlNodePtr)node;
@@ -45,16 +45,16 @@
 			xmlFree(value);
 
 			if([theURL hasPrefix:@"show.asp"]) {
-				EksiTitle *title = [[EksiTitle alloc] init];
+				EksiLink *link = [[EksiLink alloc] init];
 
 				xmlChar *value = xmlNodeListGetString(node->doc, node->children, YES);
-				[title setTitle:[NSString stringWithUTF8String:(const char *)value]];
+				link.title = [NSString stringWithUTF8String:(const char *)value];
 				xmlFree(value);
 
-				[title setURL:[NSURL URLWithString:theURL relativeToURL:URL]];
+				link.URL = [NSURL URLWithString:theURL relativeToURL:URL];
 
-				[results addObject:title];
-				[title release];
+				[results addObject:link];
+				[link release];
 			}
 		}
 	}

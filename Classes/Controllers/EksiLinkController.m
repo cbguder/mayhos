@@ -12,7 +12,7 @@
 
 @implementation EksiLinkController
 
-@synthesize titles, refreshItem, refreshEnabled, URL;
+@synthesize links, refreshItem, refreshEnabled, URL;
 
 #pragma mark -
 #pragma mark Initialization
@@ -48,7 +48,7 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	if([titles count] == 0 && URL != nil) {
+	if([links count] == 0 && URL != nil) {
 		[self refresh];
 	}
 }
@@ -57,7 +57,7 @@
 #pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [titles count];
+	return [links count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -69,7 +69,7 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
-	cell.textLabel.text = [[titles objectAtIndex:indexPath.row] title];
+	cell.textLabel.text = [[links objectAtIndex:indexPath.row] title];
 
 	return cell;
 }
@@ -78,7 +78,8 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	TitleController *titleController = [[TitleController alloc] initWithEksiTitle:[titles objectAtIndex:indexPath.row]];
+	EksiLink *link = [links objectAtIndex:indexPath.row];
+	TitleController *titleController = [[TitleController alloc] initWithEksiTitle:[EksiTitle titleForLink:link]];
 	[self.navigationController pushViewController:titleController animated:YES];
 	[titleController release];
 }
@@ -88,7 +89,7 @@
 
 - (void)dealloc {
 	[refreshItem release];
-	[titles release];
+	[links release];
 	[URL release];
 	[super dealloc];
 }
@@ -97,7 +98,7 @@
 #pragma mark Parser delegate
 
 - (void)parserDidFinishParsing:(EksiParser *)parser {
-	self.titles = [NSMutableArray arrayWithArray:parser.results];
+	self.links = [NSArray arrayWithArray:parser.results];
 
 	[self.tableView reloadData];
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
