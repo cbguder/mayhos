@@ -13,13 +13,12 @@
 #import "EksiEntry.h"
 #import "TitleView.h"
 
-@interface TitleController : PagedController <EksiTitleDelegate> {
+@interface TitleController : PagedController <EksiTitleDelegate, UIAlertViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
 	EksiTitle *eksiTitle;
 
 	TitleView *titleView;
 
 	UIBarButtonItem *favoriteItem;
-	UIBarButtonItem *searchItem;
 	UIBarButtonItem *tumuItem;
 
 	BOOL searchMode;
@@ -31,7 +30,6 @@
 @property (nonatomic,retain) TitleView *titleView;
 
 @property (nonatomic,retain) UIBarButtonItem *favoriteItem;
-@property (nonatomic,retain) UIBarButtonItem *searchItem;
 @property (nonatomic,retain) UIBarButtonItem *tumuItem;
 
 @property (nonatomic,assign) BOOL searchMode;

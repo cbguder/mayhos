@@ -12,9 +12,6 @@
 #import "NSDictionary+URLEncoding.h"
 #import "FavoritesManager.h"
 
-#define kAlertViewNotFound 0
-#define kAlertViewSearch   1
-
 @interface TitleController (Private)
 - (void)checkEmptyTitle;
 - (void)showAlert;
@@ -24,7 +21,7 @@
 
 @implementation TitleController
 
-@synthesize eksiTitle, titleView, favoriteItem, searchItem, tumuItem, searchMode, favorited;
+@synthesize eksiTitle, titleView, favoriteItem, tumuItem, searchMode, favorited;
 
 #pragma mark -
 #pragma mark Static methods
@@ -84,10 +81,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[super viewDidLoad];
 
 	if(!searchMode) {
-		self.searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search)];
-		self.searchItem.enabled = NO;
-		[self.searchItem release];
-
 		self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümünü göster" style:UIBarButtonItemStyleBordered target:self action:@selector(tumu)];
 		[self.tumuItem release];
 
@@ -96,6 +89,16 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[self.favoriteItem release];
 
 		self.toolbarItems = [self toolbarItemsIncludingTumuItem:NO];
+
+		UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+		searchBar.placeholder = @"başlık içinde ara";
+		searchBar.delegate = self;
+		self.tableView.tableHeaderView = searchBar;
+		self.tableView.contentOffset = CGPointMake(0, 44);
+
+		UISearchDisplayController *searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+		searchDisplayController.delegate = self;
+		[searchBar release];
 	}
 
 	self.titleView = [[TitleView alloc] initWithFrame:CGRectMake(0, 0, 400, 32)];
@@ -225,27 +228,34 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 #pragma mark -
+#pragma mark Search bar delegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	EksiTitle *searchTitle = [EksiTitle titleWithTitle:eksiTitle.title URL:[API URLForTitle:eksiTitle.title withSearchQuery:searchBar.text]];
+	TitleController *searchController = [[TitleController alloc] initWithEksiTitle:searchTitle];
+	searchController.searchMode = YES;
+
+	[self.navigationController pushViewController:searchController animated:YES];
+	[searchController release];
+
+	[self.searchDisplayController setActive:NO animated:YES];
+}
+
+#pragma mark -
+#pragma mark Search display controller delegate
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+	[controller.searchResultsTableView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.8]];
+	[controller.searchResultsTableView setRowHeight:800];
+
+	return NO;
+}
+
+#pragma mark -
 #pragma mark Alert view delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if(alertView.tag == kAlertViewNotFound) {
-		[self.navigationController popViewControllerAnimated:YES];
-	} else if(alertView.tag == kAlertViewSearch) {
-		if(buttonIndex == 1) {
-			NSString *searchText = [[alertView textField] text];
-
-			if([searchText isEqualToString:@""]) {
-				return;
-			}
-
-			EksiTitle *searchTitle = [EksiTitle titleWithTitle:eksiTitle.title URL:[API URLForTitle:eksiTitle.title withSearchQuery:searchText]];
-			TitleController *searchController = [[TitleController alloc] initWithEksiTitle:searchTitle];
-			searchController.searchMode = YES;
-
-			[self.navigationController pushViewController:searchController animated:YES];
-			[searchController release];
-		}
-	}
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -
@@ -262,13 +272,17 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[self showAlert];
 	} else {
 		[self.tableView reloadData];
-		[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+
+		if(searchMode) {
+			[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+		} else {
+			[self.tableView scrollRectToVisible:CGRectMake(0, 44, 1, 1) animated:NO];
+		}
 	}
 
 	if(!searchMode) {
 		self.favorited = [[FavoritesManager sharedManager] hasFavoriteForTitle:eksiTitle.title];
 		self.favoriteItem.enabled = YES;
-		self.searchItem.enabled = YES;
 	}
 }
 
@@ -291,7 +305,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	self.titleView = nil;
 
 	self.favoriteItem = nil;
-	self.searchItem = nil;
 	self.tumuItem = nil;
 
 	self.toolbarItems = nil;
@@ -307,7 +320,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 													   delegate:self
 											  cancelButtonTitle:nil
 											  otherButtonTitles:@"geri git ne bileyim", nil];
-	[alertView setTag:kAlertViewNotFound];
 	[alertView show];
 	[alertView release];
 }
@@ -351,30 +363,14 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	self.favorited = !self.favorited;
 }
 
-- (void)search {
-	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"başlık içinde ara"
-														message:nil
-													   delegate:self
-											  cancelButtonTitle:@"Cancel"
-											  otherButtonTitles:@"Search", nil];
-
-	[alertView setTag:kAlertViewSearch];
-	[alertView addTextFieldWithValue:nil label:nil];
-	[[alertView textField] setAutocorrectionType:UITextAutocorrectionTypeNo];
-	[alertView show];
-	[alertView release];
-}
-
 - (NSArray *)toolbarItemsIncludingTumuItem:(BOOL)includeTumuItem {
 	NSMutableArray *items = [NSMutableArray array];
-	[items addObject:self.searchItem];
-	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 
 	if(includeTumuItem) {
 		[items addObject:self.tumuItem];
-		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 	}
 
+	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
 	[items addObject:self.favoriteItem];
 
 	return items;
