@@ -93,6 +93,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 		searchBar.placeholder = @"başlık içinde ara";
 		searchBar.delegate = self;
+		searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
 		self.tableView.tableHeaderView = searchBar;
 		self.tableView.contentOffset = CGPointMake(0, 44);
 
