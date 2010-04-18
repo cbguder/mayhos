@@ -13,7 +13,7 @@
 @synthesize window;
 @synthesize tabBarController;
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSBundle *bundle = [NSBundle mainBundle];
 	NSString *dictionaryPath = [bundle pathForResource:@"defaults" ofType:@"plist"];
@@ -24,6 +24,9 @@
 
 	// Add the tab bar controller's current view as a subview of the window
 	[window addSubview:tabBarController.view];
+	[window makeKeyAndVisible];
+
+	return YES;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
