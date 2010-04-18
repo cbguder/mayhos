@@ -278,12 +278,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 			[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 		} else {
 			[self.tableView scrollRectToVisible:CGRectMake(0, 44, 1, 1) animated:NO];
+			self.favorited = [[FavoritesManager sharedManager] hasFavoriteForTitle:eksiTitle.title];
+			self.favoriteItem.enabled = YES;
 		}
-	}
-
-	if(!searchMode) {
-		self.favorited = [[FavoritesManager sharedManager] hasFavoriteForTitle:eksiTitle.title];
-		self.favoriteItem.enabled = YES;
 	}
 }
 
