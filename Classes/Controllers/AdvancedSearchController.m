@@ -158,7 +158,7 @@
 				finalFrame = CGRectMake(0, 0, 480, 320);
 			}
 
-			UIView *parentView = self.view.superview.superview.superview;
+			UIView *parentView = [delegate.window.subviews objectAtIndex:0];
 
 			DatePickerView *datePicker = [[DatePickerView alloc] initWithFrame:initialFrame];
 			if(self.selectedDate != nil) {

@@ -94,7 +94,7 @@
 		finalFrame = CGRectMake(0, 0, 480, 320);
 	}
 
-	UIView *parentView = delegate.tabBarController.view;
+	UIView *parentView = [delegate.window.subviews objectAtIndex:0];
 
 	PagePickerView *pagePicker = [[PagePickerView alloc] initWithFrame:initialFrame];
 	[pagePicker setDelegate:self];
