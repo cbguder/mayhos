@@ -50,7 +50,7 @@
 	cell.textLabel.text = [favorite objectForKey:@"title"];
 
 	if([[favorite objectForKey:@"type"] isEqualToNumber:[NSNumber numberWithUnsignedInt:FavoriteTypeSearch]]) {
-		cell.imageView.image = [UIImage imageNamed:@"Search.png"];
+		cell.imageView.image = [UIImage imageNamed:@"Search-Small.png"];
 	} else {
 		cell.indentationLevel = 1;
 		cell.indentationWidth = 24.0;

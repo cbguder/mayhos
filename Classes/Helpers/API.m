@@ -19,6 +19,16 @@
 	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=yd"]];
 }
 
++ (NSURL *)URLForDate:(NSDate *)date {
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"dd.MM.YYYY"];
+	NSString *dateString = [dateFormatter stringFromDate:date];
+	[dateFormatter release];
+
+	NSString *URLString = [kSozlukURL stringByAppendingFormat:@"index.asp?a=rd&d=%@", urlEncode(dateString)];
+	return [NSURL URLWithString:URLString];
+}
+
 + (NSURL *)URLForSearchQuery:(NSString *)query {
 	NSString *URLString = [kSozlukURL stringByAppendingFormat:@"index.asp?a=sr&kw=%@", urlEncode(query)];
 	return [NSURL URLWithString:URLString];

@@ -21,6 +21,8 @@ typedef enum {
 + (NSURL *)todayURL;
 + (NSURL *)yesterdayURL;
 
++ (NSURL *)URLForDate:(NSDate *)date;
+
 + (NSURL *)URLForSearchQuery:(NSString *)query;
 + (NSURL *)URLForAdvancedSearchQuery:(NSString *)query author:(NSString *)author sortCriteria:(SortCriteria)sortCriteria date:(NSDate *)date guzel:(BOOL)guzel;
 
