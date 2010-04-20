@@ -19,6 +19,7 @@
 		4C3580D510F63CB600A0B637 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C3580D410F63CB600A0B637 /* Search.xib */; };
 		4C3AE3C0110294E600BDB09B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3AE3BF110294E600BDB09B /* Default.png */; };
 		4C3C5AF310F6B136001AA58B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3C5AF210F6B135001AA58B /* libxml2.dylib */; };
+		4C435262117D24BE008C2888 /* Star-Hollow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C435261117D24BE008C2888 /* Star-Hollow.png */; };
 		4C5CAF9E11285DB500DADB3D /* entry.html in Resources */ = {isa = PBXBuildFile; fileRef = 4C5CAF9D11285DB500DADB3D /* entry.html */; };
 		4C61EB1410EA76F3004DE317 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C61EB1210EA76F3004DE317 /* Icon.png */; };
 		4C61EB6510EA7943004DE317 /* EksiLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61EB4E10EA7943004DE317 /* EksiLinkController.m */; };
@@ -38,7 +39,6 @@
 		4C8DCA15116B8A1A00667DA9 /* Forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DCA0D116B8A1A00667DA9 /* Forward.png */; };
 		4C8DCA16116B8A1A00667DA9 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DCA0E116B8A1A00667DA9 /* Search.png */; };
 		4C8DCA17116B8A1A00667DA9 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DCA0F116B8A1A00667DA9 /* Star.png */; };
-		4C8DCA18116B8A1A00667DA9 /* StarHollow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DCA10116B8A1A00667DA9 /* StarHollow.png */; };
 		4C8DCA19116B8A1A00667DA9 /* Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DCA11116B8A1A00667DA9 /* Up.png */; };
 		4C8DCA20116B8A6100667DA9 /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DCA1D116B8A6100667DA9 /* NSDictionary+URLEncoding.m */; };
 		4C8DCA21116B8A6100667DA9 /* NSURL+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DCA1F116B8A6100667DA9 /* NSURL+Query.m */; };
@@ -78,6 +78,7 @@
 		4C3580D410F63CB600A0B637 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
 		4C3AE3BF110294E600BDB09B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4C3C5AF210F6B135001AA58B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		4C435261117D24BE008C2888 /* Star-Hollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-Hollow.png"; sourceTree = "<group>"; };
 		4C5CAF9D11285DB500DADB3D /* entry.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = entry.html; sourceTree = "<group>"; };
 		4C61EB1210EA76F3004DE317 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		4C61EB4D10EA7943004DE317 /* EksiLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiLinkController.h; sourceTree = "<group>"; };
@@ -107,7 +108,6 @@
 		4C8DCA0D116B8A1A00667DA9 /* Forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Forward.png; sourceTree = "<group>"; };
 		4C8DCA0E116B8A1A00667DA9 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
 		4C8DCA0F116B8A1A00667DA9 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
-		4C8DCA10116B8A1A00667DA9 /* StarHollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarHollow.png; sourceTree = "<group>"; };
 		4C8DCA11116B8A1A00667DA9 /* Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Up.png; sourceTree = "<group>"; };
 		4C8DCA1C116B8A6100667DA9 /* NSDictionary+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+URLEncoding.h"; sourceTree = "<group>"; };
 		4C8DCA1D116B8A6100667DA9 /* NSDictionary+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+URLEncoding.m"; sourceTree = "<group>"; };
@@ -296,7 +296,7 @@
 				4C8DCA0D116B8A1A00667DA9 /* Forward.png */,
 				4C8DCA0E116B8A1A00667DA9 /* Search.png */,
 				4C8DCA0F116B8A1A00667DA9 /* Star.png */,
-				4C8DCA10116B8A1A00667DA9 /* StarHollow.png */,
+				4C435261117D24BE008C2888 /* Star-Hollow.png */,
 				4C8DCA11116B8A1A00667DA9 /* Up.png */,
 			);
 			path = Images;
@@ -397,8 +397,8 @@
 				4C8DCA15116B8A1A00667DA9 /* Forward.png in Resources */,
 				4C8DCA16116B8A1A00667DA9 /* Search.png in Resources */,
 				4C8DCA17116B8A1A00667DA9 /* Star.png in Resources */,
-				4C8DCA18116B8A1A00667DA9 /* StarHollow.png in Resources */,
 				4C8DCA19116B8A1A00667DA9 /* Up.png in Resources */,
+				4C435262117D24BE008C2888 /* Star-Hollow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

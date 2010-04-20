@@ -70,7 +70,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	if(favorited) {
 		self.favoriteItem.image = [UIImage imageNamed:@"Star.png"];
 	} else {
-		self.favoriteItem.image = [UIImage imageNamed:@"StarHollow.png"];
+		self.favoriteItem.image = [UIImage imageNamed:@"Star-Hollow.png"];
 	}
 }
 
@@ -84,7 +84,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümünü göster" style:UIBarButtonItemStyleBordered target:self action:@selector(tumu)];
 		[self.tumuItem release];
 
-		self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StarHollow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
+		self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Star-Hollow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
 		self.favoriteItem.enabled = NO;
 		[self.favoriteItem release];
 
