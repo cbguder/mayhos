@@ -19,6 +19,7 @@
 		4C2000CC117D113300F6704B /* Recents.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2000C9117D113300F6704B /* Recents.png */; };
 		4C2000CD117D113300F6704B /* Search-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2000CA117D113300F6704B /* Search-Small.png */; };
 		4C2000DB117D12B500F6704B /* Blocked.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2000DA117D12B500F6704B /* Blocked.png */; };
+		4C23B568117D3F4700DE756B /* BlockedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B567117D3F4700DE756B /* BlockedController.m */; };
 		4C3580D510F63CB600A0B637 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C3580D410F63CB600A0B637 /* Search.xib */; };
 		4C3AE3C0110294E600BDB09B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3AE3BF110294E600BDB09B /* Default.png */; };
 		4C3C5AF310F6B136001AA58B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3C5AF210F6B135001AA58B /* libxml2.dylib */; };
@@ -86,6 +87,8 @@
 		4C2000C9117D113300F6704B /* Recents.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Recents.png; sourceTree = "<group>"; };
 		4C2000CA117D113300F6704B /* Search-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search-Small.png"; sourceTree = "<group>"; };
 		4C2000DA117D12B500F6704B /* Blocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blocked.png; sourceTree = "<group>"; };
+		4C23B566117D3F4700DE756B /* BlockedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockedController.h; sourceTree = "<group>"; };
+		4C23B567117D3F4700DE756B /* BlockedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockedController.m; sourceTree = "<group>"; };
 		4C3580D410F63CB600A0B637 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
 		4C3AE3BF110294E600BDB09B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4C3C5AF210F6B135001AA58B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -255,6 +258,8 @@
 				4CA3BB0010F43EE0002D50A8 /* mayhosTabBarController.m */,
 				4C01F4D711581DA600876040 /* AdvancedSearchController.h */,
 				4C01F4D811581DA600876040 /* AdvancedSearchController.m */,
+				4C23B566117D3F4700DE756B /* BlockedController.h */,
+				4C23B567117D3F4700DE756B /* BlockedController.m */,
 				4C61EB4D10EA7943004DE317 /* EksiLinkController.h */,
 				4C61EB4E10EA7943004DE317 /* EksiLinkController.m */,
 				4C61EB4F10EA7943004DE317 /* EntryController.h */,
@@ -476,6 +481,7 @@
 				4CA07AA111780ABE00D2405A /* NSString+TitleView.m in Sources */,
 				4C5C7511117BCDDF00F9D54B /* YesterdayController.m in Sources */,
 				4C5C7551117BD55F00F9D54B /* RandomDateController.m in Sources */,
+				4C23B568117D3F4700DE756B /* BlockedController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
