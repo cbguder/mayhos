@@ -12,20 +12,13 @@
 #import "EksiParser.h"
 
 @interface EksiLinkController : PagedController <EksiParserDelegate> {
-	UIBarButtonItem *refreshItem;
 	NSArray *links;
-	BOOL refreshEnabled;
-
 	NSURL *URL;
 }
 
-@property (nonatomic,retain) UIBarButtonItem *refreshItem;
 @property (nonatomic,retain) NSArray *links;
-@property (nonatomic,assign) BOOL refreshEnabled;
-
 @property (nonatomic,retain) NSURL *URL;
 
 - (void)loadURL;
-- (void)refresh;
 
 @end

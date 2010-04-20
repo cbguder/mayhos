@@ -10,6 +10,9 @@
 #import "EksiLinkController.h"
 
 @interface RecentsController : EksiLinkController {
+	UIBarButtonItem *refreshItem;
 }
+
+@property (nonatomic,retain) UIBarButtonItem *refreshItem;
 
 @end

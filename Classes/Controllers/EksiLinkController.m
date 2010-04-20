@@ -12,7 +12,7 @@
 
 @implementation EksiLinkController
 
-@synthesize links, refreshItem, refreshEnabled, URL;
+@synthesize links, URL;
 
 #pragma mark -
 #pragma mark Initialization
@@ -25,31 +25,14 @@
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	if(self = [super initWithCoder:aDecoder]) {
-		self.refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
-		[refreshItem release];
-	}
-
-	return self;
-}
-
 #pragma mark -
 #pragma mark View lifecycle
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-
-	if(refreshEnabled) {
-		self.navigationItem.leftBarButtonItem = refreshItem;
-	}
-}
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
 	if([links count] == 0 && URL != nil) {
-		[self refresh];
+		[self loadURL];
 	}
 }
 
@@ -88,7 +71,6 @@
 #pragma mark Memory management
 
 - (void)dealloc {
-	[refreshItem release];
 	[links release];
 	[URL release];
 	[super dealloc];
@@ -104,11 +86,6 @@
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 	[self.navigationItem setRightBarButtonItem:nil];
 
-	if(refreshEnabled) {
-		[self.navigationItem setLeftBarButtonItem:refreshItem];
-		[refreshItem setEnabled:YES];
-	}
-
 	pages = parser.pages;
 	currentPage = parser.currentPage;
 
@@ -118,11 +95,6 @@
 }
 
 - (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
-	if(refreshEnabled) {
-		[self.navigationItem setLeftBarButtonItem:refreshItem];
-		[refreshItem setEnabled:YES];
-	}
-
 	pages = parser.pages;
 	currentPage = parser.currentPage;
 
@@ -137,11 +109,6 @@
 
 	LeftFrameParser *parser = [[LeftFrameParser alloc] initWithURL:URL delegate:self];
 	[parser parse];
-}
-
-- (void)refresh {
-	refreshItem.enabled = NO;
-	[self loadURL];
 }
 
 - (void)loadPage:(NSUInteger)page {
