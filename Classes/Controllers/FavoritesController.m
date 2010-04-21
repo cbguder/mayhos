@@ -7,7 +7,9 @@
 //
 
 #import "FavoritesController.h"
+#import "FavoritedController.h"
 #import "EksiLinkController.h"
+#import "TitleController.h"
 #import "FavoritesManager.h"
 
 @implementation FavoritesController
@@ -79,18 +81,20 @@
 	FavoriteType type = [[favorite objectForKey:@"type"] unsignedIntValue];
 	NSString *title = [favorite objectForKey:@"title"];
 
+	FavoritedController *favoritedController;
+
 	if(type == FavoriteTypeTitle) {
 		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:title URL:[API URLForTitle:title]];
-		TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
-		[self.navigationController pushViewController:titleController animated:YES];
-		[titleController release];
+		favoritedController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
 	} else if(type == FavoriteTypeSearch) {
-		EksiLinkController *linkController = [[EksiLinkController alloc] init];
-		linkController.title = title;
-		linkController.URL = [NSURL URLWithString:[favorite objectForKey:@"URL"]];
-		[self.navigationController pushViewController:linkController animated:YES];
-		[linkController release];
+		favoritedController = [[EksiLinkController alloc] init];
+		favoritedController.title = title;
+		((EksiLinkController *)favoritedController).URL = [NSURL URLWithString:[favorite objectForKey:@"URL"]];
 	}
+
+	favoritedController.favorited = YES;
+	[self.navigationController pushViewController:favoritedController animated:YES];
+	[favoritedController release];
 }
 
 @end

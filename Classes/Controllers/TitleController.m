@@ -21,7 +21,7 @@
 
 @implementation TitleController
 
-@synthesize eksiTitle, titleView, favoriteItem, tumuItem, searchMode, favorited;
+@synthesize eksiTitle, titleView, tumuItem, searchMode;
 
 #pragma mark -
 #pragma mark Static methods
@@ -64,16 +64,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[self resetHeaderView];
 }
 
-- (void)setFavorited:(BOOL)theFavorited {
-	favorited = theFavorited;
-
-	if(favorited) {
-		self.favoriteItem.image = [UIImage imageNamed:@"Star.png"];
-	} else {
-		self.favoriteItem.image = [UIImage imageNamed:@"Star-Hollow.png"];
-	}
-}
-
 #pragma mark -
 #pragma mark View lifecycle
 
@@ -83,10 +73,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	if(!searchMode) {
 		self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümünü göster" style:UIBarButtonItemStyleBordered target:self action:@selector(tumu)];
 		[self.tumuItem release];
-
-		self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Star-Hollow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
-		self.favoriteItem.enabled = NO;
-		[self.favoriteItem release];
 
 		self.toolbarItems = [self toolbarItemsIncludingTumuItem:NO];
 
@@ -300,11 +286,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)viewDidUnload {
-	self.titleView = nil;
-
-	self.favoriteItem = nil;
 	self.tumuItem = nil;
-
+	self.titleView = nil;
 	self.toolbarItems = nil;
 }
 
@@ -358,7 +341,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[[FavoritesManager sharedManager] createFavoriteForTitle:eksiTitle.title];
 	}
 
-	self.favorited = !self.favorited;
+	[super favorite];
 }
 
 - (NSArray *)toolbarItemsIncludingTumuItem:(BOOL)includeTumuItem {

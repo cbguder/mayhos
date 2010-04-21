@@ -7,33 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PagedController.h"
+#import "FavoritedController.h"
 #import "PagePickerView.h"
 #import "EksiTitle.h"
 #import "EksiEntry.h"
 #import "TitleView.h"
 
-@interface TitleController : PagedController <EksiTitleDelegate, UIAlertViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
+@interface TitleController : FavoritedController <EksiTitleDelegate, UIAlertViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
+	UIBarButtonItem *tumuItem;
 	EksiTitle *eksiTitle;
-
 	TitleView *titleView;
 
-	UIBarButtonItem *favoriteItem;
-	UIBarButtonItem *tumuItem;
-
 	BOOL searchMode;
-	BOOL favorited;
 }
 
+@property (nonatomic,retain) UIBarButtonItem *tumuItem;
 @property (nonatomic,retain) EksiTitle *eksiTitle;
-
 @property (nonatomic,retain) TitleView *titleView;
 
-@property (nonatomic,retain) UIBarButtonItem *favoriteItem;
-@property (nonatomic,retain) UIBarButtonItem *tumuItem;
-
 @property (nonatomic,assign) BOOL searchMode;
-@property (nonatomic,assign) BOOL favorited;
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle;
 

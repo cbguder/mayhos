@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PagedController.h"
-#import "TitleController.h"
+#import "FavoritedController.h"
 #import "EksiParser.h"
 
-@interface EksiLinkController : PagedController <EksiParserDelegate> {
+@interface EksiLinkController : FavoritedController <EksiParserDelegate> {
 	NSArray *links;
 	NSURL *URL;
 }

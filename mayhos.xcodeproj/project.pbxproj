@@ -41,6 +41,7 @@
 		4C61EBAF10EA7A1B004DE317 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C61EBAE10EA7A1B004DE317 /* MainWindow.xib */; };
 		4C719D351100DEA200D9ED91 /* FavoritesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C719D341100DEA200D9ED91 /* FavoritesController.m */; };
 		4C7A751F1173A57300329608 /* HistoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A751E1173A57300329608 /* HistoryManager.m */; };
+		4C868376117E795D0021B180 /* FavoritedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C868375117E795D0021B180 /* FavoritedController.m */; };
 		4C8DCA12116B8A1A00667DA9 /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DCA0A116B8A1A00667DA9 /* Back.png */; };
 		4C8DCA13116B8A1A00667DA9 /* Chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DCA0B116B8A1A00667DA9 /* Chevron.png */; };
 		4C8DCA14116B8A1A00667DA9 /* Down.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DCA0C116B8A1A00667DA9 /* Down.png */; };
@@ -122,6 +123,8 @@
 		4C719D341100DEA200D9ED91 /* FavoritesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesController.m; sourceTree = "<group>"; };
 		4C7A751D1173A57300329608 /* HistoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryManager.h; sourceTree = "<group>"; };
 		4C7A751E1173A57300329608 /* HistoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryManager.m; sourceTree = "<group>"; };
+		4C868374117E795D0021B180 /* FavoritedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritedController.h; sourceTree = "<group>"; };
+		4C868375117E795D0021B180 /* FavoritedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritedController.m; sourceTree = "<group>"; };
 		4C8DCA0A116B8A1A00667DA9 /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
 		4C8DCA0B116B8A1A00667DA9 /* Chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chevron.png; sourceTree = "<group>"; };
 		4C8DCA0C116B8A1A00667DA9 /* Down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Down.png; sourceTree = "<group>"; };
@@ -264,6 +267,8 @@
 				4C61EB4E10EA7943004DE317 /* EksiLinkController.m */,
 				4C61EB4F10EA7943004DE317 /* EntryController.h */,
 				4C61EB5010EA7943004DE317 /* EntryController.m */,
+				4C868374117E795D0021B180 /* FavoritedController.h */,
+				4C868375117E795D0021B180 /* FavoritedController.m */,
 				4C719D331100DEA200D9ED91 /* FavoritesController.h */,
 				4C719D341100DEA200D9ED91 /* FavoritesController.m */,
 				4C1C1632116EC4B70078F764 /* OptionController.h */,
@@ -482,6 +487,7 @@
 				4C5C7511117BCDDF00F9D54B /* YesterdayController.m in Sources */,
 				4C5C7551117BD55F00F9D54B /* RandomDateController.m in Sources */,
 				4C23B568117D3F4700DE756B /* BlockedController.m in Sources */,
+				4C868376117E795D0021B180 /* FavoritedController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
