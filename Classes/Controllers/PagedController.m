@@ -16,6 +16,8 @@
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
+	[super viewDidLoad];
+
 	self.pagesItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked)];
 	[pagesItem release];
 

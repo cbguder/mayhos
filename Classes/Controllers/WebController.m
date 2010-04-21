@@ -93,8 +93,12 @@
 	[items addObject:space];
 	[space release];
 
-	[self.navigationController setToolbarHidden:NO animated:YES];
 	[self setToolbarItems:items];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self.navigationController setToolbarHidden:NO animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -104,7 +108,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	[self.navigationController setToolbarHidden:YES animated:YES];
 	[webView stopLoading];
 }
 

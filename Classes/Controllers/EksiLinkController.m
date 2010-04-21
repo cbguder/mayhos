@@ -7,6 +7,7 @@
 //
 
 #import "EksiLinkController.h"
+#import "TitleController.h"
 #import "LeftFrameParser.h"
 #import "NSURL+Query.h"
 
@@ -27,6 +28,19 @@
 
 #pragma mark -
 #pragma mark View lifecycle
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	self.toolbarItems = [NSArray arrayWithObjects:flexibleSpace, self.favoriteItem, nil];
+	[flexibleSpace release];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self.navigationController setToolbarHidden:!self.hidesBottomBarWhenPushed animated:YES];
+}
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
@@ -76,6 +90,10 @@
 	[super dealloc];
 }
 
+- (void)viewDidUnload {
+	self.toolbarItems = nil;
+}
+
 #pragma mark -
 #pragma mark Parser delegate
 
@@ -84,7 +102,7 @@
 
 	[self.tableView reloadData];
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-	[self.navigationItem setRightBarButtonItem:nil];
+	self.navigationItem.rightBarButtonItem = nil;
 
 	pages = parser.pages;
 	currentPage = parser.currentPage;
@@ -99,7 +117,7 @@
 	currentPage = parser.currentPage;
 
 	[parser release];
-	[self.navigationItem setRightBarButtonItem:nil];
+	self.navigationItem.rightBarButtonItem = nil;
 }
 
 #pragma mark -

@@ -60,6 +60,11 @@
 	[self.guzelSwitch release];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self.navigationController setToolbarHidden:YES animated:YES];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
 	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];

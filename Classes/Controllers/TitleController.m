@@ -98,10 +98,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
-	if(!searchMode) {
-		[self.navigationController setToolbarHidden:NO animated:YES];
-	}
+	[self.navigationController setToolbarHidden:searchMode animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -115,14 +112,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	} else {
 		[self.tableView reloadData];
 		self.navigationItem.titleView = titleView;
-	}
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-
-	if(!searchMode) {
-		[self.navigationController setToolbarHidden:YES animated:YES];
 	}
 }
 

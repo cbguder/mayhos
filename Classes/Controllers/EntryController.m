@@ -66,8 +66,14 @@
 	[self refreshViewContent];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self.navigationController setToolbarHidden:YES animated:YES];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
+
 	if(![self.navigationController.viewControllers containsObject:self]) {
 		UIViewController *topViewController = self.navigationController.topViewController;
 
