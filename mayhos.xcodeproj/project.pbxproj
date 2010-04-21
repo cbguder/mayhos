@@ -13,6 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		4C01F4D911581DA600876040 /* AdvancedSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01F4D811581DA600876040 /* AdvancedSearchController.m */; };
+		4C0BD305117E90D100C9ABAD /* RandomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0BD304117E90D100C9ABAD /* RandomController.m */; };
 		4C19A757116F60FD00A61088 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C19A756116F60FD00A61088 /* DatePickerView.m */; };
 		4C19A87F116F706100A61088 /* ModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C19A87E116F706100A61088 /* ModalPickerView.m */; };
 		4C1C1634116EC4B70078F764 /* OptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C1633116EC4B70078F764 /* OptionController.m */; };
@@ -79,6 +80,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C01F4D711581DA600876040 /* AdvancedSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvancedSearchController.h; sourceTree = "<group>"; };
 		4C01F4D811581DA600876040 /* AdvancedSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvancedSearchController.m; sourceTree = "<group>"; };
+		4C0BD303117E90D100C9ABAD /* RandomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomController.h; sourceTree = "<group>"; };
+		4C0BD304117E90D100C9ABAD /* RandomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomController.m; sourceTree = "<group>"; };
 		4C19A755116F60FD00A61088 /* DatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerView.h; sourceTree = "<group>"; };
 		4C19A756116F60FD00A61088 /* DatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
 		4C19A87D116F706100A61088 /* ModalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalPickerView.h; sourceTree = "<group>"; };
@@ -275,6 +278,8 @@
 				4C1C1633116EC4B70078F764 /* OptionController.m */,
 				4CB3ABF810FAB9DB0072DE2D /* PagedController.h */,
 				4CB3ABF910FAB9DB0072DE2D /* PagedController.m */,
+				4C0BD303117E90D100C9ABAD /* RandomController.h */,
+				4C0BD304117E90D100C9ABAD /* RandomController.m */,
 				4C5C754F117BD55F00F9D54B /* RandomDateController.h */,
 				4C5C7550117BD55F00F9D54B /* RandomDateController.m */,
 				4C61EB5110EA7943004DE317 /* RecentsController.h */,
@@ -488,6 +493,7 @@
 				4C5C7551117BD55F00F9D54B /* RandomDateController.m in Sources */,
 				4C23B568117D3F4700DE756B /* BlockedController.m in Sources */,
 				4C868376117E795D0021B180 /* FavoritedController.m in Sources */,
+				4C0BD305117E90D100C9ABAD /* RandomController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

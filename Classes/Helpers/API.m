@@ -19,6 +19,10 @@
 	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=yd"]];
 }
 
++ (NSURL *)randomURL {
+	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=rn"]];
+}
+
 + (NSURL *)URLForDate:(NSDate *)date {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"dd.MM.YYYY"];
