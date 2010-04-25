@@ -39,13 +39,17 @@ static HistoryManager *SharedManager = nil;
 }
 
 - (void)addString:(NSString *)string {
-	[history addObject:string];
-	[self saveHistory];
+	@synchronized(self) {
+		[history addObject:string];
+		[self saveHistory];
+	}
 }
 
 - (void)removeString:(NSString *)string {
-	[history removeObject:string];
-	[self saveHistory];
+	@synchronized(self) {
+		[history removeObject:string];
+		[self saveHistory];
+	}
 }
 
 @end
