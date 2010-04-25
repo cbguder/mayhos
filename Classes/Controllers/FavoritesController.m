@@ -54,7 +54,9 @@
 
 	if([[favorite objectForKey:@"type"] isEqualToNumber:[NSNumber numberWithUnsignedInt:FavoriteTypeSearch]]) {
 		cell.imageView.image = [UIImage imageNamed:@"Search-Small.png"];
+		cell.indentationLevel = 0;
 	} else {
+		cell.imageView.image = nil;
 		cell.indentationLevel = 1;
 		cell.indentationWidth = 24.0;
 	}
