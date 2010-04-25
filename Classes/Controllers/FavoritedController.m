@@ -10,7 +10,7 @@
 
 @implementation FavoritedController
 
-@synthesize favoriteItem, favorited;
+@synthesize favoriteItem, favoriteItemEnabled, favorited;
 
 #pragma mark -
 #pragma mark Accessors
@@ -25,6 +25,11 @@
 	}
 }
 
+- (void)setFavoriteItemEnabled:(BOOL)enabled {
+	favoriteItemEnabled = enabled;
+	self.favoriteItem.enabled = enabled;
+}
+
 #pragma mark -
 #pragma mark View lifecycle
 
@@ -32,7 +37,7 @@
 	[super viewDidLoad];
 
 	self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
-	self.favoriteItem.enabled = NO;
+	self.favoriteItemEnabled = self.favoriteItemEnabled;
 	[self.favoriteItem release];
 
 	self.favorited = favorited;

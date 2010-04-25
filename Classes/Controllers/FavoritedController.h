@@ -10,11 +10,13 @@
 #import "PagedController.h"
 
 @interface FavoritedController : PagedController {
-	UIBarButtonItem *favoriteItem;	
+	UIBarButtonItem *favoriteItem;
+	BOOL favoriteItemEnabled;
 	BOOL favorited;
 }
 
 @property (nonatomic,retain) UIBarButtonItem *favoriteItem;
+@property (nonatomic,assign) BOOL favoriteItemEnabled;
 @property (nonatomic,assign) BOOL favorited;
 
 - (void)favorite;
