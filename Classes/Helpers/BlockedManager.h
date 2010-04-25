@@ -16,4 +16,7 @@
 
 + (BlockedManager *)sharedManager;
 
+- (void)addString:(NSString *)string;
+- (void)removeString:(NSString *)string;
+
 @end

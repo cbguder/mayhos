@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface BlockedController : UITableViewController {
+	NSMutableArray *blocked;
 }
+
+@property (nonatomic,retain) NSMutableArray *blocked;
 
 @end
