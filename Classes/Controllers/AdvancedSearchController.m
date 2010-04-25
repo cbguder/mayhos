@@ -230,9 +230,9 @@
 												   date:selectedDate
 												  guzel:guzelSwitch.on];
 
-	if(![queryField.text isEqualToString:@""]) {
+	if(queryField.text && ![queryField.text isEqualToString:@""]) {
 		linkController.title = queryField.text;
-	} else if(![authorField.text isEqualToString:@""]) {
+	} else if(authorField.text && ![authorField.text isEqualToString:@""]) {
 		linkController.title = authorField.text;
 	}
 
