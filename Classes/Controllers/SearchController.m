@@ -169,6 +169,8 @@
 }
 
 - (void)go:(NSString *)query {
+	[self saveSearch:query];
+
 	EksiTitle *eksiTitle = [EksiTitle titleWithTitle:query URL:[API URLForTitle:query]];
 	TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
 	[self.navigationController pushViewController:titleController animated:YES];
