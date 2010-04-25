@@ -18,6 +18,7 @@
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
+	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
@@ -40,7 +41,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *favoriteCellIdentifier = @"favoriteCellIdentifier";
+	static NSString *favoriteCellIdentifier = @"Cell";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:favoriteCellIdentifier];
 	if(cell == nil) {
