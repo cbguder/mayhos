@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EksiLinkController.h"
+#import "RefreshedController.h"
 
-@interface RandomController : EksiLinkController {
+@interface RandomController : RefreshedController {
 }
 
 @end
