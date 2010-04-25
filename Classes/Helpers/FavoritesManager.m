@@ -7,11 +7,14 @@
 //
 
 #import "FavoritesManager.h"
+#import "NSURL+Query.h"
 
 static FavoritesManager *SharedManager = nil;
 
 @interface FavoritesManager (Private)
+- (NSDictionary *)findFavoriteForURL:(NSURL *)URL;
 - (NSDictionary *)favoriteForTitle:(NSString *)title;
+- (NSDictionary *)favoriteForURL:(NSURL *)URL withTitle:(NSString *)title;
 @end
 
 @implementation FavoritesManager
@@ -44,6 +47,17 @@ static FavoritesManager *SharedManager = nil;
 	return favorite;
 }
 
+- (NSDictionary *)favoriteForURL:(NSURL *)URL withTitle:(NSString *)title {
+	NSURL *realURL = [URL normalizedURL];
+
+	NSMutableDictionary *favorite = [NSMutableDictionary dictionaryWithCapacity:3];
+	[favorite setObject:[NSNumber numberWithUnsignedInt:FavoriteTypeSearch] forKey:@"type"];
+	[favorite setObject:[realURL absoluteString] forKey:@"URL"];
+	[favorite setObject:title forKey:@"title"];
+
+	return favorite;
+}
+
 - (void)saveFavorites {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:favorites forKey:@"favorites"];
@@ -54,9 +68,34 @@ static FavoritesManager *SharedManager = nil;
 	return [favorites containsObject:[self favoriteForTitle:title]];
 }
 
+- (NSDictionary *)findFavoriteForURL:(NSURL *)URL {
+	NSURL *realURL = [URL normalizedURL];
+
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(URL == %@)", [realURL absoluteString]];
+	NSArray *matches = [favorites filteredArrayUsingPredicate:predicate];
+
+	if([matches count]) {
+		return [matches objectAtIndex:0];
+	} else {
+		return nil;
+	}
+}
+
+- (BOOL)hasFavoriteForURL:(NSURL *)URL {
+	NSDictionary *favorite = [self findFavoriteForURL:URL];
+	return favorite != nil;
+}
+
 - (void)createFavoriteForTitle:(NSString *)title {
 	@synchronized(self) {
 		[favorites addObject:[self favoriteForTitle:title]];
+		[self saveFavorites];
+	}
+}
+
+- (void)createFavoriteForURL:(NSURL *)URL withTitle:(NSString *)title {
+	@synchronized(self) {
+		[favorites addObject:[self favoriteForURL:URL withTitle:title]];
 		[self saveFavorites];
 	}
 }
@@ -91,6 +130,16 @@ static FavoritesManager *SharedManager = nil;
 	@synchronized(self) {
 		[favorites removeObject:[self favoriteForTitle:title]];
 		[self saveFavorites];
+	}
+}
+
+- (void)deleteFavoriteForURL:(NSURL *)URL {
+	@synchronized(self) {
+		NSDictionary *favorite = [self findFavoriteForURL:URL];
+		if(favorite) {
+			[favorites removeObject:favorite];
+			[self saveFavorites];
+		}
 	}
 }
 

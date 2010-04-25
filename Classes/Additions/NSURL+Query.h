@@ -12,5 +12,6 @@
 
 - (NSMutableDictionary *)queryDictionary;
 - (NSURL *)URLBySettingQueryDictionary:(NSDictionary *)dictionary;
+- (NSURL *)normalizedURL;
 
 @end

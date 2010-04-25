@@ -22,12 +22,15 @@ typedef enum {
 + (FavoritesManager *)sharedManager;
 
 - (BOOL)hasFavoriteForTitle:(NSString *)title;
+- (BOOL)hasFavoriteForURL:(NSURL *)URL;
 
 - (void)createFavoriteForTitle:(NSString *)title;
+- (void)createFavoriteForURL:(NSURL *)URL withTitle:(NSString *)title;
 
 - (void)moveFavoriteAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
 
 - (void)deleteFavoriteAtIndex:(NSUInteger)index;
 - (void)deleteFavoriteForTitle:(NSString *)title;
+- (void)deleteFavoriteForURL:(NSURL *)URL;
 
 @end

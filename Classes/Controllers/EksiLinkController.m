@@ -10,6 +10,7 @@
 #import "TitleController.h"
 #import "LeftFrameParser.h"
 #import "NSURL+Query.h"
+#import "FavoritesManager.h"
 
 @implementation EksiLinkController
 
@@ -109,6 +110,9 @@
 
 	[parser release];
 
+	self.favorited = [[FavoritesManager sharedManager] hasFavoriteForURL:self.URL];
+	self.favoriteItemEnabled = YES;
+
 	[self finishedLoadingPage];
 }
 
@@ -134,6 +138,16 @@
 	[queryDictionary setObject:[NSNumber numberWithUnsignedInteger:page] forKey:@"p"];
 	self.URL = [self.URL URLBySettingQueryDictionary:queryDictionary];
 	[self loadURL];
+}
+
+- (void)favorite {
+	if(favorited) {
+		[[FavoritesManager sharedManager] deleteFavoriteForURL:self.URL];
+	} else {
+		[[FavoritesManager sharedManager] createFavoriteForURL:self.URL withTitle:self.title];
+	}
+
+	[super favorite];
 }
 
 @end

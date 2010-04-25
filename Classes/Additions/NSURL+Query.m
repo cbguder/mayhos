@@ -41,4 +41,10 @@
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@?%@", [self scheme], [self host], [self path], [dictionary urlEncodedString]]];
 }
 
+- (NSURL *)normalizedURL {
+	NSMutableDictionary *queryDictionary = [self queryDictionary];
+	[queryDictionary removeObjectForKey:@"p"];
+	return [self URLBySettingQueryDictionary:queryDictionary];
+}
+
 @end
