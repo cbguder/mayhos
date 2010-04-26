@@ -52,4 +52,8 @@ static BlockedManager *SharedManager = nil;
 	}
 }
 
+- (BOOL)hasString:(NSString *)string {
+	return [blocked containsObject:string];
+}
+
 @end

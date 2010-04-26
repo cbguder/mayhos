@@ -18,5 +18,6 @@
 
 - (void)addString:(NSString *)string;
 - (void)removeString:(NSString *)string;
+- (BOOL)hasString:(NSString *)string;
 
 @end
