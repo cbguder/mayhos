@@ -65,6 +65,14 @@
 	[self.navigationController setToolbarHidden:YES animated:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+
+	if(queryField.text == nil && authorField.text == nil) {
+		[queryField becomeFirstResponder];
+	}
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
 	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
