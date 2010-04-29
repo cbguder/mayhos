@@ -17,6 +17,8 @@
 		4C19A87F116F706100A61088 /* ModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C19A87E116F706100A61088 /* ModalPickerView.m */; };
 		4C1C1634116EC4B70078F764 /* OptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C1633116EC4B70078F764 /* OptionController.m */; };
 		4C2000CD117D113300F6704B /* Search-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2000CA117D113300F6704B /* Search-Small.png */; };
+		4C2000DB117D12B500F6704B /* Blocked.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2000DA117D12B500F6704B /* Blocked.png */; };
+		4C23B568117D3F4700DE756B /* BlockedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B567117D3F4700DE756B /* BlockedController.m */; };
 		4C3580D510F63CB600A0B637 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C3580D410F63CB600A0B637 /* Search.xib */; };
 		4C3AE3C0110294E600BDB09B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3AE3BF110294E600BDB09B /* Default.png */; };
 		4C3C5AF310F6B136001AA58B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3C5AF210F6B135001AA58B /* libxml2.dylib */; };
@@ -55,6 +57,7 @@
 		4CB3AB2A10FAA6070072DE2D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3AB2910FAA6070072DE2D /* Constants.m */; };
 		4CB3ABFA10FAB9DB0072DE2D /* PagedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3ABF910FAB9DB0072DE2D /* PagedController.m */; };
 		4CBC76F3118496110057044F /* RefreshedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBC76F2118496110057044F /* RefreshedController.m */; };
+		4CBC77951184DF150057044F /* BlockedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBC77941184DF150057044F /* BlockedManager.m */; };
 		4CC6A04B1166AC7D007D8175 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6A04A1166AC7D007D8175 /* defaults.plist */; };
 		4CDEED3810FA1C0000220062 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDEED3610FA1C0000220062 /* WebController.m */; };
 		4CE51C601171286E00267E08 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE51C5F1171286E00267E08 /* API.m */; };
@@ -79,6 +82,9 @@
 		4C1C1632116EC4B70078F764 /* OptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionController.h; sourceTree = "<group>"; };
 		4C1C1633116EC4B70078F764 /* OptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionController.m; sourceTree = "<group>"; };
 		4C2000CA117D113300F6704B /* Search-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search-Small.png"; sourceTree = "<group>"; };
+		4C2000DA117D12B500F6704B /* Blocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blocked.png; sourceTree = "<group>"; };
+		4C23B566117D3F4700DE756B /* BlockedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockedController.h; sourceTree = "<group>"; };
+		4C23B567117D3F4700DE756B /* BlockedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockedController.m; sourceTree = "<group>"; };
 		4C3580D410F63CB600A0B637 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
 		4C3AE3BF110294E600BDB09B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4C3C5AF210F6B135001AA58B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -142,6 +148,8 @@
 		4CB3ABF910FAB9DB0072DE2D /* PagedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedController.m; sourceTree = "<group>"; };
 		4CBC76F1118496110057044F /* RefreshedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshedController.h; sourceTree = "<group>"; };
 		4CBC76F2118496110057044F /* RefreshedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshedController.m; sourceTree = "<group>"; };
+		4CBC77931184DF150057044F /* BlockedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockedManager.h; sourceTree = "<group>"; };
+		4CBC77941184DF150057044F /* BlockedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockedManager.m; sourceTree = "<group>"; };
 		4CC6A04A1166AC7D007D8175 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaults.plist; sourceTree = "<group>"; };
 		4CDEED3510FA1C0000220062 /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		4CDEED3610FA1C0000220062 /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
@@ -246,6 +254,8 @@
 				4CA3BB0010F43EE0002D50A8 /* mayhosTabBarController.m */,
 				4C01F4D711581DA600876040 /* AdvancedSearchController.h */,
 				4C01F4D811581DA600876040 /* AdvancedSearchController.m */,
+				4C23B566117D3F4700DE756B /* BlockedController.h */,
+				4C23B567117D3F4700DE756B /* BlockedController.m */,
 				4C61EB4D10EA7943004DE317 /* EksiLinkController.h */,
 				4C61EB4E10EA7943004DE317 /* EksiLinkController.m */,
 				4C61EB4F10EA7943004DE317 /* EntryController.h */,
@@ -306,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				4C8DCA0A116B8A1A00667DA9 /* Back.png */,
+				4C2000DA117D12B500F6704B /* Blocked.png */,
 				4C8DCA0B116B8A1A00667DA9 /* Chevron.png */,
 				4C8DCA0C116B8A1A00667DA9 /* Down.png */,
 				4C8DCA0D116B8A1A00667DA9 /* Forward.png */,
@@ -348,6 +359,8 @@
 			children = (
 				4CE51C5E1171286E00267E08 /* API.h */,
 				4CE51C5F1171286E00267E08 /* API.m */,
+				4CBC77931184DF150057044F /* BlockedManager.h */,
+				4CBC77941184DF150057044F /* BlockedManager.m */,
 				4C8F6D4011715ADA0045784B /* FavoritesManager.h */,
 				4C8F6D4111715ADA0045784B /* FavoritesManager.m */,
 				4C7A751D1173A57300329608 /* HistoryManager.h */,
@@ -413,6 +426,7 @@
 				4C8DCA17116B8A1A00667DA9 /* Star.png in Resources */,
 				4C8DCA19116B8A1A00667DA9 /* Up.png in Resources */,
 				4C2000CD117D113300F6704B /* Search-Small.png in Resources */,
+				4C2000DB117D12B500F6704B /* Blocked.png in Resources */,
 				4C435262117D24BE008C2888 /* Star-Hollow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,8 +469,10 @@
 				4CAC21A011767E2800B5896F /* TitleView.m in Sources */,
 				4C92E4091176ACDE001BD05F /* EksiLink.m in Sources */,
 				4CA07AA111780ABE00D2405A /* NSString+TitleView.m in Sources */,
+				4C23B568117D3F4700DE756B /* BlockedController.m in Sources */,
 				4C868376117E795D0021B180 /* FavoritedController.m in Sources */,
 				4CBC76F3118496110057044F /* RefreshedController.m in Sources */,
+				4CBC77951184DF150057044F /* BlockedManager.m in Sources */,
 				4C58E40A118A22A300BD538D /* MoreController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
