@@ -37,3 +37,12 @@ NSDate *lastYear() {
 
 	return date;
 }
+
+NSString *formatDate(NSDate *date) {
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateStyle:NSDateFormatterLongStyle];
+	NSString *string = [dateFormatter stringFromDate:date];
+	[dateFormatter release];
+
+	return string;
+}

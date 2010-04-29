@@ -105,12 +105,9 @@
 			cell.detailTextLabel.text = [sortOptions objectAtIndex:selectedSortOption];
 		} else {
 			cell.textLabel.text = @"şu gün";
+
 			if(self.selectedDate != nil) {
-				NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-				[dateFormatter setDateStyle:NSDateFormatterLongStyle];
-				[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-				cell.detailTextLabel.text = [dateFormatter stringFromDate:self.selectedDate];
-				[dateFormatter release];
+				cell.detailTextLabel.text = formatDate(self.selectedDate);
 			}
 		}
 	} else {

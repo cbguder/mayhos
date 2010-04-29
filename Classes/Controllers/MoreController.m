@@ -98,13 +98,7 @@ enum {
 		}
 
 		EksiLinkController *eksiLinkController = [[EksiLinkController alloc] init];
-
-		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		[dateFormatter setDateStyle:NSDateFormatterLongStyle];
-		eksiLinkController.title = [[dateFormatter stringFromDate:date] lowercaseString];
-		eksiLinkController.title = [dateFormatter stringFromDate:date];
-		[dateFormatter release];
-
+		eksiLinkController.title = formatDate(date);
 		eksiLinkController.URL = [API URLForDate:date];
 		eksiLinkController.noToolbar = YES;
 		viewController = eksiLinkController;
