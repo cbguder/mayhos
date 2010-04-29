@@ -23,6 +23,10 @@
 	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=rn"]];
 }
 
++ (NSURL *)featuredURL {
+	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"pick.asp?p=g"]];
+}
+
 + (NSURL *)URLForDate:(NSDate *)date {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"dd.MM.YYYY"];
