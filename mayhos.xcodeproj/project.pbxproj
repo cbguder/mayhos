@@ -16,6 +16,8 @@
 		4C19A757116F60FD00A61088 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C19A756116F60FD00A61088 /* DatePickerView.m */; };
 		4C19A87F116F706100A61088 /* ModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C19A87E116F706100A61088 /* ModalPickerView.m */; };
 		4C1C1634116EC4B70078F764 /* OptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C1633116EC4B70078F764 /* OptionController.m */; };
+		4C1F78C5118A4CD70034ADDF /* ChevronDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C1F78C3118A4CD70034ADDF /* ChevronDown.png */; };
+		4C1F78C6118A4CD70034ADDF /* ChevronDownHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C1F78C4118A4CD70034ADDF /* ChevronDownHighlighted.png */; };
 		4C2000CD117D113300F6704B /* Search-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2000CA117D113300F6704B /* Search-Small.png */; };
 		4C3580D510F63CB600A0B637 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C3580D410F63CB600A0B637 /* Search.xib */; };
 		4C3AE3C0110294E600BDB09B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3AE3BF110294E600BDB09B /* Default.png */; };
@@ -78,6 +80,8 @@
 		4C19A87E116F706100A61088 /* ModalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalPickerView.m; sourceTree = "<group>"; };
 		4C1C1632116EC4B70078F764 /* OptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionController.h; sourceTree = "<group>"; };
 		4C1C1633116EC4B70078F764 /* OptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionController.m; sourceTree = "<group>"; };
+		4C1F78C3118A4CD70034ADDF /* ChevronDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChevronDown.png; sourceTree = "<group>"; };
+		4C1F78C4118A4CD70034ADDF /* ChevronDownHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChevronDownHighlighted.png; sourceTree = "<group>"; };
 		4C2000CA117D113300F6704B /* Search-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search-Small.png"; sourceTree = "<group>"; };
 		4C3580D410F63CB600A0B637 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
 		4C3AE3BF110294E600BDB09B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -307,6 +311,8 @@
 			children = (
 				4C8DCA0A116B8A1A00667DA9 /* Back.png */,
 				4C8DCA0B116B8A1A00667DA9 /* Chevron.png */,
+				4C1F78C3118A4CD70034ADDF /* ChevronDown.png */,
+				4C1F78C4118A4CD70034ADDF /* ChevronDownHighlighted.png */,
 				4C8DCA0C116B8A1A00667DA9 /* Down.png */,
 				4C8DCA0D116B8A1A00667DA9 /* Forward.png */,
 				4C2000CA117D113300F6704B /* Search-Small.png */,
@@ -414,6 +420,8 @@
 				4C8DCA19116B8A1A00667DA9 /* Up.png in Resources */,
 				4C2000CD117D113300F6704B /* Search-Small.png in Resources */,
 				4C435262117D24BE008C2888 /* Star-Hollow.png in Resources */,
+				4C1F78C5118A4CD70034ADDF /* ChevronDown.png in Resources */,
+				4C1F78C6118A4CD70034ADDF /* ChevronDownHighlighted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

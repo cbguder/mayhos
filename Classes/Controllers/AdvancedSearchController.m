@@ -98,12 +98,16 @@
 
 	if(indexPath.section == 1) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil] autorelease];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
 		if(indexPath.row == 0) {
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			cell.textLabel.text = @"sıra şekli";
 			cell.detailTextLabel.text = [sortOptions objectAtIndex:selectedSortOption];
 		} else {
+			UIImageView *accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ChevronDown.png"]
+														   highlightedImage:[UIImage imageNamed:@"ChevronDownHighlighted.png"]];
+			cell.accessoryView = accessoryView;
+			[accessoryView release];
 			cell.textLabel.text = @"şu gün";
 
 			if(self.selectedDate != nil) {
