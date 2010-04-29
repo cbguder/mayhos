@@ -8,6 +8,7 @@
 
 #import "RightFrameParser.h"
 #import "EksiEntry.h"
+#import "BlockedManager.h"
 
 @interface RightFrameParser (Private)
 - (void)processNode:(xmlNodePtr)node;
@@ -163,7 +164,11 @@
 	[entry setContent:tempEntry];
 	[entry setPlainTextContent:tempPlainTextContent];
 	[entry setAuthorAndDateFromSignature:tempAuthor];
-	[results addObject:entry];
+
+	if(![[BlockedManager sharedManager] hasString:entry.author]) {
+		[results addObject:entry];
+	}
+
 	[entry release];
 
 	[tempPlainTextContent release];
