@@ -284,9 +284,17 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Drawing
 
 - (void)showAlert {
-	EksiEntry *firstEntry = [eksiTitle.entries objectAtIndex:0];
+	NSString *message;
+
+	if([eksiTitle.entries count]) {
+		EksiEntry *firstEntry = [eksiTitle.entries objectAtIndex:0];
+		message = firstEntry.plainTextContent;
+	} else {
+		message = @"olmaması gereken şeyler oldu.";
+	}
+
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:eksiTitle.title
-														message:firstEntry.plainTextContent
+														message:message
 													   delegate:self
 											  cancelButtonTitle:nil
 											  otherButtonTitles:@"geri git ne bileyim", nil];
