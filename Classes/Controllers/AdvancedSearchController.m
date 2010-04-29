@@ -239,6 +239,10 @@
 		linkController.title = queryField.text;
 	} else if(authorField.text && ![authorField.text isEqualToString:@""]) {
 		linkController.title = authorField.text;
+	} else if(self.selectedDate) {
+		linkController.title = formatDate(self.selectedDate);
+	} else {
+		linkController.title = @"akıl fikir";
 	}
 
 	[self.navigationController pushViewController:linkController animated:YES];
