@@ -19,6 +19,7 @@
 	TitleView *titleView;
 
 	BOOL searchMode;
+	BOOL noToolbar;
 }
 
 @property (nonatomic,retain) UIBarButtonItem *tumuItem;
@@ -26,6 +27,7 @@
 @property (nonatomic,retain) TitleView *titleView;
 
 @property (nonatomic,assign) BOOL searchMode;
+@property (nonatomic,assign) BOOL noToolbar;
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle;
 

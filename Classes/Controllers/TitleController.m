@@ -21,7 +21,7 @@
 
 @implementation TitleController
 
-@synthesize eksiTitle, titleView, tumuItem, searchMode;
+@synthesize eksiTitle, titleView, tumuItem, searchMode, noToolbar;
 
 #pragma mark -
 #pragma mark Static methods
@@ -98,7 +98,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.navigationController setToolbarHidden:searchMode animated:YES];
+	[self.navigationController setToolbarHidden:(noToolbar || searchMode) animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

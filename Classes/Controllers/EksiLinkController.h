@@ -13,10 +13,14 @@
 @interface EksiLinkController : FavoritedController <EksiParserDelegate> {
 	NSArray *links;
 	NSURL *URL;
+
+	BOOL noToolbar;
 }
 
 @property (nonatomic,retain) NSArray *links;
 @property (nonatomic,retain) NSURL *URL;
+
+@property (nonatomic,assign) BOOL noToolbar;
 
 - (void)loadURL;
 

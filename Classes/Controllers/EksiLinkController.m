@@ -14,7 +14,7 @@
 
 @implementation EksiLinkController
 
-@synthesize links, URL;
+@synthesize links, URL, noToolbar;
 
 #pragma mark -
 #pragma mark Initialization
@@ -40,7 +40,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.navigationController setToolbarHidden:!self.hidesBottomBarWhenPushed animated:YES];
+	[self.navigationController setToolbarHidden:(noToolbar || !self.hidesBottomBarWhenPushed) animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
