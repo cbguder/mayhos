@@ -192,7 +192,9 @@
 						</object>
 					</object>
 					<object class="IBUINavigationController" id="756784364">
+						<string key="IBUITitle">More</string>
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="867681512">
+							<string key="IBUITitle"/>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							<reference key="IBUITabBar"/>
 							<int key="IBUISystemItemIdentifier">0</int>
