@@ -26,3 +26,14 @@ NSDate *randomDate() {
 
 	return [NSDate dateWithTimeIntervalSince1970:86400*r];
 }
+
+NSDate *lastYear() {
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:[NSDate date]];
+	dateComponents.year -= 1;
+
+	NSDate *date = [gregorian dateFromComponents:dateComponents];
+	[gregorian release];
+
+	return date;
+}

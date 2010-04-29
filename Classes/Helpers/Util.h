@@ -11,3 +11,4 @@
 NSString *toString(id object);
 NSString *urlEncode(id object);
 NSDate *randomDate();
+NSDate *lastYear();
