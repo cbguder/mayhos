@@ -54,7 +54,8 @@
 	cell.textLabel.text = [favorite objectForKey:@"title"];
 
 	if([[favorite objectForKey:@"type"] isEqualToNumber:[NSNumber numberWithUnsignedInt:FavoriteTypeSearch]]) {
-		cell.imageView.image = [UIImage imageNamed:@"Search-Small.png"];
+		cell.imageView.image = [UIImage imageNamed:@"Search.png"];
+		cell.imageView.highlightedImage = [UIImage imageNamed:@"Search-Highlighted.png"];
 		cell.indentationLevel = 0;
 	} else {
 		cell.imageView.image = nil;

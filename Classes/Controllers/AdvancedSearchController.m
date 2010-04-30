@@ -105,7 +105,7 @@
 			cell.detailTextLabel.text = [sortOptions objectAtIndex:selectedSortOption];
 		} else {
 			UIImageView *accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ChevronDown.png"]
-														   highlightedImage:[UIImage imageNamed:@"ChevronDownHighlighted.png"]];
+														   highlightedImage:[UIImage imageNamed:@"ChevronDown-Highlighted.png"]];
 			cell.accessoryView = accessoryView;
 			[accessoryView release];
 			cell.textLabel.text = @"şu gün";
