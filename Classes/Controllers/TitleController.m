@@ -88,7 +88,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		[searchBar release];
 	}
 
-	self.titleView = [[TitleView alloc] initWithFrame:CGRectMake(0, 0, 400, 32)];
+	self.titleView = [[TitleView alloc] initWithFrame:CGRectZero];
 	titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	titleView.text = eksiTitle.title;
 	[titleView release];
@@ -99,6 +99,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.navigationController setToolbarHidden:(noToolbar || searchMode) animated:YES];
+	[self.titleView setFrame:CGRectMake(0, 0, 480, 44)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
