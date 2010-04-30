@@ -31,14 +31,15 @@
 #pragma mark View lifecycle
 
 - (void)loadView {
-	webView = [[UIWebView alloc] init];
+	webView = [[UIWebView alloc] initWithFrame:CGRectZero];
 	self.view = webView;
 	[webView release];
 }
 
 - (void)viewDidLoad {
-	[webView setScalesPageToFit:YES];
-	[webView setDelegate:self];
+	webView.delegate = self;
+	webView.scalesPageToFit = YES;
+	webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
 	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 	[activityIndicatorView startAnimating];

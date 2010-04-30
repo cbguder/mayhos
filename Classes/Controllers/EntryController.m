@@ -15,7 +15,6 @@
 
 @interface EntryController (Private)
 - (void)refreshViewContent;
-- (void)reloadContentView;
 @end
 
 @implementation EntryController
@@ -41,7 +40,7 @@
 #pragma mark View lifecycle
 
 - (void)loadView {
-	webView = [[UIWebView alloc] init];
+	webView = [[UIWebView alloc] initWithFrame:CGRectZero];
 	self.view = webView;
 	[webView release];
 }
@@ -49,6 +48,7 @@
 - (void)viewDidLoad {
 	webView.delegate = self;
 	webView.dataDetectorTypes = UIDataDetectorTypeNone;
+	webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
 	UIImage *up = [UIImage imageNamed:@"Up.png"];
 	UIImage *down = [UIImage imageNamed:@"Down.png"];
@@ -94,10 +94,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
 	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-	[self reloadContentView];
 }
 
 #pragma mark -
@@ -166,10 +162,6 @@
 		[upDownControl setEnabled:(index+1 != entryCount) forSegmentAtIndex:1];
 	}
 
-	[self reloadContentView];
-}
-
-- (void)reloadContentView {
 	if(webView) {
 		EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
 		NSString *htmlString = [NSString stringWithFormat:entryTemplate, entry.author, entry.author, [entry dateString], entry.content];
