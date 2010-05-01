@@ -12,10 +12,6 @@
 @interface RightFrameParser : EksiParser {
 	NSMutableString *title;
 	BOOL hasMoreToLoad;
-
-	NSMutableString *tempEntry;
-	NSMutableString *tempAuthor;
-
 	NSURL *moreURL;
 }
 

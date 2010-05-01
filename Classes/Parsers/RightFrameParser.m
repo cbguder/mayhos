@@ -12,7 +12,7 @@
 @interface RightFrameParser (Private)
 - (void)processNode:(xmlNodePtr)node;
 - (void)processButtonNode:(xmlNodePtr)node;
-- (void)processEntryNode:(xmlNodePtr)node;
+- (void)processEntryNode:(xmlNodePtr)node intoAuthorBuffer:(NSMutableString *)authorBuffer entryBuffer:(NSMutableString *)entryBuffer;
 - (void)processLiNode:(xmlNodePtr)node;
 
 - (void)extractTextFromNode:(xmlNodePtr)node intoBuffer:(NSMutableString *)buffer;
@@ -98,9 +98,9 @@
 	xmlFree(value);
 }
 
-- (void)processEntryNode:(xmlNodePtr)node {
+- (void)processEntryNode:(xmlNodePtr)node intoAuthorBuffer:(NSMutableString *)authorBuffer entryBuffer:(NSMutableString *)entryBuffer {
 	if(node->type == XML_TEXT_NODE) {
-		[tempEntry appendString:[NSString stringWithUTF8String:(const char *)node->content]];
+		[entryBuffer appendString:[NSString stringWithUTF8String:(const char *)node->content]];
 		return;
 	}
 
@@ -109,10 +109,10 @@
 	}
 
 	if(xmlStrEqual(node->name, (const xmlChar *)"br")) {
-		[tempEntry appendString:@"<br/>"];
+		[entryBuffer appendString:@"<br/>"];
 		return;
 	} else if(xmlStrEqual(node->name, (const xmlChar *)"div")) {
-		[self extractTextFromNode:node intoBuffer:tempAuthor];
+		[self extractTextFromNode:node intoBuffer:authorBuffer];
 		return;
 	}
 
@@ -126,37 +126,37 @@
 				NSString *URLString = [NSString stringWithUTF8String:(const char *)value];
 				BOOL internalLink = [URLString hasPrefix:@"show.asp"] || [URLString hasPrefix:@"index.asp"];
 
-				[tempEntry appendString:@"<a href=\""];
+				[entryBuffer appendString:@"<a href=\""];
 
 				if(internalLink)
-					[tempEntry appendString:@"mayhos://"];
+					[entryBuffer appendString:@"mayhos://"];
 
-				[tempEntry appendString:URLString];
+				[entryBuffer appendString:URLString];
 
 				if(internalLink)
-					[tempEntry appendString:@"\" class=\"internal"];
+					[entryBuffer appendString:@"\" class=\"internal"];
 
-				[tempEntry appendString:@"\">"];
+				[entryBuffer appendString:@"\">"];
 				xmlFree(value);
 			}
 		}
 	}
 
 	for(xmlNodePtr child = node->children; child; child = child->next) {
-		[self processEntryNode:child];
+		[self processEntryNode:child intoAuthorBuffer:authorBuffer entryBuffer:entryBuffer];
 	}
 
 	if(isLink) {
-		[tempEntry appendString:@"</a>"];
+		[entryBuffer appendString:@"</a>"];
 	}
 }
 
 - (void)processLiNode:(xmlNodePtr)node {
 	NSMutableString *tempPlainTextContent = [[NSMutableString alloc] init];
-	tempEntry = [[NSMutableString alloc] init];
-	tempAuthor = [[NSMutableString alloc] init];
+	NSMutableString *tempEntry = [[NSMutableString alloc] init];
+	NSMutableString *tempAuthor = [[NSMutableString alloc] init];
 
-	[self processEntryNode:node];
+	[self processEntryNode:node intoAuthorBuffer:tempAuthor entryBuffer:tempEntry];
 	[self extractEntryPlainTextFromNode:node intoBuffer:tempPlainTextContent];
 
 	EksiEntry *entry = [[EksiEntry alloc] init];
