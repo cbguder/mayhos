@@ -526,6 +526,7 @@
 				GCC_PREFIX_HEADER = mayhos_Prefix.pch;
 				INFOPLIST_FILE = "mayhos-Info.plist";
 				PRODUCT_NAME = mayhos;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Distribution;
 		};
