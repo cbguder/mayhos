@@ -11,6 +11,7 @@
 #import "WebController.h"
 #import "TitleController.h"
 #import "EksiLinkController.h"
+#import "AuthorController.h"
 #import "NSURL+Query.h"
 
 @interface EntryController (Private)
@@ -125,6 +126,11 @@
 
 			[self.navigationController pushViewController:linkController animated:YES];
 			[linkController release];
+		}  else if([rest hasPrefix:@"authors/"]) {
+			EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
+			AuthorController *authorController = [[AuthorController alloc] initWithAuthor:entry.author];
+			[self.navigationController pushViewController:authorController animated:YES];
+			[authorController release];
 		}
 	} else {
 		WebController *webController = [[WebController alloc] initWithURL:request.URL];

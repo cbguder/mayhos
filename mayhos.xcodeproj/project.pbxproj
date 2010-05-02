@@ -57,6 +57,7 @@
 		4CB3ABFA10FAB9DB0072DE2D /* PagedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3ABF910FAB9DB0072DE2D /* PagedController.m */; };
 		4CBC76F3118496110057044F /* RefreshedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBC76F2118496110057044F /* RefreshedController.m */; };
 		4CC6A04B1166AC7D007D8175 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6A04A1166AC7D007D8175 /* defaults.plist */; };
+		4CC82873118D01A300BD43AF /* AuthorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC82872118D01A300BD43AF /* AuthorController.m */; };
 		4CDEED3810FA1C0000220062 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDEED3610FA1C0000220062 /* WebController.m */; };
 		4CE51C601171286E00267E08 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE51C5F1171286E00267E08 /* API.m */; };
 		4CE51C63117128A400267E08 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE51C62117128A400267E08 /* Util.m */; };
@@ -147,6 +148,8 @@
 		4CBC76F1118496110057044F /* RefreshedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshedController.h; sourceTree = "<group>"; };
 		4CBC76F2118496110057044F /* RefreshedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshedController.m; sourceTree = "<group>"; };
 		4CC6A04A1166AC7D007D8175 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaults.plist; sourceTree = "<group>"; };
+		4CC82871118D01A300BD43AF /* AuthorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorController.h; sourceTree = "<group>"; };
+		4CC82872118D01A300BD43AF /* AuthorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorController.m; sourceTree = "<group>"; };
 		4CDEED3510FA1C0000220062 /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		4CDEED3610FA1C0000220062 /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
 		4CE51C5E1171286E00267E08 /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
@@ -252,6 +255,8 @@
 				4CA3BB0010F43EE0002D50A8 /* mayhosTabBarController.m */,
 				4C01F4D711581DA600876040 /* AdvancedSearchController.h */,
 				4C01F4D811581DA600876040 /* AdvancedSearchController.m */,
+				4CC82871118D01A300BD43AF /* AuthorController.h */,
+				4CC82872118D01A300BD43AF /* AuthorController.m */,
 				4C61EB4D10EA7943004DE317 /* EksiLinkController.h */,
 				4C61EB4E10EA7943004DE317 /* EksiLinkController.m */,
 				4C61EB4F10EA7943004DE317 /* EntryController.h */,
@@ -470,6 +475,7 @@
 				4C868376117E795D0021B180 /* FavoritedController.m in Sources */,
 				4CBC76F3118496110057044F /* RefreshedController.m in Sources */,
 				4C58E40A118A22A300BD538D /* MoreController.m in Sources */,
+				4CC82873118D01A300BD43AF /* AuthorController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
