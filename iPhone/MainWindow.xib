@@ -538,7 +538,7 @@
 					<string key="superclassName">FavoritedController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controllers/EksiLinkController.h</string>
+						<string key="minorKey">iPhone/Controllers/EksiLinkController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -546,7 +546,7 @@
 					<string key="superclassName">PagedController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controllers/FavoritedController.h</string>
+						<string key="minorKey">iPhone/Controllers/FavoritedController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -554,7 +554,7 @@
 					<string key="superclassName">UITableViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controllers/FavoritesController.h</string>
+						<string key="minorKey">iPhone/Controllers/FavoritesController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -562,7 +562,7 @@
 					<string key="superclassName">UITableViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controllers/MoreController.h</string>
+						<string key="minorKey">iPhone/Controllers/MoreController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -570,7 +570,7 @@
 					<string key="superclassName">UITableViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controllers/PagedController.h</string>
+						<string key="minorKey">iPhone/Controllers/PagedController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -578,7 +578,7 @@
 					<string key="superclassName">RefreshedController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controllers/RecentsController.h</string>
+						<string key="minorKey">iPhone/Controllers/RecentsController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -586,7 +586,7 @@
 					<string key="superclassName">EksiLinkController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controllers/RefreshedController.h</string>
+						<string key="minorKey">iPhone/Controllers/RefreshedController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -594,11 +594,11 @@
 					<string key="superclassName">UITableViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controllers/SearchController.h</string>
+						<string key="minorKey">iPhone/Controllers/SearchController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">mayhosAppDelegate</string>
+					<string key="className">mayhosAppDelegate_Phone</string>
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -623,7 +623,7 @@
 					<string key="superclassName">UITabBarController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controllers/mayhosTabBarController.h</string>
+						<string key="minorKey">iPhone/Controllers/mayhosTabBarController.h</string>
 					</object>
 				</object>
 			</object>
