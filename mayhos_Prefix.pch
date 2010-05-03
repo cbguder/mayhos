@@ -8,5 +8,5 @@
 	#import "Constants.h"
 	#import "Util.h"
 	#import "API.h"
-	#import "mayhosAppDelegate.h"
+	#import "mayhosAppDelegate_Phone.h"
 #endif

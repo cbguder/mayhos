@@ -508,7 +508,7 @@
 					<string>{{229, 373}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>MoreController</string>
-					<string>mayhosAppDelegate</string>
+					<string>mayhosAppDelegate_Phone</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -615,7 +615,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/mayhosAppDelegate.h</string>
+						<string key="minorKey">iPhone/mayhosAppDelegate_Phone.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

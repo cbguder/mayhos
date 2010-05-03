@@ -48,8 +48,8 @@
 		4C3FED77118F822A00AA6F39 /* Star-Hollow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3FED3B118F822A00AA6F39 /* Star-Hollow.png */; };
 		4C3FED78118F822A00AA6F39 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3FED3C118F822A00AA6F39 /* Star.png */; };
 		4C3FED79118F822A00AA6F39 /* Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3FED3D118F822A00AA6F39 /* Up.png */; };
-		4C3FED7A118F822A00AA6F39 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C3FED3E118F822A00AA6F39 /* MainWindow.xib */; };
-		4C3FED7B118F822A00AA6F39 /* mayhosAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED40118F822A00AA6F39 /* mayhosAppDelegate.m */; };
+		4C3FED7A118F822A00AA6F39 /* MainWindow_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C3FED3E118F822A00AA6F39 /* MainWindow_Phone.xib */; };
+		4C3FED7B118F822A00AA6F39 /* mayhosAppDelegate_Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED40118F822A00AA6F39 /* mayhosAppDelegate_Phone.m */; };
 		4C3FED7C118F822A00AA6F39 /* EksiEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED43118F822A00AA6F39 /* EksiEntry.m */; };
 		4C3FED7D118F822A00AA6F39 /* EksiLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED45118F822A00AA6F39 /* EksiLink.m */; };
 		4C3FED7E118F822A00AA6F39 /* EksiTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED47118F822A00AA6F39 /* EksiTitle.m */; };
@@ -130,9 +130,9 @@
 		4C3FED3B118F822A00AA6F39 /* Star-Hollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-Hollow.png"; sourceTree = "<group>"; };
 		4C3FED3C118F822A00AA6F39 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
 		4C3FED3D118F822A00AA6F39 /* Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Up.png; sourceTree = "<group>"; };
-		4C3FED3E118F822A00AA6F39 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		4C3FED3F118F822A00AA6F39 /* mayhosAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mayhosAppDelegate.h; sourceTree = "<group>"; };
-		4C3FED40118F822A00AA6F39 /* mayhosAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mayhosAppDelegate.m; sourceTree = "<group>"; };
+		4C3FED3E118F822A00AA6F39 /* MainWindow_Phone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_Phone.xib; sourceTree = "<group>"; };
+		4C3FED3F118F822A00AA6F39 /* mayhosAppDelegate_Phone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mayhosAppDelegate_Phone.h; sourceTree = "<group>"; };
+		4C3FED40118F822A00AA6F39 /* mayhosAppDelegate_Phone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mayhosAppDelegate_Phone.m; sourceTree = "<group>"; };
 		4C3FED42118F822A00AA6F39 /* EksiEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiEntry.h; sourceTree = "<group>"; };
 		4C3FED43118F822A00AA6F39 /* EksiEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EksiEntry.m; sourceTree = "<group>"; };
 		4C3FED44118F822A00AA6F39 /* EksiLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiLink.h; sourceTree = "<group>"; };
@@ -230,9 +230,9 @@
 				4C3AE3BF110294E600BDB09B /* Default.png */,
 				4C3FED28118F822A00AA6F39 /* entry.html */,
 				4C61EB1210EA76F3004DE317 /* Icon.png */,
-				4C3FED3E118F822A00AA6F39 /* MainWindow.xib */,
-				4C3FED3F118F822A00AA6F39 /* mayhosAppDelegate.h */,
-				4C3FED40118F822A00AA6F39 /* mayhosAppDelegate.m */,
+				4C3FED3E118F822A00AA6F39 /* MainWindow_Phone.xib */,
+				4C3FED3F118F822A00AA6F39 /* mayhosAppDelegate_Phone.h */,
+				4C3FED40118F822A00AA6F39 /* mayhosAppDelegate_Phone.m */,
 				4C3FED4F118F822A00AA6F39 /* Search.xib */,
 			);
 			path = iPhone;
@@ -424,7 +424,7 @@
 				4C3FED77118F822A00AA6F39 /* Star-Hollow.png in Resources */,
 				4C3FED78118F822A00AA6F39 /* Star.png in Resources */,
 				4C3FED79118F822A00AA6F39 /* Up.png in Resources */,
-				4C3FED7A118F822A00AA6F39 /* MainWindow.xib in Resources */,
+				4C3FED7A118F822A00AA6F39 /* MainWindow_Phone.xib in Resources */,
 				4C3FED82118F822A00AA6F39 /* Search.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,7 +459,7 @@
 				4C3FED6C118F822A00AA6F39 /* FavoritesManager.m in Sources */,
 				4C3FED6D118F822A00AA6F39 /* HistoryManager.m in Sources */,
 				4C3FED6E118F822A00AA6F39 /* Util.m in Sources */,
-				4C3FED7B118F822A00AA6F39 /* mayhosAppDelegate.m in Sources */,
+				4C3FED7B118F822A00AA6F39 /* mayhosAppDelegate_Phone.m in Sources */,
 				4C3FED7C118F822A00AA6F39 /* EksiEntry.m in Sources */,
 				4C3FED7D118F822A00AA6F39 /* EksiLink.m in Sources */,
 				4C3FED7E118F822A00AA6F39 /* EksiTitle.m in Sources */,

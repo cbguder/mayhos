@@ -1,14 +1,14 @@
 //
-//  mayhosAppDelegate.m
+//  mayhosAppDelegate_Phone.m
 //  mayhos
 //
 //  Created by Can Berk Güder on 29/12/2009.
 //  Copyright 2009 Can Berk Güder. All rights reserved.
 //
 
-#import "mayhosAppDelegate.h"
+#import "mayhosAppDelegate_Phone.h"
 
-@implementation mayhosAppDelegate
+@implementation mayhosAppDelegate_Phone
 
 @synthesize window;
 @synthesize tabBarController;

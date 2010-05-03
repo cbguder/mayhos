@@ -34,7 +34,7 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
+	mayhosAppDelegate_Phone *delegate = (mayhosAppDelegate_Phone *)[[UIApplication sharedApplication] delegate];
 	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
@@ -85,7 +85,7 @@
 	CGRect initialFrame;
 	CGRect finalFrame;
 
-	mayhosAppDelegate *delegate = (mayhosAppDelegate *)[[UIApplication sharedApplication] delegate];
+	mayhosAppDelegate_Phone *delegate = (mayhosAppDelegate_Phone *)[[UIApplication sharedApplication] delegate];
 	[delegate lockOrientation:self.interfaceOrientation];
 
 	if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {

@@ -1,5 +1,5 @@
 //
-//  mayhosAppDelegate.h
+//  mayhosAppDelegate_Phone.h
 //  mayhos
 //
 //  Created by Can Berk Güder on 29/12/2009.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface mayhosAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
+@interface mayhosAppDelegate_Phone : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
 	UIWindow *window;
 	UITabBarController *tabBarController;
 
