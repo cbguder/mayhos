@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LeftFrameController.h"
+#import "RootViewController.h"
 #import "RightFrameController.h"
 
 @interface mayhosAppDelegate_Pad : NSObject <UIApplicationDelegate> {
@@ -15,14 +15,14 @@
 
 	UISplitViewController *splitViewController;
 
-	LeftFrameController *leftFrameController;
+	RootViewController *leftFrameController;
 	RightFrameController *rightFrameController;
 }
 
 @property (nonatomic,retain) IBOutlet UIWindow *window;
 
 @property (nonatomic,retain) IBOutlet UISplitViewController *splitViewController;
-@property (nonatomic,retain) IBOutlet LeftFrameController *leftFrameController;
+@property (nonatomic,retain) IBOutlet RootViewController *leftFrameController;
 @property (nonatomic,retain) IBOutlet RightFrameController *rightFrameController;
 
 @end

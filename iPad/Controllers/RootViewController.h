@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RightFrameController.h"
 
-@interface LeftFrameController : UITableViewController {
+@interface RootViewController : UITableViewController {
 	RightFrameController *rightFrameController;
 }
 

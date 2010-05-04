@@ -6,9 +6,9 @@
 //  Copyright 2010 Can Berk Güder. All rights reserved.
 //
 
-#import "LeftFrameController.h"
+#import "RootViewController.h"
 
-@implementation LeftFrameController
+@implementation RootViewController
 
 @synthesize rightFrameController;
 
