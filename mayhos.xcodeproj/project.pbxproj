@@ -61,7 +61,13 @@
 		4C3FED85118F822A00AA6F39 /* PagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED56118F822A00AA6F39 /* PagePickerView.m */; };
 		4C3FED86118F822A00AA6F39 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED58118F822A00AA6F39 /* TitleView.m */; };
 		4C72B0EE118F86E3002B9330 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B0EC118F86E3002B9330 /* Default.png */; };
-		4C72B0EF118F86E3002B9330 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B0ED118F86E3002B9330 /* Icon.png */; };
+		4C72B0EF118F86E3002B9330 /* Icon_Phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B0ED118F86E3002B9330 /* Icon_Phone.png */; };
+		4C72B111118F8A25002B9330 /* MainWindow_Pad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B110118F8A25002B9330 /* MainWindow_Pad.xib */; };
+		4C72B11B118F8A95002B9330 /* mayhosAppDelegate_Pad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72B11A118F8A95002B9330 /* mayhosAppDelegate_Pad.m */; };
+		4C72B157118F9280002B9330 /* LeftFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72B156118F9280002B9330 /* LeftFrameController.m */; };
+		4C72B15A118F9288002B9330 /* RightFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72B159118F9288002B9330 /* RightFrameController.m */; };
+		4C72B190118F9535002B9330 /* Icon_Pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B18F118F9535002B9330 /* Icon_Pad.png */; };
+		4C72B19B118F9764002B9330 /* RightFrameController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B19A118F9764002B9330 /* RightFrameController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,7 +160,16 @@
 		4C3FED57118F822A00AA6F39 /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
 		4C3FED58118F822A00AA6F39 /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
 		4C72B0EC118F86E3002B9330 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		4C72B0ED118F86E3002B9330 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		4C72B0ED118F86E3002B9330 /* Icon_Phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Phone.png; sourceTree = "<group>"; };
+		4C72B110118F8A25002B9330 /* MainWindow_Pad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_Pad.xib; sourceTree = "<group>"; };
+		4C72B119118F8A95002B9330 /* mayhosAppDelegate_Pad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mayhosAppDelegate_Pad.h; sourceTree = "<group>"; };
+		4C72B11A118F8A95002B9330 /* mayhosAppDelegate_Pad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mayhosAppDelegate_Pad.m; sourceTree = "<group>"; };
+		4C72B155118F9280002B9330 /* LeftFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftFrameController.h; sourceTree = "<group>"; };
+		4C72B156118F9280002B9330 /* LeftFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftFrameController.m; sourceTree = "<group>"; };
+		4C72B158118F9288002B9330 /* RightFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightFrameController.h; sourceTree = "<group>"; };
+		4C72B159118F9288002B9330 /* RightFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightFrameController.m; sourceTree = "<group>"; };
+		4C72B18F118F9535002B9330 /* Icon_Pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Pad.png; sourceTree = "<group>"; };
+		4C72B19A118F9764002B9330 /* RightFrameController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RightFrameController.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* mayhos-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "mayhos-Info.plist"; path = "../mayhos-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -229,7 +244,7 @@
 				4C3FED50118F822A00AA6F39 /* Views */,
 				4C72B0EC118F86E3002B9330 /* Default.png */,
 				4C3FED28118F822A00AA6F39 /* entry.html */,
-				4C72B0ED118F86E3002B9330 /* Icon.png */,
+				4C72B0ED118F86E3002B9330 /* Icon_Phone.png */,
 				4C3FED3E118F822A00AA6F39 /* MainWindow_Phone.xib */,
 				4C3FED3F118F822A00AA6F39 /* mayhosAppDelegate_Phone.h */,
 				4C3FED40118F822A00AA6F39 /* mayhosAppDelegate_Phone.m */,
@@ -363,8 +378,25 @@
 		4C3FED87118F823200AA6F39 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
+				4C72B154118F9276002B9330 /* Controllers */,
+				4C72B18F118F9535002B9330 /* Icon_Pad.png */,
+				4C72B110118F8A25002B9330 /* MainWindow_Pad.xib */,
+				4C72B119118F8A95002B9330 /* mayhosAppDelegate_Pad.h */,
+				4C72B11A118F8A95002B9330 /* mayhosAppDelegate_Pad.m */,
+				4C72B19A118F9764002B9330 /* RightFrameController.xib */,
 			);
 			path = iPad;
+			sourceTree = "<group>";
+		};
+		4C72B154118F9276002B9330 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4C72B155118F9280002B9330 /* LeftFrameController.h */,
+				4C72B156118F9280002B9330 /* LeftFrameController.m */,
+				4C72B158118F9288002B9330 /* RightFrameController.h */,
+				4C72B159118F9288002B9330 /* RightFrameController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,7 +457,10 @@
 				4C3FED7A118F822A00AA6F39 /* MainWindow_Phone.xib in Resources */,
 				4C3FED82118F822A00AA6F39 /* Search.xib in Resources */,
 				4C72B0EE118F86E3002B9330 /* Default.png in Resources */,
-				4C72B0EF118F86E3002B9330 /* Icon.png in Resources */,
+				4C72B0EF118F86E3002B9330 /* Icon_Phone.png in Resources */,
+				4C72B111118F8A25002B9330 /* MainWindow_Pad.xib in Resources */,
+				4C72B190118F9535002B9330 /* Icon_Pad.png in Resources */,
+				4C72B19B118F9764002B9330 /* RightFrameController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +505,9 @@
 				4C3FED84118F822A00AA6F39 /* ModalPickerView.m in Sources */,
 				4C3FED85118F822A00AA6F39 /* PagePickerView.m in Sources */,
 				4C3FED86118F822A00AA6F39 /* TitleView.m in Sources */,
+				4C72B11B118F8A95002B9330 /* mayhosAppDelegate_Pad.m in Sources */,
+				4C72B157118F9280002B9330 /* LeftFrameController.m in Sources */,
+				4C72B15A118F9288002B9330 /* RightFrameController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
