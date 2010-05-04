@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EksiParser.h"
 
-@interface LeftFrameController : UITableViewController {
+@interface LeftFrameController : UITableViewController <EksiParserDelegate> {
+	NSArray *links;
+	NSURL *URL;
 }
+
+@property (nonatomic,retain) NSArray *links;
+@property (nonatomic,retain) NSURL *URL;
 
 @end

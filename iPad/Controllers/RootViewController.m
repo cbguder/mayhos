@@ -7,16 +7,16 @@
 //
 
 #import "RootViewController.h"
+#import "LeftFrameController.h"
 
 @implementation RootViewController
-
-@synthesize rightFrameController;
 
 #pragma mark -
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.title = @"mayhoş";
 	self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
 }
 
@@ -28,7 +28,7 @@
 #pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
-	return 0;
+	return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -37,7 +37,15 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if(cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	}
+
+	if(indexPath.row == 0) {
+		cell.textLabel.text = @"bugün";
+	} else if(indexPath.row == 1) {
+		cell.textLabel.text = @"dün";
+	} else if(indexPath.row == 2) {
+		cell.textLabel.text = @"bir gün";
 	}
 
 	return cell;
@@ -47,6 +55,23 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	LeftFrameController *leftFrameController = [[LeftFrameController alloc] initWithStyle:UITableViewStylePlain];
+
+	if(indexPath.row == 0) {
+		leftFrameController.title = @"bugün";
+		leftFrameController.URL = [API todayURL];
+	} else if(indexPath.row == 1) {
+		leftFrameController.title = @"dün";
+		leftFrameController.URL = [API yesterdayURL];
+	} else if(indexPath.row == 2) {
+		leftFrameController.title = @"bir gün";
+		NSDate *date = randomDate();
+		leftFrameController.title = formatDate(date);
+		leftFrameController.URL = [API URLForDate:date];
+	}
+
+	[self.navigationController pushViewController:leftFrameController animated:YES];
+	[leftFrameController release];
 }
 
 #pragma mark -
@@ -56,7 +81,6 @@
 }
 
 - (void)dealloc {
-	[rightFrameController release];
 	[super dealloc];
 }
 

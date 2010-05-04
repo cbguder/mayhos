@@ -10,9 +10,6 @@
 #import "RightFrameController.h"
 
 @interface RootViewController : UITableViewController {
-	RightFrameController *rightFrameController;
 }
-
-@property (nonatomic,retain) IBOutlet RightFrameController *rightFrameController;
 
 @end
