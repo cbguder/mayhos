@@ -88,7 +88,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="IBUITableViewController" id="651583072">
 							<object class="IBUINavigationItem" key="IBUINavigationItem" id="1019895137">
-								<string key="IBUITitle">Root View Controller</string>
+								<string key="IBUITitle">mayhoş</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 							<reference key="IBUIParentViewController" ref="621906175"/>
