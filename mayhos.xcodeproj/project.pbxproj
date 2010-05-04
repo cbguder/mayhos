@@ -10,6 +10,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		4C24A473118FA896000D3B38 /* LeftFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A472118FA896000D3B38 /* LeftFrameController.m */; };
 		4C24A4CA118FAB13000D3B38 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4B5118FAB13000D3B38 /* API.m */; };
 		4C24A4CB118FAB13000D3B38 /* FavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4B7118FAB13000D3B38 /* FavoritesManager.m */; };
 		4C24A4CC118FAB13000D3B38 /* HistoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4B9118FAB13000D3B38 /* HistoryManager.m */; };
@@ -76,6 +77,8 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* mayhos_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mayhos_Prefix.pch; path = ../mayhos_Prefix.pch; sourceTree = "<group>"; };
+		4C24A471118FA896000D3B38 /* LeftFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftFrameController.h; sourceTree = "<group>"; };
+		4C24A472118FA896000D3B38 /* LeftFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftFrameController.m; sourceTree = "<group>"; };
 		4C24A4B4118FAB13000D3B38 /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
 		4C24A4B5118FAB13000D3B38 /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
 		4C24A4B6118FAB13000D3B38 /* FavoritesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesManager.h; sourceTree = "<group>"; };
@@ -393,6 +396,8 @@
 			children = (
 				4C72B155118F9280002B9330 /* RootViewController.h */,
 				4C72B156118F9280002B9330 /* RootViewController.m */,
+				4C24A471118FA896000D3B38 /* LeftFrameController.h */,
+				4C24A472118FA896000D3B38 /* LeftFrameController.m */,
 				4C72B158118F9288002B9330 /* RightFrameController.h */,
 				4C72B159118F9288002B9330 /* RightFrameController.m */,
 			);
@@ -498,6 +503,7 @@
 				4C72B11B118F8A95002B9330 /* mayhosAppDelegate_Pad.m in Sources */,
 				4C72B157118F9280002B9330 /* RootViewController.m in Sources */,
 				4C72B15A118F9288002B9330 /* RightFrameController.m in Sources */,
+				4C24A473118FA896000D3B38 /* LeftFrameController.m in Sources */,
 				4C24A4CA118FAB13000D3B38 /* API.m in Sources */,
 				4C24A4CB118FAB13000D3B38 /* FavoritesManager.m in Sources */,
 				4C24A4CC118FAB13000D3B38 /* HistoryManager.m in Sources */,
