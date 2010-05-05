@@ -80,7 +80,7 @@
 	NSMutableString *entries = [NSMutableString string];
 
 	for(EksiEntry *entry in title.entries) {
-		[entries appendFormat:@"<li><p>%@</p><p class='signature'>(%@)</p></li>", entry.content, [entry signature]];
+		[entries appendFormat:@"<li class='entry'><p>%@</p><p class='signature'>(%@)</p></li>", entry.content, [entry signature]];
 	}
 
 	NSString *body = [NSString stringWithFormat:HTMLTemplate, entries];
