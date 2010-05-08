@@ -34,13 +34,13 @@
 #pragma mark -
 #pragma mark Eksi parser delegate
 
-- (void)parserDidFinishParsing:(EksiParser *)parser {
-	[super parserDidFinishParsing:parser];
+- (void)parserDidFinishParsing:(EksiParser *)aParser {
+	[super parserDidFinishParsing:aParser];
 	self.refreshItemEnabled = YES;
 }
 
-- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
-	[super parser:parser didFailWithError:error];
+- (void)parser:(EksiParser *)aParser didFailWithError:(NSError *)error {
+	[super parser:aParser didFailWithError:error];
 	self.refreshItemEnabled = YES;
 }
 
