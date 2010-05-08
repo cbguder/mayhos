@@ -10,7 +10,9 @@
 #import "NSURL+Query.h"
 #import "NSDictionary+URLEncoding.h"
 
-@interface EksiParser (Private)
+@interface EksiParser ()
+@property (nonatomic,retain) NSURLConnection *connection;
+
 - (void)_processNode:(xmlNodePtr)node;
 - (void)_processANode:(xmlNodePtr)node;
 - (void)_processOptionNode:(xmlNodePtr)node;
@@ -19,7 +21,7 @@
 
 @implementation EksiParser
 
-@synthesize delegate, pages, currentPage, results, URL, baseURL;
+@synthesize delegate, pages, currentPage, results, URL, baseURL, connection;
 
 - (id)init {
 	return [self initWithURL:nil delegate:nil];
@@ -36,6 +38,12 @@
 }
 
 - (void)dealloc {
+	if(self.connection) {
+		[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+		[connection cancel];
+		[connection release];
+	}
+
 	[results release];
 	[URL release];
 
@@ -50,7 +58,7 @@
 										 timeoutInterval:60];
 
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	connection = [NSURLConnection connectionWithRequest:request delegate:self];
+	self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 - (void)parseDocument {
@@ -166,6 +174,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	self.connection = nil;
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[self cleanupLibxml];
 
@@ -183,6 +192,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	self.connection = nil;
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
 	htmlParseChunk(context, NULL, 0, YES);

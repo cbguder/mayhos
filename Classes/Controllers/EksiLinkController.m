@@ -8,13 +8,16 @@
 
 #import "EksiLinkController.h"
 #import "TitleController.h"
-#import "LeftFrameParser.h"
 #import "NSURL+Query.h"
 #import "FavoritesManager.h"
 
+@interface EksiLinkController ()
+@property (nonatomic,retain) LeftFrameParser *parser;
+@end
+
 @implementation EksiLinkController
 
-@synthesize links, URL, noToolbar;
+@synthesize links, URL, noToolbar, parser;
 
 #pragma mark -
 #pragma mark Initialization
@@ -86,6 +89,8 @@
 #pragma mark Memory management
 
 - (void)dealloc {
+	[parser setDelegate:nil];
+	[parser release];
 	[links release];
 	[URL release];
 	[super dealloc];
@@ -98,8 +103,8 @@
 #pragma mark -
 #pragma mark Parser delegate
 
-- (void)parserDidFinishParsing:(EksiParser *)parser {
-	self.links = [NSArray arrayWithArray:parser.results];
+- (void)parserDidFinishParsing:(EksiParser *)aParser {
+	self.links = [NSArray arrayWithArray:aParser.results];
 
 	[self.tableView reloadData];
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
@@ -108,7 +113,7 @@
 	pages = parser.pages;
 	currentPage = parser.currentPage;
 
-	[parser release];
+	self.parser = nil;
 
 	self.favorited = [[FavoritesManager sharedManager] hasFavoriteForURL:self.URL];
 	self.favoriteItemEnabled = YES;
@@ -116,11 +121,11 @@
 	[self finishedLoadingPage];
 }
 
-- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
-	pages = parser.pages;
-	currentPage = parser.currentPage;
+- (void)parser:(EksiParser *)aParser didFailWithError:(NSError *)error {
+	pages = aParser.pages;
+	currentPage = aParser.currentPage;
 
-	[parser release];
+	self.parser = nil;
 	self.navigationItem.rightBarButtonItem = nil;
 }
 
@@ -129,7 +134,8 @@
 - (void)loadURL {
 	[self.navigationItem setRightBarButtonItem:activityItem];
 
-	LeftFrameParser *parser = [[LeftFrameParser alloc] initWithURL:URL delegate:self];
+	self.parser = [[LeftFrameParser alloc] initWithURL:URL delegate:self];
+	[parser release];
 	[parser parse];
 }
 

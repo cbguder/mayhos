@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "FavoritedController.h"
-#import "EksiParser.h"
+#import "LeftFrameParser.h"
 
 @interface EksiLinkController : FavoritedController <EksiParserDelegate> {
+	LeftFrameParser *parser;
 	NSArray *links;
 	NSURL *URL;
 

@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EksiParser.h"
+#import "RightFrameParser.h"
 #import "EksiLink.h"
 
 @protocol EksiTitleDelegate;
 
 @interface EksiTitle : NSObject <EksiParserDelegate> {
+	RightFrameParser *parser;
+
 	NSString *title;
 	NSURL *URL;
 	NSURL *moreURL;

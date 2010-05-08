@@ -12,13 +12,14 @@
 #import "RightFrameParser.h"
 #import "EksiEntry.h"
 
-@interface EksiTitle (Private)
+@interface EksiTitle ()
+@property (nonatomic,retain) RightFrameParser *parser;
 - (void)loadEntriesFromURL:(NSURL *)theURL;
 @end
 
 @implementation EksiTitle
 
-@synthesize delegate, title, URL, moreURL, baseURL, entries, hasMoreToLoad, pages, currentPage;
+@synthesize delegate, title, URL, moreURL, baseURL, entries, hasMoreToLoad, pages, currentPage, parser;
 
 + (id)titleForLink:(EksiLink *)link {
 	return [EksiTitle titleWithTitle:link.title URL:link.URL];
@@ -48,6 +49,8 @@
 }
 
 - (void) dealloc {
+	[parser setDelegate:nil];
+	[parser release];
 	[title release];
 	[URL release];
 	[moreURL release];
@@ -98,38 +101,39 @@
 }
 
 - (void)loadEntriesFromURL:(NSURL *)theURL {
-	RightFrameParser *parser = [[RightFrameParser alloc] initWithURL:theURL delegate:self];
+	self.parser = [[RightFrameParser alloc] initWithURL:theURL delegate:self];
+	[parser release];
 	[parser parse];
 }
 
-#pragma mark EksiParserDelegate Methods
+#pragma mark Parser delegate
 
-- (void)parserDidFinishParsing:(RightFrameParser *)parser {
+- (void)parserDidFinishParsing:(RightFrameParser *)aParser {
 	[entries release];
-	entries = [parser.results copy];
+	entries = [aParser.results copy];
 
-	pages = parser.pages;
-	currentPage = parser.currentPage;
-	self.URL = parser.URL;
-	self.moreURL = parser.moreURL;
-	self.baseURL = parser.baseURL;
+	pages = aParser.pages;
+	currentPage = aParser.currentPage;
+	self.URL = aParser.URL;
+	self.moreURL = aParser.moreURL;
+	self.baseURL = aParser.baseURL;
 
 	NSMutableCharacterSet *suffix = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
 	[suffix addCharactersInString:@"*"];
-	self.title = [parser.title stringByTrimmingCharactersInSet:suffix];
+	self.title = [aParser.title stringByTrimmingCharactersInSet:suffix];
 	[suffix release];
 
-	hasMoreToLoad = parser.hasMoreToLoad;
+	hasMoreToLoad = aParser.hasMoreToLoad;
 
-	[parser release];
+	self.parser = nil;
 
 	if([delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
 		[delegate titleDidFinishLoadingEntries:self];
 	}
 }
 
-- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
-	[parser release];
+- (void)parser:(EksiParser *)aParser didFailWithError:(NSError *)error {
+	self.parser = nil;
 
 	if([delegate respondsToSelector:@selector(title:didFailWithError:)]) {
 		[delegate title:self didFailWithError:error];
