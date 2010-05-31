@@ -17,6 +17,7 @@
 
 - (void)extractTextFromNode:(xmlNodePtr)node intoBuffer:(NSMutableString *)buffer;
 - (void)extractEntryPlainTextFromNode:(xmlNodePtr)node intoBuffer:(NSMutableString *)buffer;
+- (NSInteger)extractIntegerFromNode:(xmlNodePtr)node property:(const xmlChar *)property;
 @end
 
 @implementation RightFrameParser
@@ -52,6 +53,18 @@
 			[self extractTextFromNode:child intoBuffer:buffer];
 		}
 	}
+}
+
+- (NSInteger)extractIntegerFromNode:(xmlNodePtr)node property:(const xmlChar *)property {
+	xmlChar *value = xmlGetProp(node, property);
+	NSString *str;
+
+	if(value) {
+		str = [NSString stringWithUTF8String:(const char *)value];
+		xmlFree(value);
+	}
+
+	return [str integerValue];
 }
 
 #pragma mark Node Processing Methods
@@ -156,10 +169,13 @@
 	NSMutableString *tempEntry = [[NSMutableString alloc] init];
 	NSMutableString *tempAuthor = [[NSMutableString alloc] init];
 
+	NSInteger order = [self extractIntegerFromNode:node property:(const xmlChar *)"value"];
+
 	[self processEntryNode:node intoAuthorBuffer:tempAuthor entryBuffer:tempEntry];
 	[self extractEntryPlainTextFromNode:node intoBuffer:tempPlainTextContent];
 
 	EksiEntry *entry = [[EksiEntry alloc] init];
+	[entry setOrder:order];
 	[entry setContent:tempEntry];
 	[entry setPlainTextContent:tempPlainTextContent];
 	[entry setAuthorAndDateFromSignature:tempAuthor];

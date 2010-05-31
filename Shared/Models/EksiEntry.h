@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface EksiEntry : NSObject {
+	NSUInteger order;
+
 	NSString *author;
 	NSString *content;
 	NSString *plainTextContent;
@@ -16,6 +18,8 @@
 	NSDate *date;
 	NSDate *lastEdit;
 }
+
+@property (nonatomic,assign) NSUInteger order;
 
 @property (nonatomic,copy) NSString *author;
 @property (nonatomic,copy) NSString *content;
