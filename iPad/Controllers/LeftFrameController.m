@@ -84,15 +84,13 @@
 #pragma mark Parser delegate
 
 - (void)parserDidFinishParsing:(EksiParser *)parser {
+	[super parserDidFinishParsing:parser];
+
 	self.links = [NSArray arrayWithArray:parser.results];
 
 	[self.tableView reloadData];
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 
-	[parser release];
-}
-
-- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
 	[parser release];
 }
 
