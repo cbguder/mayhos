@@ -57,7 +57,8 @@
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:linkCellIdentifier] autorelease];
 	}
 
-	cell.textLabel.text = [[links objectAtIndex:indexPath.row] title];
+	EksiLink *link = [links objectAtIndex:indexPath.row];
+	cell.textLabel.text = link.title;
 
 	return cell;
 }
