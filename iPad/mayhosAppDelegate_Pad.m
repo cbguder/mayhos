@@ -15,13 +15,12 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[window addSubview:splitViewController.view];
 	[window makeKeyAndVisible];
 
 	return YES;
 }
-
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Save data if appropriate
