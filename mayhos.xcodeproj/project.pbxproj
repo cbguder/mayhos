@@ -71,7 +71,6 @@
 		4C72B157118F9280002B9330 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72B156118F9280002B9330 /* RootViewController.m */; };
 		4C72B15A118F9288002B9330 /* RightFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72B159118F9288002B9330 /* RightFrameController.m */; };
 		4C72B190118F9535002B9330 /* Icon_Pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B18F118F9535002B9330 /* Icon_Pad.png */; };
-		4C72B19B118F9764002B9330 /* RightFrameController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B19A118F9764002B9330 /* RightFrameController.xib */; };
 		4CB42A33118FBE1500EBFCCF /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB42A31118FBE1500EBFCCF /* Default-Landscape.png */; };
 		4CB42A34118FBE1500EBFCCF /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */; };
 		4CBFB10711B439B900F9B7CD /* PagedController_Pad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBFB10611B439B900F9B7CD /* PagedController_Pad.m */; };
@@ -189,7 +188,6 @@
 		4C72B158118F9288002B9330 /* RightFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightFrameController.h; sourceTree = "<group>"; };
 		4C72B159118F9288002B9330 /* RightFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightFrameController.m; sourceTree = "<group>"; };
 		4C72B18F118F9535002B9330 /* Icon_Pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Pad.png; sourceTree = "<group>"; };
-		4C72B19A118F9764002B9330 /* RightFrameController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RightFrameController.xib; sourceTree = "<group>"; };
 		4CB42A31118FBE1500EBFCCF /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
 		4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		4CBFB10511B439B900F9B7CD /* PagedController_Pad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedController_Pad.h; sourceTree = "<group>"; };
@@ -418,7 +416,6 @@
 				4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */,
 				4C72B119118F8A95002B9330 /* mayhosAppDelegate_Pad.h */,
 				4C72B11A118F8A95002B9330 /* mayhosAppDelegate_Pad.m */,
-				4C72B19A118F9764002B9330 /* RightFrameController.xib */,
 				4C24A570118FB576000D3B38 /* title.html */,
 			);
 			path = iPad;
@@ -517,7 +514,6 @@
 				4C72B0EF118F86E3002B9330 /* Icon_Phone.png in Resources */,
 				4C72B111118F8A25002B9330 /* MainWindow_Pad.xib in Resources */,
 				4C72B190118F9535002B9330 /* Icon_Pad.png in Resources */,
-				4C72B19B118F9764002B9330 /* RightFrameController.xib in Resources */,
 				4C24A571118FB576000D3B38 /* title.html in Resources */,
 				4CB42A33118FBE1500EBFCCF /* Default-Landscape.png in Resources */,
 				4CB42A34118FBE1500EBFCCF /* Default-Portrait.png in Resources */,

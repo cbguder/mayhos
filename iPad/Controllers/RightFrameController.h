@@ -9,10 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "EksiTitle.h"
 
-@interface RightFrameController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, EksiTitleDelegate> {
+@interface RightFrameController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, UIWebViewDelegate, EksiTitleDelegate> {
     UIPopoverController *popoverController;
-
-	UIToolbar *toolbar;
 	UIWebView *webView;
 
 	NSString *HTMLTemplate;
@@ -20,9 +18,6 @@
 
 	EksiTitle *eksiTitle;
 }
-
-@property (nonatomic,retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic,retain) IBOutlet UIWebView *webView;
 
 @property (nonatomic,retain) EksiTitle *eksiTitle;
 

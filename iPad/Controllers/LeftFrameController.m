@@ -68,7 +68,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	EksiLink *link = [links objectAtIndex:indexPath.row];
-	RightFrameController *rightFrameController = [self.splitViewController.viewControllers objectAtIndex:1];
+	UINavigationController *navController = [self.splitViewController.viewControllers objectAtIndex:1];
+	RightFrameController *rightFrameController = (RightFrameController *)navController.topViewController;
 	rightFrameController.eksiTitle = [EksiTitle titleForLink:link];
 }
 

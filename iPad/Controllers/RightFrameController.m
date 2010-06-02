@@ -7,17 +7,21 @@
 //
 
 #import "RightFrameController.h"
+#import "ModalWebController.h"
 #import "EksiEntry.h"
+#import "NSURL+Query.h"
 
 @interface RightFrameController ()
 @property (nonatomic,retain) UIPopoverController *popoverController;
 @property (nonatomic,copy) NSString *HTMLTemplate;
 @property (nonatomic,retain) NSURL *baseURL;
+
+- (UIViewController *)leftFrameController;
 @end
 
 @implementation RightFrameController
 
-@synthesize toolbar, webView, popoverController, HTMLTemplate, baseURL, eksiTitle;
+@synthesize popoverController, HTMLTemplate, baseURL, eksiTitle;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if(self = [super initWithCoder:aDecoder]) {
@@ -44,8 +48,58 @@
 #pragma mark -
 #pragma mark View lifecycle
 
+- (void)loadView {
+	webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+	self.view = webView;
+	[webView release];
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	webView.delegate = self;
+	webView.dataDetectorTypes = UIDataDetectorTypeNone;
+	webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
+	self.eksiTitle = [EksiTitle titleWithTitle:@"" URL:[API newsURL]];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return YES;
+}
+
+#pragma mark -
+#pragma mark Web view delegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+	if([request.URL.scheme isEqualToString:@"file"]) {
+		return YES;
+	}
+
+	if([request.URL.scheme isEqualToString:@"mayhos"]) {
+		NSString *rest = [request.URL.absoluteString substringFromIndex:9];
+		NSURL *realURL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:rest]];
+
+		if([rest hasPrefix:@"show.asp"]) {
+			NSString *titleText = [[[realURL queryDictionary] objectForKey:@"t"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+			self.eksiTitle = [EksiTitle titleWithTitle:titleText URL:realURL];
+
+			UIViewController *leftFrameController = [self leftFrameController];
+			if([leftFrameController isKindOfClass:[UITableViewController class]]) {
+				UITableView *tableView = ((UITableViewController *)leftFrameController).tableView;
+				[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+			}
+		} else if([rest hasPrefix:@"index.asp"]) {
+			// TODO: Change left frame
+		}
+	} else {
+		// Show web browser
+		ModalWebController *modalWebController = [[ModalWebController alloc] initWithURL:request.URL];
+		[self presentModalViewController:modalWebController animated:YES];
+		[modalWebController release];
+	}
+
+	return NO;
 }
 
 #pragma mark -
@@ -58,18 +112,12 @@
 		barButtonItem.title = aViewController.title;
 	}
 
-	NSMutableArray *items = [[toolbar items] mutableCopy];
-	[items insertObject:barButtonItem atIndex:0];
-	[toolbar setItems:items animated:YES];
-	[items release];
+	self.navigationItem.leftBarButtonItem = barButtonItem;
 	self.popoverController = pc;
 }
 
 - (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
-	NSMutableArray *items = [[toolbar items] mutableCopy];
-	[items removeObjectAtIndex:0];
-	[toolbar setItems:items animated:YES];
-	[items release];
+	self.navigationItem.leftBarButtonItem = nil;
 	self.popoverController = nil;
 }
 
@@ -77,10 +125,13 @@
 #pragma mark Title delegate
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
+	self.title = title.title;
+
 	NSMutableString *entries = [NSMutableString string];
 
 	for(EksiEntry *entry in title.entries) {
-		[entries appendFormat:@"<li class='entry' value='%d'><p>%@</p><p class='signature'>(%@)</p></li>", entry.order, entry.content, [entry signature]];
+		NSString *authorLink = [NSString stringWithFormat:@"<a class=\"internal\" href=\"mayhos://show.asp?t=%@\">%@</a>", entry.author, entry.author];
+		[entries appendFormat:@"<li class='entry' value='%d'><p>%@</p><p class='signature'>(%@, %@)</p></li>", entry.order, entry.content, authorLink, [entry dateString]];
 	}
 
 	NSString *body = [NSString stringWithFormat:HTMLTemplate, entries];
@@ -99,12 +150,24 @@
 
 - (void)dealloc {
 	[popoverController release];
-	[toolbar release];
-	[webView release];
 	[HTMLTemplate release];
 	[baseURL release];
 	[super dealloc];
 }
 
-@end
+#pragma mark -
 
+- (UIViewController *)leftFrameController {
+	UIViewController *foo = [self.splitViewController.viewControllers objectAtIndex:0];
+	if([foo isKindOfClass:[UINavigationController class]]) {
+		return ((UINavigationController *)foo).topViewController;
+	} else {
+		return foo;
+	}
+}
+
+- (void)loadPage:(NSUInteger)page {
+	[self.eksiTitle loadPage:page];
+}
+
+@end
