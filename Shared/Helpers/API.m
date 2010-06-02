@@ -11,6 +11,10 @@
 
 @implementation API
 
++ (NSURL *)newsURL {
+	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"news.asp"]];
+}
+
 + (NSURL *)todayURL {
 	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=td"]];
 }

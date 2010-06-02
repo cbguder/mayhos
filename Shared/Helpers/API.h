@@ -18,6 +18,8 @@ typedef enum {
 @interface API : NSObject {
 }
 
++ (NSURL *)newsURL;
+
 + (NSURL *)todayURL;
 + (NSURL *)yesterdayURL;
 + (NSURL *)randomURL;
