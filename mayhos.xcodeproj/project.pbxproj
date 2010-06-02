@@ -74,6 +74,12 @@
 		4CB42A33118FBE1500EBFCCF /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB42A31118FBE1500EBFCCF /* Default-Landscape.png */; };
 		4CB42A34118FBE1500EBFCCF /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */; };
 		4CBFB10711B439B900F9B7CD /* PagedController_Pad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBFB10611B439B900F9B7CD /* PagedController_Pad.m */; };
+		4CD73D2D1191B1D9009855E6 /* ModalWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */; };
+		4CD73D301191B1EF009855E6 /* ModalWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD73D2F1191B1EF009855E6 /* ModalWebController.m */; };
+		4CEFDCC611B6814E0008E428 /* AddressViewReload.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC211B6814E0008E428 /* AddressViewReload.png */; };
+		4CEFDCC711B6814E0008E428 /* AddressViewStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC311B6814E0008E428 /* AddressViewStop.png */; };
+		4CEFDCC811B6814E0008E428 /* iPadNavBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC411B6814E0008E428 /* iPadNavBack.png */; };
+		4CEFDCC911B6814E0008E428 /* iPadNavForward.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC511B6814E0008E428 /* iPadNavForward.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -185,6 +191,13 @@
 		4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		4CBFB10511B439B900F9B7CD /* PagedController_Pad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedController_Pad.h; sourceTree = "<group>"; };
 		4CBFB10611B439B900F9B7CD /* PagedController_Pad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedController_Pad.m; sourceTree = "<group>"; };
+		4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalWebController.xib; sourceTree = "<group>"; };
+		4CD73D2E1191B1EF009855E6 /* ModalWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalWebController.h; sourceTree = "<group>"; };
+		4CD73D2F1191B1EF009855E6 /* ModalWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalWebController.m; sourceTree = "<group>"; };
+		4CEFDCC211B6814E0008E428 /* AddressViewReload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewReload.png; sourceTree = "<group>"; };
+		4CEFDCC311B6814E0008E428 /* AddressViewStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewStop.png; sourceTree = "<group>"; };
+		4CEFDCC411B6814E0008E428 /* iPadNavBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadNavBack.png; sourceTree = "<group>"; };
+		4CEFDCC511B6814E0008E428 /* iPadNavForward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadNavForward.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* mayhos-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "mayhos-Info.plist"; path = "../mayhos-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -394,10 +407,12 @@
 			isa = PBXGroup;
 			children = (
 				4C72B154118F9276002B9330 /* Controllers */,
+				4CEFDC6A11B676920008E428 /* Images */,
 				4CB42A31118FBE1500EBFCCF /* Default-Landscape.png */,
 				4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */,
 				4C72B18F118F9535002B9330 /* Icon_Pad.png */,
 				4C72B110118F8A25002B9330 /* MainWindow_Pad.xib */,
+				4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */,
 				4C72B119118F8A95002B9330 /* mayhosAppDelegate_Pad.h */,
 				4C72B11A118F8A95002B9330 /* mayhosAppDelegate_Pad.m */,
 				4C72B19A118F9764002B9330 /* RightFrameController.xib */,
@@ -417,10 +432,23 @@
 				4C24A472118FA896000D3B38 /* LeftFrameController.m */,
 				4C72B158118F9288002B9330 /* RightFrameController.h */,
 				4C72B159118F9288002B9330 /* RightFrameController.m */,
+				4CD73D2E1191B1EF009855E6 /* ModalWebController.h */,
+				4CD73D2F1191B1EF009855E6 /* ModalWebController.m */,
 				4C6A264811B446DE0054F507 /* PagePickerController.h */,
 				4C6A264911B446DE0054F507 /* PagePickerController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4CEFDC6A11B676920008E428 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				4CEFDCC211B6814E0008E428 /* AddressViewReload.png */,
+				4CEFDCC311B6814E0008E428 /* AddressViewStop.png */,
+				4CEFDCC411B6814E0008E428 /* iPadNavBack.png */,
+				4CEFDCC511B6814E0008E428 /* iPadNavForward.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -488,6 +516,11 @@
 				4C24A571118FB576000D3B38 /* title.html in Resources */,
 				4CB42A33118FBE1500EBFCCF /* Default-Landscape.png in Resources */,
 				4CB42A34118FBE1500EBFCCF /* Default-Portrait.png in Resources */,
+				4CD73D2D1191B1D9009855E6 /* ModalWebController.xib in Resources */,
+				4CEFDCC611B6814E0008E428 /* AddressViewReload.png in Resources */,
+				4CEFDCC711B6814E0008E428 /* AddressViewStop.png in Resources */,
+				4CEFDCC811B6814E0008E428 /* iPadNavBack.png in Resources */,
+				4CEFDCC911B6814E0008E428 /* iPadNavForward.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +569,7 @@
 				4C24A4D1118FAB13000D3B38 /* EksiParser.m in Sources */,
 				4C24A4D2118FAB13000D3B38 /* LeftFrameParser.m in Sources */,
 				4C24A4D3118FAB13000D3B38 /* RightFrameParser.m in Sources */,
+				4CD73D301191B1EF009855E6 /* ModalWebController.m in Sources */,
 				4CBFB10711B439B900F9B7CD /* PagedController_Pad.m in Sources */,
 				4C6A264A11B446DE0054F507 /* PagePickerController.m in Sources */,
 			);
