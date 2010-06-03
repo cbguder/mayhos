@@ -10,6 +10,14 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		4C1E09F511B81B3E00D08DEC /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09E611B81B3E00D08DEC /* ICUTemplateMatcher.m */; };
+		4C1E09F611B81B3E00D08DEC /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09E811B81B3E00D08DEC /* MGTemplateEngine.m */; };
+		4C1E09F711B81B3E00D08DEC /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09EC11B81B3E00D08DEC /* MGTemplateStandardFilters.m */; };
+		4C1E09F811B81B3E00D08DEC /* MGTemplateStandardMarkers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09EE11B81B3E00D08DEC /* MGTemplateStandardMarkers.m */; };
+		4C1E09F911B81B3E00D08DEC /* NSArray_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09F011B81B3E00D08DEC /* NSArray_DeepMutableCopy.m */; };
+		4C1E09FA11B81B3E00D08DEC /* NSDictionary_DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09F211B81B3E00D08DEC /* NSDictionary_DeepMutableCopy.m */; };
+		4C1E09FB11B81B3E00D08DEC /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09F411B81B3E00D08DEC /* RegexKitLite.m */; };
+		4C1E09FD11B81B9D00D08DEC /* libicucore.A.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1E09FC11B81B9D00D08DEC /* libicucore.A.dylib */; };
 		4C24A473118FA896000D3B38 /* LeftFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A472118FA896000D3B38 /* LeftFrameController.m */; };
 		4C24A4CA118FAB13000D3B38 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4B5118FAB13000D3B38 /* API.m */; };
 		4C24A4CB118FAB13000D3B38 /* FavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4B7118FAB13000D3B38 /* FavoritesManager.m */; };
@@ -88,6 +96,24 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* mayhos_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mayhos_Prefix.pch; path = ../mayhos_Prefix.pch; sourceTree = "<group>"; };
+		4C1E09E411B81B3E00D08DEC /* DeepMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeepMutableCopy.h; sourceTree = "<group>"; };
+		4C1E09E511B81B3E00D08DEC /* ICUTemplateMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICUTemplateMatcher.h; sourceTree = "<group>"; };
+		4C1E09E611B81B3E00D08DEC /* ICUTemplateMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICUTemplateMatcher.m; sourceTree = "<group>"; };
+		4C1E09E711B81B3E00D08DEC /* MGTemplateEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTemplateEngine.h; sourceTree = "<group>"; };
+		4C1E09E811B81B3E00D08DEC /* MGTemplateEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTemplateEngine.m; sourceTree = "<group>"; };
+		4C1E09E911B81B3E00D08DEC /* MGTemplateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTemplateFilter.h; sourceTree = "<group>"; };
+		4C1E09EA11B81B3E00D08DEC /* MGTemplateMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTemplateMarker.h; sourceTree = "<group>"; };
+		4C1E09EB11B81B3E00D08DEC /* MGTemplateStandardFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTemplateStandardFilters.h; sourceTree = "<group>"; };
+		4C1E09EC11B81B3E00D08DEC /* MGTemplateStandardFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTemplateStandardFilters.m; sourceTree = "<group>"; };
+		4C1E09ED11B81B3E00D08DEC /* MGTemplateStandardMarkers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTemplateStandardMarkers.h; sourceTree = "<group>"; };
+		4C1E09EE11B81B3E00D08DEC /* MGTemplateStandardMarkers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTemplateStandardMarkers.m; sourceTree = "<group>"; };
+		4C1E09EF11B81B3E00D08DEC /* NSArray_DeepMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSArray_DeepMutableCopy.h; sourceTree = "<group>"; };
+		4C1E09F011B81B3E00D08DEC /* NSArray_DeepMutableCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArray_DeepMutableCopy.m; sourceTree = "<group>"; };
+		4C1E09F111B81B3E00D08DEC /* NSDictionary_DeepMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_DeepMutableCopy.h; sourceTree = "<group>"; };
+		4C1E09F211B81B3E00D08DEC /* NSDictionary_DeepMutableCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_DeepMutableCopy.m; sourceTree = "<group>"; };
+		4C1E09F311B81B3E00D08DEC /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		4C1E09F411B81B3E00D08DEC /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		4C1E09FC11B81B9D00D08DEC /* libicucore.A.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.A.dylib; path = usr/lib/libicucore.A.dylib; sourceTree = SDKROOT; };
 		4C24A471118FA896000D3B38 /* LeftFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftFrameController.h; sourceTree = "<group>"; };
 		4C24A472118FA896000D3B38 /* LeftFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftFrameController.m; sourceTree = "<group>"; };
 		4C24A4B4118FAB13000D3B38 /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
@@ -211,6 +237,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
 				4C3C5AF310F6B136001AA58B /* libxml2.dylib in Frameworks */,
+				4C1E09FD11B81B9D00D08DEC /* libicucore.A.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +261,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				4C3C5AF210F6B135001AA58B /* libxml2.dylib */,
+				4C1E09FC11B81B9D00D08DEC /* libicucore.A.dylib */,
 			);
 			name = mayhos;
 			sourceTree = "<group>";
@@ -246,6 +274,30 @@
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C1E09AB11B8195D00D08DEC /* MGTemplateEngine */ = {
+			isa = PBXGroup;
+			children = (
+				4C1E09E411B81B3E00D08DEC /* DeepMutableCopy.h */,
+				4C1E09E511B81B3E00D08DEC /* ICUTemplateMatcher.h */,
+				4C1E09E611B81B3E00D08DEC /* ICUTemplateMatcher.m */,
+				4C1E09E711B81B3E00D08DEC /* MGTemplateEngine.h */,
+				4C1E09E811B81B3E00D08DEC /* MGTemplateEngine.m */,
+				4C1E09E911B81B3E00D08DEC /* MGTemplateFilter.h */,
+				4C1E09EA11B81B3E00D08DEC /* MGTemplateMarker.h */,
+				4C1E09EB11B81B3E00D08DEC /* MGTemplateStandardFilters.h */,
+				4C1E09EC11B81B3E00D08DEC /* MGTemplateStandardFilters.m */,
+				4C1E09ED11B81B3E00D08DEC /* MGTemplateStandardMarkers.h */,
+				4C1E09EE11B81B3E00D08DEC /* MGTemplateStandardMarkers.m */,
+				4C1E09EF11B81B3E00D08DEC /* NSArray_DeepMutableCopy.h */,
+				4C1E09F011B81B3E00D08DEC /* NSArray_DeepMutableCopy.m */,
+				4C1E09F111B81B3E00D08DEC /* NSDictionary_DeepMutableCopy.h */,
+				4C1E09F211B81B3E00D08DEC /* NSDictionary_DeepMutableCopy.m */,
+				4C1E09F311B81B3E00D08DEC /* RegexKitLite.h */,
+				4C1E09F411B81B3E00D08DEC /* RegexKitLite.m */,
+			);
+			path = MGTemplateEngine;
 			sourceTree = "<group>";
 		};
 		4C24A4B3118FAB13000D3B38 /* Helpers */ = {
@@ -292,6 +344,7 @@
 		4C3FECFB118F822000AA6F39 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				4C1E09AB11B8195D00D08DEC /* MGTemplateEngine */,
 				4C24A4B3118FAB13000D3B38 /* Helpers */,
 				4C24A4BC118FAB13000D3B38 /* Models */,
 				4C24A4C3118FAB13000D3B38 /* Parsers */,
@@ -574,6 +627,13 @@
 				4CBFB10711B439B900F9B7CD /* PagedController_Pad.m in Sources */,
 				4C6A264A11B446DE0054F507 /* PagePickerController.m in Sources */,
 				4C3DCBF611B66D980067DFF2 /* FavoritesController_Pad.m in Sources */,
+				4C1E09F511B81B3E00D08DEC /* ICUTemplateMatcher.m in Sources */,
+				4C1E09F611B81B3E00D08DEC /* MGTemplateEngine.m in Sources */,
+				4C1E09F711B81B3E00D08DEC /* MGTemplateStandardFilters.m in Sources */,
+				4C1E09F811B81B3E00D08DEC /* MGTemplateStandardMarkers.m in Sources */,
+				4C1E09F911B81B3E00D08DEC /* NSArray_DeepMutableCopy.m in Sources */,
+				4C1E09FA11B81B3E00D08DEC /* NSDictionary_DeepMutableCopy.m in Sources */,
+				4C1E09FB11B81B3E00D08DEC /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
