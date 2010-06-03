@@ -22,12 +22,12 @@
 	</style>
 </head>
 <body>
-	<div id="authorInfo" onclick="location.href='mayhos://show.asp?t=%@';">
+	<div id="authorInfo" onclick="location.href='mayhos://show.asp?t={{ entry.author }}';">
 		<div id="chevron">
-			<div id="author">%@</div>
-			<div id="date">%@</div>
+			<div id="author">{{ entry.author }}</div>
+			<div id="date">{{ entry.dateString }}</div>
 		</div>
 	</div>
-	<div id="entry">%@</div>
+	<div id="entry">{{ entry.content }}</div>
 </body>
 </html>

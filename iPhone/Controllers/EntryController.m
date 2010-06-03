@@ -13,6 +13,9 @@
 #import "EksiLinkController.h"
 #import "NSURL+Query.h"
 
+#import "MGTemplateEngine.h"
+#import "ICUTemplateMatcher.h"
+
 @interface EntryController (Private)
 - (void)refreshViewContent;
 @end
@@ -164,7 +167,10 @@
 
 	if(webView) {
 		EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
-		NSString *htmlString = [NSString stringWithFormat:entryTemplate, entry.author, entry.author, [entry dateString], entry.content];
+		MGTemplateEngine *engine = [MGTemplateEngine templateEngine];
+		[engine setMatcher:[ICUTemplateMatcher matcherWithTemplateEngine:engine]];
+		NSDictionary *variables = [NSDictionary dictionaryWithObject:entry forKey:@"entry"];
+		NSString *htmlString = [engine processTemplate:entryTemplate withVariables:variables];
 		[webView loadHTMLString:htmlString baseURL:baseURL];
 	}
 }
