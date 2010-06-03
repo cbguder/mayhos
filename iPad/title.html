@@ -14,7 +14,12 @@
 </head>
 <body>
 	<ol id="entries">
-%@
+{% for e in entries %}
+		<li class="entry" value="{{ e.order }}">
+			<p>{{ e.content }}</p>
+			<p class="signature">(<a class="internal" href="mayhos://show.asp?t={{ e.author }}">{{ e.author }}</a>, {{ e.dateString }})</p>
+		</li>
+{% /for %}
 	</ol>
 </body>
 </html>

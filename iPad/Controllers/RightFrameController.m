@@ -11,6 +11,9 @@
 #import "EksiEntry.h"
 #import "NSURL+Query.h"
 
+#import "MGTemplateEngine.h"
+#import "ICUTemplateMatcher.h"
+
 @interface RightFrameController ()
 @property (nonatomic,retain) UIPopoverController *popoverController;
 @property (nonatomic,copy) NSString *HTMLTemplate;
@@ -127,15 +130,11 @@
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
 	self.title = title.title;
 
-	NSMutableString *entries = [NSMutableString string];
-
-	for(EksiEntry *entry in title.entries) {
-		NSString *authorLink = [NSString stringWithFormat:@"<a class=\"internal\" href=\"mayhos://show.asp?t=%@\">%@</a>", entry.author, entry.author];
-		[entries appendFormat:@"<li class='entry' value='%d'><p>%@</p><p class='signature'>(%@, %@)</p></li>", entry.order, entry.content, authorLink, [entry dateString]];
-	}
-
-	NSString *body = [NSString stringWithFormat:HTMLTemplate, entries];
-	[webView loadHTMLString:body baseURL:baseURL];
+	MGTemplateEngine *engine = [MGTemplateEngine templateEngine];
+	[engine setMatcher:[ICUTemplateMatcher matcherWithTemplateEngine:engine]];
+	NSDictionary *variables = [NSDictionary dictionaryWithObject:title.entries forKey:@"entries"];
+	NSString *result = [engine processTemplate:self.HTMLTemplate withVariables:variables];
+	[webView loadHTMLString:result baseURL:baseURL];
 }
 
 - (void)title:(EksiTitle*)title didFailWithError:(NSError *)error {
