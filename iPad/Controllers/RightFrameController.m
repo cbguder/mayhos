@@ -16,6 +16,7 @@
 
 @interface RightFrameController ()
 @property (nonatomic,retain) UIPopoverController *popoverController;
+@property (nonatomic,retain) MGTemplateEngine *templateEngine;
 @property (nonatomic,copy) NSString *HTMLTemplate;
 @property (nonatomic,retain) NSURL *baseURL;
 
@@ -24,12 +25,14 @@
 
 @implementation RightFrameController
 
-@synthesize popoverController, HTMLTemplate, baseURL, eksiTitle;
+@synthesize popoverController, templateEngine, HTMLTemplate, baseURL, eksiTitle;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if(self = [super initWithCoder:aDecoder]) {
 		NSBundle *bundle = [NSBundle mainBundle];
 		NSString *templatePath = [bundle pathForResource:@"title" ofType:@"html"];
+		self.templateEngine = [MGTemplateEngine templateEngine];
+		templateEngine.matcher = [ICUTemplateMatcher matcherWithTemplateEngine:templateEngine];
 		self.HTMLTemplate = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:nil];
 		self.baseURL = [NSURL fileURLWithPath:[bundle bundlePath]];
 	}
@@ -130,10 +133,8 @@
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
 	self.title = title.title;
 
-	MGTemplateEngine *engine = [MGTemplateEngine templateEngine];
-	[engine setMatcher:[ICUTemplateMatcher matcherWithTemplateEngine:engine]];
 	NSDictionary *variables = [NSDictionary dictionaryWithObject:title.entries forKey:@"entries"];
-	NSString *result = [engine processTemplate:self.HTMLTemplate withVariables:variables];
+	NSString *result = [templateEngine processTemplate:self.HTMLTemplate withVariables:variables];
 	[webView loadHTMLString:result baseURL:baseURL];
 }
 
@@ -149,6 +150,7 @@
 
 - (void)dealloc {
 	[popoverController release];
+	[templateEngine release];
 	[HTMLTemplate release];
 	[baseURL release];
 	[super dealloc];

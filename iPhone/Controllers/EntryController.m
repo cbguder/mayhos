@@ -16,11 +16,15 @@
 #import "MGTemplateEngine.h"
 #import "ICUTemplateMatcher.h"
 
-@interface EntryController (Private)
+@interface EntryController ()
+@property (nonatomic,retain) MGTemplateEngine *templateEngine;
+
 - (void)refreshViewContent;
 @end
 
 @implementation EntryController
+
+@synthesize templateEngine;
 
 #pragma mark -
 #pragma mark Initialization
@@ -30,9 +34,13 @@
 		eksiTitle = [theTitle retain];
 		index = theIndex;
 
+		self.templateEngine = [MGTemplateEngine templateEngine];
+		templateEngine.matcher = [ICUTemplateMatcher matcherWithTemplateEngine:templateEngine];
+
 		NSBundle *bundle = [NSBundle mainBundle];
 		NSString *templatePath = [bundle pathForResource:@"entry" ofType:@"html"];
 		entryTemplate = [[NSString alloc] initWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
+
 		baseURL = [[NSURL fileURLWithPath:[bundle bundlePath]] retain];
 	}
 
@@ -142,6 +150,7 @@
 #pragma mark Memory management
 
 - (void)dealloc {
+	[templateEngine release];
 	[entryTemplate release];
 	[upDownControl release];
 	[eksiTitle release];
@@ -167,10 +176,8 @@
 
 	if(webView) {
 		EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
-		MGTemplateEngine *engine = [MGTemplateEngine templateEngine];
-		[engine setMatcher:[ICUTemplateMatcher matcherWithTemplateEngine:engine]];
 		NSDictionary *variables = [NSDictionary dictionaryWithObject:entry forKey:@"entry"];
-		NSString *htmlString = [engine processTemplate:entryTemplate withVariables:variables];
+		NSString *htmlString = [templateEngine processTemplate:entryTemplate withVariables:variables];
 		[webView loadHTMLString:htmlString baseURL:baseURL];
 	}
 }

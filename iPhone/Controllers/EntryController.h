@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "EksiTitle.h"
 
+@class MGTemplateEngine;
+
 @interface EntryController : UIViewController <UIWebViewDelegate> {
 	EksiTitle *eksiTitle;
 	NSUInteger index;
@@ -16,6 +18,7 @@
 	UIWebView *webView;
 	UISegmentedControl *upDownControl;
 
+	MGTemplateEngine *templateEngine;
 	NSString *entryTemplate;
 	NSURL *baseURL;
 }

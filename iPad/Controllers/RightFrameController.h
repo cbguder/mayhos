@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "EksiTitle.h"
 
+@class MGTemplateEngine;
+
 @interface RightFrameController : UIViewController <EksiTitleDelegate, UISplitViewControllerDelegate, UIWebViewDelegate> {
     UIPopoverController *popoverController;
 	UIWebView *webView;
 
+	MGTemplateEngine *templateEngine;
 	NSString *HTMLTemplate;
 	NSURL *baseURL;
 
