@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EksiTitle.h"
 
-@interface RightFrameController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, UIWebViewDelegate, EksiTitleDelegate> {
+@interface RightFrameController : UIViewController <EksiTitleDelegate, UISplitViewControllerDelegate, UIWebViewDelegate> {
     UIPopoverController *popoverController;
 	UIWebView *webView;
 
