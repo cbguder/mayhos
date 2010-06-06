@@ -69,7 +69,7 @@
 
 - (NSInteger)extractIntegerFromNode:(xmlNodePtr)node property:(const xmlChar *)property {
 	xmlChar *value = xmlGetProp(node, property);
-	NSString *str;
+	NSString *str = nil;
 
 	if(value) {
 		str = [NSString stringWithUTF8String:(const char *)value];

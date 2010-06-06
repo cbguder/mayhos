@@ -135,7 +135,20 @@
 	self.pages = title.pages;
 	self.currentPage = title.currentPage;
 
-	NSDictionary *variables = [NSDictionary dictionaryWithObject:title.entries forKey:@"entries"];
+	NSMutableDictionary *variables = [NSMutableDictionary dictionaryWithObject:title.entries forKey:@"entries"];
+
+	if([title isEmpty]) {
+		NSString *message;
+		if([title.entries count]) {
+			EksiEntry *firstEntry = [title.entries objectAtIndex:0];
+			message = firstEntry.plainTextContent;
+		} else {
+			message = @"olmaması gereken şeyler oldu.";
+		}
+
+		[variables setObject:message forKey:@"errorMessage"];
+	}
+
 	NSString *result = [templateEngine processTemplate:self.HTMLTemplate withVariables:variables];
 	[webView loadHTMLString:result baseURL:baseURL];
 }
