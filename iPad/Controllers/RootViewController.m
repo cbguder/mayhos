@@ -32,6 +32,19 @@ enum {
 	[super viewDidLoad];
 	self.title = @"mayhoş";
 	self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+	self.clearsSelectionOnViewWillAppear = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+	if(selectedIndexPath) {
+		UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
+
+		if(cell.accessoryType == UITableViewCellAccessoryDisclosureIndicator)
+			[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
+	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
