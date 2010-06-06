@@ -1,5 +1,5 @@
 //
-//  PagedController_Pad.h
+//  PagedViewController.h
 //  mayhos
 //
 //  Created by Can Berk Güder on 31/5/2010.
@@ -10,13 +10,16 @@
 #import "PagePickerController.h"
 #import "EksiParser.h"
 
-@interface PagedController_Pad : UITableViewController <EksiParserDelegate, PagePickerDelegate> {
+@interface PagedViewController : UIViewController <PagePickerControllerDelegate> {
 	NSUInteger pages;
 	NSUInteger currentPage;
 
 	UIBarButtonItem *pagesItem;
 	UIPopoverController *pagesPopover;
 }
+
+@property (nonatomic,assign) NSUInteger pages;
+@property (nonatomic,assign) NSUInteger currentPage;
 
 - (void)loadPage:(NSUInteger)page;
 

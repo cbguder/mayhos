@@ -1,22 +1,20 @@
 //
-//  PagedController_Pad.m
+//  PagedViewController.m
 //  mayhos
 //
 //  Created by Can Berk Güder on 31/5/2010.
 //  Copyright 2010 Can Berk Güder. All rights reserved.
 //
 
-#import "PagedController_Pad.h"
+#import "PagedViewController.h"
 #import "PagePickerController.h"
 
-@interface PagedController_Pad ()
-@property (nonatomic,assign) NSUInteger pages;
-@property (nonatomic,assign) NSUInteger currentPage;
+@interface PagedViewController ()
 @property (nonatomic,retain) UIBarButtonItem *pagesItem;
 @property (nonatomic,retain) UIPopoverController *pagesPopover;
 @end
 
-@implementation PagedController_Pad
+@implementation PagedViewController
 
 @synthesize pages, currentPage, pagesItem, pagesPopover;
 
@@ -26,13 +24,14 @@
 
 - (void)setPages:(NSUInteger)thePages {
 	pages = thePages;
-	[self setPagesItemTitle];
 
 	if(pages > 1) {
 		self.navigationItem.rightBarButtonItem = self.pagesItem;
 	} else {
 		self.navigationItem.rightBarButtonItem = nil;
 	}
+
+	[self setPagesItemTitle];
 }
 
 - (void)setCurrentPage:(NSUInteger)theCurrentPage {
@@ -64,21 +63,9 @@
 }
 
 #pragma mark -
-#pragma mark Parser delegate
-
-- (void)parserDidFinishParsing:(EksiParser *)parser {
-	self.currentPage = parser.currentPage;
-	self.pages = parser.pages;
-}
-
-- (void)parser:(EksiParser *)parser didFailWithError:(NSError *)error {
-	[parser release];
-}
-
-#pragma mark -
 #pragma mark Page picker delegate
 
-- (void)pagePicker:(PagePickerController *)pagePicker pickedPage:(NSUInteger)page {
+- (void)pagePickerController:(PagePickerController *)pagePickerController pickedPage:(NSUInteger)page {
 	[pagesPopover dismissPopoverAnimated:YES];
 	[self loadPage:page];
 }

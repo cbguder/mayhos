@@ -91,7 +91,7 @@
 			self.eksiTitle = [EksiTitle titleWithTitle:titleText URL:realURL];
 
 			UIViewController *leftFrameController = [self leftFrameController];
-			if([leftFrameController isKindOfClass:[UITableViewController class]]) {
+			if([leftFrameController respondsToSelector:@selector(tableView)]) {
 				UITableView *tableView = ((UITableViewController *)leftFrameController).tableView;
 				[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 			}
@@ -132,6 +132,8 @@
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
 	self.title = title.title;
+	self.pages = title.pages;
+	self.currentPage = title.currentPage;
 
 	NSDictionary *variables = [NSDictionary dictionaryWithObject:title.entries forKey:@"entries"];
 	NSString *result = [templateEngine processTemplate:self.HTMLTemplate withVariables:variables];

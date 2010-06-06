@@ -10,6 +10,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		4C132AEA11BBDB26000F6765 /* PagedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C132AE911BBDB26000F6765 /* PagedTableViewController.m */; };
 		4C1E09F511B81B3E00D08DEC /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09E611B81B3E00D08DEC /* ICUTemplateMatcher.m */; };
 		4C1E09F611B81B3E00D08DEC /* MGTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09E811B81B3E00D08DEC /* MGTemplateEngine.m */; };
 		4C1E09F711B81B3E00D08DEC /* MGTemplateStandardFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09EC11B81B3E00D08DEC /* MGTemplateStandardFilters.m */; };
@@ -81,7 +82,7 @@
 		4C72B190118F9535002B9330 /* Icon_Pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B18F118F9535002B9330 /* Icon_Pad.png */; };
 		4CB42A33118FBE1500EBFCCF /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB42A31118FBE1500EBFCCF /* Default-Landscape.png */; };
 		4CB42A34118FBE1500EBFCCF /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */; };
-		4CBFB10711B439B900F9B7CD /* PagedController_Pad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBFB10611B439B900F9B7CD /* PagedController_Pad.m */; };
+		4CBFB10711B439B900F9B7CD /* PagedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBFB10611B439B900F9B7CD /* PagedViewController.m */; };
 		4CD73D2D1191B1D9009855E6 /* ModalWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */; };
 		4CD73D301191B1EF009855E6 /* ModalWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD73D2F1191B1EF009855E6 /* ModalWebController.m */; };
 		4CEFDCC611B6814E0008E428 /* AddressViewReload.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC211B6814E0008E428 /* AddressViewReload.png */; };
@@ -96,6 +97,8 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* mayhos_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mayhos_Prefix.pch; path = ../mayhos_Prefix.pch; sourceTree = "<group>"; };
+		4C132AE811BBDB26000F6765 /* PagedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedTableViewController.h; sourceTree = "<group>"; };
+		4C132AE911BBDB26000F6765 /* PagedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedTableViewController.m; sourceTree = "<group>"; };
 		4C1E09E411B81B3E00D08DEC /* DeepMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeepMutableCopy.h; sourceTree = "<group>"; };
 		4C1E09E511B81B3E00D08DEC /* ICUTemplateMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICUTemplateMatcher.h; sourceTree = "<group>"; };
 		4C1E09E611B81B3E00D08DEC /* ICUTemplateMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICUTemplateMatcher.m; sourceTree = "<group>"; };
@@ -216,8 +219,8 @@
 		4C72B18F118F9535002B9330 /* Icon_Pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Pad.png; sourceTree = "<group>"; };
 		4CB42A31118FBE1500EBFCCF /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
 		4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
-		4CBFB10511B439B900F9B7CD /* PagedController_Pad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedController_Pad.h; sourceTree = "<group>"; };
-		4CBFB10611B439B900F9B7CD /* PagedController_Pad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedController_Pad.m; sourceTree = "<group>"; };
+		4CBFB10511B439B900F9B7CD /* PagedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedViewController.h; sourceTree = "<group>"; };
+		4CBFB10611B439B900F9B7CD /* PagedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedViewController.m; sourceTree = "<group>"; };
 		4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalWebController.xib; sourceTree = "<group>"; };
 		4CD73D2E1191B1EF009855E6 /* ModalWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalWebController.h; sourceTree = "<group>"; };
 		4CD73D2F1191B1EF009855E6 /* ModalWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalWebController.m; sourceTree = "<group>"; };
@@ -479,8 +482,10 @@
 			children = (
 				4C72B155118F9280002B9330 /* RootViewController.h */,
 				4C72B156118F9280002B9330 /* RootViewController.m */,
-				4CBFB10511B439B900F9B7CD /* PagedController_Pad.h */,
-				4CBFB10611B439B900F9B7CD /* PagedController_Pad.m */,
+				4CBFB10511B439B900F9B7CD /* PagedViewController.h */,
+				4CBFB10611B439B900F9B7CD /* PagedViewController.m */,
+				4C132AE811BBDB26000F6765 /* PagedTableViewController.h */,
+				4C132AE911BBDB26000F6765 /* PagedTableViewController.m */,
 				4C24A471118FA896000D3B38 /* LeftFrameController.h */,
 				4C24A472118FA896000D3B38 /* LeftFrameController.m */,
 				4C72B158118F9288002B9330 /* RightFrameController.h */,
@@ -624,7 +629,7 @@
 				4C24A4D2118FAB13000D3B38 /* LeftFrameParser.m in Sources */,
 				4C24A4D3118FAB13000D3B38 /* RightFrameParser.m in Sources */,
 				4CD73D301191B1EF009855E6 /* ModalWebController.m in Sources */,
-				4CBFB10711B439B900F9B7CD /* PagedController_Pad.m in Sources */,
+				4CBFB10711B439B900F9B7CD /* PagedViewController.m in Sources */,
 				4C6A264A11B446DE0054F507 /* PagePickerController.m in Sources */,
 				4C3DCBF611B66D980067DFF2 /* FavoritesController_Pad.m in Sources */,
 				4C1E09F511B81B3E00D08DEC /* ICUTemplateMatcher.m in Sources */,
@@ -634,6 +639,7 @@
 				4C1E09F911B81B3E00D08DEC /* NSArray_DeepMutableCopy.m in Sources */,
 				4C1E09FA11B81B3E00D08DEC /* NSDictionary_DeepMutableCopy.m in Sources */,
 				4C1E09FB11B81B3E00D08DEC /* RegexKitLite.m in Sources */,
+				4C132AEA11BBDB26000F6765 /* PagedTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

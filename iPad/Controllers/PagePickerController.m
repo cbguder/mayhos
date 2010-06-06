@@ -78,8 +78,8 @@
 }
 
 - (void)sliderDone {
-	if([delegate respondsToSelector:@selector(pagePicker:pickedPage:)]) {
-		[delegate pagePicker:self pickedPage:currentPage];
+	if([delegate respondsToSelector:@selector(pagePickerController:pickedPage:)]) {
+		[delegate pagePickerController:self pickedPage:currentPage];
 	}
 }
 

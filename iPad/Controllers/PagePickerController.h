@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PagePickerDelegate;
+@protocol PagePickerControllerDelegate;
 
 @interface PagePickerController : UIViewController {
 	UISlider *slider;
@@ -23,12 +23,12 @@
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) NSUInteger totalPages;
 
-@property (nonatomic,assign) id<PagePickerDelegate> delegate;
+@property (nonatomic,assign) id<PagePickerControllerDelegate> delegate;
 
 - (id)initWithDelegate:(id)delegate;
 
 @end
 
-@protocol PagePickerDelegate
-- (void)pagePicker:(PagePickerController *)pagePicker pickedPage:(NSUInteger)page;
+@protocol PagePickerControllerDelegate
+- (void)pagePickerController:(PagePickerController *)pagePickerController pickedPage:(NSUInteger)page;
 @end

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PagedController_Pad.h"
+#import "PagedTableViewController.h"
+#import "EksiParser.h"
 
-@interface LeftFrameController : PagedController_Pad {
+@interface LeftFrameController : PagedTableViewController <EksiParserDelegate> {
 	NSArray *links;
 	NSURL *URL;
 }

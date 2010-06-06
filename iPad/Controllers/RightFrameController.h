@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PagedViewController.h"
 #import "EksiTitle.h"
 
 @class MGTemplateEngine;
 
-@interface RightFrameController : UIViewController <EksiTitleDelegate, UISplitViewControllerDelegate, UIWebViewDelegate> {
+@interface RightFrameController : PagedViewController <EksiTitleDelegate, UISplitViewControllerDelegate, UIWebViewDelegate> {
     UIPopoverController *popoverController;
 	UIWebView *webView;
 
