@@ -86,6 +86,7 @@
 		4CD73D2D1191B1D9009855E6 /* ModalWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */; };
 		4CD73D301191B1EF009855E6 /* ModalWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD73D2F1191B1EF009855E6 /* ModalWebController.m */; };
 		4CE1595A11BC08B600F22FFE /* lightbulb.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CE1595911BC08B600F22FFE /* lightbulb.png */; };
+		4CE15A5A11BC42AA00F22FFE /* FavoritesController_Base.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE15A5911BC42AA00F22FFE /* FavoritesController_Base.m */; };
 		4CEFDCC611B6814E0008E428 /* AddressViewReload.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC211B6814E0008E428 /* AddressViewReload.png */; };
 		4CEFDCC711B6814E0008E428 /* AddressViewStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC311B6814E0008E428 /* AddressViewStop.png */; };
 		4CEFDCC811B6814E0008E428 /* iPadNavBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC411B6814E0008E428 /* iPadNavBack.png */; };
@@ -226,6 +227,8 @@
 		4CD73D2E1191B1EF009855E6 /* ModalWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalWebController.h; sourceTree = "<group>"; };
 		4CD73D2F1191B1EF009855E6 /* ModalWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalWebController.m; sourceTree = "<group>"; };
 		4CE1595911BC08B600F22FFE /* lightbulb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightbulb.png; sourceTree = "<group>"; };
+		4CE15A5811BC42AA00F22FFE /* FavoritesController_Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesController_Base.h; sourceTree = "<group>"; };
+		4CE15A5911BC42AA00F22FFE /* FavoritesController_Base.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesController_Base.m; sourceTree = "<group>"; };
 		4CEFDCC211B6814E0008E428 /* AddressViewReload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewReload.png; sourceTree = "<group>"; };
 		4CEFDCC311B6814E0008E428 /* AddressViewStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewStop.png; sourceTree = "<group>"; };
 		4CEFDCC411B6814E0008E428 /* iPadNavBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadNavBack.png; sourceTree = "<group>"; };
@@ -350,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				4C1E09AB11B8195D00D08DEC /* MGTemplateEngine */,
+				4CE15A5711BC428D00F22FFE /* Controllers */,
 				4C24A4B3118FAB13000D3B38 /* Helpers */,
 				4C24A4BC118FAB13000D3B38 /* Models */,
 				4C24A4C3118FAB13000D3B38 /* Parsers */,
@@ -502,6 +506,15 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		4CE15A5711BC428D00F22FFE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4CE15A5811BC42AA00F22FFE /* FavoritesController_Base.h */,
+				4CE15A5911BC42AA00F22FFE /* FavoritesController_Base.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		4CEFDC6A11B676920008E428 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,6 +657,7 @@
 				4C1E09FA11B81B3E00D08DEC /* NSDictionary_DeepMutableCopy.m in Sources */,
 				4C1E09FB11B81B3E00D08DEC /* RegexKitLite.m in Sources */,
 				4C132AEA11BBDB26000F6765 /* PagedTableViewController.m in Sources */,
+				4CE15A5A11BC42AA00F22FFE /* FavoritesController_Base.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

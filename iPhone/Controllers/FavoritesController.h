@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FavoritesController_Base.h"
 
-@interface FavoritesController : UITableViewController {
+@interface FavoritesController : FavoritesController_Base {
 }
 
 @end
