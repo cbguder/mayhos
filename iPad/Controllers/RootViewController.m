@@ -129,7 +129,8 @@ enum {
 			eksiTitle = [EksiTitle titleWithTitle:faqTitle URL:[API URLForTitle:faqTitle]];
 		}
 
-		RightFrameController *rightFrameController = [self.splitViewController.viewControllers objectAtIndex:1];
+		UINavigationController *navController = [self.splitViewController.viewControllers objectAtIndex:1];
+		RightFrameController *rightFrameController = (RightFrameController *)navController.topViewController;
 		rightFrameController.eksiTitle = eksiTitle;
 		[leftFrameController release];
 		return;
