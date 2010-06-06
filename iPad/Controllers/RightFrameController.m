@@ -7,6 +7,7 @@
 //
 
 #import "RightFrameController.h"
+#import "LeftFrameController.h"
 #import "ModalWebController.h"
 #import "EksiEntry.h"
 #import "NSURL+Query.h"
@@ -29,11 +30,13 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if(self = [super initWithCoder:aDecoder]) {
-		NSBundle *bundle = [NSBundle mainBundle];
-		NSString *templatePath = [bundle pathForResource:@"title" ofType:@"html"];
 		self.templateEngine = [MGTemplateEngine templateEngine];
 		templateEngine.matcher = [ICUTemplateMatcher matcherWithTemplateEngine:templateEngine];
+
+		NSBundle *bundle = [NSBundle mainBundle];
+		NSString *templatePath = [bundle pathForResource:@"title" ofType:@"html"];
 		self.HTMLTemplate = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:nil];
+
 		self.baseURL = [NSURL fileURLWithPath:[bundle bundlePath]];
 	}
 
@@ -87,6 +90,8 @@
 		NSURL *realURL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:rest]];
 
 		if([rest hasPrefix:@"show.asp"]) {
+			// Change right frame
+
 			NSString *titleText = [[[realURL queryDictionary] objectForKey:@"t"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 			self.eksiTitle = [EksiTitle titleWithTitle:titleText URL:realURL];
 
@@ -96,10 +101,22 @@
 				[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 			}
 		} else if([rest hasPrefix:@"index.asp"]) {
-			// TODO: Change left frame
+			// Change left frame
+
+			NSString *kw = [[realURL queryDictionary] objectForKey:@"kw"];
+			NSString *query = [kw stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+
+			LeftFrameController *leftFrameController = [[LeftFrameController alloc] init];
+			leftFrameController.title = query;
+			leftFrameController.URL = realURL;
+
+			UINavigationController *leftNavigationController = [self.splitViewController.viewControllers objectAtIndex:0];
+			[leftNavigationController pushViewController:leftFrameController animated:YES];
+			[leftFrameController release];
 		}
 	} else {
 		// Show web browser
+
 		ModalWebController *modalWebController = [[ModalWebController alloc] initWithURL:request.URL];
 		[self presentModalViewController:modalWebController animated:YES];
 		[modalWebController release];
