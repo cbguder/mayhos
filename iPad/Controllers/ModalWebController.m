@@ -24,6 +24,14 @@
 	return self;
 }
 
+- (void)setURL:(NSURL *)theURL {
+	if(URL != theURL) {
+		[URL release];
+		URL = [theURL retain];
+		self.addressBar.text = [URL absoluteString];
+	}
+}
+
 #pragma mark -
 #pragma mark Accessors
 
@@ -58,6 +66,11 @@
 	addressBar.text = [URL absoluteString];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[webView stopLoading];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return YES;
 }
@@ -74,14 +87,25 @@
 #pragma mark -
 #pragma mark Web view delegate
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+	self.URL = request.mainDocumentURL;
+	return YES;
+}
+
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 	self.reloadStopMode = ReloadStopModeStop;
+	self.backItem.enabled = [self.webView canGoBack];
+	self.forwardItem.enabled = [self.webView canGoForward];
+
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 	self.reloadStopMode = ReloadStopModeReload;
 	self.backItem.enabled = [self.webView canGoBack];
 	self.forwardItem.enabled = [self.webView canGoForward];
+
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
