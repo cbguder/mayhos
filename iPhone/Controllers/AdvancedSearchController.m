@@ -7,6 +7,7 @@
 //
 
 #import "AdvancedSearchController.h"
+#import "UIViewController+ModalPickerView.h"
 #import "DatePickerView.h"
 #import "API.h"
 
@@ -157,33 +158,13 @@
 			[queryField resignFirstResponder];
 			[authorField resignFirstResponder];
 
-			CGRect initialFrame;
-			CGRect finalFrame;
-
-			[UIAppDelegatePhone lockOrientation:self.interfaceOrientation];
-
-			if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-				initialFrame = CGRectMake(0, 260, 320, 480);
-				finalFrame = CGRectMake(0, 0, 320, 480);
-			} else {
-				initialFrame = CGRectMake(0, 206, 480, 320);
-				finalFrame = CGRectMake(0, 0, 480, 320);
-			}
-
-			UIView *parentView = [UIAppDelegatePhone.window.subviews objectAtIndex:0];
-
-			DatePickerView *datePicker = [[DatePickerView alloc] initWithFrame:initialFrame];
+			DatePickerView *datePicker = [[DatePickerView alloc] init];
 			if(self.selectedDate != nil) {
 				[datePicker setSelectedDate:selectedDate];
 			}
 			[datePicker setDelegate:self];
-			[parentView addSubview:datePicker];
+			[self presentModalPickerView:datePicker];
 			[datePicker release];
-
-			[UIView beginAnimations:nil context:nil];
-			[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-			[datePicker setFrame:finalFrame];
-			[UIView commitAnimations];
 		}
 	}
 }

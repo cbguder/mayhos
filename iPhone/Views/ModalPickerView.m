@@ -13,18 +13,21 @@
 - (id)initWithFrame:(CGRect)frame {
 	if(self = [super initWithFrame:frame]) {
 		self.backgroundColor = [UIColor clearColor];
-
-		pickerHeight = 216.0;
-		if(frame.size.width > frame.size.height) {
-			pickerHeight = 162.0;
-		}
-		pickerPos = frame.size.height - pickerHeight;
-		totalHeight = pickerHeight + 44.0;
-
-		[self setFrame:frame];
+		self.frame = frame;
 	}
 
 	return self;
+}
+
+- (void)setFrame:(CGRect)frame {
+	[super setFrame:frame];
+
+	pickerHeight = 216.0;
+	if(frame.size.width > frame.size.height) {
+		pickerHeight = 162.0;
+	}
+	pickerPos = frame.size.height - pickerHeight;
+	totalHeight = pickerHeight + 44.0;
 }
 
 - (void)easeOutFromSuperview {

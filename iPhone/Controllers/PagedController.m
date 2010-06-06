@@ -7,6 +7,7 @@
 //
 
 #import "PagedController.h"
+#import "UIViewController+ModalPickerView.h"
 
 @implementation PagedController
 
@@ -81,31 +82,11 @@
 }
 
 - (void)pagesClicked {
-	CGRect initialFrame;
-	CGRect finalFrame;
-
-	[UIAppDelegatePhone lockOrientation:self.interfaceOrientation];
-
-	if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-		initialFrame = CGRectMake(0, 260, 320, 480);
-		finalFrame = CGRectMake(0, 0, 320, 480);
-	} else {
-		initialFrame = CGRectMake(0, 206, 480, 320);
-		finalFrame = CGRectMake(0, 0, 480, 320);
-	}
-
-	UIView *parentView = [UIAppDelegatePhone.window.subviews objectAtIndex:0];
-
-	PagePickerView *pagePicker = [[PagePickerView alloc] initWithFrame:initialFrame];
+	PagePickerView *pagePicker = [[PagePickerView alloc] init];
 	[pagePicker setDelegate:self];
 	[pagePicker setSelectedPage:currentPage];
-	[parentView addSubview:pagePicker];
+	[self presentModalPickerView:pagePicker];
 	[pagePicker release];
-
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[pagePicker setFrame:finalFrame];
-	[UIView commitAnimations];
 }
 
 - (void)pagePicker:(PagePickerView *)pagePicker pickedPage:(NSInteger)page {

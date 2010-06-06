@@ -47,6 +47,11 @@
 	return self;
 }
 
+- (void)layoutSubviews {
+	pickerView.frame = CGRectMake(0.0, pickerPos, self.frame.size.width, pickerHeight);
+	toolbar.frame = CGRectMake(0.0, pickerPos - 44.0, self.frame.size.width, 44.0);
+}
+
 - (void)setSelectedPage:(NSUInteger)page {
 	[pickerView selectRow:page - 1 inComponent:0 animated:NO];
 }

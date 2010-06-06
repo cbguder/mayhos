@@ -87,6 +87,7 @@
 		4CD73D301191B1EF009855E6 /* ModalWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD73D2F1191B1EF009855E6 /* ModalWebController.m */; };
 		4CE1595A11BC08B600F22FFE /* lightbulb.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CE1595911BC08B600F22FFE /* lightbulb.png */; };
 		4CE15A5A11BC42AA00F22FFE /* FavoritesController_Base.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE15A5911BC42AA00F22FFE /* FavoritesController_Base.m */; };
+		4CE15ABF11BC499B00F22FFE /* UIViewController+ModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE15ABE11BC499B00F22FFE /* UIViewController+ModalPickerView.m */; };
 		4CEFDCC611B6814E0008E428 /* AddressViewReload.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC211B6814E0008E428 /* AddressViewReload.png */; };
 		4CEFDCC711B6814E0008E428 /* AddressViewStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC311B6814E0008E428 /* AddressViewStop.png */; };
 		4CEFDCC811B6814E0008E428 /* iPadNavBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC411B6814E0008E428 /* iPadNavBack.png */; };
@@ -229,6 +230,8 @@
 		4CE1595911BC08B600F22FFE /* lightbulb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightbulb.png; sourceTree = "<group>"; };
 		4CE15A5811BC42AA00F22FFE /* FavoritesController_Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesController_Base.h; sourceTree = "<group>"; };
 		4CE15A5911BC42AA00F22FFE /* FavoritesController_Base.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesController_Base.m; sourceTree = "<group>"; };
+		4CE15ABD11BC499B00F22FFE /* UIViewController+ModalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ModalPickerView.h"; sourceTree = "<group>"; };
+		4CE15ABE11BC499B00F22FFE /* UIViewController+ModalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ModalPickerView.m"; sourceTree = "<group>"; };
 		4CEFDCC211B6814E0008E428 /* AddressViewReload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewReload.png; sourceTree = "<group>"; };
 		4CEFDCC311B6814E0008E428 /* AddressViewStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewStop.png; sourceTree = "<group>"; };
 		4CEFDCC411B6814E0008E428 /* iPadNavBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadNavBack.png; sourceTree = "<group>"; };
@@ -394,6 +397,8 @@
 				4C3FED08118F822A00AA6F39 /* NSString+TitleView.m */,
 				4C3FED09118F822A00AA6F39 /* NSURL+Query.h */,
 				4C3FED0A118F822A00AA6F39 /* NSURL+Query.m */,
+				4CE15ABD11BC499B00F22FFE /* UIViewController+ModalPickerView.h */,
+				4CE15ABE11BC499B00F22FFE /* UIViewController+ModalPickerView.m */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -658,6 +663,7 @@
 				4C1E09FB11B81B3E00D08DEC /* RegexKitLite.m in Sources */,
 				4C132AEA11BBDB26000F6765 /* PagedTableViewController.m in Sources */,
 				4CE15A5A11BC42AA00F22FFE /* FavoritesController_Base.m in Sources */,
+				4CE15ABF11BC499B00F22FFE /* UIViewController+ModalPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
