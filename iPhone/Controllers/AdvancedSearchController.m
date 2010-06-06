@@ -74,8 +74,7 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	mayhosAppDelegate_Phone *delegate = (mayhosAppDelegate_Phone *)[[UIApplication sharedApplication] delegate];
-	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+	return [UIAppDelegatePhone shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
 #pragma mark -
@@ -161,8 +160,7 @@
 			CGRect initialFrame;
 			CGRect finalFrame;
 
-			mayhosAppDelegate_Phone *delegate = (mayhosAppDelegate_Phone *)[[UIApplication sharedApplication] delegate];
-			[delegate lockOrientation:self.interfaceOrientation];
+			[UIAppDelegatePhone lockOrientation:self.interfaceOrientation];
 
 			if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
 				initialFrame = CGRectMake(0, 260, 320, 480);
@@ -172,7 +170,7 @@
 				finalFrame = CGRectMake(0, 0, 480, 320);
 			}
 
-			UIView *parentView = [delegate.window.subviews objectAtIndex:0];
+			UIView *parentView = [UIAppDelegatePhone.window.subviews objectAtIndex:0];
 
 			DatePickerView *datePicker = [[DatePickerView alloc] initWithFrame:initialFrame];
 			if(self.selectedDate != nil) {

@@ -35,8 +35,7 @@
 	[self setFrame:CGRectMake(0, totalHeight, self.frame.size.width, self.frame.size.height)];
 	[UIView commitAnimations];
 
-	mayhosAppDelegate_Phone *appDelegate = (mayhosAppDelegate_Phone *)[[UIApplication sharedApplication] delegate];
-	[appDelegate unlockOrientation];
+	[UIAppDelegatePhone unlockOrientation];
 }
 
 - (void)animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context {

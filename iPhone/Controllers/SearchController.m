@@ -36,8 +36,7 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	mayhosAppDelegate_Phone *delegate = (mayhosAppDelegate_Phone *)[[UIApplication sharedApplication] delegate];
-	return [delegate shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+	return [UIAppDelegatePhone shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
 #pragma mark -

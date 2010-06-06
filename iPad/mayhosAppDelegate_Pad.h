@@ -10,6 +10,8 @@
 #import "RootViewController.h"
 #import "RightFrameController.h"
 
+#define UIAppDelegatePad ((mayhosAppDelegate_Pad *)[UIApplication sharedApplication].delegate)
+
 @interface mayhosAppDelegate_Pad : NSObject <UIApplicationDelegate> {
 	UIWindow *window;
 
