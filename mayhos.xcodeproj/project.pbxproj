@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		4C132AEA11BBDB26000F6765 /* PagedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C132AE911BBDB26000F6765 /* PagedTableViewController.m */; };
 		4C1E09F511B81B3E00D08DEC /* ICUTemplateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E09E611B81B3E00D08DEC /* ICUTemplateMatcher.m */; };
