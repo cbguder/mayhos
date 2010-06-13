@@ -37,6 +37,7 @@
 	[super viewDidLoad];
 
 	self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
+	self.favoriteItem.imageInsets = UIEdgeInsetsMake(2, 0, -2, 0);
 	self.favoriteItemEnabled = self.favoriteItemEnabled;
 	[self.favoriteItem release];
 
