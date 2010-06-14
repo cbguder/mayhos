@@ -35,9 +35,7 @@
 
 	if(type == FavoriteTypeTitle) {
 		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:title URL:[API URLForTitle:title]];
-		UINavigationController *navController = [self.splitViewController.viewControllers objectAtIndex:1];
-		RightFrameController *rightFrameController = (RightFrameController *)navController.topViewController;
-		rightFrameController.eksiTitle = eksiTitle;
+		UIAppDelegatePad.rightFrameController.eksiTitle = eksiTitle;
 	} else if(type == FavoriteTypeSearch) {
 		LeftFrameController *leftFrameController = [[LeftFrameController alloc] init];
 		leftFrameController.URL = [NSURL URLWithString:[favorite objectForKey:@"URL"]];
