@@ -27,6 +27,24 @@
 }
 
 #pragma mark -
+#pragma mark Table view data source
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+	if(cell.imageView.image) {
+		cell.indentationLevel = 0;
+	} else {
+		cell.indentationLevel = 1;
+		cell.indentationWidth = 24.0;
+	}
+
+	return cell;
+}
+
+#pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

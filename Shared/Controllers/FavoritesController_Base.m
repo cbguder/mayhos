@@ -37,7 +37,6 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if(cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
 	NSDictionary *favorite = [[[FavoritesManager sharedManager] favorites] objectAtIndex:indexPath.row];
@@ -46,11 +45,9 @@
 	if([[favorite objectForKey:@"type"] isEqualToNumber:[NSNumber numberWithUnsignedInt:FavoriteTypeSearch]]) {
 		cell.imageView.image = [UIImage imageNamed:@"Search.png"];
 		cell.imageView.highlightedImage = [UIImage imageNamed:@"Search-Highlighted.png"];
-		cell.indentationLevel = 0;
 	} else {
 		cell.imageView.image = nil;
-		cell.indentationLevel = 1;
-		cell.indentationWidth = 24.0;
+		cell.imageView.highlightedImage = nil;
 	}
 
 	return cell;

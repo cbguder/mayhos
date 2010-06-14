@@ -25,6 +25,25 @@
 }
 
 #pragma mark -
+#pragma mark Table view data source
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+
+	if(cell.imageView.image) {
+		UIImageView *accessoryView = [[UIImageView alloc] initWithImage:cell.imageView.image
+													   highlightedImage:cell.imageView.highlightedImage];
+		cell.accessoryView = accessoryView;
+		[accessoryView release];
+
+		cell.imageView.image = nil;
+		cell.imageView.highlightedImage = nil;
+	}
+
+	return cell;
+}
+
+#pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
