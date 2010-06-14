@@ -16,15 +16,12 @@
 	UIWindow *window;
 
 	UISplitViewController *splitViewController;
-
-	RootViewController *leftFrameController;
 	RightFrameController *rightFrameController;
 }
 
 @property (nonatomic,retain) IBOutlet UIWindow *window;
 
 @property (nonatomic,retain) IBOutlet UISplitViewController *splitViewController;
-@property (nonatomic,retain) IBOutlet RootViewController *leftFrameController;
 @property (nonatomic,retain) IBOutlet RightFrameController *rightFrameController;
 
 @end

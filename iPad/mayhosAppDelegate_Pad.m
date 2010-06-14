@@ -10,7 +10,7 @@
 
 @implementation mayhosAppDelegate_Pad
 
-@synthesize window, splitViewController, leftFrameController, rightFrameController;
+@synthesize window, splitViewController, rightFrameController;
 
 #pragma mark -
 #pragma mark Application lifecycle
