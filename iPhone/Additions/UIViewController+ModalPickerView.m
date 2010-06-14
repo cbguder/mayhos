@@ -11,10 +11,9 @@
 @implementation UIViewController (ModalPickerView)
 
 - (void)presentModalPickerView:(ModalPickerView *)modalPickerView {
-	CGRect initialFrame;
-	CGRect finalFrame;
-
 	[UIAppDelegatePhone lockOrientation:self.interfaceOrientation];
+
+	CGRect initialFrame, finalFrame;
 
 	if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
 		initialFrame = CGRectMake(0, 260, 320, 480);
