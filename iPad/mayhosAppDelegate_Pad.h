@@ -6,13 +6,14 @@
 //  Copyright 2010 Can Berk Güder. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "mayhosAppDelegate.h"
 #import "RootViewController.h"
 #import "RightFrameController.h"
 
 #define UIAppDelegatePad ((mayhosAppDelegate_Pad *)[UIApplication sharedApplication].delegate)
 
-@interface mayhosAppDelegate_Pad : NSObject <UIApplicationDelegate> {
+@interface mayhosAppDelegate_Pad : mayhosAppDelegate {
 	UIWindow *window;
 
 	UISplitViewController *splitViewController;

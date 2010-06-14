@@ -62,6 +62,7 @@
 		4C3FED85118F822A00AA6F39 /* PagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED56118F822A00AA6F39 /* PagePickerView.m */; };
 		4C3FED86118F822A00AA6F39 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED58118F822A00AA6F39 /* TitleView.m */; };
 		4C6A264A11B446DE0054F507 /* PagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A264911B446DE0054F507 /* PagePickerController.m */; };
+		4C6E18C311C6C2D70005824F /* mayhosAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E18C211C6C2D70005824F /* mayhosAppDelegate.m */; };
 		4C72B0EE118F86E3002B9330 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B0EC118F86E3002B9330 /* Default.png */; };
 		4C72B0EF118F86E3002B9330 /* Icon_Phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B0ED118F86E3002B9330 /* Icon_Phone.png */; };
 		4C72B111118F8A25002B9330 /* MainWindow_Pad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B110118F8A25002B9330 /* MainWindow_Pad.xib */; };
@@ -212,6 +213,8 @@
 		4C3FED58118F822A00AA6F39 /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
 		4C6A264811B446DE0054F507 /* PagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagePickerController.h; sourceTree = "<group>"; };
 		4C6A264911B446DE0054F507 /* PagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagePickerController.m; sourceTree = "<group>"; };
+		4C6E18C111C6C2D70005824F /* mayhosAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mayhosAppDelegate.h; sourceTree = "<group>"; };
+		4C6E18C211C6C2D70005824F /* mayhosAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mayhosAppDelegate.m; sourceTree = "<group>"; };
 		4C72B0EC118F86E3002B9330 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4C72B0ED118F86E3002B9330 /* Icon_Phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Phone.png; sourceTree = "<group>"; };
 		4C72B110118F8A25002B9330 /* MainWindow_Pad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_Pad.xib; sourceTree = "<group>"; };
@@ -392,6 +395,8 @@
 				4C3FECFF118F822000AA6F39 /* main.m */,
 				8D1107310486CEB800E47090 /* mayhos-Info.plist */,
 				28A0AB4B0D9B1048005BE974 /* mayhos_Prefix.pch */,
+				4C6E18C111C6C2D70005824F /* mayhosAppDelegate.h */,
+				4C6E18C211C6C2D70005824F /* mayhosAppDelegate.m */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -716,6 +721,7 @@
 				4C132AEA11BBDB26000F6765 /* PagedTableViewController.m in Sources */,
 				4CE15A5A11BC42AA00F22FFE /* FavoritesController_Base.m in Sources */,
 				4CE15ABF11BC499B00F22FFE /* UIViewController+ModalPickerView.m in Sources */,
+				4C6E18C311C6C2D70005824F /* mayhosAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "mayhosAppDelegate.h"
 
 #define UIAppDelegatePhone ((mayhosAppDelegate_Phone *)[UIApplication sharedApplication].delegate)
 
-@interface mayhosAppDelegate_Phone : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
+@interface mayhosAppDelegate_Phone : mayhosAppDelegate <UITabBarControllerDelegate> {
 	UIWindow *window;
 	UITabBarController *tabBarController;
 

@@ -14,12 +14,9 @@
 @synthesize tabBarController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSBundle *bundle = [NSBundle mainBundle];
-	NSString *dictionaryPath = [bundle pathForResource:@"defaults" ofType:@"plist"];
-	NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:dictionaryPath];
-	[defaults registerDefaults:dictionary];
+	[super application:application didFinishLaunchingWithOptions:launchOptions];
 
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	tabBarController.selectedIndex = [defaults integerForKey:@"selectedIndex"];
 
 	// Add the tab bar controller's current view as a subview of the window
