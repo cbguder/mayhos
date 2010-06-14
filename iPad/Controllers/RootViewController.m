@@ -31,7 +31,7 @@ enum {
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.title = @"mayhoş";
-	self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+	self.contentSizeForViewInPopover = CGSizeMake(320.0, 352.0);
 	self.clearsSelectionOnViewWillAppear = NO;
 }
 

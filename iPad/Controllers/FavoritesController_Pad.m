@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+	self.contentSizeForViewInPopover = CGSizeMake(320.0, 891.0);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
