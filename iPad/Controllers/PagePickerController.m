@@ -31,16 +31,20 @@
 #pragma mark -
 #pragma mark Accessors
 
+- (void)resetSlider {
+	slider.maximumValue = totalPages;
+	slider.value = currentPage;
+	label.text = [NSString stringWithFormat:@"%d of %d", currentPage, totalPages];
+}
+
 - (void)setTotalPages:(NSUInteger)theTotalPages {
 	totalPages = theTotalPages;
-	slider.maximumValue = totalPages;
-	label.text = [NSString stringWithFormat:@"%d of %d", currentPage, totalPages];
+	[self resetSlider];
 }
 
 - (void)setCurrentPage:(NSUInteger)theCurrentPage {
 	currentPage = theCurrentPage;
-	slider.value = theCurrentPage;
-	label.text = [NSString stringWithFormat:@"%d of %d", currentPage, totalPages];
+	[self resetSlider];
 }
 
 #pragma mark -
