@@ -17,6 +17,12 @@
 		#author { font-size: 16px; font-weight: bold; }
 		#date { font-size: 12px; }
 		#chevron { background: url("Chevron.png") no-repeat center right; }
+		@media screen and (-webkit-min-device-pixel-ratio: 2) {
+			#chevron {
+				background-image: url("Chevron@2x.png");
+				-webkit-background-size: 10px 15px;
+			}
+		}
 		#author, #date { margin-right: 20px; }
 		#entry { overflow-x: hidden; }
 	</style>
