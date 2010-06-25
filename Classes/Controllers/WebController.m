@@ -58,6 +58,7 @@
 	[space release];
 
 	self.backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+	backItem.imageInsets = UIEdgeInsetsMake(2, 0, -2, 0);
 	backItem.enabled = NO;
 	[items addObject:backItem];
 	[backItem release];
@@ -68,6 +69,7 @@
 	[space release];
 
 	self.forwardItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Forward.png"] style:UIBarButtonItemStylePlain target:self action:@selector(forward)];
+	forwardItem.imageInsets = UIEdgeInsetsMake(2, 0, -2, 0);
 	forwardItem.enabled = NO;
 	[items addObject:forwardItem];
 	[forwardItem release];

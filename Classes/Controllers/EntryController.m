@@ -56,7 +56,8 @@
 	upDownControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:up, down, nil]];
 	upDownControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	upDownControl.momentary = YES;
-	upDownControl.frame = CGRectMake(0, 0, 90, 30);
+	[upDownControl setWidth:45 forSegmentAtIndex:0];
+	[upDownControl setWidth:45 forSegmentAtIndex:1];
 	[upDownControl addTarget:self action:@selector(upDown:) forControlEvents:UIControlEventValueChanged];
 
 	UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithCustomView:upDownControl];
