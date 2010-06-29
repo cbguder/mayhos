@@ -60,6 +60,7 @@
 		[eksiTitle release];
 
 		favoriteItem.enabled = NO;
+		tumuItem.enabled = NO;
 
 		eksiTitle = [anEksiTitle retain];
 		[eksiTitle setDelegate:self];
@@ -188,6 +189,7 @@
 	self.currentPage = title.currentPage;
 	self.favorited = [[FavoritesManager sharedManager] hasFavoriteForTitle:eksiTitle.title];
 	favoriteItem.enabled = YES;
+	tumuItem.enabled = YES;
 
 	[self resetToolbar];
 
@@ -210,6 +212,8 @@
 }
 
 - (void)title:(EksiTitle*)title didFailWithError:(NSError *)error {
+	favoriteItem.enabled = YES;
+	tumuItem.enabled = YES;
 }
 
 #pragma mark -
