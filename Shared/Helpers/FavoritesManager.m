@@ -62,6 +62,8 @@ static FavoritesManager *SharedManager = nil;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:favorites forKey:@"favorites"];
 	[defaults synchronize];
+
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"FavoritesSaved" object:self];
 }
 
 - (BOOL)hasFavoriteForTitle:(NSString *)title {

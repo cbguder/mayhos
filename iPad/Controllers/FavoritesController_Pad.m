@@ -18,6 +18,11 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.contentSizeForViewInPopover = CGSizeMake(320.0, 891.0);
+
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(favoritesSaved:)
+												 name:@"FavoritesSaved"
+											   object:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -63,6 +68,12 @@
 		[self.navigationController pushViewController:leftFrameController animated:YES];
 		[leftFrameController release];
 	}
+}
+
+#pragma mark -
+
+- (void)favoritesSaved:(NSNotification *)notification {
+	[self.tableView reloadData];
 }
 
 @end
