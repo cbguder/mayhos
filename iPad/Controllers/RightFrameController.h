@@ -13,7 +13,9 @@
 @class MGTemplateEngine;
 
 @interface RightFrameController : PagedViewController <EksiTitleDelegate, UISplitViewControllerDelegate, UIWebViewDelegate> {
-    UIPopoverController *popoverController;
+	UIPopoverController *popoverController;
+	UIBarButtonItem *tumuItem;
+	UIBarButtonItem *favoriteItem;
 	UIWebView *webView;
 
 	MGTemplateEngine *templateEngine;
@@ -21,6 +23,8 @@
 	NSURL *baseURL;
 
 	EksiTitle *eksiTitle;
+
+	BOOL favorited;
 }
 
 @property (nonatomic,retain) EksiTitle *eksiTitle;

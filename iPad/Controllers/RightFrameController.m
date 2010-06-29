@@ -9,6 +9,7 @@
 #import "RightFrameController.h"
 #import "LeftFrameController.h"
 #import "ModalWebController.h"
+#import "FavoritesManager.h"
 #import "EksiEntry.h"
 #import "NSURL+Query.h"
 
@@ -17,16 +18,23 @@
 
 @interface RightFrameController ()
 @property (nonatomic,retain) UIPopoverController *popoverController;
+@property (nonatomic,retain) UIBarButtonItem *tumuItem;
+@property (nonatomic,retain) UIBarButtonItem *favoriteItem;
 @property (nonatomic,retain) MGTemplateEngine *templateEngine;
 @property (nonatomic,copy) NSString *HTMLTemplate;
 @property (nonatomic,retain) NSURL *baseURL;
+@property (nonatomic,assign) BOOL favorited;
 
 - (UIViewController *)leftFrameController;
+- (void)resetToolbar;
 @end
 
 @implementation RightFrameController
 
-@synthesize popoverController, templateEngine, HTMLTemplate, baseURL, eksiTitle;
+@synthesize popoverController, tumuItem, favoriteItem, templateEngine, HTMLTemplate, baseURL, eksiTitle, favorited;
+
+#pragma mark -
+#pragma mark Initialization
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if(self = [super initWithCoder:aDecoder]) {
@@ -43,14 +51,28 @@
 	return self;
 }
 
+#pragma mark -
+#pragma mark Accessors
+
 - (void)setEksiTitle:(EksiTitle *)anEksiTitle {
 	if(eksiTitle != anEksiTitle) {
 		[eksiTitle setDelegate:nil];
 		[eksiTitle release];
 
+		favoriteItem.enabled = NO;
+
 		eksiTitle = [anEksiTitle retain];
 		[eksiTitle setDelegate:self];
 		[eksiTitle loadEntries];
+	}
+}
+- (void)setFavorited:(BOOL)theFavorited {
+	favorited = theFavorited;
+
+	if(favorited) {
+		self.favoriteItem.image = [UIImage imageNamed:@"Star.png"];
+	} else {
+		self.favoriteItem.image = [UIImage imageNamed:@"Star-Hollow.png"];
 	}
 }
 
@@ -71,6 +93,19 @@
 	webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
 	self.eksiTitle = [EksiTitle titleWithTitle:@"" URL:[API newsURL]];
+
+	self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümünü göster"
+													 style:UIBarButtonItemStyleBordered
+													target:self
+													action:@selector(tumunuGoster)];
+	[tumuItem release];
+
+	self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Star-Hollow.png"]
+														 style:UIBarButtonItemStylePlain
+														target:self
+														action:@selector(favorite)];
+	favoriteItem.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
+	[favoriteItem release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -151,6 +186,10 @@
 	self.title = title.title;
 	self.pages = title.pages;
 	self.currentPage = title.currentPage;
+	self.favorited = [[FavoritesManager sharedManager] hasFavoriteForTitle:eksiTitle.title];
+	favoriteItem.enabled = YES;
+
+	[self resetToolbar];
 
 	NSMutableDictionary *variables = [NSMutableDictionary dictionaryWithObject:title.entries forKey:@"entries"];
 
@@ -178,10 +217,14 @@
 
 - (void)viewDidUnload {
 	self.popoverController = nil;
+	self.tumuItem = nil;
+	self.favoriteItem = nil;
 }
 
 - (void)dealloc {
 	[popoverController release];
+	[tumuItem release];
+	[favoriteItem release];
 	[templateEngine release];
 	[HTMLTemplate release];
 	[baseURL release];
@@ -201,6 +244,38 @@
 
 - (void)loadPage:(NSUInteger)page {
 	[self.eksiTitle loadPage:page];
+}
+
+- (void)tumunuGoster {
+	if([self.eksiTitle hasMoreToLoad]) {
+		[self.eksiTitle loadAllEntries];
+	}
+}
+
+- (void)favorite {
+	if(favorited) {
+		[[FavoritesManager sharedManager] deleteFavoriteForTitle:eksiTitle.title];
+	} else {
+		[[FavoritesManager sharedManager] createFavoriteForTitle:eksiTitle.title];
+	}
+
+	self.favorited = !self.favorited;
+}
+
+- (void)resetToolbar {
+	NSMutableArray *items = [NSMutableArray array];
+	UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	[items addObject:flexibleSpace];
+
+	if([self.eksiTitle hasMoreToLoad]) {
+		[items addObject:tumuItem];
+		[items addObject:flexibleSpace];
+	}
+
+	[items addObject:favoriteItem];
+
+	[flexibleSpace release];
+	self.toolbarItems = items;
 }
 
 @end
