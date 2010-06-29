@@ -9,12 +9,15 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>Icon_Phone.png</string>
+	<string>Icon.png</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon_Phone.png</string>
-		<string>Icon_Phone@2x.png</string>
-		<string>Icon_Pad.png</string>
+		<string>Icon-72.png</string>
+		<string>Icon.png</string>
+		<string>Icon@2x.png</string>
+		<string>Icon-Small-50.png</string>
+		<string>Icon-Small.png</string>
+		<string>Icon-Small@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>me.cbg.EksiSozluk</string>
