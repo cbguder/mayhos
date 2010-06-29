@@ -106,32 +106,6 @@ enum {
 		favoritesController.title = @"favorites";
 		[self.navigationController pushViewController:favoritesController animated:YES];
 		[favoritesController release];
-
-		return;
-	}
-
-	LeftFrameController *leftFrameController = [[LeftFrameController alloc] initWithStyle:UITableViewStylePlain];
-
-	if(indexPath.row == kRowToday) {
-		leftFrameController.title = @"bugün";
-		leftFrameController.URL = [API todayURL];
-	} else if(indexPath.row == kRowYesterday) {
-		leftFrameController.title = @"dün";
-		leftFrameController.URL = [API yesterdayURL];
-	} else if(indexPath.row == kRowRandomDate || indexPath.row == kRowLastYear) {
-		NSDate *date;
-
-		if(indexPath.row == kRowRandomDate) {
-			date = randomDate();
-		} else {
-			date = lastYear();
-		}
-
-		leftFrameController.title = formatDate(date);
-		leftFrameController.URL = [API URLForDate:date];
-	} else if(indexPath.row == kRowRandom) {
-		leftFrameController.title = @"rastgele";
-		leftFrameController.URL = [API randomURL];
 	} else if(indexPath.row == kRowFeatured || indexPath.row == kRowFAQ) {
 		EksiTitle *eksiTitle;
 
@@ -143,12 +117,34 @@ enum {
 		}
 
 		UIAppDelegatePad.rightFrameController.eksiTitle = eksiTitle;
-		[leftFrameController release];
-		return;
-	}
+	} else {
+		LeftFrameController *leftFrameController = [[LeftFrameController alloc] initWithStyle:UITableViewStylePlain];
 
-	[self.navigationController pushViewController:leftFrameController animated:YES];
-	[leftFrameController release];
+		if(indexPath.row == kRowToday) {
+			leftFrameController.title = @"bugün";
+			leftFrameController.URL = [API todayURL];
+		} else if(indexPath.row == kRowYesterday) {
+			leftFrameController.title = @"dün";
+			leftFrameController.URL = [API yesterdayURL];
+		} else if(indexPath.row == kRowRandomDate || indexPath.row == kRowLastYear) {
+			NSDate *date;
+
+			if(indexPath.row == kRowRandomDate) {
+				date = randomDate();
+			} else {
+				date = lastYear();
+			}
+
+			leftFrameController.title = formatDate(date);
+			leftFrameController.URL = [API URLForDate:date];
+		} else if(indexPath.row == kRowRandom) {
+			leftFrameController.title = @"rastgele";
+			leftFrameController.URL = [API randomURL];
+		}
+
+		[self.navigationController pushViewController:leftFrameController animated:YES];
+		[leftFrameController release];
+	}
 }
 
 @end
