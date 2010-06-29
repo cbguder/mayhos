@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;"/>
+	<style type="text/css">
+		body { font-family:sans-serif; font-size:14px; margin:10px; padding:0; }
+		a { color:#236ed8; text-decoration: none; }
+		a.internal { -webkit-touch-callout: none; }
+		li#ampul { list-style-image: url('lightbulb.png'); font-style: italic; }
+		p.signature { text-align:right; }
+		ol#entries { padding:0 20px 0 50px; }
+	</style>
+</head>
+<body>
+{% if errorMessage %}
+	<ul><li id="ampul">{{ errorMessage }}</li></ul>
+{% else %}
+	<ol id="entries">
+{% for e in entries %}
+		<li class="entry" value="{{ e.order }}">
+			<p>{{ e.content }}</p>
+			<p class="signature">(<a class="internal" href="mayhos://show.asp?t={{ e.author }}">{{ e.author }}</a>, {{ e.dateString }})</p>
+		</li>
+{% /for %}
+	</ol>
+{% /if %}
+</body>
+</html>
