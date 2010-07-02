@@ -108,8 +108,7 @@ enum {
 		eksiLinkController.noToolbar = YES;
 		viewController = eksiLinkController;
 	} else if(indexPath.row == kRowFAQ) {
-		NSString *faqTitle = @"sözlük hakkında en çok sorulan sorular";
-		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:faqTitle URL:[API URLForTitle:faqTitle]];
+		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:kFAQTitle];
 		TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
 		titleController.noToolbar = YES;
 

@@ -43,6 +43,8 @@
 @property (nonatomic,assign) id<EksiTitleDelegate> delegate;
 
 + (id)titleForLink:(EksiLink *)link;
++ (id)titleWithTitle:(NSString *)title;
++ (id)titleWithURL:(NSURL *)URL;
 + (id)titleWithTitle:(NSString *)title URL:(NSURL *)URL;
 
 - (id)initWithTitle:(NSString *)title URL:(NSURL *)URL;

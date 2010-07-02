@@ -9,3 +9,4 @@
 #import "Constants.h"
 
 const NSString *kSozlukURL = @"http://sozluk.sourtimes.org/";
+const NSString *kFAQTitle = @"sözlük hakkında en çok sorulan sorular";

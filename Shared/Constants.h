@@ -7,3 +7,4 @@
 //
 
 extern const NSString *kSozlukURL;
+extern const NSString *kFAQTitle;

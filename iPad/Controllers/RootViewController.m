@@ -110,10 +110,9 @@ enum {
 		EksiTitle *eksiTitle;
 
 		if(indexPath.row == kRowFeatured) {
-			eksiTitle = [EksiTitle titleWithTitle:@"" URL:[API featuredURL]];
+			eksiTitle = [EksiTitle titleWithURL:[API featuredURL]];
 		} else {
-			NSString *faqTitle = @"sözlük hakkında en çok sorulan sorular";
-			eksiTitle = [EksiTitle titleWithTitle:faqTitle URL:[API URLForTitle:faqTitle]];
+			eksiTitle = [EksiTitle titleWithTitle:kFAQTitle];
 		}
 
 		UIAppDelegatePad.rightFrameController.eksiTitle = eksiTitle;

@@ -25,6 +25,14 @@
 	return [EksiTitle titleWithTitle:link.title URL:link.URL];
 }
 
++ (id)titleWithTitle:(NSString *)theTitle {
+	return [[[EksiTitle alloc] initWithTitle:theTitle URL:[API URLForTitle:theTitle]] autorelease];
+}
+
++ (id)titleWithURL:(NSURL *)theURL {
+	return [[[EksiTitle alloc] initWithTitle:@"" URL:theURL] autorelease];
+}
+
 + (id)titleWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
 	return [[[EksiTitle alloc] initWithTitle:theTitle URL:theURL] autorelease];
 }
