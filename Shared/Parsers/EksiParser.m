@@ -180,7 +180,7 @@
 
 	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Connection Failed"
 														  message:[error localizedDescription]
-														 delegate:self
+														 delegate:nil
 												cancelButtonTitle:@"OK"
 												otherButtonTitles:nil];
 	[errorAlert show];
