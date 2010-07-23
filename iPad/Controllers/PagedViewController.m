@@ -73,9 +73,7 @@
 #pragma mark -
 
 - (void)pagesClicked {
-	if(pagesPopover.popoverVisible) {
-		[pagesPopover dismissPopoverAnimated:YES];
-	} else {
+	if(!pagesPopover.popoverVisible) {
 		PagePickerController *pagePickerController = (PagePickerController *)pagesPopover.contentViewController;
 		pagePickerController.currentPage = currentPage;
 		pagePickerController.totalPages = pages;
