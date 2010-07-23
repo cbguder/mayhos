@@ -103,8 +103,6 @@
 	xmlChar *value = xmlNodeListGetString(node->doc, node->children, YES);
 
 	if(xmlStrEqual(value, (const xmlChar *)"tümünü göster")) {
-		hasMoreToLoad = YES;
-
 		for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
 			if(xmlStrEqual(attr->name, (const xmlChar *)"onclick")) {
 				xmlChar *attrValue = xmlNodeListGetString(node->doc, attr->children, YES);
@@ -112,8 +110,9 @@
 				xmlFree(attrValue);
 
 				if([onclick hasPrefix:@"location.href='"] && [onclick hasSuffix:@"'"]) {
+					hasMoreToLoad = YES;
 					moreURL = [[NSURL alloc] initWithString:
-							   [kSozlukURL stringByAppendingString:[onclick substringWithRange:NSMakeRange(14, onclick.length - 15)]]
+							   [kSozlukURL stringByAppendingFormat:@"/%@", [onclick substringWithRange:NSMakeRange(15, onclick.length - 16)]]
 							   ];
 				}
 			}
