@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.contentSizeForViewInPopover = CGSizeMake(320.0, 891.0);
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(favoritesSaved:)
