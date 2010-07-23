@@ -13,14 +13,10 @@
 
 @interface SearchController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate> {
 	NSMutableArray *matches;
-	NSString *searchTerm;
-
 	UIBarButtonItem *advancedSearchItem;
 }
 
 @property (nonatomic,retain) NSMutableArray *matches;
-@property (nonatomic,copy) NSString *searchTerm;
-
 @property (nonatomic,retain) UIBarButtonItem *advancedSearchItem;
 
 @end
