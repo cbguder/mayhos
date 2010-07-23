@@ -119,7 +119,7 @@
 		NSDictionary *queryDictionary = [tempURL queryDictionary];
 		NSMutableDictionary *newQueryDictionary = [NSMutableDictionary dictionary];
 
-		for(NSString *key in [queryDictionary allKeys]) {
+		for(NSString *key in queryDictionary) {
 			if(![key isEqualToString:@"p"] && ![[queryDictionary valueForKey:key] isEqualToString:@""]) {
 				[newQueryDictionary setObject:[queryDictionary valueForKey:key] forKey:key];
 			}
