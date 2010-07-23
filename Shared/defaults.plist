@@ -10,7 +10,7 @@
 			<key>title</key>
 			<string>deja vu</string>
 			<key>URL</key>
-			<string>http://www.eksisozluk.com/index.asp?a=sr&amp;au=deja+vu&amp;so=y</string>
+			<string>/index.asp?a=sr&amp;au=deja%20vu&amp;so=y</string>
 		</dict>
 		<dict>
 			<key>type</key>

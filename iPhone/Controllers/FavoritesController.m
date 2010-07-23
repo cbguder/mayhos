@@ -61,7 +61,7 @@
 	} else if(type == FavoriteTypeSearch) {
 		favoritedController = [[EksiLinkController alloc] init];
 		favoritedController.title = title;
-		((EksiLinkController *)favoritedController).URL = [NSURL URLWithString:[favorite objectForKey:@"URL"]];
+		((EksiLinkController *)favoritedController).URL = [API URLForPath:[favorite objectForKey:@"URL"]];
 	}
 
 	favoritedController.favorited = YES;

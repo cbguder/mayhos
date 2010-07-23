@@ -33,7 +33,7 @@ static FavoritesManager *SharedManager = nil;
 
 - (id)init {
 	if(self = [super init]) {
-		favorites = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"favorites"]];
+		favorites = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"favorites"] mutableCopy];
 	}
 
 	return self;
@@ -49,10 +49,11 @@ static FavoritesManager *SharedManager = nil;
 
 - (NSDictionary *)favoriteForURL:(NSURL *)URL withTitle:(NSString *)title {
 	NSURL *realURL = [URL normalizedURL];
+	NSString *path = [NSString stringWithFormat:@"%@?%@", [realURL path], [realURL query]];
 
 	NSMutableDictionary *favorite = [NSMutableDictionary dictionaryWithCapacity:3];
 	[favorite setObject:[NSNumber numberWithUnsignedInt:FavoriteTypeSearch] forKey:@"type"];
-	[favorite setObject:[realURL absoluteString] forKey:@"URL"];
+	[favorite setObject:path forKey:@"URL"];
 	[favorite setObject:title forKey:@"title"];
 
 	return favorite;
@@ -72,8 +73,11 @@ static FavoritesManager *SharedManager = nil;
 
 - (NSDictionary *)findFavoriteForURL:(NSURL *)URL {
 	NSURL *realURL = [URL normalizedURL];
+	NSString *path = [NSString stringWithFormat:@"%@?%@", [realURL path], [realURL query]];
 
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(URL == %@)", [realURL absoluteString]];
+	NSLog(@"path = %@", path);
+
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(URL == %@)", path];
 	NSArray *matches = [favorites filteredArrayUsingPredicate:predicate];
 
 	if([matches count]) {

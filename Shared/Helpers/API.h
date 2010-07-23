@@ -33,4 +33,6 @@ typedef enum {
 + (NSURL *)URLForTitle:(NSString *)title;
 + (NSURL *)URLForTitle:(NSString *)title withSearchQuery:(NSString *)query;
 
++ (NSURL *)URLForPath:(NSString *)path;
+
 @end

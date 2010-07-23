@@ -8,5 +8,5 @@
 
 #import "Constants.h"
 
-const NSString *kSozlukURL = @"http://www.eksisozluk.com/";
+const NSString *kSozlukURL = @"http://www.eksisozluk.com";
 const NSString *kFAQTitle = @"sözlük hakkında en çok sorulan sorular";

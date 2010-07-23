@@ -12,23 +12,23 @@
 @implementation API
 
 + (NSURL *)newsURL {
-	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"news.asp"]];
+	return [API URLForPath:@"/news.asp"];
 }
 
 + (NSURL *)todayURL {
-	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=td"]];
+	return [API URLForPath:@"/index.asp?a=td"];
 }
 
 + (NSURL *)yesterdayURL {
-	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=yd"]];
+	return [API URLForPath:@"/index.asp?a=yd"];
 }
 
 + (NSURL *)randomURL {
-	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"index.asp?a=rn"]];
+	return [API URLForPath:@"/index.asp?a=rn"];
 }
 
 + (NSURL *)featuredURL {
-	return [NSURL URLWithString:[kSozlukURL stringByAppendingString:@"pick.asp?p=g"]];
+	return [API URLForPath:@"/pick.asp?p=g"];
 }
 
 + (NSURL *)URLForDate:(NSDate *)date {
@@ -37,13 +37,13 @@
 	NSString *dateString = [dateFormatter stringFromDate:date];
 	[dateFormatter release];
 
-	NSString *URLString = [kSozlukURL stringByAppendingFormat:@"index.asp?a=rd&d=%@", urlEncode(dateString)];
-	return [NSURL URLWithString:URLString];
+	NSString *path = [NSString stringWithFormat:@"/index.asp?a=rd&d=%@", urlEncode(dateString)];
+	return [API URLForPath:path];
 }
 
 + (NSURL *)URLForSearchQuery:(NSString *)query {
-	NSString *URLString = [kSozlukURL stringByAppendingFormat:@"index.asp?a=sr&kw=%@", urlEncode(query)];
-	return [NSURL URLWithString:URLString];
+	NSString *path = [NSString stringWithFormat:@"/index.asp?a=sr&kw=%@", urlEncode(query)];
+	return [API URLForPath:path];
 }
 
 + (NSURL *)URLForAdvancedSearchQuery:(NSString *)query author:(NSString *)author sortCriteria:(SortCriteria)sortCriteria date:(NSDate *)date guzel:(BOOL)guzel {
@@ -82,17 +82,22 @@
 		[searchDictionary setObject:@"y" forKey:@"cr"];
 	}
 
-	NSString *URLString = [kSozlukURL stringByAppendingFormat:@"index.asp?%@", [searchDictionary urlEncodedString]];
-	return [NSURL URLWithString:URLString];
+	NSString *path = [NSString stringWithFormat:@"/index.asp?%@", [searchDictionary urlEncodedString]];
+	return [API URLForPath:path];
 }
 
 + (NSURL *)URLForTitle:(NSString *)title {
-	NSString *URLString = [kSozlukURL stringByAppendingFormat:@"show.asp?t=%@", urlEncode(title)];
-	return [NSURL URLWithString:URLString];
+	NSString *path = [NSString stringWithFormat:@"/show.asp?t=%@", urlEncode(title)];
+	return [API URLForPath:path];
 }
 
 + (NSURL *)URLForTitle:(NSString *)title withSearchQuery:(NSString *)query {
-	NSString *URLString = [kSozlukURL stringByAppendingFormat:@"show.asp?t=%@&kw=%@", urlEncode(title), urlEncode(query)];
+	NSString *path = [NSString stringWithFormat:@"/show.asp?t=%@&kw=%@", urlEncode(title), urlEncode(query)];
+	return [API URLForPath:path];
+}
+
++ (NSURL *)URLForPath:(NSString *)path {
+	NSString *URLString = [kSozlukURL stringByAppendingString:path];
 	return [NSURL URLWithString:URLString];
 }
 

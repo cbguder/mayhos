@@ -26,6 +26,7 @@
 			[scanner scanString:@"&" intoString:nil];
 
 			key = [key stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			value = [value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 			value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
 			if(key != nil && value != nil) {

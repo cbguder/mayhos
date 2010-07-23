@@ -122,13 +122,13 @@
 	}
 
 	if([request.URL.scheme isEqualToString:@"mayhos"]) {
-		NSString *rest = [request.URL.absoluteString substringFromIndex:9];
-		NSURL *realURL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:rest]];
+		NSString *rest = [request.URL.absoluteString substringFromIndex:8];
+		NSURL *realURL = [API URLForPath:rest];
 
-		if([rest hasPrefix:@"show.asp"]) {
+		if([rest hasPrefix:@"/show.asp"]) {
 			// Change right frame
 
-			NSString *titleText = [[[realURL queryDictionary] objectForKey:@"t"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+			NSString *titleText = [[realURL queryDictionary] objectForKey:@"t"];
 			self.eksiTitle = [EksiTitle titleWithTitle:titleText URL:realURL];
 
 			UIViewController *leftFrameController = [self leftFrameController];
@@ -136,11 +136,10 @@
 				UITableView *tableView = ((UITableViewController *)leftFrameController).tableView;
 				[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 			}
-		} else if([rest hasPrefix:@"index.asp"]) {
+		} else if([rest hasPrefix:@"/index.asp"]) {
 			// Change left frame
 
-			NSString *kw = [[realURL queryDictionary] objectForKey:@"kw"];
-			NSString *query = [kw stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+			NSString *query = [[realURL queryDictionary] objectForKey:@"kw"];
 
 			LeftFrameController *leftFrameController = [[LeftFrameController alloc] init];
 			leftFrameController.title = query;

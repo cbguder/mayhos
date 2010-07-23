@@ -116,17 +116,17 @@
 	}
 
 	if([request.URL.scheme isEqualToString:@"mayhos"]) {
-		NSString *rest = [request.URL.absoluteString substringFromIndex:9];
-		NSURL *realURL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:rest]];
+		NSString *rest = [request.URL.absoluteString substringFromIndex:8];
+		NSURL *realURL = [API URLForPath:rest];
 
-		if([rest hasPrefix:@"show.asp"]) {
+		if([rest hasPrefix:@"/show.asp"]) {
 			NSString *titleText = [[[realURL queryDictionary] objectForKey:@"t"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 
 			EksiTitle *title = [EksiTitle titleWithTitle:titleText URL:realURL];
 			TitleController *titleController = [[TitleController alloc] initWithEksiTitle:title];
 			[self.navigationController pushViewController:titleController animated:YES];
 			[titleController release];
-		} else if([rest hasPrefix:@"index.asp"]) {
+		} else if([rest hasPrefix:@"/index.asp"]) {
 			NSString *kw = [[realURL queryDictionary] objectForKey:@"kw"];
 			NSString *query = [kw stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 

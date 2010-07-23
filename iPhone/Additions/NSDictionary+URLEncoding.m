@@ -10,8 +10,8 @@
 
 @implementation NSDictionary (URLEncoding)
 
-- (NSString*)urlEncodedString {
-	NSMutableArray *parts = [NSMutableArray array];
+- (NSString *)urlEncodedString {
+	NSMutableArray *parts = [NSMutableArray arrayWithCapacity:[self count]];
 
 	for(id key in self) {
 		id value = [self objectForKey:key];
@@ -19,7 +19,9 @@
 		[parts addObject:part];
 	}
 
-	return [parts componentsJoinedByString: @"&"];
+	[parts sortUsingSelector:@selector(caseInsensitiveCompare:)];
+
+	return [parts componentsJoinedByString:@"&"];
 }
 
 @end

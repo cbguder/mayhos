@@ -114,7 +114,7 @@
 	}
 
 	if(pageLink) {
-		NSURL *tempURL = [NSURL URLWithString:[kSozlukURL stringByAppendingString:pageURL]];
+		NSURL *tempURL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"/%@", pageURL]];
 
 		NSDictionary *queryDictionary = [tempURL queryDictionary];
 		NSMutableDictionary *newQueryDictionary = [NSMutableDictionary dictionary];
@@ -125,7 +125,7 @@
 			}
 		}
 
-		NSString *newString = [kSozlukURL stringByAppendingFormat:@"%@?%@", [[tempURL path] substringFromIndex:1], [newQueryDictionary urlEncodedString]];
+		NSString *newString = [kSozlukURL stringByAppendingFormat:@"%@?%@", [tempURL path], [newQueryDictionary urlEncodedString]];
 		baseURL = [NSURL URLWithString:newString];
 	}
 }

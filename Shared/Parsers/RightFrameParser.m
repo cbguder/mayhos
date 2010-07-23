@@ -113,7 +113,7 @@
 
 				if([onclick hasPrefix:@"location.href='"] && [onclick hasSuffix:@"'"]) {
 					moreURL = [[NSURL alloc] initWithString:
-							   [kSozlukURL stringByAppendingString:[onclick substringWithRange:NSMakeRange(15, onclick.length - 16)]]
+							   [kSozlukURL stringByAppendingString:[onclick substringWithRange:NSMakeRange(14, onclick.length - 15)]]
 							   ];
 				}
 			}
