@@ -70,6 +70,7 @@
 		4C72B157118F9280002B9330 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72B156118F9280002B9330 /* RootViewController.m */; };
 		4C72B15A118F9288002B9330 /* RightFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72B159118F9288002B9330 /* RightFrameController.m */; };
 		4C72B190118F9535002B9330 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72B18F118F9535002B9330 /* Icon-72.png */; };
+		4C86E94011DE59AB0078CD3E /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C86E93F11DE59AB0078CD3E /* RootViewController.xib */; };
 		4C9B146B11C63C350000CF8A /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B145511C63C350000CF8A /* Back.png */; };
 		4C9B146C11C63C350000CF8A /* Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B145611C63C350000CF8A /* Back@2x.png */; };
 		4C9B146D11C63C350000CF8A /* Chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B145711C63C350000CF8A /* Chevron.png */; };
@@ -229,6 +230,7 @@
 		4C72B158118F9288002B9330 /* RightFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightFrameController.h; sourceTree = "<group>"; };
 		4C72B159118F9288002B9330 /* RightFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightFrameController.m; sourceTree = "<group>"; };
 		4C72B18F118F9535002B9330 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		4C86E93F11DE59AB0078CD3E /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		4C9B145511C63C350000CF8A /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
 		4C9B145611C63C350000CF8A /* Back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back@2x.png"; sourceTree = "<group>"; };
 		4C9B145711C63C350000CF8A /* Chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chevron.png; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */,
 				4C72B119118F8A95002B9330 /* mayhosAppDelegate_Pad.h */,
 				4C72B11A118F8A95002B9330 /* mayhosAppDelegate_Pad.m */,
+				4C86E93F11DE59AB0078CD3E /* RootViewController.xib */,
 				4C24A570118FB576000D3B38 /* title.html */,
 			);
 			path = iPad;
@@ -676,6 +679,7 @@
 				4CC2A98111DA366000400476 /* Icon-Small-50.png in Resources */,
 				4CC2A98711DA366C00400476 /* Icon-Small.png in Resources */,
 				4CC2A98811DA366C00400476 /* Icon-Small@2x.png in Resources */,
+				4C86E94011DE59AB0078CD3E /* RootViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
