@@ -42,7 +42,7 @@ enum {
 	self.title = @"mayhoş";
 	self.clearsSelectionOnViewWillAppear = NO;
 
-	// TODO: Private API
+	// FIXME: Private API
 	if([self.searchDisplayController.searchBar respondsToSelector:@selector(setCombinesLandscapeBars:)]) {
 		[self.searchDisplayController.searchBar setCombinesLandscapeBars:NO];
 	}
@@ -194,7 +194,20 @@ enum {
 #pragma mark Search bar delegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	[self search:searchBar.text];
+	NSString *query = searchBar.text;
+
+	[[HistoryManager sharedManager] addString:query];
+	[self filter:query];
+	[self.searchDisplayController.searchResultsTableView reloadData];
+
+	NSUInteger row = [matches indexOfObject:query];
+	if(row != NSNotFound) {
+		[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]
+																		 animated:NO
+																   scrollPosition:UITableViewScrollPositionNone];
+	}
+
+	[self search:query];
 }
 
 #pragma mark -
@@ -237,8 +250,6 @@ enum {
 }
 
 - (void)search:(NSString *)query {
-	[[HistoryManager sharedManager] addString:query];
-
 	if(self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
 		[self.searchDisplayController.searchBar resignFirstResponder];
 		UIAppDelegatePad.rightFrameController.eksiTitle = [EksiTitle titleWithTitle:query];

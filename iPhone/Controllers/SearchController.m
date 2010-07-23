@@ -11,6 +11,7 @@
 #import "HistoryManager.h"
 
 @interface SearchController (Private)
+- (void)filter:(NSString *)query;
 - (void)search:(NSString *)query;
 @end
 
@@ -81,18 +82,27 @@
 #pragma mark Search bar delegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	[self search:searchBar.text];
+	NSString *query = searchBar.text;
+
+	[[HistoryManager sharedManager] addString:query];
+	[self filter:query];
+	[self.searchDisplayController.searchResultsTableView reloadData];
+
+	NSUInteger row = [matches indexOfObject:query];
+	if(row != NSNotFound) {
+		[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]
+																		 animated:NO
+																   scrollPosition:UITableViewScrollPositionNone];
+	}
+
+	[self search:query];
 }
 
 #pragma mark -
 #pragma mark Search display controller delegate
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF like[c] %@", [NSString stringWithFormat:@"*%@*", searchString]];
-	self.matches = [NSMutableArray arrayWithArray:[[HistoryManager sharedManager].history allObjects]];
-	[self.matches filterUsingPredicate:predicate];
-	[self.matches sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-
+	[self filter:searchString];
 	return YES;
 }
 
@@ -101,6 +111,7 @@
 
 - (void)dealloc {
 	[advancedSearchItem release];
+	[matches release];
 	[super dealloc];
 }
 
@@ -112,9 +123,19 @@
 #pragma mark -
 #pragma mark Search
 
-- (void)search:(NSString *)query {
-	[[HistoryManager sharedManager] addString:query];
+- (void)filter:(NSString *)query {
+	if([query isEqualToString:@""]) {
+		self.matches = nil;
+		return;
+	}
 
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF like[c] %@", [NSString stringWithFormat:@"*%@*", query]];
+	self.matches = [NSMutableArray arrayWithArray:[[HistoryManager sharedManager].history allObjects]];
+	[matches filterUsingPredicate:predicate];
+	[matches sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+}
+
+- (void)search:(NSString *)query {
 	if(self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
 		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:query URL:[API URLForTitle:query]];
 		TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
