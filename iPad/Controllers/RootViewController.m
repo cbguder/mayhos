@@ -156,7 +156,7 @@ enum {
 		if(indexPath.row == kRowFeatured) {
 			eksiTitle = [EksiTitle titleWithURL:[API featuredURL]];
 		} else {
-			eksiTitle = [EksiTitle titleWithTitle:kFAQTitle];
+			eksiTitle = [EksiTitle titleWithTitle:(NSString *)kFAQTitle];
 		}
 
 		UIAppDelegatePad.rightFrameController.eksiTitle = eksiTitle;

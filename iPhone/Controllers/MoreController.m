@@ -108,7 +108,7 @@ enum {
 		eksiLinkController.noToolbar = YES;
 		viewController = eksiLinkController;
 	} else if(indexPath.row == kRowFAQ) {
-		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:kFAQTitle];
+		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:(NSString *)kFAQTitle];
 		TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
 		titleController.noToolbar = YES;
 
