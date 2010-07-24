@@ -40,6 +40,9 @@
 	if (selectedIndex == indexPath.row) {
 		cell.accessoryType = UITableViewCellAccessoryCheckmark;
 		cell.textLabel.textColor = [UIColor colorWithRed:49/255.0 green:81/255.0 blue:133/255.0 alpha:1.0];
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.textLabel.textColor = [UIColor darkTextColor];
 	}
 
 	cell.textLabel.text = [options objectAtIndex:indexPath.row];
@@ -61,7 +64,7 @@
 
 	selectedIndex = indexPath.row;
 
-	cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedIndex inSection:0]];
+	cell = [tableView cellForRowAtIndexPath:indexPath];
 	cell.accessoryType = UITableViewCellAccessoryCheckmark;
 	cell.textLabel.textColor = [UIColor colorWithRed:49/255.0 green:81/255.0 blue:133/255.0 alpha:1.0];
 }
