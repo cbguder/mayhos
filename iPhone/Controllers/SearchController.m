@@ -107,20 +107,6 @@
 }
 
 #pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-	[advancedSearchItem release];
-	[matches release];
-	[super dealloc];
-}
-
-- (void)viewDidUnload {
-	self.advancedSearchItem = nil;
-	[super viewDidUnload];
-}
-
-#pragma mark -
 #pragma mark Search
 
 - (void)filter:(NSString *)query {
@@ -159,6 +145,20 @@
 
 	[advancedSearchController release];
 	[navigationController release];
+}
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)dealloc {
+	[advancedSearchItem release];
+	[matches release];
+	[super dealloc];
+}
+
+- (void)viewDidUnload {
+	self.advancedSearchItem = nil;
+	[super viewDidUnload];
 }
 
 @end
