@@ -11,7 +11,12 @@
 
 @implementation FavoritedController
 
-@synthesize favoriteItem, activityItem, pagesItem, favorited;
+@synthesize favoriteItem;
+@synthesize activityItem;
+@synthesize pagesItem;
+@synthesize numberOfPages;
+@synthesize currentPage;
+@synthesize favorited;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -36,11 +41,6 @@
 	self.favorited = favorited;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	[self resetNavigationBar];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return [UIAppDelegatePhone shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
@@ -58,21 +58,31 @@
 	}
 }
 
-#pragma mark -
-
-- (void)resetNavigationBar {
-	if(pages > 1) {
-		[pagesItem setTitle:[NSString stringWithFormat:@"%d/%d", currentPage, pages]];
-		[self.navigationItem setRightBarButtonItem:pagesItem];
+- (void)resetPagesItem {
+	if (numberOfPages > 1) {
+		pagesItem.title = [NSString stringWithFormat:@"%d/%d", currentPage, numberOfPages];
+		self.navigationItem.rightBarButtonItem = pagesItem;
 	} else {
-		[self.navigationItem setRightBarButtonItem:nil];
+		self.navigationItem.rightBarButtonItem = nil;
 	}
 }
+
+- (void)setNumberOfPages:(NSUInteger)number {
+	numberOfPages = number;
+	[self resetPagesItem];
+}
+
+- (void)setCurrentPage:(NSUInteger)number {
+	currentPage = number;
+	[self resetPagesItem];
+}
+
+#pragma mark -
 
 - (void)pagesClicked {
 	PagePickerView *pagePicker = [[PagePickerView alloc] init];
 	pagePicker.delegate = self;
-	pagePicker.numberOfPages = pages;
+	pagePicker.numberOfPages = numberOfPages;
 	pagePicker.currentPage = currentPage;
 	[self presentModalPickerView:pagePicker];
 	[pagePicker release];
@@ -85,10 +95,6 @@
 }
 
 - (void)loadPage:(NSUInteger)page {
-}
-
-- (void)finishedLoadingPage {
-	[self resetNavigationBar];
 }
 
 - (void)favorite {

@@ -110,20 +110,18 @@
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 	self.navigationItem.rightBarButtonItem = nil;
 
-	pages = parser.pages;
-	currentPage = parser.currentPage;
+	self.numberOfPages = parser.pages;
+	self.currentPage = parser.currentPage;
 
 	self.parser = nil;
 
 	self.favorited = [[FavoritesManager sharedManager] hasFavoriteForURL:self.URL];
 	self.favoriteItem.enabled = YES;
-
-	[self finishedLoadingPage];
 }
 
 - (void)parser:(EksiParser *)aParser didFailWithError:(NSError *)error {
-	pages = aParser.pages;
-	currentPage = aParser.currentPage;
+	self.numberOfPages = aParser.pages;
+	self.currentPage = aParser.currentPage;
 
 	self.parser = nil;
 	self.navigationItem.rightBarButtonItem = nil;

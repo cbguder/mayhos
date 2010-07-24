@@ -13,27 +13,24 @@
 #import "FavoritesManager.h"
 #import "EntryCell.h"
 
+static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
+	CGSize size = [[entry plainTextContent] sizeWithFont:[UIFont systemFontOfSize:14]
+									   constrainedToSize:CGSizeMake(width, 54)
+										   lineBreakMode:UILineBreakModeTailTruncation];
+	return size.height;
+}
+
 @interface TitleController (Private)
 - (void)checkEmptyTitle;
 - (void)showAlert;
 - (void)resetHeaderView;
+- (void)resetNavigationBar;
 - (NSArray *)toolbarItemsIncludingTumuItem:(BOOL)includeTumuItem;
 @end
 
 @implementation TitleController
 
 @synthesize eksiTitle, titleView, tumuItem, searchMode, noToolbar;
-
-#pragma mark -
-#pragma mark Static methods
-
-static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
-	CGSize size = [[entry plainTextContent] sizeWithFont:[UIFont systemFontOfSize:14]
-									   constrainedToSize:CGSizeMake(width, 54)
-										   lineBreakMode:UILineBreakModeTailTruncation];
-
-	return size.height;
-}
 
 #pragma mark -
 #pragma mark Initialization
@@ -57,8 +54,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		eksiTitle = [theTitle retain];
 		[eksiTitle setDelegate:self];
 
-		pages = eksiTitle.pages;
-		currentPage = eksiTitle.currentPage;
+		self.numberOfPages = eksiTitle.pages;
+		self.currentPage = eksiTitle.currentPage;
 	}
 
 	[self resetNavigationBar];
@@ -201,9 +198,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Title delegate
 
 - (void)titleDidFinishLoadingEntries:(EksiTitle *)title {
-	pages = eksiTitle.pages;
-	currentPage = eksiTitle.currentPage;
-	[super finishedLoadingPage];
+	self.numberOfPages = eksiTitle.pages;
+	self.currentPage = eksiTitle.currentPage;
 
 	[self resetHeaderView];
 
@@ -223,9 +219,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)title:(EksiTitle*)title didFailWithError:(NSError *)error {
-	pages = eksiTitle.pages;
-	currentPage = eksiTitle.currentPage;
-	[super finishedLoadingPage];
+	self.numberOfPages = eksiTitle.pages;
+	self.currentPage = eksiTitle.currentPage;
 }
 
 #pragma mark -
@@ -266,8 +261,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)resetNavigationBar {
-	[super resetNavigationBar];
-
 	if(!searchMode && [self isViewLoaded]) {
 		self.toolbarItems = [self toolbarItemsIncludingTumuItem:[eksiTitle hasMoreToLoad]];
 	}

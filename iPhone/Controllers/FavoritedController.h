@@ -14,21 +14,22 @@
 	UIBarButtonItem *activityItem;
 	UIBarButtonItem *pagesItem;
 
-	NSUInteger pages;
+	NSUInteger numberOfPages;
 	NSUInteger currentPage;
 
 	BOOL favorited;
 }
 
-@property (nonatomic,retain) UIBarButtonItem *favoriteItem;
-@property (nonatomic,retain) UIBarButtonItem *activityItem;
-@property (nonatomic,retain) UIBarButtonItem *pagesItem;
+@property (nonatomic, retain) UIBarButtonItem *favoriteItem;
+@property (nonatomic, retain) UIBarButtonItem *activityItem;
+@property (nonatomic, retain) UIBarButtonItem *pagesItem;
 
-@property (nonatomic,assign) BOOL favorited;
+@property (nonatomic, assign) NSUInteger numberOfPages;
+@property (nonatomic, assign) NSUInteger currentPage;
 
-- (void)resetNavigationBar;
+@property (nonatomic, assign, getter=isFavorited) BOOL favorited;
+
 - (void)loadPage:(NSUInteger)page;
-- (void)finishedLoadingPage;
 - (void)favorite;
 
 @end
