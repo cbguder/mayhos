@@ -11,6 +11,7 @@
 #import "PagePickerView.h"
 #import "NSDictionary+URLEncoding.h"
 #import "FavoritesManager.h"
+#import "EntryCell.h"
 
 @interface TitleController (Private)
 - (void)checkEmptyTitle;
@@ -131,55 +132,16 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	return [eksiTitle.entries count];
 }
 
-#define CONTENT_TAG 1
-#define AUTHOR_TAG  2
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *entryCellIdentifier = @"Cell";
+	static NSString *CellIdentifier = @"Cell";
 
-	UILabel *contentLabel;
-	UILabel *authorLabel;
-
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:entryCellIdentifier];
+	EntryCell *cell = (EntryCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if(cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:entryCellIdentifier] autorelease];
+		cell = [[[EntryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-		contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		contentLabel.tag = CONTENT_TAG;
-		contentLabel.font = [UIFont systemFontOfSize:14];
-		contentLabel.lineBreakMode = UILineBreakModeTailTruncation;
-		contentLabel.numberOfLines = 3;
-		contentLabel.highlightedTextColor = [UIColor whiteColor];
-		[cell.contentView addSubview:contentLabel];
-		[contentLabel release];
-
-		authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		authorLabel.tag = AUTHOR_TAG;
-		authorLabel.textAlignment = UITextAlignmentRight;
-		authorLabel.font = [UIFont systemFontOfSize:14];
-		authorLabel.highlightedTextColor = [UIColor whiteColor];
-		[cell.contentView addSubview:authorLabel];
-		[authorLabel release];
-	} else {
-		contentLabel = (UILabel *)[cell.contentView viewWithTag:CONTENT_TAG];
-		authorLabel = (UILabel *)[cell.contentView viewWithTag:AUTHOR_TAG];
 	}
 
-	CGFloat width = 320.0;
-	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-		width = 480.0;
-	}
-	width -= 40.0;
-
-	EksiEntry *entry = [eksiTitle.entries objectAtIndex:indexPath.row];
-	CGFloat height = [self tableView:tableView heightForRowAtIndexPath:indexPath];
-
-	contentLabel.frame = CGRectMake(10, 10, width, height - 48.0);
-	authorLabel.frame = CGRectMake(10, height - 28.0, width, 18);
-
-	contentLabel.text = entry.plainTextContent;
-	authorLabel.text = [entry signature];
+	[cell setEksiEntry:[eksiTitle.entries objectAtIndex:indexPath.row]];
 
 	return cell;
 }
