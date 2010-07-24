@@ -75,8 +75,6 @@ static FavoritesManager *SharedManager = nil;
 	NSURL *realURL = [URL normalizedURL];
 	NSString *path = [NSString stringWithFormat:@"%@?%@", [realURL path], [realURL query]];
 
-	NSLog(@"path = %@", path);
-
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(URL == %@)", path];
 	NSArray *matches = [favorites filteredArrayUsingPredicate:predicate];
 
