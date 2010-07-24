@@ -224,21 +224,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 #pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-	[eksiTitle setDelegate:nil];
-	[eksiTitle release];
-	[super dealloc];
-}
-
-- (void)viewDidUnload {
-	self.tumuItem = nil;
-	self.titleView = nil;
-	self.toolbarItems = nil;
-}
-
-#pragma mark -
 #pragma mark Drawing
 
 - (void)showAlert {
@@ -308,6 +293,22 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[items addObject:self.favoriteItem];
 
 	return items;
+}
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)viewDidUnload {
+	self.tumuItem = nil;
+	self.titleView = nil;
+	self.toolbarItems = nil;
+	[super viewDidUnload];
+}
+
+- (void)dealloc {
+	[eksiTitle setDelegate:nil];
+	[eksiTitle release];
+	[super dealloc];
 }
 
 @end

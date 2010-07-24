@@ -86,21 +86,6 @@
 }
 
 #pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-	[parser setDelegate:nil];
-	[parser release];
-	[links release];
-	[URL release];
-	[super dealloc];
-}
-
-- (void)viewDidUnload {
-	self.toolbarItems = nil;
-}
-
-#pragma mark -
 #pragma mark Parser delegate
 
 - (void)parserDidFinishParsing:(EksiParser *)aParser {
@@ -152,6 +137,22 @@
 	}
 
 	[super favorite];
+}
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)viewDidUnload {
+	self.toolbarItems = nil;
+	[super viewDidUnload];
+}
+
+- (void)dealloc {
+	[parser setDelegate:nil];
+	[parser release];
+	[links release];
+	[URL release];
+	[super dealloc];
 }
 
 @end

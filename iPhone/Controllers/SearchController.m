@@ -150,15 +150,15 @@
 #pragma mark -
 #pragma mark Memory management
 
+- (void)viewDidUnload {
+	self.advancedSearchItem = nil;
+	[super viewDidUnload];
+}
+
 - (void)dealloc {
 	[advancedSearchItem release];
 	[matches release];
 	[super dealloc];
-}
-
-- (void)viewDidUnload {
-	self.advancedSearchItem = nil;
-	[super viewDidUnload];
 }
 
 @end

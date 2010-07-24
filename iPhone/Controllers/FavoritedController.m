@@ -104,17 +104,18 @@
 #pragma mark -
 #pragma mark Memory management
 
+- (void)viewDidUnload {
+	self.favoriteItem = nil;
+	self.activityItem = nil;
+	self.pagesItem = nil;
+	[super viewDidUnload];
+}
+
 - (void)dealloc {
 	[favoriteItem release];
 	[activityItem release];
 	[pagesItem release];
 	[super dealloc];
-}
-
-- (void)viewDidUnload {
-	self.favoriteItem = nil;
-	self.activityItem = nil;
-	self.pagesItem = nil;
 }
 
 @end

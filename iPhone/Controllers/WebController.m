@@ -198,6 +198,16 @@
 #pragma mark -
 #pragma mark Memory management
 
+- (void)viewDidUnload {
+	self.backItem = nil;
+	self.forwardItem = nil;
+	self.reloadItem = nil;
+	self.stopItem = nil;
+	self.actionItem = nil;
+	self.activityItem = nil;
+	[super viewDidUnload];
+}
+
 - (void)dealloc {
 	[webView setDelegate:nil];
 	[currentURL release];
@@ -210,15 +220,6 @@
 	[activityItem release];
 
 	[super dealloc];
-}
-
-- (void)viewDidUnload {
-	self.backItem = nil;
-	self.forwardItem = nil;
-	self.reloadItem = nil;
-	self.stopItem = nil;
-	self.actionItem = nil;
-	self.activityItem = nil;
 }
 
 @end

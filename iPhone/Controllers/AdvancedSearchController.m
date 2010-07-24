@@ -183,28 +183,6 @@
 }
 
 #pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-	[cancelItem release];
-	[searchItem release];
-	[queryField release];
-	[authorField release];
-	[guzelSwitch release];
-	[sortOptions release];
-
-	[super dealloc];
-}
-
-- (void)viewDidUnload {
-	self.cancelItem = nil;
-	self.searchItem = nil;
-	self.queryField = nil;
-	self.authorField = nil;
-	self.guzelSwitch = nil;
-}
-
-#pragma mark -
 
 - (void)cancel {
 	[self dismissModalViewControllerAnimated:YES];
@@ -244,6 +222,28 @@
 
 - (void)datePickerCancelled:(DatePickerView *)datePicker {
 	[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)viewDidUnload {
+	self.cancelItem = nil;
+	self.searchItem = nil;
+	self.queryField = nil;
+	self.authorField = nil;
+	self.guzelSwitch = nil;
+	[super viewDidUnload];
+}
+
+- (void)dealloc {
+	[cancelItem release];
+	[searchItem release];
+	[queryField release];
+	[authorField release];
+	[guzelSwitch release];
+	[sortOptions release];
+	[super dealloc];
 }
 
 @end
