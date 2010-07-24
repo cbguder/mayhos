@@ -59,24 +59,6 @@
 }
 
 #pragma mark -
-#pragma mark Picker view data source
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-	return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-	return pages;
-}
-
-#pragma mark -
-#pragma mark Picker view delegate
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-	return [NSString stringWithFormat:@"%d", row + 1];
-}
-
-#pragma mark -
 
 - (void)resetNavigationBar {
 	if(pages > 1) {
@@ -89,13 +71,14 @@
 
 - (void)pagesClicked {
 	PagePickerView *pagePicker = [[PagePickerView alloc] init];
-	[pagePicker setDelegate:self];
-	[pagePicker setSelectedPage:currentPage];
+	pagePicker.delegate = self;
+	pagePicker.numberOfPages = pages;
+	pagePicker.currentPage = currentPage;
 	[self presentModalPickerView:pagePicker];
 	[pagePicker release];
 }
 
-- (void)pagePicker:(PagePickerView *)pagePicker pickedPage:(NSInteger)page {
+- (void)pagePicker:(PagePickerView *)pagePicker pickedPage:(NSUInteger)page {
 	if(currentPage != page) {
 		[self loadPage:page];
 	}

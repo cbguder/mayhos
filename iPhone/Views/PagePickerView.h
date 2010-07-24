@@ -11,17 +11,22 @@
 
 @protocol PagePickerDelegate;
 
-@interface PagePickerView : ModalPickerView {
+@interface PagePickerView : ModalPickerView <UIPickerViewDataSource, UIPickerViewDelegate> {
 	UIPickerView *pickerView;
+
+	NSUInteger numberOfPages;
+	NSUInteger currentPage;
+
 	id delegate;
 }
 
-@property (nonatomic,assign) id<PagePickerDelegate> delegate;
+@property (nonatomic, assign) NSUInteger numberOfPages;
+@property (nonatomic, assign) NSUInteger currentPage;
 
-- (void)setSelectedPage:(NSUInteger)page;
+@property (nonatomic, assign) id<PagePickerDelegate> delegate;
 
 @end
 
-@protocol PagePickerDelegate <UIPickerViewDataSource,UIPickerViewDelegate>
-- (void)pagePicker:(PagePickerView *)pagePicker pickedPage:(NSInteger)page;
+@protocol PagePickerDelegate
+- (void)pagePicker:(PagePickerView *)pagePicker pickedPage:(NSUInteger)page;
 @end

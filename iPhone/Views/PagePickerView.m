@@ -10,19 +10,19 @@
 
 @implementation PagePickerView
 
+@synthesize numberOfPages;
+@synthesize currentPage;
 @synthesize delegate;
 
-- (void)setDelegate:(id<PagePickerDelegate>)aDelegate {
-	delegate = aDelegate;
-
-	pickerView.dataSource = delegate;
-	pickerView.delegate = delegate;
-}
+#pragma mark -
+#pragma mark Initialization
 
 - (id)initWithFrame:(CGRect)frame {
-	if(self = [super initWithFrame:frame]) {
+	if ((self = [super initWithFrame:frame])) {
 		pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0, pickerPos, frame.size.width, pickerHeight)];
 		pickerView.showsSelectionIndicator = YES;
+		pickerView.dataSource = self;
+		pickerView.delegate = self;
 		[self addSubview:pickerView];
 		[pickerView release];
 
@@ -52,11 +52,39 @@
 	toolbar.frame = CGRectMake(0.0, pickerPos - 44.0, self.frame.size.width, 44.0);
 }
 
-- (void)setSelectedPage:(NSUInteger)page {
-	[pickerView selectRow:page - 1 inComponent:0 animated:NO];
+#pragma mark -
+#pragma mark Accessors
+
+- (void)setCurrentPage:(NSUInteger)number {
+	currentPage = number;
+	[pickerView selectRow:currentPage - 1 inComponent:0 animated:NO];
 }
 
-#pragma mark UIBarButtonItem Methods
+- (void)setNumberOfPages:(NSUInteger)number {
+	numberOfPages = number;
+	[pickerView reloadAllComponents];
+}
+
+#pragma mark -
+#pragma mark Picker view data source
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	return numberOfPages;
+}
+
+#pragma mark -
+#pragma mark Picker view delegate
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	return [NSString stringWithFormat:@"%d", row + 1];
+}
+
+#pragma mark -
+#pragma mark Toolbar buttons
 
 - (void)cancel {
 	[self easeOutFromSuperview];
@@ -68,8 +96,7 @@
 }
 
 - (void)last {
-	NSUInteger lastPage = [pickerView numberOfRowsInComponent:0];
-	[delegate pagePicker:self pickedPage:lastPage];
+	[delegate pagePicker:self pickedPage:numberOfPages];
 	[self easeOutFromSuperview];
 }
 
