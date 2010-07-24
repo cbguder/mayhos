@@ -255,7 +255,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		} else {
 			[self.tableView scrollRectToVisible:CGRectMake(0, 44, 1, 1) animated:NO];
 			self.favorited = [[FavoritesManager sharedManager] hasFavoriteForTitle:eksiTitle.title];
-			self.favoriteItemEnabled = YES;
+			self.favoriteItem.enabled = YES;
 		}
 	}
 }

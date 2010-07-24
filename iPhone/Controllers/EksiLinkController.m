@@ -116,7 +116,7 @@
 	self.parser = nil;
 
 	self.favorited = [[FavoritesManager sharedManager] hasFavoriteForURL:self.URL];
-	self.favoriteItemEnabled = YES;
+	self.favoriteItem.enabled = YES;
 
 	[self finishedLoadingPage];
 }

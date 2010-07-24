@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RefreshedController.h"
+#import "EksiLinkController.h"
 
-@interface RecentsController : RefreshedController {
+@interface RecentsController : EksiLinkController {
+	UIBarButtonItem *refreshItem;
 }
+
+@property (nonatomic,retain) UIBarButtonItem *refreshItem;
+
+- (void)refresh;
 
 @end

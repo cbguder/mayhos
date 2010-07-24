@@ -7,18 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PagedController.h"
+#import "PagePickerView.h"
 
-@interface FavoritedController : PagedController {
+@interface FavoritedController : UITableViewController <PagePickerDelegate> {
 	UIBarButtonItem *favoriteItem;
-	BOOL favoriteItemEnabled;
+	UIBarButtonItem *activityItem;
+	UIBarButtonItem *pagesItem;
+
+	NSUInteger pages;
+	NSUInteger currentPage;
+
 	BOOL favorited;
 }
 
 @property (nonatomic,retain) UIBarButtonItem *favoriteItem;
-@property (nonatomic,assign) BOOL favoriteItemEnabled;
+@property (nonatomic,retain) UIBarButtonItem *activityItem;
+@property (nonatomic,retain) UIBarButtonItem *pagesItem;
+
 @property (nonatomic,assign) BOOL favorited;
 
+- (void)resetNavigationBar;
+- (void)loadPage:(NSUInteger)page;
+- (void)finishedLoadingPage;
 - (void)favorite;
 
 @end

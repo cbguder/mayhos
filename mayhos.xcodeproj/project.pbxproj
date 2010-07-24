@@ -47,9 +47,7 @@
 		4C3FED61118F822A00AA6F39 /* mayhosTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED17118F822A00AA6F39 /* mayhosTabBarController.m */; };
 		4C3FED62118F822A00AA6F39 /* MoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED19118F822A00AA6F39 /* MoreController.m */; };
 		4C3FED63118F822A00AA6F39 /* OptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED1B118F822A00AA6F39 /* OptionController.m */; };
-		4C3FED64118F822A00AA6F39 /* PagedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED1D118F822A00AA6F39 /* PagedController.m */; };
 		4C3FED65118F822A00AA6F39 /* RecentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED1F118F822A00AA6F39 /* RecentsController.m */; };
-		4C3FED66118F822A00AA6F39 /* RefreshedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED21118F822A00AA6F39 /* RefreshedController.m */; };
 		4C3FED67118F822A00AA6F39 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED23118F822A00AA6F39 /* SearchController.m */; };
 		4C3FED68118F822A00AA6F39 /* TitleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED25118F822A00AA6F39 /* TitleController.m */; };
 		4C3FED69118F822A00AA6F39 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED27118F822A00AA6F39 /* WebController.m */; };
@@ -191,12 +189,8 @@
 		4C3FED19118F822A00AA6F39 /* MoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreController.m; sourceTree = "<group>"; };
 		4C3FED1A118F822A00AA6F39 /* OptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionController.h; sourceTree = "<group>"; };
 		4C3FED1B118F822A00AA6F39 /* OptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionController.m; sourceTree = "<group>"; };
-		4C3FED1C118F822A00AA6F39 /* PagedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedController.h; sourceTree = "<group>"; };
-		4C3FED1D118F822A00AA6F39 /* PagedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedController.m; sourceTree = "<group>"; };
 		4C3FED1E118F822A00AA6F39 /* RecentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsController.h; sourceTree = "<group>"; };
 		4C3FED1F118F822A00AA6F39 /* RecentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentsController.m; sourceTree = "<group>"; };
-		4C3FED20118F822A00AA6F39 /* RefreshedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshedController.h; sourceTree = "<group>"; };
-		4C3FED21118F822A00AA6F39 /* RefreshedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshedController.m; sourceTree = "<group>"; };
 		4C3FED22118F822A00AA6F39 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		4C3FED23118F822A00AA6F39 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		4C3FED24118F822A00AA6F39 /* TitleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleController.h; sourceTree = "<group>"; };
@@ -468,12 +462,8 @@
 				4C3FED19118F822A00AA6F39 /* MoreController.m */,
 				4C3FED1A118F822A00AA6F39 /* OptionController.h */,
 				4C3FED1B118F822A00AA6F39 /* OptionController.m */,
-				4C3FED1C118F822A00AA6F39 /* PagedController.h */,
-				4C3FED1D118F822A00AA6F39 /* PagedController.m */,
 				4C3FED1E118F822A00AA6F39 /* RecentsController.h */,
 				4C3FED1F118F822A00AA6F39 /* RecentsController.m */,
-				4C3FED20118F822A00AA6F39 /* RefreshedController.h */,
-				4C3FED21118F822A00AA6F39 /* RefreshedController.m */,
 				4C3FED22118F822A00AA6F39 /* SearchController.h */,
 				4C3FED23118F822A00AA6F39 /* SearchController.m */,
 				4C3FED24118F822A00AA6F39 /* TitleController.h */,
@@ -703,9 +693,7 @@
 				4C3FED61118F822A00AA6F39 /* mayhosTabBarController.m in Sources */,
 				4C3FED62118F822A00AA6F39 /* MoreController.m in Sources */,
 				4C3FED63118F822A00AA6F39 /* OptionController.m in Sources */,
-				4C3FED64118F822A00AA6F39 /* PagedController.m in Sources */,
 				4C3FED65118F822A00AA6F39 /* RecentsController.m in Sources */,
-				4C3FED66118F822A00AA6F39 /* RefreshedController.m in Sources */,
 				4C3FED67118F822A00AA6F39 /* SearchController.m in Sources */,
 				4C3FED68118F822A00AA6F39 /* TitleController.m in Sources */,
 				4C3FED69118F822A00AA6F39 /* WebController.m in Sources */,
