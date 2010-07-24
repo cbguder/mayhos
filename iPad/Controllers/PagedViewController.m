@@ -25,7 +25,7 @@
 - (void)setPages:(NSUInteger)thePages {
 	pages = thePages;
 
-	if(pages > 1) {
+	if (pages > 1) {
 		self.navigationItem.rightBarButtonItem = self.pagesItem;
 	} else {
 		self.navigationItem.rightBarButtonItem = nil;
@@ -57,7 +57,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 
-	if(pagesPopover.popoverVisible) {
+	if (pagesPopover.popoverVisible) {
 		[pagesPopover dismissPopoverAnimated:YES];
 	}
 }
@@ -73,7 +73,7 @@
 #pragma mark -
 
 - (void)pagesClicked {
-	if(!pagesPopover.popoverVisible) {
+	if (!pagesPopover.popoverVisible) {
 		PagePickerController *pagePickerController = (PagePickerController *)pagesPopover.contentViewController;
 		pagePickerController.currentPage = currentPage;
 		pagePickerController.totalPages = pages;

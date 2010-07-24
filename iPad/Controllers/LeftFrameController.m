@@ -32,7 +32,7 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	if([links count] == 0 && URL != nil) {
+	if ([links count] == 0 && URL != nil) {
 		[self loadURL];
 	}
 }
@@ -52,7 +52,7 @@
 	static NSString *linkCellIdentifier = @"Cell";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:linkCellIdentifier];
-	if(cell == nil) {
+	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:linkCellIdentifier] autorelease];
 	}
 

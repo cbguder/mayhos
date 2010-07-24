@@ -19,7 +19,7 @@
 #pragma mark Initialization
 
 - (id)initWithStyle:(UITableViewStyle)style {
-	if(self = [super initWithStyle:style]) {
+	if ((self = [super initWithStyle:style])) {
 		self.sortOptions = [NSArray arrayWithObjects:@"alfa - beta", @"yeni - eski", @"rerörerö", @"gudik", nil];
 		selectedSortOption = 0;
 	}
@@ -69,7 +69,7 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	if(queryField.text == nil && authorField.text == nil) {
+	if (queryField.text == nil && authorField.text == nil) {
 		[queryField becomeFirstResponder];
 	}
 }
@@ -86,7 +86,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if(section < 2) {
+	if (section < 2) {
 		return 2;
 	} else {
 		return 1;
@@ -96,10 +96,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell;
 
-	if(indexPath.section == 1) {
+	if (indexPath.section == 1) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil] autorelease];
 
-		if(indexPath.row == 0) {
+		if (indexPath.row == 0) {
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			cell.textLabel.text = @"sıra şekli";
 			cell.detailTextLabel.text = [sortOptions objectAtIndex:selectedSortOption];
@@ -110,7 +110,7 @@
 			[accessoryView release];
 			cell.textLabel.text = @"şu gün";
 
-			if(self.selectedDate != nil) {
+			if (self.selectedDate != nil) {
 				cell.detailTextLabel.text = formatDate(self.selectedDate);
 			}
 		}
@@ -118,8 +118,8 @@
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-		if(indexPath.section == 0) {
-			if(indexPath.row == 0) {
+		if (indexPath.section == 0) {
+			if (indexPath.row == 0) {
 				cell.textLabel.text = @"şey";
 				[cell addSubview:queryField];
 			} else {
@@ -139,14 +139,14 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(indexPath.section == 0) {
-		if(indexPath.row == 0) {
+	if (indexPath.section == 0) {
+		if (indexPath.row == 0) {
 			[queryField becomeFirstResponder];
 		} else {
 			[authorField becomeFirstResponder];
 		}
-	} else if(indexPath.section == 1) {
-		if(indexPath.row == 0) {
+	} else if (indexPath.section == 1) {
+		if (indexPath.row == 0) {
 			OptionController *optionController = [[OptionController alloc] initWithStyle:UITableViewStyleGrouped];
 			optionController.title = @"sıra şekli";
 			optionController.options = sortOptions;
@@ -159,7 +159,7 @@
 			[authorField resignFirstResponder];
 
 			DatePickerView *datePicker = [[DatePickerView alloc] init];
-			if(self.selectedDate != nil) {
+			if (self.selectedDate != nil) {
 				[datePicker setSelectedDate:selectedDate];
 			}
 			[datePicker setDelegate:self];
@@ -173,7 +173,7 @@
 #pragma mark Text field delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	if(textField == queryField) {
+	if (textField == queryField) {
 		[authorField becomeFirstResponder];
 	} else {
 		[authorField resignFirstResponder];
@@ -218,11 +218,11 @@
 												   date:selectedDate
 												  guzel:guzelSwitch.on];
 
-	if(queryField.text && ![queryField.text isEqualToString:@""]) {
+	if (queryField.text && ![queryField.text isEqualToString:@""]) {
 		linkController.title = queryField.text;
-	} else if(authorField.text && ![authorField.text isEqualToString:@""]) {
+	} else if (authorField.text && ![authorField.text isEqualToString:@""]) {
 		linkController.title = authorField.text;
-	} else if(self.selectedDate) {
+	} else if (self.selectedDate) {
 		linkController.title = formatDate(self.selectedDate);
 	} else {
 		linkController.title = @"akıl fikir";

@@ -43,7 +43,7 @@ enum {
 	self.clearsSelectionOnViewWillAppear = NO;
 
 	// FIXME: Private API
-	if([self.searchDisplayController.searchBar respondsToSelector:@selector(setCombinesLandscapeBars:)]) {
+	if ([self.searchDisplayController.searchBar respondsToSelector:@selector(setCombinesLandscapeBars:)]) {
 		[self.searchDisplayController.searchBar setCombinesLandscapeBars:NO];
 	}
 }
@@ -52,10 +52,10 @@ enum {
 	[super viewWillAppear:animated];
 
 	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-	if(selectedIndexPath) {
+	if (selectedIndexPath) {
 		UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
 
-		if(cell.accessoryType == UITableViewCellAccessoryDisclosureIndicator)
+		if (cell.accessoryType == UITableViewCellAccessoryDisclosureIndicator)
 			[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
 	}
 }
@@ -73,7 +73,7 @@ enum {
 #pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if(tableView == self.searchDisplayController.searchResultsTableView) {
+	if (tableView == self.searchDisplayController.searchResultsTableView) {
 		return [matches count];
 	}
 
@@ -84,40 +84,40 @@ enum {
 	static NSString *CellIdentifier = @"CellIdentifier";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if(cell == nil) {
+	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
 
-	if(tableView == self.searchDisplayController.searchResultsTableView) {
+	if (tableView == self.searchDisplayController.searchResultsTableView) {
 		cell.textLabel.text = [matches objectAtIndex:indexPath.row];
 		return cell;
 	}
 
-	if(indexPath.row == kRowFeatured || indexPath.row == kRowFAQ) {
+	if (indexPath.row == kRowFeatured || indexPath.row == kRowFAQ) {
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	} else {
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
-	if(indexPath.row == kRowToday) {
+	if (indexPath.row == kRowToday) {
 		cell.textLabel.text = @"bugün";
-	} else if(indexPath.row == kRowYesterday) {
+	} else if (indexPath.row == kRowYesterday) {
 		cell.textLabel.text = @"dün";
-	} else if(indexPath.row == kRowRandomDate) {
+	} else if (indexPath.row == kRowRandomDate) {
 		cell.textLabel.text = @"bir gün";
-	} else if(indexPath.row == kRowLastYear) {
+	} else if (indexPath.row == kRowLastYear) {
 		NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 		NSDateComponents *dateComponents = [gregorian components:NSYearCalendarUnit fromDate:[NSDate date]];
 		[gregorian release];
 
 		cell.textLabel.text = [NSString stringWithFormat:@"%d", dateComponents.year - 1];
-	} else if(indexPath.row == kRowRandom) {
+	} else if (indexPath.row == kRowRandom) {
 		cell.textLabel.text = @"rastgele";
-	} else if(indexPath.row == kRowFeatured) {
+	} else if (indexPath.row == kRowFeatured) {
 		cell.textLabel.text = @"şükela";
-	} else if(indexPath.row == kRowFAQ) {
+	} else if (indexPath.row == kRowFAQ) {
 		cell.textLabel.text = @"asl?";
-	} else if(indexPath.row == kRowFavorites) {
+	} else if (indexPath.row == kRowFavorites) {
 		cell.textLabel.text = @"favorites";
 	}
 
@@ -129,7 +129,7 @@ enum {
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(editingStyle == UITableViewCellEditingStyleDelete) {
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[[HistoryManager sharedManager] removeString:[self.matches objectAtIndex:indexPath.row]];
 		[self.matches removeObjectAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
@@ -140,20 +140,20 @@ enum {
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(tableView == self.searchDisplayController.searchResultsTableView) {
+	if (tableView == self.searchDisplayController.searchResultsTableView) {
 		[self search:[matches objectAtIndex:indexPath.row]];
 		return;
 	}
 
- 	if(indexPath.row == kRowFavorites) {
+ 	if (indexPath.row == kRowFavorites) {
 		FavoritesController_Pad *favoritesController = [[FavoritesController_Pad alloc] init];
 		favoritesController.title = @"favorites";
 		[self.navigationController pushViewController:favoritesController animated:YES];
 		[favoritesController release];
-	} else if(indexPath.row == kRowFeatured || indexPath.row == kRowFAQ) {
+	} else if (indexPath.row == kRowFeatured || indexPath.row == kRowFAQ) {
 		EksiTitle *eksiTitle;
 
-		if(indexPath.row == kRowFeatured) {
+		if (indexPath.row == kRowFeatured) {
 			eksiTitle = [EksiTitle titleWithURL:[API featuredURL]];
 		} else {
 			eksiTitle = [EksiTitle titleWithTitle:(NSString *)kFAQTitle];
@@ -163,16 +163,16 @@ enum {
 	} else {
 		LeftFrameController *leftFrameController = [[LeftFrameController alloc] initWithStyle:UITableViewStylePlain];
 
-		if(indexPath.row == kRowToday) {
+		if (indexPath.row == kRowToday) {
 			leftFrameController.title = @"bugün";
 			leftFrameController.URL = [API todayURL];
-		} else if(indexPath.row == kRowYesterday) {
+		} else if (indexPath.row == kRowYesterday) {
 			leftFrameController.title = @"dün";
 			leftFrameController.URL = [API yesterdayURL];
-		} else if(indexPath.row == kRowRandomDate || indexPath.row == kRowLastYear) {
+		} else if (indexPath.row == kRowRandomDate || indexPath.row == kRowLastYear) {
 			NSDate *date;
 
-			if(indexPath.row == kRowRandomDate) {
+			if (indexPath.row == kRowRandomDate) {
 				date = randomDate();
 			} else {
 				date = lastYear();
@@ -180,7 +180,7 @@ enum {
 
 			leftFrameController.title = formatDate(date);
 			leftFrameController.URL = [API URLForDate:date];
-		} else if(indexPath.row == kRowRandom) {
+		} else if (indexPath.row == kRowRandom) {
 			leftFrameController.title = @"rastgele";
 			leftFrameController.URL = [API randomURL];
 		}
@@ -201,7 +201,7 @@ enum {
 	[self.searchDisplayController.searchResultsTableView reloadData];
 
 	NSUInteger row = [matches indexOfObject:query];
-	if(row != NSNotFound) {
+	if (row != NSNotFound) {
 		[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]
 																		 animated:NO
 																   scrollPosition:UITableViewScrollPositionNone];
@@ -238,7 +238,7 @@ enum {
 #pragma mark Search
 
 - (void)filter:(NSString *)query {
-	if([query isEqualToString:@""]) {
+	if ([query isEqualToString:@""]) {
 		self.matches = nil;
 		return;
 	}
@@ -250,7 +250,7 @@ enum {
 }
 
 - (void)search:(NSString *)query {
-	if(self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+	if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
 		[self.searchDisplayController.searchBar resignFirstResponder];
 		UIAppDelegatePad.rightFrameController.eksiTitle = [EksiTitle titleWithTitle:query];
 	} else {

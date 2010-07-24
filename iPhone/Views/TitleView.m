@@ -17,7 +17,7 @@
 @implementation TitleView
 
 - (void)adjustFontSize {
-	if(!self.superview)
+	if (!self.superview)
 		return;
 
 	CGFloat initialSize = self.superview.frame.size.width > kBarrier ? kMaxFontSizeLandscape : kMaxFontSizePortrait;
@@ -32,7 +32,7 @@
 }
 
 - (id)initWithFrame:(CGRect)frame {
-	if(self = [super initWithFrame:frame]) {
+	if ((self = [super initWithFrame:frame])) {
 		label = [[UILabel alloc] initWithFrame:self.bounds];
 		label.backgroundColor = [UIColor clearColor];
 		label.textColor = [UIColor whiteColor];
@@ -62,7 +62,7 @@
 	CGFloat labelWidth = self.superview.frame.size.width - 2*MAX(left, right);
 	CGFloat minWidth;
 
-	if(self.superview.frame.size.width > kBarrier) {
+	if (self.superview.frame.size.width > kBarrier) {
 		label.numberOfLines = 1;
 		minWidth = [label.text sizeWithFont:minFont].width;
 	} else {
@@ -70,12 +70,12 @@
 		minWidth = [label.text absoluteMinimumWidthForFont:minFont];
 	}
 
-	if(labelWidth < minWidth) {
+	if (labelWidth < minWidth) {
 		labelWidth = MIN(minWidth, self.frame.size.width);
 	}
 
 	CGFloat labelX = 0;
-	if(right > left)
+	if (right > left)
 		labelX = self.frame.size.width - labelWidth;
 
 	label.frame = CGRectMake(labelX, 0, labelWidth, self.frame.size.height);

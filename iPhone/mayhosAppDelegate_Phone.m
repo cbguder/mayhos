@@ -46,7 +46,7 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	if(orientation == UIDeviceOrientationUnknown) {
+	if (orientation == UIDeviceOrientationUnknown) {
 		return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 	} else {
 		return toInterfaceOrientation == orientation;

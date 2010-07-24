@@ -11,7 +11,7 @@
 @implementation ModalPickerView
 
 - (id)initWithFrame:(CGRect)frame {
-	if(self = [super initWithFrame:frame]) {
+	if ((self = [super initWithFrame:frame])) {
 		self.backgroundColor = [UIColor clearColor];
 		self.frame = frame;
 	}
@@ -23,7 +23,7 @@
 	[super setFrame:frame];
 
 	pickerHeight = 216.0;
-	if(frame.size.width > frame.size.height) {
+	if (frame.size.width > frame.size.height) {
 		pickerHeight = 162.0;
 	}
 	pickerPos = frame.size.height - pickerHeight;

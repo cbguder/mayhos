@@ -21,7 +21,7 @@
 #pragma mark Initialization
 
 - (id)initWithDelegate:(id)theDelegate {
-	if(self = [super init]) {
+	if ((self = [super init])) {
 		self.delegate = theDelegate;
 	}
 
@@ -82,7 +82,7 @@
 }
 
 - (void)sliderDone {
-	if([delegate respondsToSelector:@selector(pagePickerController:pickedPage:)]) {
+	if ([delegate respondsToSelector:@selector(pagePickerController:pickedPage:)]) {
 		[delegate pagePickerController:self pickedPage:currentPage];
 	}
 }

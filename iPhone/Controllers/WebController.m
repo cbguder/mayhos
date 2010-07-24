@@ -20,7 +20,7 @@
 }
 
 - (id)initWithURL:(NSURL *)URL {
-	if(self = [super init]) {
+	if ((self = [super init])) {
 		self.currentURL = URL;
 	}
 
@@ -122,12 +122,12 @@
 #pragma mark Toolbar
 
 - (void)back {
-	if([webView canGoBack])
+	if ([webView canGoBack])
 		[webView goBack];
 }
 
 - (void)forward {
-	if([webView canGoForward])
+	if ([webView canGoForward])
 		[webView goForward];
 }
 
@@ -154,7 +154,7 @@
 #pragma mark Action sheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if(buttonIndex == 0) {
+	if (buttonIndex == 0) {
 		[[UIApplication sharedApplication] openURL:currentURL];
 	}
 }

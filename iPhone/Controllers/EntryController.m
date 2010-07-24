@@ -30,7 +30,7 @@
 #pragma mark Initialization
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle index:(NSUInteger)theIndex {
-	if(self = [super initWithNibName:nil bundle:nil]) {
+	if ((self = [super initWithNibName:nil bundle:nil])) {
 		eksiTitle = [theTitle retain];
 		index = theIndex;
 
@@ -86,10 +86,10 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 
-	if(![self.navigationController.viewControllers containsObject:self]) {
+	if (![self.navigationController.viewControllers containsObject:self]) {
 		UIViewController *topViewController = self.navigationController.topViewController;
 
-		if([topViewController isMemberOfClass:[TitleController class]]) {
+		if ([topViewController isMemberOfClass:[TitleController class]]) {
 			UITableView *tableView = (UITableView *)topViewController.view;
 			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
 
@@ -111,22 +111,22 @@
 #pragma mark Web view delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	if([request.URL.scheme isEqualToString:@"file"]) {
+	if ([request.URL.scheme isEqualToString:@"file"]) {
 		return YES;
 	}
 
-	if([request.URL.scheme isEqualToString:@"mayhos"]) {
+	if ([request.URL.scheme isEqualToString:@"mayhos"]) {
 		NSString *rest = [request.URL.absoluteString substringFromIndex:8];
 		NSURL *realURL = [API URLForPath:rest];
 
-		if([rest hasPrefix:@"/show.asp"]) {
+		if ([rest hasPrefix:@"/show.asp"]) {
 			NSString *titleText = [[[realURL queryDictionary] objectForKey:@"t"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 
 			EksiTitle *title = [EksiTitle titleWithTitle:titleText URL:realURL];
 			TitleController *titleController = [[TitleController alloc] initWithEksiTitle:title];
 			[self.navigationController pushViewController:titleController animated:YES];
 			[titleController release];
-		} else if([rest hasPrefix:@"/index.asp"]) {
+		} else if ([rest hasPrefix:@"/index.asp"]) {
 			NSString *kw = [[realURL queryDictionary] objectForKey:@"kw"];
 			NSString *query = [kw stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 
@@ -163,18 +163,18 @@
 - (void)refreshViewContent {
 	NSUInteger entryCount = [eksiTitle.entries count];
 
-	if(index < 0 || index >= entryCount) {
+	if (index < 0 || index >= entryCount) {
 		return;
 	}
 
 	self.title = [NSString stringWithFormat:@"%d of %d", index+1, entryCount];
 
-	if(upDownControl.numberOfSegments == 2) {
+	if (upDownControl.numberOfSegments == 2) {
 		[upDownControl setEnabled:(index != 0) forSegmentAtIndex:0];
 		[upDownControl setEnabled:(index+1 != entryCount) forSegmentAtIndex:1];
 	}
 
-	if(webView) {
+	if (webView) {
 		EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
 		NSDictionary *variables = [NSDictionary dictionaryWithObject:entry forKey:@"entry"];
 		NSString *htmlString = [templateEngine processTemplate:entryTemplate withVariables:variables];

@@ -37,7 +37,7 @@
 #pragma mark Initialization
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-	if(self = [super initWithCoder:aDecoder]) {
+	if ((self = [super initWithCoder:aDecoder])) {
 		self.templateEngine = [MGTemplateEngine templateEngine];
 		templateEngine.matcher = [ICUTemplateMatcher matcherWithTemplateEngine:templateEngine];
 
@@ -55,7 +55,7 @@
 #pragma mark Accessors
 
 - (void)setEksiTitle:(EksiTitle *)anEksiTitle {
-	if(eksiTitle != anEksiTitle) {
+	if (eksiTitle != anEksiTitle) {
 		[eksiTitle setDelegate:nil];
 		[eksiTitle release];
 
@@ -70,7 +70,7 @@
 - (void)setFavorited:(BOOL)theFavorited {
 	favorited = theFavorited;
 
-	if(favorited) {
+	if (favorited) {
 		self.favoriteItem.image = [UIImage imageNamed:@"Star.png"];
 	} else {
 		self.favoriteItem.image = [UIImage imageNamed:@"Star-Hollow.png"];
@@ -117,26 +117,26 @@
 #pragma mark Web view delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	if([request.URL.scheme isEqualToString:@"file"]) {
+	if ([request.URL.scheme isEqualToString:@"file"]) {
 		return YES;
 	}
 
-	if([request.URL.scheme isEqualToString:@"mayhos"]) {
+	if ([request.URL.scheme isEqualToString:@"mayhos"]) {
 		NSString *rest = [request.URL.absoluteString substringFromIndex:8];
 		NSURL *realURL = [API URLForPath:rest];
 
-		if([rest hasPrefix:@"/show.asp"]) {
+		if ([rest hasPrefix:@"/show.asp"]) {
 			// Change right frame
 
 			NSString *titleText = [[realURL queryDictionary] objectForKey:@"t"];
 			self.eksiTitle = [EksiTitle titleWithTitle:titleText URL:realURL];
 
 			UIViewController *leftFrameController = [self leftFrameController];
-			if([leftFrameController respondsToSelector:@selector(tableView)]) {
+			if ([leftFrameController respondsToSelector:@selector(tableView)]) {
 				UITableView *tableView = ((UITableViewController *)leftFrameController).tableView;
 				[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 			}
-		} else if([rest hasPrefix:@"/index.asp"]) {
+		} else if ([rest hasPrefix:@"/index.asp"]) {
 			// Change left frame
 
 			NSString *query = [[realURL queryDictionary] objectForKey:@"kw"];
@@ -164,7 +164,7 @@
 #pragma mark Split view support
 
 - (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc {
-	if([aViewController isKindOfClass:[UINavigationController class]]) {
+	if ([aViewController isKindOfClass:[UINavigationController class]]) {
 		barButtonItem.title = ((UINavigationController *)aViewController).topViewController.title;
 	} else {
 		barButtonItem.title = aViewController.title;
@@ -194,9 +194,9 @@
 
 	NSMutableDictionary *variables = [NSMutableDictionary dictionaryWithObject:title.entries forKey:@"entries"];
 
-	if([title isEmpty]) {
+	if ([title isEmpty]) {
 		NSString *message;
-		if([title.entries count]) {
+		if ([title.entries count]) {
 			EksiEntry *firstEntry = [title.entries objectAtIndex:0];
 			message = firstEntry.plainTextContent;
 		} else {
@@ -238,7 +238,7 @@
 
 - (UIViewController *)leftFrameController {
 	UIViewController *foo = [self.splitViewController.viewControllers objectAtIndex:0];
-	if([foo isKindOfClass:[UINavigationController class]]) {
+	if ([foo isKindOfClass:[UINavigationController class]]) {
 		return ((UINavigationController *)foo).topViewController;
 	} else {
 		return foo;
@@ -250,13 +250,13 @@
 }
 
 - (void)tumunuGoster {
-	if([self.eksiTitle hasMoreToLoad]) {
+	if ([self.eksiTitle hasMoreToLoad]) {
 		[self.eksiTitle loadAllEntries];
 	}
 }
 
 - (void)favorite {
-	if(favorited) {
+	if (favorited) {
 		[[FavoritesManager sharedManager] deleteFavoriteForTitle:eksiTitle.title];
 	} else {
 		[[FavoritesManager sharedManager] createFavoriteForTitle:eksiTitle.title];
@@ -270,7 +270,7 @@
 	UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 	[items addObject:flexibleSpace];
 
-	if([self.eksiTitle hasMoreToLoad]) {
+	if ([self.eksiTitle hasMoreToLoad]) {
 		[items addObject:tumuItem];
 		[items addObject:flexibleSpace];
 	}

@@ -34,7 +34,7 @@
 
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-	if(cell.imageView.image) {
+	if (cell.imageView.image) {
 		cell.indentationLevel = 0;
 	} else {
 		cell.indentationLevel = 1;
@@ -55,10 +55,10 @@
 
 	FavoritedController *favoritedController;
 
-	if(type == FavoriteTypeTitle) {
+	if (type == FavoriteTypeTitle) {
 		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:title URL:[API URLForTitle:title]];
 		favoritedController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
-	} else if(type == FavoriteTypeSearch) {
+	} else if (type == FavoriteTypeSearch) {
 		favoritedController = [[EksiLinkController alloc] init];
 		favoritedController.title = title;
 		((EksiLinkController *)favoritedController).URL = [API URLForPath:[favorite objectForKey:@"URL"]];

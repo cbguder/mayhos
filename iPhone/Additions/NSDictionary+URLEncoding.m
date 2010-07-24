@@ -13,7 +13,7 @@
 - (NSString *)urlEncodedString {
 	NSMutableArray *parts = [NSMutableArray arrayWithCapacity:[self count]];
 
-	for(id key in self) {
+	for (id key in self) {
 		id value = [self objectForKey:key];
 		NSString *part = [NSString stringWithFormat: @"%@=%@", urlEncode(key), urlEncode(value)];
 		[parts addObject:part];

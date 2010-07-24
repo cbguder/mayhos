@@ -27,13 +27,13 @@
 	NSString *currentVersion = [defaults objectForKey:@"version"];
 	static NSString *lastVersion = @"2.2";
 
-	if(currentVersion == nil) {
+	if (currentVersion == nil) {
 		NSArray *oldFavorites = [defaults objectForKey:@"favorites"];
 		NSMutableArray *newFavorites = [[NSMutableArray alloc] initWithCapacity:[oldFavorites count]];
 		NSNumber *searchType = [NSNumber numberWithInt:1];
 
-		for(NSDictionary *favorite in oldFavorites) {
-			if([[favorite objectForKey:@"type"] isEqualToNumber:searchType]) {
+		for (NSDictionary *favorite in oldFavorites) {
+			if ([[favorite objectForKey:@"type"] isEqualToNumber:searchType]) {
 				NSURL *newURL = [[NSURL URLWithString:[favorite objectForKey:@"URL"]] normalizedURL];
 				NSString *newURLString = [NSString stringWithFormat:@"%@?%@", [newURL path], [newURL query]];
 

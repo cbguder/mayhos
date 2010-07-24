@@ -13,7 +13,7 @@
 @synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame {
-	if(self = [super initWithFrame:frame]) {
+	if ((self = [super initWithFrame:frame])) {
 		datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, pickerPos, frame.size.width, pickerHeight)];
 		datePicker.datePickerMode = UIDatePickerModeDate;
 		[self addSubview:datePicker];

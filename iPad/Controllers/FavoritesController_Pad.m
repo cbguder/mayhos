@@ -34,7 +34,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-	if(cell.imageView.image) {
+	if (cell.imageView.image) {
 		UIImageView *accessoryView = [[UIImageView alloc] initWithImage:cell.imageView.image
 													   highlightedImage:cell.imageView.highlightedImage];
 		cell.accessoryView = accessoryView;
@@ -56,10 +56,10 @@
 	FavoriteType type = [[favorite objectForKey:@"type"] unsignedIntValue];
 	NSString *title = [favorite objectForKey:@"title"];
 
-	if(type == FavoriteTypeTitle) {
+	if (type == FavoriteTypeTitle) {
 		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:title URL:[API URLForTitle:title]];
 		UIAppDelegatePad.rightFrameController.eksiTitle = eksiTitle;
-	} else if(type == FavoriteTypeSearch) {
+	} else if (type == FavoriteTypeSearch) {
 		FavoritedLeftFrameController *leftFrameController = [[FavoritedLeftFrameController alloc] init];
 		leftFrameController.URL = [API URLForPath:[favorite objectForKey:@"URL"]];
 		leftFrameController.favorited = YES;

@@ -51,7 +51,7 @@
 - (void)setFavorited:(BOOL)theFavorited {
 	favorited = theFavorited;
 
-	if(favorited) {
+	if (favorited) {
 		self.favoriteItem.image = [UIImage imageNamed:@"Star.png"];
 	} else {
 		self.favoriteItem.image = [UIImage imageNamed:@"Star-Hollow.png"];
@@ -89,7 +89,7 @@
 }
 
 - (void)pagePicker:(PagePickerView *)pagePicker pickedPage:(NSUInteger)page {
-	if(currentPage != page) {
+	if (currentPage != page) {
 		[self loadPage:page];
 	}
 }

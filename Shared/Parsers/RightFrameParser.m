@@ -25,7 +25,7 @@
 @synthesize title, hasMoreToLoad, moreURL;
 
 - (id)initWithURL:(NSURL *)theURL delegate:(id<EksiParserDelegate>)theDelegate {
-	if(self = [super initWithURL:theURL delegate:theDelegate]) {
+	if ((self = [super initWithURL:theURL delegate:theDelegate])) {
 		title = [[NSMutableString alloc] init];
 		hasMoreToLoad = NO;
 	}
@@ -46,22 +46,22 @@
 }
 
 - (void)extractTextFromNode:(xmlNodePtr)node intoBuffer:(NSMutableString *)buffer {
-	if(node->type == XML_TEXT_NODE) {
+	if (node->type == XML_TEXT_NODE) {
 		[buffer appendString:[NSString stringWithUTF8String:(const char *)node->content]];
 	} else {
-		for(xmlNodePtr child = node->children; child; child = child->next) {
+		for (xmlNodePtr child = node->children; child; child = child->next) {
 			[self extractTextFromNode:child intoBuffer:buffer];
 		}
 	}
 }
 
 - (void)extractEntryPlainTextFromNode:(xmlNodePtr)node intoBuffer:(NSMutableString *)buffer {
-	if(node->type == XML_TEXT_NODE) {
+	if (node->type == XML_TEXT_NODE) {
 		[buffer appendString:[NSString stringWithUTF8String:(const char *)node->content]];
-	} else if(xmlStrEqual(node->name, (const xmlChar *)"br")) {
+	} else if (xmlStrEqual(node->name, (const xmlChar *)"br")) {
 		[buffer appendString:@"\n"];
-	} else if(!xmlStrEqual(node->name, (const xmlChar *)"div")) {
-		for(xmlNodePtr child = node->children; child; child = child->next) {
+	} else if (!xmlStrEqual(node->name, (const xmlChar *)"div")) {
+		for (xmlNodePtr child = node->children; child; child = child->next) {
 			[self extractEntryPlainTextFromNode:child intoBuffer:buffer];
 		}
 	}
@@ -71,7 +71,7 @@
 	xmlChar *value = xmlGetProp(node, property);
 	NSString *str = nil;
 
-	if(value) {
+	if (value) {
 		str = [NSString stringWithUTF8String:(const char *)value];
 		xmlFree(value);
 	}
@@ -82,13 +82,13 @@
 #pragma mark Node Processing Methods
 
 - (void)processNode:(xmlNodePtr)node {
-	while(node) {
-		if(node->type == XML_ELEMENT_NODE) {
-			if(xmlStrEqual(node->name, (const xmlChar *)"li")) {
+	while (node) {
+		if (node->type == XML_ELEMENT_NODE) {
+			if (xmlStrEqual(node->name, (const xmlChar *)"li")) {
 				[self processLiNode:node];
-			} else if(xmlStrEqual(node->name, (const xmlChar *)"h1")) {
+			} else if (xmlStrEqual(node->name, (const xmlChar *)"h1")) {
 				[self extractTextFromNode:node intoBuffer:title];
-			} else if(xmlStrEqual(node->name, (const xmlChar *)"button")) {
+			} else if (xmlStrEqual(node->name, (const xmlChar *)"button")) {
 				[self processButtonNode:node];
 			} else {
 				[self processNode:node->children];
@@ -102,14 +102,14 @@
 - (void)processButtonNode:(xmlNodePtr)node {
 	xmlChar *value = xmlNodeListGetString(node->doc, node->children, YES);
 
-	if(xmlStrEqual(value, (const xmlChar *)"tümünü göster")) {
-		for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
-			if(xmlStrEqual(attr->name, (const xmlChar *)"onclick")) {
+	if (xmlStrEqual(value, (const xmlChar *)"tümünü göster")) {
+		for (xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+			if (xmlStrEqual(attr->name, (const xmlChar *)"onclick")) {
 				xmlChar *attrValue = xmlNodeListGetString(node->doc, attr->children, YES);
 				NSString *onclick = [NSString stringWithUTF8String:(const char *)attrValue];
 				xmlFree(attrValue);
 
-				if([onclick hasPrefix:@"location.href='"] && [onclick hasSuffix:@"'"]) {
+				if ([onclick hasPrefix:@"location.href='"] && [onclick hasSuffix:@"'"]) {
 					hasMoreToLoad = YES;
 					moreURL = [[NSURL alloc] initWithString:
 							   [kSozlukURL stringByAppendingFormat:@"/%@", [onclick substringWithRange:NSMakeRange(15, onclick.length - 16)]]
@@ -123,41 +123,41 @@
 }
 
 - (void)processEntryNode:(xmlNodePtr)node intoAuthorBuffer:(NSMutableString *)authorBuffer entryBuffer:(NSMutableString *)entryBuffer {
-	if(node->type == XML_TEXT_NODE) {
+	if (node->type == XML_TEXT_NODE) {
 		[entryBuffer appendString:[NSString stringWithUTF8String:(const char *)node->content]];
 		return;
 	}
 
-	if(node->type != XML_ELEMENT_NODE) {
+	if (node->type != XML_ELEMENT_NODE) {
 		return;
 	}
 
-	if(xmlStrEqual(node->name, (const xmlChar *)"br")) {
+	if (xmlStrEqual(node->name, (const xmlChar *)"br")) {
 		[entryBuffer appendString:@"<br/>"];
 		return;
-	} else if(xmlStrEqual(node->name, (const xmlChar *)"div")) {
+	} else if (xmlStrEqual(node->name, (const xmlChar *)"div")) {
 		[self extractTextFromNode:node intoBuffer:authorBuffer];
 		return;
 	}
 
 	int isLink = 0;
-	if(xmlStrEqual(node->name, (const xmlChar *)"a")) {
+	if (xmlStrEqual(node->name, (const xmlChar *)"a")) {
 		isLink = 1;
 
-		for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
-			if(xmlStrEqual(attr->name, (const xmlChar *)"href")) {
+		for (xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+			if (xmlStrEqual(attr->name, (const xmlChar *)"href")) {
 				xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
 				NSString *URLString = [NSString stringWithUTF8String:(const char *)value];
 				BOOL internalLink = [URLString hasPrefix:@"show.asp"] || [URLString hasPrefix:@"index.asp"];
 
 				[entryBuffer appendString:@"<a href=\""];
 
-				if(internalLink)
+				if (internalLink)
 					[entryBuffer appendString:@"mayhos://"];
 
 				[entryBuffer appendString:URLString];
 
-				if(internalLink)
+				if (internalLink)
 					[entryBuffer appendString:@"\" class=\"internal"];
 
 				[entryBuffer appendString:@"\">"];
@@ -166,11 +166,11 @@
 		}
 	}
 
-	for(xmlNodePtr child = node->children; child; child = child->next) {
+	for (xmlNodePtr child = node->children; child; child = child->next) {
 		[self processEntryNode:child intoAuthorBuffer:authorBuffer entryBuffer:entryBuffer];
 	}
 
-	if(isLink) {
+	if (isLink) {
 		[entryBuffer appendString:@"</a>"];
 	}
 }

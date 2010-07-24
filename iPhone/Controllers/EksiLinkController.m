@@ -23,7 +23,7 @@
 #pragma mark Initialization
 
 - (id)init {
-	if(self = [self initWithCoder:nil]) {
+	if ((self = [self initWithCoder:nil])) {
 		self.hidesBottomBarWhenPushed = YES;
 	}
 
@@ -49,7 +49,7 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	if([links count] == 0 && URL != nil) {
+	if ([links count] == 0 && URL != nil) {
 		[self loadURL];
 	}
 }
@@ -65,7 +65,7 @@
 	static NSString *linkCellIdentifier = @"Cell";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:linkCellIdentifier];
-	if(cell == nil) {
+	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:linkCellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
@@ -145,7 +145,7 @@
 }
 
 - (void)favorite {
-	if(favorited) {
+	if (favorited) {
 		[[FavoritesManager sharedManager] deleteFavoriteForURL:self.URL];
 	} else {
 		[[FavoritesManager sharedManager] createFavoriteForURL:self.URL withTitle:self.title];

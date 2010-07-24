@@ -36,7 +36,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Initialization
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle {
-	if(self = [super initWithStyle:UITableViewStylePlain]) {
+	if ((self = [super initWithStyle:UITableViewStylePlain])) {
 		self.eksiTitle = theTitle;
 		self.hidesBottomBarWhenPushed = YES;
 	}
@@ -48,7 +48,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Accessors
 
 - (void)setEksiTitle:(EksiTitle *)theTitle {
-	if(theTitle != eksiTitle) {
+	if (theTitle != eksiTitle) {
 		[eksiTitle setDelegate:nil];
 		[eksiTitle release];
 		eksiTitle = [theTitle retain];
@@ -68,7 +68,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	if(!searchMode) {
+	if (!searchMode) {
 		self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümünü göster" style:UIBarButtonItemStyleBordered target:self action:@selector(tumu)];
 		[self.tumuItem release];
 
@@ -103,10 +103,10 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	if([eksiTitle.entries count] == 0) {
+	if ([eksiTitle.entries count] == 0) {
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadEntries];
-	} else if([eksiTitle isEmpty]) {
+	} else if ([eksiTitle isEmpty]) {
 		[self showAlert];
 	} else {
 		[self.tableView reloadData];
@@ -122,7 +122,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if([eksiTitle isEmpty]) {
+	if ([eksiTitle isEmpty]) {
 		return 0;
 	}
 
@@ -133,7 +133,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	static NSString *CellIdentifier = @"Cell";
 
 	EntryCell *cell = (EntryCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if(cell == nil) {
+	if (cell == nil) {
 		cell = [[[EntryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
@@ -148,7 +148,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat width = 320.0;
-	if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+	if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
 		width = 480.0;
 	}
 	width -= 40.0;
@@ -203,12 +203,12 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 	[self resetHeaderView];
 
-	if([title isEmpty]) {
+	if ([title isEmpty]) {
 		[self showAlert];
 	} else {
 		[self.tableView reloadData];
 
-		if(searchMode) {
+		if (searchMode) {
 			[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 		} else {
 			[self.tableView scrollRectToVisible:CGRectMake(0, 44, 1, 1) animated:NO];
@@ -244,7 +244,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)showAlert {
 	NSString *message;
 
-	if([eksiTitle.entries count]) {
+	if ([eksiTitle.entries count]) {
 		EksiEntry *firstEntry = [eksiTitle.entries objectAtIndex:0];
 		message = firstEntry.plainTextContent;
 	} else {
@@ -261,13 +261,13 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)resetNavigationBar {
-	if(!searchMode && [self isViewLoaded]) {
+	if (!searchMode && [self isViewLoaded]) {
 		self.toolbarItems = [self toolbarItemsIncludingTumuItem:[eksiTitle hasMoreToLoad]];
 	}
 }
 
 - (void)resetHeaderView {
-	if(![self.title isEqualToString:eksiTitle.title]) {
+	if (![self.title isEqualToString:eksiTitle.title]) {
 		self.navigationItem.title = eksiTitle.title;
 		self.titleView.text = eksiTitle.title;
 		self.navigationItem.titleView = titleView;
@@ -281,14 +281,14 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 }
 
 - (void)tumu {
-	if(eksiTitle.hasMoreToLoad)	{
+	if (eksiTitle.hasMoreToLoad)	{
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadAllEntries];
 	}
 }
 
 - (void)favorite {
-	if(favorited) {
+	if (favorited) {
 		[[FavoritesManager sharedManager] deleteFavoriteForTitle:eksiTitle.title];
 	} else {
 		[[FavoritesManager sharedManager] createFavoriteForTitle:eksiTitle.title];
@@ -300,7 +300,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (NSArray *)toolbarItemsIncludingTumuItem:(BOOL)includeTumuItem {
 	NSMutableArray *items = [NSMutableArray array];
 
-	if(includeTumuItem) {
+	if (includeTumuItem) {
 		[items addObject:self.tumuItem];
 	}
 

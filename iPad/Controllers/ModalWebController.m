@@ -17,7 +17,7 @@
 #pragma mark Initialization
 
 - (id)initWithURL:(NSURL *)theURL {
-	if(self = [super init]) {
+	if ((self = [super init])) {
 		self.URL = theURL;
 	}
 
@@ -25,7 +25,7 @@
 }
 
 - (void)setURL:(NSURL *)theURL {
-	if(URL != theURL) {
+	if (URL != theURL) {
 		[URL release];
 		URL = [theURL retain];
 		self.addressBar.text = [URL absoluteString];
@@ -39,9 +39,9 @@
 	reloadStopMode = mode;
 
 	UIImage *image = nil;
-	if(reloadStopMode == ReloadStopModeReload) {
+	if (reloadStopMode == ReloadStopModeReload) {
 		image = [UIImage imageNamed:@"AddressViewReload.png"];
-	} else if(reloadStopMode == ReloadStopModeStop) {
+	} else if (reloadStopMode == ReloadStopModeStop) {
 		image = [UIImage imageNamed:@"AddressViewStop.png"];
 	}
 
@@ -119,9 +119,9 @@
 }
 
 - (void)reloadStopClicked {
-	if(reloadStopMode == ReloadStopModeReload) {
+	if (reloadStopMode == ReloadStopModeReload) {
 		[webView reload];
-	} else if(reloadStopMode == ReloadStopModeStop) {
+	} else if (reloadStopMode == ReloadStopModeStop) {
 		[webView stopLoading];
 	}
 }

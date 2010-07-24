@@ -22,7 +22,7 @@
 }
 
 - (void)setAuthorAndDateFromSignature:(NSString *)signature {
-	if([signature length] <= 2) {
+	if ([signature length] <= 2) {
 		return;
 	}
 
@@ -35,10 +35,10 @@
 	self.author = [parts objectAtIndex:0];
 
 	NSArray *dateParts = [[parts objectAtIndex:1] componentsSeparatedByString:@" ~ "];
-	if([dateParts count] == 1) {
+	if ([dateParts count] == 1) {
 		self.date = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
 		self.lastEdit = nil;
-	} else if([dateParts count] > 1) {
+	} else if ([dateParts count] > 1) {
 		self.date = [EksiEntry parseDate:[dateParts objectAtIndex:0]];
 		self.lastEdit = [EksiEntry parseDate:[dateParts objectAtIndex:1] withBaseDate:[dateParts objectAtIndex:0]];
 	}
@@ -51,13 +51,13 @@
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 
-	if(lastEdit == nil || [date isEqualToDate:lastEdit]) {
+	if (lastEdit == nil || [date isEqualToDate:lastEdit]) {
 		return [dateFormatter stringFromDate:date];
 	} else {
 		long dnDate = (long) floor(([date timeIntervalSinceReferenceDate] + [[NSTimeZone localTimeZone] secondsFromGMTForDate:date]) / (double)(60*60*24));
 		long dnLastEdit = (long) floor(([lastEdit timeIntervalSinceReferenceDate] + [[NSTimeZone localTimeZone] secondsFromGMTForDate:lastEdit]) / (double)(60*60*24));
 
-		if(dnDate == dnLastEdit) {
+		if (dnDate == dnLastEdit) {
 			NSString *result = [dateFormatter stringFromDate:date];
 			[dateFormatter setDateStyle:NSDateFormatterNoStyle];
 			return [result stringByAppendingFormat:@" ~ %@", [dateFormatter stringFromDate:lastEdit]];
@@ -85,18 +85,18 @@
 	[dateFormatter setLocale:locale];
 	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Istanbul"]];
 
-	if([theDate length] == 5) {
-		if(theBaseDate == nil) {
+	if ([theDate length] == 5) {
+		if (theBaseDate == nil) {
 			[dateFormatter setDateStyle:NSDateFormatterNoStyle];
 			return [dateFormatter dateFromString:theDate];
 		} else {
 			theDate = [NSString stringWithFormat:@"%@ %@", [theBaseDate substringToIndex:10], theDate];
 			return [dateFormatter dateFromString:theDate];
 		}
-	} else if([theDate length] == 10) {
+	} else if ([theDate length] == 10) {
 		[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 		return [dateFormatter dateFromString:theDate];
-	} else if([theDate length] == 16) {
+	} else if ([theDate length] == 16) {
 		return [dateFormatter dateFromString:theDate];
 	}
 

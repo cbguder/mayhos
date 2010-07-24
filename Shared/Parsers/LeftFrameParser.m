@@ -24,9 +24,9 @@
 #pragma mark Node Processing Methods
 
 - (void)processNode:(xmlNodePtr)node {
-	while(node) {
-		if(node->type == XML_ELEMENT_NODE) {
-			if(xmlStrEqual(node->name, (const xmlChar *)"a")) {
+	while (node) {
+		if (node->type == XML_ELEMENT_NODE) {
+			if (xmlStrEqual(node->name, (const xmlChar *)"a")) {
 				[self processANode:node];
 			}
 
@@ -38,13 +38,13 @@
 }
 
 - (void)processANode:(xmlNodePtr)node {
-	for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
-		if(xmlStrEqual(attr->name, (const xmlChar *)"href")) {
+	for (xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+		if (xmlStrEqual(attr->name, (const xmlChar *)"href")) {
 			xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
 			NSString *theURL = [NSString stringWithUTF8String:(const char *)value];
 			xmlFree(value);
 
-			if([theURL hasPrefix:@"show.asp"]) {
+			if ([theURL hasPrefix:@"show.asp"]) {
 				EksiLink *link = [[EksiLink alloc] init];
 
 				xmlChar *value = xmlNodeListGetString(node->doc, node->children, YES);

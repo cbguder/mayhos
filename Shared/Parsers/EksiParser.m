@@ -28,7 +28,7 @@
 }
 
 - (id)initWithURL:(NSURL *)theURL delegate:(id<EksiParserDelegate>)theDelegate {
-	if(self = [super init]) {
+	if ((self = [super init])) {
 		[self setURL:theURL];
 		[self setDelegate:theDelegate];
 		[self setResults:[NSMutableArray array]];
@@ -38,7 +38,7 @@
 }
 
 - (void)dealloc {
-	if(self.connection) {
+	if (self.connection) {
 		[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 		[connection cancel];
 		[connection release];
@@ -64,7 +64,7 @@
 - (void)parseDocument {
 	[self _processNode:root];
 
-	if(pages == 0)
+	if (pages == 0)
 		pages = 1;
 }
 
@@ -77,14 +77,14 @@
 #pragma mark Node Processing Methods
 
 - (void)_processNode:(xmlNodePtr)node {
-	while(node) {
-		if(node->type == XML_ELEMENT_NODE) {
-			if(xmlStrEqual(node->name, (const xmlChar *)"select")) {
+	while (node) {
+		if (node->type == XML_ELEMENT_NODE) {
+			if (xmlStrEqual(node->name, (const xmlChar *)"select")) {
 				[self _processSelectNode:node];
 				[self _processNode:node->children];
-			} else if(xmlStrEqual(node->name, (const xmlChar *)"option")) {
+			} else if (xmlStrEqual(node->name, (const xmlChar *)"option")) {
 				[self _processOptionNode:node];
-			} else if(xmlStrEqual(node->name, (const xmlChar *)"a")) {
+			} else if (xmlStrEqual(node->name, (const xmlChar *)"a")) {
 				[self _processANode:node];
 			} else {
 				[self _processNode:node->children];
@@ -99,28 +99,28 @@
 	BOOL pageLink = NO;
 	NSString *pageURL;
 
-	for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
-		if(xmlStrEqual(attr->name, (const xmlChar *)"title")) {
+	for (xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+		if (xmlStrEqual(attr->name, (const xmlChar *)"title")) {
 			xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
-			if(xmlStrEqual(value, (const xmlChar *)"önceki sayfa") || xmlStrEqual(value, (const xmlChar *)"sonraki sayfa")) {
+			if (xmlStrEqual(value, (const xmlChar *)"önceki sayfa") || xmlStrEqual(value, (const xmlChar *)"sonraki sayfa")) {
 				pageLink = YES;
 			}
 			xmlFree(value);
-		} else if(xmlStrEqual(attr->name, (const xmlChar *)"href")) {
+		} else if (xmlStrEqual(attr->name, (const xmlChar *)"href")) {
 			xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
 			pageURL = [NSString stringWithUTF8String:(const char *)value];
 			xmlFree(value);
 		}
 	}
 
-	if(pageLink) {
+	if (pageLink) {
 		NSURL *tempURL = [NSURL URLWithString:[kSozlukURL stringByAppendingFormat:@"/%@", pageURL]];
 
 		NSDictionary *queryDictionary = [tempURL queryDictionary];
 		NSMutableDictionary *newQueryDictionary = [NSMutableDictionary dictionary];
 
-		for(NSString *key in queryDictionary) {
-			if(![key isEqualToString:@"p"] && ![[queryDictionary valueForKey:key] isEqualToString:@""]) {
+		for (NSString *key in queryDictionary) {
+			if (![key isEqualToString:@"p"] && ![[queryDictionary valueForKey:key] isEqualToString:@""]) {
 				[newQueryDictionary setObject:[queryDictionary valueForKey:key] forKey:key];
 			}
 		}
@@ -131,15 +131,15 @@
 }
 
 - (void)_processOptionNode:(xmlNodePtr)node {
-	for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
-		if(xmlStrEqual(attr->name, (const xmlChar *)"selected")) {
+	for (xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+		if (xmlStrEqual(attr->name, (const xmlChar *)"selected")) {
 			xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
 
-			if(xmlStrEqual(value, (const xmlChar *)"selected")) {
+			if (xmlStrEqual(value, (const xmlChar *)"selected")) {
 				currentPage = 0;
-				for(xmlNodePtr child = node->parent->children; child; child = child->next) {
+				for (xmlNodePtr child = node->parent->children; child; child = child->next) {
 					currentPage++;
-					if(child == node)
+					if (child == node)
 						break;
 				}
 			}
@@ -152,11 +152,11 @@
 }
 
 - (void)_processSelectNode:(xmlNodePtr)node {
-	for(xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
-		if(xmlStrEqual(attr->name, (const xmlChar *)"class")) {
+	for (xmlAttrPtr attr = node->properties; attr; attr = attr->next) {
+		if (xmlStrEqual(attr->name, (const xmlChar *)"class")) {
 			xmlChar *value = xmlNodeListGetString(node->doc, attr->children, YES);
 
-			if(xmlStrstr(value, (const xmlChar *)"pagis") != NULL) {
+			if (xmlStrstr(value, (const xmlChar *)"pagis") != NULL) {
 				pages = xmlChildElementCount(node);
 			}
 
@@ -186,7 +186,7 @@
 	[errorAlert show];
 	[errorAlert release];
 
-	if([delegate respondsToSelector:@selector(parser:didFailWithError:)]) {
+	if ([delegate respondsToSelector:@selector(parser:didFailWithError:)]) {
 		[delegate parser:self didFailWithError:error];
 	}
 }
@@ -200,7 +200,7 @@
 	[self parseDocument];
 	[self cleanupLibxml];
 
-	if([delegate respondsToSelector:@selector(parserDidFinishParsing:)]) {
+	if ([delegate respondsToSelector:@selector(parserDidFinishParsing:)]) {
 		[delegate parserDidFinishParsing:self];
 	}
 }

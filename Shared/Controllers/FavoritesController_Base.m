@@ -35,14 +35,14 @@
 	static NSString *CellIdentifier = @"Cell";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if(cell == nil) {
+	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
 
 	NSDictionary *favorite = [[[FavoritesManager sharedManager] favorites] objectAtIndex:indexPath.row];
 	cell.textLabel.text = [favorite objectForKey:@"title"];
 
-	if([[favorite objectForKey:@"type"] isEqualToNumber:[NSNumber numberWithUnsignedInt:FavoriteTypeSearch]]) {
+	if ([[favorite objectForKey:@"type"] isEqualToNumber:[NSNumber numberWithUnsignedInt:FavoriteTypeSearch]]) {
 		cell.imageView.image = [UIImage imageNamed:@"Search.png"];
 		cell.imageView.highlightedImage = [UIImage imageNamed:@"Search-Highlighted.png"];
 	} else {
@@ -54,7 +54,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(editingStyle == UITableViewCellEditingStyleDelete) {
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[[FavoritesManager sharedManager] deleteFavoriteAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
 	}

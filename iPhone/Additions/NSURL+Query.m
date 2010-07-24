@@ -14,22 +14,22 @@
 - (NSMutableDictionary *)queryDictionary {
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 
-	if([self query]) {
+	if ([self query]) {
 		NSScanner *scanner = [NSScanner scannerWithString:[self query]];
 		NSString *key;
 		NSString *value;
 
-		while(![scanner isAtEnd]) {
-			if(![scanner scanUpToString:@"=" intoString:&key]) key = nil;
+		while (![scanner isAtEnd]) {
+			if (![scanner scanUpToString:@"=" intoString:&key]) key = nil;
 			[scanner scanString:@"=" intoString:nil];
-			if(![scanner scanUpToString:@"&" intoString:&value]) value = nil;
+			if (![scanner scanUpToString:@"&" intoString:&value]) value = nil;
 			[scanner scanString:@"&" intoString:nil];
 
 			key = [key stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			value = [value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 			value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-			if(key != nil && value != nil) {
+			if (key != nil && value != nil) {
 				[dictionary setObject:value forKey:key];
 			}
 		}

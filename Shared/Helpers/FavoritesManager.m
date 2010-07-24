@@ -23,7 +23,7 @@ static FavoritesManager *SharedManager = nil;
 
 + (FavoritesManager *)sharedManager {
 	@synchronized(self) {
-		if(SharedManager == nil) {
+		if (SharedManager == nil) {
 			SharedManager = [[self allocWithZone:NULL] init];
 		}
 	}
@@ -32,7 +32,7 @@ static FavoritesManager *SharedManager = nil;
 }
 
 - (id)init {
-	if(self = [super init]) {
+	if ((self = [super init])) {
 		favorites = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"favorites"] mutableCopy];
 	}
 
@@ -78,7 +78,7 @@ static FavoritesManager *SharedManager = nil;
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(URL == %@)", path];
 	NSArray *matches = [favorites filteredArrayUsingPredicate:predicate];
 
-	if([matches count]) {
+	if ([matches count]) {
 		return [matches objectAtIndex:0];
 	} else {
 		return nil;
@@ -106,12 +106,12 @@ static FavoritesManager *SharedManager = nil;
 
 - (void)moveFavoriteAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
 	@synchronized(self) {
-		if(fromIndex != toIndex) {
+		if (fromIndex != toIndex) {
 			id obj = [favorites objectAtIndex:fromIndex];
 			[obj retain];
 			[favorites removeObjectAtIndex:fromIndex];
 
-			if(toIndex >= [favorites count]) {
+			if (toIndex >= [favorites count]) {
 				[favorites addObject:obj];
 			} else {
 				[favorites insertObject:obj atIndex:toIndex];
@@ -140,7 +140,7 @@ static FavoritesManager *SharedManager = nil;
 - (void)deleteFavoriteForURL:(NSURL *)URL {
 	@synchronized(self) {
 		NSDictionary *favorite = [self findFavoriteForURL:URL];
-		if(favorite) {
+		if (favorite) {
 			[favorites removeObject:favorite];
 			[self saveFavorites];
 		}

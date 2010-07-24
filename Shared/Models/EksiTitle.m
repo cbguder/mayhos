@@ -44,7 +44,7 @@
 }
 
 - (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
-	if(self = [super init]) {
+	if ((self = [super init])) {
 		self.title = theTitle;
 		self.URL = theURL;
 
@@ -71,9 +71,9 @@
 #pragma mark Accessors
 
 - (BOOL)isEmpty {
-	if([entries count] > 0) {
+	if ([entries count] > 0) {
 		EksiEntry *firstEntry = [entries objectAtIndex:0];
-		if(firstEntry.author == nil) {
+		if (firstEntry.author == nil) {
 			return YES;
 		} else {
 			return NO;
@@ -94,10 +94,10 @@
 }
 
 - (void)loadPage:(NSUInteger)page {
-	if(0 < page && page <= pages) {
+	if (0 < page && page <= pages) {
 		hasMoreToLoad = NO;
 
-		if(page == 1) {
+		if (page == 1) {
 			[self loadEntriesFromURL:baseURL];
 		} else {
 			NSMutableString *allURLString = [[baseURL absoluteString] mutableCopy];
@@ -135,7 +135,7 @@
 
 	self.parser = nil;
 
-	if([delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
+	if ([delegate respondsToSelector:@selector(titleDidFinishLoadingEntries:)]) {
 		[delegate titleDidFinishLoadingEntries:self];
 	}
 }
@@ -143,7 +143,7 @@
 - (void)parser:(EksiParser *)aParser didFailWithError:(NSError *)error {
 	self.parser = nil;
 
-	if([delegate respondsToSelector:@selector(title:didFailWithError:)]) {
+	if ([delegate respondsToSelector:@selector(title:didFailWithError:)]) {
 		[delegate title:self didFailWithError:error];
 	}
 }

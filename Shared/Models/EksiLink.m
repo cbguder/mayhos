@@ -21,7 +21,7 @@
 }
 
 - (id)initWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
-	if(self = [super init]) {
+	if ((self = [super init])) {
 		self.title = theTitle;
 		self.URL = theURL;
 	}

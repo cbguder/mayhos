@@ -45,23 +45,23 @@ enum {
 	static NSString *favoriteCellIdentifier = @"Cell";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:favoriteCellIdentifier];
-	if(cell == nil) {
+	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:favoriteCellIdentifier] autorelease];
 	}
 
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-	if(indexPath.row == kRowFeatured) {
+	if (indexPath.row == kRowFeatured) {
 		cell.textLabel.text = @"şükela";
-	} else if(indexPath.row == kRowYesterday) {
+	} else if (indexPath.row == kRowYesterday) {
 		cell.textLabel.text = @"dün";
-	} else if(indexPath.row == kRowRandomDate) {
+	} else if (indexPath.row == kRowRandomDate) {
 		cell.textLabel.text = @"bir gün";
-	} else if(indexPath.row == kRowRandom) {
+	} else if (indexPath.row == kRowRandom) {
 		cell.textLabel.text = @"rastgele";
-	} else if(indexPath.row == kRowFAQ) {
+	} else if (indexPath.row == kRowFAQ) {
 		cell.textLabel.text = @"asl?";
-	} else if(indexPath.row == kRowLastYear) {
+	} else if (indexPath.row == kRowLastYear) {
 		NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 		NSDateComponents *dateComponents = [gregorian components:NSYearCalendarUnit fromDate:[NSDate date]];
 		[gregorian release];
@@ -78,19 +78,19 @@ enum {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	UIViewController *viewController;
 
-	if(indexPath.row == kRowFeatured) {
+	if (indexPath.row == kRowFeatured) {
 		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:@"" URL:[API featuredURL]];
 		viewController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
-	} else if(indexPath.row == kRowYesterday) {
+	} else if (indexPath.row == kRowYesterday) {
 		EksiLinkController *eksiLinkController = [[EksiLinkController alloc] init];
 		eksiLinkController.title = @"dün";
 		eksiLinkController.URL = [API yesterdayURL];
 		eksiLinkController.noToolbar = YES;
 		viewController = eksiLinkController;
-	} else if(indexPath.row == kRowRandomDate || indexPath.row == kRowLastYear) {
+	} else if (indexPath.row == kRowRandomDate || indexPath.row == kRowLastYear) {
 		NSDate *date;
 
-		if(indexPath.row == kRowRandomDate) {
+		if (indexPath.row == kRowRandomDate) {
 			date = randomDate();
 		} else {
 			date = lastYear();
@@ -101,13 +101,13 @@ enum {
 		eksiLinkController.URL = [API URLForDate:date];
 		eksiLinkController.noToolbar = YES;
 		viewController = eksiLinkController;
-	} else if(indexPath.row == kRowRandom) {
+	} else if (indexPath.row == kRowRandom) {
 		EksiLinkController *eksiLinkController = [[EksiLinkController alloc] init];
 		eksiLinkController.title = @"rastgele";
 		eksiLinkController.URL = [API randomURL];
 		eksiLinkController.noToolbar = YES;
 		viewController = eksiLinkController;
-	} else if(indexPath.row == kRowFAQ) {
+	} else if (indexPath.row == kRowFAQ) {
 		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:(NSString *)kFAQTitle];
 		TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
 		titleController.noToolbar = YES;

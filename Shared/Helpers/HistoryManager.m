@@ -16,7 +16,7 @@ static HistoryManager *SharedManager = nil;
 
 + (HistoryManager *)sharedManager {
 	@synchronized(self) {
-		if(SharedManager == nil) {
+		if (SharedManager == nil) {
 			SharedManager = [[self allocWithZone:NULL] init];
 		}
 	}
@@ -25,7 +25,7 @@ static HistoryManager *SharedManager = nil;
 }
 
 - (id)init {
-	if(self = [super init]) {
+	if ((self = [super init])) {
 		history = [[NSMutableSet alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"history"]];
 	}
 

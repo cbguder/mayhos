@@ -42,7 +42,7 @@
 #pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if(tableView == self.searchDisplayController.searchResultsTableView) {
+	if (tableView == self.searchDisplayController.searchResultsTableView) {
 		return [self.matches count];
 	}
 
@@ -53,7 +53,7 @@
 	static NSString *CellIdentifier = @"Cell";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if(cell == nil) {
+	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
@@ -64,7 +64,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(editingStyle == UITableViewCellEditingStyleDelete) {
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[[HistoryManager sharedManager] removeString:[self.matches objectAtIndex:indexPath.row]];
 		[self.matches removeObjectAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
@@ -89,7 +89,7 @@
 	[self.searchDisplayController.searchResultsTableView reloadData];
 
 	NSUInteger row = [matches indexOfObject:query];
-	if(row != NSNotFound) {
+	if (row != NSNotFound) {
 		[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]
 																		 animated:NO
 																   scrollPosition:UITableViewScrollPositionNone];
@@ -110,7 +110,7 @@
 #pragma mark Search
 
 - (void)filter:(NSString *)query {
-	if([query isEqualToString:@""]) {
+	if ([query isEqualToString:@""]) {
 		self.matches = nil;
 		return;
 	}
@@ -122,7 +122,7 @@
 }
 
 - (void)search:(NSString *)query {
-	if(self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+	if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
 		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:query URL:[API URLForTitle:query]];
 		TitleController *titleController = [[TitleController alloc] initWithEksiTitle:eksiTitle];
 		[self.navigationController pushViewController:titleController animated:YES];

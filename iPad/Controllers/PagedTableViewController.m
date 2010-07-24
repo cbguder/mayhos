@@ -21,7 +21,7 @@
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
-	if(self = [super init]) {
+	if ((self = [super init])) {
 		self.clearsSelectionOnViewWillAppear = YES;
 		tableViewStyle = style;
 	}
@@ -57,9 +57,9 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
-	if([self.tableView numberOfRowsInSection:0] == 0) {
+	if ([self.tableView numberOfRowsInSection:0] == 0) {
 		[self.tableView reloadData];
-	} else if(self.clearsSelectionOnViewWillAppear) {
+	} else if (self.clearsSelectionOnViewWillAppear) {
 		[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
 	}
 }

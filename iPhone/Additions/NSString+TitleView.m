@@ -14,12 +14,12 @@
 	NSArray *parts = [self componentsSeparatedByString:@" "];
 	NSUInteger words = [parts count];
 
-	if(words == 0)
+	if (words == 0)
 		return 0;
 
 	CGFloat minWidth = CGFLOAT_MAX;
 
-	for(int i = 1; i <= words; i++) {
+	for (int i = 1; i <= words; i++) {
 		NSString *firstLine = [[parts subarrayWithRange:NSMakeRange(0, i)] componentsJoinedByString:@" "];
 		NSString *secondLine = [[parts subarrayWithRange:NSMakeRange(i, words-i)] componentsJoinedByString:@" "];
 
@@ -28,7 +28,7 @@
 
 		CGFloat width = MAX(firstLineSize.width, secondLineSize.width);
 
-		if(minWidth > width) {
+		if (minWidth > width) {
 			minWidth = width;
 		} else {
 			break;

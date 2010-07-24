@@ -40,7 +40,7 @@
 - (void)setFavorited:(BOOL)theFavorited {
 	favorited = theFavorited;
 
-	if(favorited) {
+	if (favorited) {
 		favoriteItem.image = [UIImage imageNamed:@"Star.png"];
 	} else {
 		favoriteItem.image = [UIImage imageNamed:@"Star-Hollow.png"];
@@ -48,7 +48,7 @@
 }
 
 - (void)favorite {
-	if(favorited) {
+	if (favorited) {
 		[[FavoritesManager sharedManager] deleteFavoriteForURL:self.URL];
 	} else {
 		[[FavoritesManager sharedManager] createFavoriteForURL:self.URL withTitle:self.title];

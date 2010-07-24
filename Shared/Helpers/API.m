@@ -50,25 +50,25 @@
 	NSMutableDictionary *searchDictionary = [NSMutableDictionary dictionary];
 	[searchDictionary setObject:@"sr" forKey:@"a"];
 
-	if(query) {
+	if (query) {
 		[searchDictionary setObject:query forKey:@"kw"];
 	}
 
-	if(author) {
+	if (author) {
 		[searchDictionary setObject:author forKey:@"au"];
 	}
 
-	if(sortCriteria == SortAlphabetically) {
+	if (sortCriteria == SortAlphabetically) {
 		[searchDictionary setObject:@"a" forKey:@"so"];
-	} else if(sortCriteria == SortByDate) {
+	} else if (sortCriteria == SortByDate) {
 		[searchDictionary setObject:@"y" forKey:@"so"];
-	} else if(sortCriteria == SortRandom) {
+	} else if (sortCriteria == SortRandom) {
 		[searchDictionary setObject:@"r" forKey:@"so"];
-	} else if(sortCriteria == SortGudik) {
+	} else if (sortCriteria == SortGudik) {
 		[searchDictionary setObject:@"g" forKey:@"so"];
 	}
 
-	if(date) {
+	if (date) {
 		NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 		NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:date];
 		[gregorian release];
@@ -78,7 +78,7 @@
 		[searchDictionary setObject:[NSNumber numberWithInteger:dateComponents.year] forKey:@"fy"];
 	}
 
-	if(guzel) {
+	if (guzel) {
 		[searchDictionary setObject:@"y" forKey:@"cr"];
 	}
 
