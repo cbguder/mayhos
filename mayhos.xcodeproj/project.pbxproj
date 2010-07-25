@@ -109,7 +109,6 @@
 		4CEFDCC711B6814E0008E428 /* AddressViewStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC311B6814E0008E428 /* AddressViewStop.png */; };
 		4CEFDCC811B6814E0008E428 /* iPadNavBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC411B6814E0008E428 /* iPadNavBack.png */; };
 		4CEFDCC911B6814E0008E428 /* iPadNavForward.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC511B6814E0008E428 /* iPadNavForward.png */; };
-		4CF59A5B11F8EA95007CF288 /* FavoritedLeftFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF59A5A11F8EA95007CF288 /* FavoritedLeftFrameController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -271,8 +270,6 @@
 		4CEFDCC311B6814E0008E428 /* AddressViewStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewStop.png; sourceTree = "<group>"; };
 		4CEFDCC411B6814E0008E428 /* iPadNavBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadNavBack.png; sourceTree = "<group>"; };
 		4CEFDCC511B6814E0008E428 /* iPadNavForward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadNavForward.png; sourceTree = "<group>"; };
-		4CF59A5911F8EA95007CF288 /* FavoritedLeftFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritedLeftFrameController.h; sourceTree = "<group>"; };
-		4CF59A5A11F8EA95007CF288 /* FavoritedLeftFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritedLeftFrameController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* mayhos-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "mayhos-Info.plist"; path = "../mayhos-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -532,8 +529,6 @@
 				4C6A264911B446DE0054F507 /* PagePickerController.m */,
 				4C3DCBF411B66D980067DFF2 /* FavoritesController_Pad.h */,
 				4C3DCBF511B66D980067DFF2 /* FavoritesController_Pad.m */,
-				4CF59A5911F8EA95007CF288 /* FavoritedLeftFrameController.h */,
-				4CF59A5A11F8EA95007CF288 /* FavoritedLeftFrameController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -618,7 +613,6 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "mayhos" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
@@ -743,7 +737,6 @@
 				4CE15A5A11BC42AA00F22FFE /* FavoritesController_Base.m in Sources */,
 				4CE15ABF11BC499B00F22FFE /* UIViewController+ModalPickerView.m in Sources */,
 				4C6E18C311C6C2D70005824F /* mayhosAppDelegate.m in Sources */,
-				4CF59A5B11F8EA95007CF288 /* FavoritedLeftFrameController.m in Sources */,
 				4C096E9211FB9307002C038A /* EntryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

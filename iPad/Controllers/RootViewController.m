@@ -7,7 +7,7 @@
 //
 
 #import "RootViewController.h"
-#import "FavoritedLeftFrameController.h"
+#import "LeftFrameController.h"
 #import "RightFrameController.h"
 #import "FavoritesController_Pad.h"
 #import "HistoryManager.h"
@@ -254,7 +254,8 @@ enum {
 		[self.searchDisplayController.searchBar resignFirstResponder];
 		UIAppDelegatePad.rightFrameController.eksiTitle = [EksiTitle titleWithTitle:query];
 	} else {
-		FavoritedLeftFrameController *leftFrameController = [[FavoritedLeftFrameController alloc] init];
+		LeftFrameController *leftFrameController = [[LeftFrameController alloc] init];
+		leftFrameController.favoritable = YES;
 		leftFrameController.URL = [API URLForSearchQuery:query];
 		leftFrameController.title = query;
 

@@ -7,7 +7,7 @@
 //
 
 #import "FavoritesController_Pad.h"
-#import "FavoritedLeftFrameController.h"
+#import "LeftFrameController.h"
 #import "FavoritesManager.h"
 
 @implementation FavoritesController_Pad
@@ -60,7 +60,8 @@
 		EksiTitle *eksiTitle = [EksiTitle titleWithTitle:title URL:[API URLForTitle:title]];
 		UIAppDelegatePad.rightFrameController.eksiTitle = eksiTitle;
 	} else if (type == FavoriteTypeSearch) {
-		FavoritedLeftFrameController *leftFrameController = [[FavoritedLeftFrameController alloc] init];
+		LeftFrameController *leftFrameController = [[LeftFrameController alloc] init];
+		leftFrameController.favoritable = YES;
 		leftFrameController.URL = [API URLForPath:[favorite objectForKey:@"URL"]];
 		leftFrameController.favorited = YES;
 		leftFrameController.title = title;

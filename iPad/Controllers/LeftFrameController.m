@@ -8,6 +8,7 @@
 
 #import "LeftFrameController.h"
 #import "RightFrameController.h"
+#import "FavoritesManager.h"
 #import "LeftFrameParser.h"
 #import "NSURL+Query.h"
 #import "EksiLink.h"
@@ -20,6 +21,7 @@
 @implementation LeftFrameController
 
 @synthesize links, URL;
+@synthesize favoriteItem, favoritable, favorited;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -27,6 +29,18 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.clearsSelectionOnViewWillAppear = NO;
+
+	if (favoritable) {
+		self.favoriteItem = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
+		favoriteItem.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
+		[favoriteItem release];
+
+		self.favorited = favorited;
+
+		UIBarButtonItem *flexibleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+		self.toolbarItems = [NSArray arrayWithObjects:flexibleSpaceItem, favoriteItem, nil];
+		[flexibleSpaceItem release];
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -37,8 +51,37 @@
 	}
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	if (favoritable) {
+		[self.navigationController setToolbarHidden:NO animated:animated];
+	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+
+	if (favoritable) {
+		[self.navigationController setToolbarHidden:YES animated:animated];
+	}
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return YES;
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+- (void)setFavorited:(BOOL)theFavorited {
+	favorited = theFavorited;
+
+	if (favorited) {
+		favoriteItem.image = [UIImage imageNamed:@"Star.png"];
+	} else {
+		favoriteItem.image = [UIImage imageNamed:@"Star-Hollow.png"];
+	}
 }
 
 #pragma mark -
@@ -73,7 +116,14 @@
 #pragma mark -
 #pragma mark Memory management
 
+- (void)viewDidUnload {
+	self.favoriteItem = nil;
+	self.toolbarItems = nil;
+	[super viewDidUnload];
+}
+
 - (void)dealloc {
+	[favoriteItem release];
 	[links release];
 	[URL release];
 	[super dealloc];
@@ -90,6 +140,10 @@
 
 	[self.tableView reloadData];
 	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+
+	if (favoritable) {
+		self.favorited = [[FavoritesManager sharedManager] hasFavoriteForURL:URL];
+	}
 
 	[parser release];
 }
@@ -110,6 +164,16 @@
 	[queryDictionary setObject:[NSNumber numberWithUnsignedInteger:page] forKey:@"p"];
 	self.URL = [self.URL URLBySettingQueryDictionary:queryDictionary];
 	[self loadURL];
+}
+
+- (void)favorite {
+	if (favorited) {
+		[[FavoritesManager sharedManager] deleteFavoriteForURL:self.URL];
+	} else {
+		[[FavoritesManager sharedManager] createFavoriteForURL:self.URL withTitle:self.title];
+	}
+
+	self.favorited = !self.favorited;
 }
 
 @end

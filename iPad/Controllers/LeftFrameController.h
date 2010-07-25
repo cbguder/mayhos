@@ -13,9 +13,17 @@
 @interface LeftFrameController : PagedTableViewController <EksiParserDelegate> {
 	NSArray *links;
 	NSURL *URL;
+
+	UIBarButtonItem *favoriteItem;
+	BOOL favoritable;
+	BOOL favorited;
 }
 
 @property (nonatomic,retain) NSArray *links;
 @property (nonatomic,retain) NSURL *URL;
+
+@property (nonatomic,retain) UIBarButtonItem *favoriteItem;
+@property (nonatomic,assign) BOOL favoritable;
+@property (nonatomic,assign) BOOL favorited;
 
 @end
