@@ -16,9 +16,9 @@
 	id delegate;
 }
 
-@property (nonatomic,retain) NSArray *options;
-@property (nonatomic,assign) NSUInteger selectedIndex;
-@property (nonatomic,assign) id<OptionControllerDelegate> delegate;
+@property (nonatomic, retain) NSArray *options;
+@property (nonatomic, assign) NSUInteger selectedIndex;
+@property (nonatomic, assign) id<OptionControllerDelegate> delegate;
 
 @end
 

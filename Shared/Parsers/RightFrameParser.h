@@ -15,8 +15,8 @@
 	NSURL *moreURL;
 }
 
-@property (nonatomic,readonly) NSString *title;
-@property (nonatomic,readonly) NSURL *moreURL;
-@property (nonatomic,readonly) BOOL hasMoreToLoad;
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSURL *moreURL;
+@property (nonatomic, readonly) BOOL hasMoreToLoad;
 
 @end

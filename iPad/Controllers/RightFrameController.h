@@ -27,6 +27,6 @@
 	BOOL favorited;
 }
 
-@property (nonatomic,retain) EksiTitle *eksiTitle;
+@property (nonatomic, retain) EksiTitle *eksiTitle;
 
 @end

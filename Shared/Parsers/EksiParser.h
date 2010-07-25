@@ -30,12 +30,12 @@
 - (void)parseDocument;
 - (void)parse;
 
-@property (nonatomic,retain) NSURL *URL;
-@property (nonatomic,retain) NSURL *baseURL;
-@property (nonatomic,assign) id<EksiParserDelegate> delegate;
-@property (nonatomic,retain) NSMutableArray *results;
-@property (nonatomic,readonly) NSUInteger pages;
-@property (nonatomic,readonly) NSUInteger currentPage;
+@property (nonatomic, retain) NSURL *URL;
+@property (nonatomic, retain) NSURL *baseURL;
+@property (nonatomic, assign) id<EksiParserDelegate> delegate;
+@property (nonatomic, retain) NSMutableArray *results;
+@property (nonatomic, readonly) NSUInteger pages;
+@property (nonatomic, readonly) NSUInteger currentPage;
 
 @end
 

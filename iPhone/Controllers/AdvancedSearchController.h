@@ -26,15 +26,15 @@
 	NSDate *selectedDate;
 }
 
-@property (nonatomic,retain) UIBarButtonItem *cancelItem;
-@property (nonatomic,retain) UIBarButtonItem *searchItem;
+@property (nonatomic, retain) UIBarButtonItem *cancelItem;
+@property (nonatomic, retain) UIBarButtonItem *searchItem;
 
-@property (nonatomic,retain) UITextField *queryField;
-@property (nonatomic,retain) UITextField *authorField;
+@property (nonatomic, retain) UITextField *queryField;
+@property (nonatomic, retain) UITextField *authorField;
 
-@property (nonatomic,retain) UISwitch *guzelSwitch;
+@property (nonatomic, retain) UISwitch *guzelSwitch;
 
-@property (nonatomic,retain) NSArray *sortOptions;
-@property (nonatomic,retain) NSDate *selectedDate;
+@property (nonatomic, retain) NSArray *sortOptions;
+@property (nonatomic, retain) NSDate *selectedDate;
 
 @end

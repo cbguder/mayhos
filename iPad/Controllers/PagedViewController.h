@@ -18,8 +18,8 @@
 	UIPopoverController *pagesPopover;
 }
 
-@property (nonatomic,assign) NSUInteger pages;
-@property (nonatomic,assign) NSUInteger currentPage;
+@property (nonatomic, assign) NSUInteger pages;
+@property (nonatomic, assign) NSUInteger currentPage;
 
 - (void)loadPage:(NSUInteger)page;
 

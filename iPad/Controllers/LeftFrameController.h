@@ -19,11 +19,11 @@
 	BOOL favorited;
 }
 
-@property (nonatomic,retain) NSArray *links;
-@property (nonatomic,retain) NSURL *URL;
+@property (nonatomic, retain) NSArray *links;
+@property (nonatomic, retain) NSURL *URL;
 
-@property (nonatomic,retain) UIBarButtonItem *favoriteItem;
-@property (nonatomic,assign) BOOL favoritable;
-@property (nonatomic,assign) BOOL favorited;
+@property (nonatomic, retain) UIBarButtonItem *favoriteItem;
+@property (nonatomic, assign) BOOL favoritable;
+@property (nonatomic, assign) BOOL favorited;
 
 @end

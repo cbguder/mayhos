@@ -17,13 +17,13 @@
 #import "ICUTemplateMatcher.h"
 
 @interface RightFrameController ()
-@property (nonatomic,retain) UIPopoverController *popoverController;
-@property (nonatomic,retain) UIBarButtonItem *tumuItem;
-@property (nonatomic,retain) UIBarButtonItem *favoriteItem;
-@property (nonatomic,retain) MGTemplateEngine *templateEngine;
-@property (nonatomic,copy) NSString *HTMLTemplate;
-@property (nonatomic,retain) NSURL *baseURL;
-@property (nonatomic,assign) BOOL favorited;
+@property (nonatomic, retain) UIPopoverController *popoverController;
+@property (nonatomic, retain) UIBarButtonItem *tumuItem;
+@property (nonatomic, retain) UIBarButtonItem *favoriteItem;
+@property (nonatomic, retain) MGTemplateEngine *templateEngine;
+@property (nonatomic, copy) NSString *HTMLTemplate;
+@property (nonatomic, retain) NSURL *baseURL;
+@property (nonatomic, assign) BOOL favorited;
 
 - (UIViewController *)leftFrameController;
 - (void)resetToolbar;

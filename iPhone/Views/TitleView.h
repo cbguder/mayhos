@@ -12,6 +12,6 @@
 	UILabel *label;
 }
 
-@property (nonatomic,copy) NSString *text;
+@property (nonatomic, copy) NSString *text;
 
 @end

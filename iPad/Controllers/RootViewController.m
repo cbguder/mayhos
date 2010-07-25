@@ -25,7 +25,7 @@ enum {
 };
 
 @interface RootViewController ()
-@property (nonatomic,retain) NSMutableArray *matches;
+@property (nonatomic, retain) NSMutableArray *matches;
 - (void)filter:(NSString *)query;
 - (void)search:(NSString *)query;
 @end

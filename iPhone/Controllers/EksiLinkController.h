@@ -18,10 +18,10 @@
 	BOOL noToolbar;
 }
 
-@property (nonatomic,retain) NSArray *links;
-@property (nonatomic,retain) NSURL *URL;
+@property (nonatomic, retain) NSArray *links;
+@property (nonatomic, retain) NSURL *URL;
 
-@property (nonatomic,assign) BOOL noToolbar;
+@property (nonatomic, assign) BOOL noToolbar;
 
 - (void)loadURL;
 

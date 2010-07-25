@@ -10,8 +10,8 @@
 #import "PagePickerController.h"
 
 @interface PagedViewController ()
-@property (nonatomic,retain) UIBarButtonItem *pagesItem;
-@property (nonatomic,retain) UIPopoverController *pagesPopover;
+@property (nonatomic, retain) UIBarButtonItem *pagesItem;
+@property (nonatomic, retain) UIPopoverController *pagesPopover;
 @end
 
 @implementation PagedViewController

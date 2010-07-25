@@ -20,14 +20,14 @@
 	UIBarButtonItem *activityItem;
 }
 
-@property (nonatomic,retain) NSURL *currentURL;
+@property (nonatomic, retain) NSURL *currentURL;
 
-@property (nonatomic,retain) UIBarButtonItem *backItem;
-@property (nonatomic,retain) UIBarButtonItem *forwardItem;
-@property (nonatomic,retain) UIBarButtonItem *reloadItem;
-@property (nonatomic,retain) UIBarButtonItem *stopItem;
-@property (nonatomic,retain) UIBarButtonItem *actionItem;
-@property (nonatomic,retain) UIBarButtonItem *activityItem;
+@property (nonatomic, retain) UIBarButtonItem *backItem;
+@property (nonatomic, retain) UIBarButtonItem *forwardItem;
+@property (nonatomic, retain) UIBarButtonItem *reloadItem;
+@property (nonatomic, retain) UIBarButtonItem *stopItem;
+@property (nonatomic, retain) UIBarButtonItem *actionItem;
+@property (nonatomic, retain) UIBarButtonItem *activityItem;
 
 - (id)initWithURL:(NSURL *)URL;
 

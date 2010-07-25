@@ -12,7 +12,7 @@
 	NSMutableSet *history;
 }
 
-@property (nonatomic,readonly) NSSet *history;
+@property (nonatomic, readonly) NSSet *history;
 
 + (HistoryManager *)sharedManager;
 

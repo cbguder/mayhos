@@ -16,7 +16,7 @@
 	id delegate;
 }
 
-@property (nonatomic,assign) id<DatePickerDelegate> delegate;
+@property (nonatomic, assign) id<DatePickerDelegate> delegate;
 
 - (void)setSelectedDate:(NSDate *)date;
 

@@ -28,17 +28,17 @@ typedef enum {
 	ReloadStopMode reloadStopMode;
 }
 
-@property (nonatomic,retain) NSURL *URL;
+@property (nonatomic, retain) NSURL *URL;
 
-@property (nonatomic,retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic,retain) IBOutlet UIBarButtonItem *backItem;
-@property (nonatomic,retain) IBOutlet UIBarButtonItem *forwardItem;
-@property (nonatomic,retain) IBOutlet UITextField *addressBar;
+@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *backItem;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *forwardItem;
+@property (nonatomic, retain) IBOutlet UITextField *addressBar;
 
-@property (nonatomic,retain) IBOutlet UIWebView *webView;
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
 
-@property (nonatomic,retain) UIButton *reloadStopButton;
-@property (nonatomic,assign) ReloadStopMode reloadStopMode;
+@property (nonatomic, retain) UIButton *reloadStopButton;
+@property (nonatomic, assign) ReloadStopMode reloadStopMode;
 
 - (id)initWithURL:(NSURL *)URL;
 - (IBAction)close;

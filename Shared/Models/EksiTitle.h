@@ -29,18 +29,18 @@
 	id delegate;
 }
 
-@property (nonatomic,copy) NSString *title;
-@property (nonatomic,retain) NSURL *URL;
-@property (nonatomic,retain) NSURL *moreURL;
-@property (nonatomic,retain) NSURL *baseURL;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, retain) NSURL *URL;
+@property (nonatomic, retain) NSURL *moreURL;
+@property (nonatomic, retain) NSURL *baseURL;
 
-@property (nonatomic,readonly) NSArray *entries;
-@property (nonatomic,readonly) BOOL hasMoreToLoad;
+@property (nonatomic, readonly) NSArray *entries;
+@property (nonatomic, readonly) BOOL hasMoreToLoad;
 
-@property (nonatomic,readonly) NSUInteger pages;
-@property (nonatomic,readonly) NSUInteger currentPage;
+@property (nonatomic, readonly) NSUInteger pages;
+@property (nonatomic, readonly) NSUInteger currentPage;
 
-@property (nonatomic,assign) id<EksiTitleDelegate> delegate;
+@property (nonatomic, assign) id<EksiTitleDelegate> delegate;
 
 + (id)titleForLink:(EksiLink *)link;
 + (id)titleWithTitle:(NSString *)title;

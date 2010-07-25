@@ -11,7 +11,7 @@
 #import "NSDictionary+URLEncoding.h"
 
 @interface EksiParser ()
-@property (nonatomic,retain) NSURLConnection *connection;
+@property (nonatomic, retain) NSURLConnection *connection;
 
 - (void)_processNode:(xmlNodePtr)node;
 - (void)_processANode:(xmlNodePtr)node;

@@ -9,8 +9,8 @@
 #import "PagePickerController.h"
 
 @interface PagePickerController ()
-@property (nonatomic,retain) UISlider *slider;
-@property (nonatomic,retain) UILabel *label;
+@property (nonatomic, retain) UISlider *slider;
+@property (nonatomic, retain) UILabel *label;
 @end
 
 @implementation PagePickerController

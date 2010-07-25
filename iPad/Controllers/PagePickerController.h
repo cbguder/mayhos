@@ -23,7 +23,7 @@
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) NSUInteger totalPages;
 
-@property (nonatomic,assign) id<PagePickerControllerDelegate> delegate;
+@property (nonatomic, assign) id<PagePickerControllerDelegate> delegate;
 
 - (id)initWithDelegate:(id)delegate;
 

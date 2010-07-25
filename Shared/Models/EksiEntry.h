@@ -19,14 +19,14 @@
 	NSDate *lastEdit;
 }
 
-@property (nonatomic,assign) NSUInteger order;
+@property (nonatomic, assign) NSUInteger order;
 
-@property (nonatomic,copy) NSString *author;
-@property (nonatomic,copy) NSString *content;
-@property (nonatomic,copy) NSString *plainTextContent;
+@property (nonatomic, copy) NSString *author;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *plainTextContent;
 
-@property (nonatomic,retain) NSDate *date;
-@property (nonatomic,retain) NSDate *lastEdit;
+@property (nonatomic, retain) NSDate *date;
+@property (nonatomic, retain) NSDate *lastEdit;
 
 + (NSDate *)parseDate:(NSString *)theDate;
 + (NSDate *)parseDate:(NSString *)theDate withBaseDate:(NSString *)theBaseDate;

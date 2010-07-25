@@ -13,7 +13,7 @@
 #import "EksiEntry.h"
 
 @interface EksiTitle ()
-@property (nonatomic,retain) RightFrameParser *parser;
+@property (nonatomic, retain) RightFrameParser *parser;
 - (void)loadEntriesFromURL:(NSURL *)theURL;
 @end
 

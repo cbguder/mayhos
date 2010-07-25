@@ -17,7 +17,7 @@ typedef enum {
 	NSMutableArray *favorites;
 }
 
-@property (nonatomic,readonly) NSArray *favorites;
+@property (nonatomic, readonly) NSArray *favorites;
 
 + (FavoritesManager *)sharedManager;
 

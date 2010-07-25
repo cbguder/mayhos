@@ -13,8 +13,8 @@
 	NSURL *URL;
 }
 
-@property (nonatomic,copy) NSString *title;
-@property (nonatomic,retain) NSURL *URL;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, retain) NSURL *URL;
 
 + (id)linkWithTitle:(NSString *)title URL:(NSURL *)URL;
 

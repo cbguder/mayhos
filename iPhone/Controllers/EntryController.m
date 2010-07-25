@@ -17,7 +17,7 @@
 #import "ICUTemplateMatcher.h"
 
 @interface EntryController ()
-@property (nonatomic,retain) MGTemplateEngine *templateEngine;
+@property (nonatomic, retain) MGTemplateEngine *templateEngine;
 
 - (void)refreshViewContent;
 @end

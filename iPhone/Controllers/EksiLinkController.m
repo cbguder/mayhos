@@ -12,7 +12,7 @@
 #import "FavoritesManager.h"
 
 @interface EksiLinkController ()
-@property (nonatomic,retain) LeftFrameParser *parser;
+@property (nonatomic, retain) LeftFrameParser *parser;
 @end
 
 @implementation EksiLinkController

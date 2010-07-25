@@ -16,7 +16,7 @@
 	UIBarButtonItem *advancedSearchItem;
 }
 
-@property (nonatomic,retain) NSMutableArray *matches;
-@property (nonatomic,retain) UIBarButtonItem *advancedSearchItem;
+@property (nonatomic, retain) NSMutableArray *matches;
+@property (nonatomic, retain) UIBarButtonItem *advancedSearchItem;
 
 @end

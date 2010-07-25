@@ -22,12 +22,12 @@
 	BOOL noToolbar;
 }
 
-@property (nonatomic,retain) UIBarButtonItem *tumuItem;
-@property (nonatomic,retain) EksiTitle *eksiTitle;
-@property (nonatomic,retain) TitleView *titleView;
+@property (nonatomic, retain) UIBarButtonItem *tumuItem;
+@property (nonatomic, retain) EksiTitle *eksiTitle;
+@property (nonatomic, retain) TitleView *titleView;
 
-@property (nonatomic,assign) BOOL searchMode;
-@property (nonatomic,assign) BOOL noToolbar;
+@property (nonatomic, assign) BOOL searchMode;
+@property (nonatomic, assign) BOOL noToolbar;
 
 - (id)initWithEksiTitle:(EksiTitle *)theTitle;
 
