@@ -15,7 +15,7 @@
 }
 
 @property (nonatomic, retain) UITableView *tableView;
-@property (nonatomic) BOOL clearsSelectionOnViewWillAppear;
+@property (nonatomic, assign) BOOL clearsSelectionOnViewWillAppear;
 
 - (id)initWithStyle:(UITableViewStyle)style;
 
