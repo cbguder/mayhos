@@ -19,7 +19,16 @@
 
 @implementation EksiTitle
 
-@synthesize delegate, title, URL, moreURL, baseURL, entries, hasMoreToLoad, pages, currentPage, parser;
+@synthesize delegate;
+@synthesize title;
+@synthesize URL;
+@synthesize moreURL;
+@synthesize baseURL;
+@synthesize entries;
+@synthesize hasMoreToLoad;
+@synthesize pages;
+@synthesize currentPage;
+@synthesize parser;
 
 + (id)titleForLink:(EksiLink *)link {
 	return [EksiTitle titleWithTitle:link.title URL:link.URL];

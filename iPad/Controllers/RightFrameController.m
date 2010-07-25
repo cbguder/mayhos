@@ -31,7 +31,14 @@
 
 @implementation RightFrameController
 
-@synthesize popoverController, tumuItem, favoriteItem, templateEngine, HTMLTemplate, baseURL, eksiTitle, favorited;
+@synthesize popoverController;
+@synthesize tumuItem;
+@synthesize favoriteItem;
+@synthesize templateEngine;
+@synthesize HTMLTemplate;
+@synthesize baseURL;
+@synthesize eksiTitle;
+@synthesize favorited;
 
 #pragma mark -
 #pragma mark Initialization

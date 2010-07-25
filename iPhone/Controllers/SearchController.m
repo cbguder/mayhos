@@ -17,7 +17,8 @@
 
 @implementation SearchController
 
-@synthesize matches, advancedSearchItem;
+@synthesize matches;
+@synthesize advancedSearchItem;
 
 #pragma mark -
 #pragma mark View lifecycle

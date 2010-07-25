@@ -21,7 +21,13 @@
 
 @implementation EksiParser
 
-@synthesize delegate, pages, currentPage, results, URL, baseURL, connection;
+@synthesize delegate;
+@synthesize pages;
+@synthesize currentPage;
+@synthesize results;
+@synthesize URL;
+@synthesize baseURL;
+@synthesize connection;
 
 - (id)init {
 	return [self initWithURL:nil delegate:nil];

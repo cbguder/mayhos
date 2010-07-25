@@ -10,7 +10,13 @@
 
 @implementation WebController
 
-@synthesize currentURL, backItem, forwardItem, reloadItem, stopItem, actionItem, activityItem;
+@synthesize currentURL;
+@synthesize backItem;
+@synthesize forwardItem;
+@synthesize reloadItem;
+@synthesize stopItem;
+@synthesize actionItem;
+@synthesize activityItem;
 
 #pragma mark -
 #pragma mark Initialization

@@ -22,7 +22,9 @@
 
 @implementation RightFrameParser
 
-@synthesize title, hasMoreToLoad, moreURL;
+@synthesize title;
+@synthesize hasMoreToLoad;
+@synthesize moreURL;
 
 - (id)initWithURL:(NSURL *)theURL delegate:(id<EksiParserDelegate>)theDelegate {
 	if ((self = [super initWithURL:theURL delegate:theDelegate])) {

@@ -17,7 +17,10 @@
 
 @implementation EksiLinkController
 
-@synthesize links, URL, noToolbar, parser;
+@synthesize links;
+@synthesize URL;
+@synthesize noToolbar;
+@synthesize parser;
 
 #pragma mark -
 #pragma mark Initialization

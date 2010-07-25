@@ -10,7 +10,12 @@
 
 @implementation EksiEntry
 
-@synthesize order, author, content, plainTextContent, date, lastEdit;
+@synthesize order;
+@synthesize author;
+@synthesize content;
+@synthesize plainTextContent;
+@synthesize date;
+@synthesize lastEdit;
 
 - (void) dealloc {
 	[author release];

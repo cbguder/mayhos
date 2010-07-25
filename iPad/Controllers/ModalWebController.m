@@ -10,8 +10,14 @@
 
 @implementation ModalWebController
 
-@synthesize URL, toolbar, backItem, forwardItem, addressBar, webView;
-@synthesize reloadStopButton, reloadStopMode;
+@synthesize URL;
+@synthesize toolbar;
+@synthesize backItem;
+@synthesize forwardItem;
+@synthesize addressBar;
+@synthesize webView;
+@synthesize reloadStopButton;
+@synthesize reloadStopMode;
 
 #pragma mark -
 #pragma mark Initialization

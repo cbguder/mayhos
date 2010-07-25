@@ -15,7 +15,11 @@
 
 @implementation PagePickerController
 
-@synthesize slider, label, currentPage, totalPages, delegate;
+@synthesize slider;
+@synthesize label;
+@synthesize currentPage;
+@synthesize totalPages;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Initialization

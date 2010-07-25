@@ -16,7 +16,10 @@
 
 @implementation PagedViewController
 
-@synthesize pages, currentPage, pagesItem, pagesPopover;
+@synthesize pages;
+@synthesize currentPage;
+@synthesize pagesItem;
+@synthesize pagesPopover;
 
 - (void)setPagesItemTitle {
 	self.pagesItem.title = [NSString stringWithFormat:@"%d/%d", currentPage, pages];

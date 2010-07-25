@@ -30,7 +30,11 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 @implementation TitleController
 
-@synthesize eksiTitle, titleView, tumuItem, searchMode, noToolbar;
+@synthesize eksiTitle;
+@synthesize titleView;
+@synthesize tumuItem;
+@synthesize searchMode;
+@synthesize noToolbar;
 
 #pragma mark -
 #pragma mark Initialization

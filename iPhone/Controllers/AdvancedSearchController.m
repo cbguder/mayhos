@@ -13,7 +13,13 @@
 
 @implementation AdvancedSearchController
 
-@synthesize cancelItem, searchItem, queryField, authorField, guzelSwitch, sortOptions, selectedDate;
+@synthesize cancelItem;
+@synthesize searchItem;
+@synthesize queryField;
+@synthesize authorField;
+@synthesize guzelSwitch;
+@synthesize sortOptions;
+@synthesize selectedDate;
 
 #pragma mark -
 #pragma mark Initialization

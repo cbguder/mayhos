@@ -10,7 +10,8 @@
 
 @implementation EksiLink
 
-@synthesize title, URL;
+@synthesize title;
+@synthesize URL;
 
 + (id)linkWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
 	return [[[EksiLink alloc] initWithTitle:theTitle URL:theURL] autorelease];

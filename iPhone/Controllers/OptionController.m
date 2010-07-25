@@ -10,7 +10,9 @@
 
 @implementation OptionController
 
-@synthesize options, selectedIndex, delegate;
+@synthesize options;
+@synthesize selectedIndex;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark View lifecycle

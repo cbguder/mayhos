@@ -20,8 +20,11 @@
 
 @implementation LeftFrameController
 
-@synthesize links, URL;
-@synthesize favoriteItem, favoritable, favorited;
+@synthesize links;
+@synthesize URL;
+@synthesize favoriteItem;
+@synthesize favoritable;
+@synthesize favorited;
 
 #pragma mark -
 #pragma mark View lifecycle
