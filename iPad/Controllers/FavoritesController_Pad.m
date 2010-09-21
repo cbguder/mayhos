@@ -74,7 +74,13 @@
 #pragma mark -
 
 - (void)favoritesSaved:(NSNotification *)notification {
-	[self.tableView reloadData];
+	if (reordering == NO) [self.tableView reloadData];
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+	reordering = YES;
+	[super tableView:tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+	reordering = NO;
 }
 
 @end

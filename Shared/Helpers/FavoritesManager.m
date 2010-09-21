@@ -107,8 +107,7 @@ static FavoritesManager *SharedManager = nil;
 - (void)moveFavoriteAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
 	@synchronized(self) {
 		if (fromIndex != toIndex) {
-			id obj = [favorites objectAtIndex:fromIndex];
-			[obj retain];
+			id obj = [[favorites objectAtIndex:fromIndex] retain];
 			[favorites removeObjectAtIndex:fromIndex];
 
 			if (toIndex >= [favorites count]) {

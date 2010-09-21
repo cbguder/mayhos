@@ -10,6 +10,7 @@
 #import "FavoritesController_Base.h"
 
 @interface FavoritesController_Pad : FavoritesController_Base {
+	BOOL reordering;
 }
 
 @end
