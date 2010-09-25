@@ -206,8 +206,9 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	self.currentPage = eksiTitle.currentPage;
 
 	[self resetHeaderView];
+	[self resetNavigationBar];
 
-	if ([title isEmpty]) {
+	if ([title isEmpty] && self == self.navigationController.topViewController) {
 		[self showAlert];
 	} else {
 		[self.tableView reloadData];
