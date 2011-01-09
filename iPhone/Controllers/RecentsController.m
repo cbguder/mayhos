@@ -19,7 +19,9 @@
 	self.URL = [API todayURL];
 
 	self.refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
-	refreshItem.enabled = NO;
+	if ([links count] == 0) {
+		refreshItem.enabled = NO;
+	}
 	self.navigationItem.leftBarButtonItem = refreshItem;
 	[refreshItem release];
 
