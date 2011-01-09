@@ -14,7 +14,12 @@
 			border-bottom: 1px solid #535353;
 			background: -webkit-gradient(linear, left top, left bottom, from(#e6e6e6), to(#a6a6a6));
 		}
-		#author { font-size: 16px; font-weight: bold; }
+		#author {
+			font-size: 16px;
+			font-weight: bold;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
 		#date { font-size: 12px; }
 		#chevron { background: url("Chevron.png") no-repeat center right; }
 		@media screen and (-webkit-min-device-pixel-ratio: 2) {
