@@ -24,32 +24,44 @@
 
 - (void)upgradeUserDefaults {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *currentVersion = [defaults objectForKey:@"version"];
-	static NSString *lastVersion = @"2.2";
 
-	if (currentVersion == nil) {
-		NSArray *oldFavorites = [defaults objectForKey:@"favorites"];
-		NSMutableArray *newFavorites = [[NSMutableArray alloc] initWithCapacity:[oldFavorites count]];
-		NSNumber *searchType = [NSNumber numberWithInt:1];
+	NSString *bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+	NSString *defaultsVersion = [defaults objectForKey:@"version"];
 
-		for (NSDictionary *favorite in oldFavorites) {
-			if ([[favorite objectForKey:@"type"] isEqualToNumber:searchType]) {
-				NSURL *newURL = [[NSURL URLWithString:[favorite objectForKey:@"URL"]] normalizedURL];
-				NSString *newURLString = [NSString stringWithFormat:@"%@?%@", [newURL path], [newURL query]];
-
-				NSMutableDictionary *newFavorite = [favorite mutableCopy];
-				[newFavorite setObject:newURLString forKey:@"URL"];
-				[newFavorites addObject:newFavorite];
-				[newFavorite release];
-			} else {
-				[newFavorites addObject:favorite];
-			}
-		}
-
-		[defaults setObject:newFavorites forKey:@"favorites"];
-		[defaults setObject:lastVersion forKey:@"version"];
-		[defaults synchronize];
+	if (defaultsVersion != nil && [defaultsVersion compare:bundleVersion] != NSOrderedAscending) {
+		return;
 	}
+
+	NSArray *prefixes = [NSArray arrayWithObjects:@"http://www.eksisozluk.com", @"http://sozluk.sourtimes.org", @"(null)://(null)", nil];
+
+	NSArray *oldFavorites = [defaults objectForKey:@"favorites"];
+	NSMutableArray *newFavorites = [[NSMutableArray alloc] initWithCapacity:[oldFavorites count]];
+	NSNumber *searchType = [NSNumber numberWithInt:1];
+
+	for (NSDictionary *favorite in oldFavorites) {
+		if ([[favorite objectForKey:@"type"] isEqualToNumber:searchType]) {
+			NSString *oldURL = [favorite objectForKey:@"URL"];
+			NSString *newURL = [NSString stringWithString:oldURL];
+
+			for (NSString *prefix in prefixes) {
+				if ([oldURL hasPrefix:prefix]) {
+					newURL = [oldURL substringFromIndex:[prefix length]];
+					break;
+				}
+			}
+
+			NSMutableDictionary *newFavorite = [favorite mutableCopy];
+			[newFavorite setObject:newURL forKey:@"URL"];
+			[newFavorites addObject:newFavorite];
+			[newFavorite release];
+		} else {
+			[newFavorites addObject:favorite];
+		}
+	}
+
+	[defaults setObject:newFavorites forKey:@"favorites"];
+	[defaults setObject:bundleVersion forKey:@"version"];
+	[defaults synchronize];
 }
 
 @end
