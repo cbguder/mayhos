@@ -167,7 +167,9 @@
 		return;
 	}
 
-	self.title = [NSString stringWithFormat:@"%d of %d", index+1, entryCount];
+	EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
+
+	self.title = [NSString stringWithFormat:@"#%d", entry.order];
 
 	if (upDownControl.numberOfSegments == 2) {
 		[upDownControl setEnabled:(index != 0) forSegmentAtIndex:0];
@@ -175,7 +177,6 @@
 	}
 
 	if (webView) {
-		EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
 		NSDictionary *variables = [NSDictionary dictionaryWithObject:entry forKey:@"entry"];
 		NSString *htmlString = [templateEngine processTemplate:entryTemplate withVariables:variables];
 		[webView loadHTMLString:htmlString baseURL:baseURL];
