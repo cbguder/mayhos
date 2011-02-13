@@ -37,7 +37,7 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
+	}
 
 	if (selectedIndex == indexPath.row) {
 		cell.accessoryType = UITableViewCellAccessoryCheckmark;

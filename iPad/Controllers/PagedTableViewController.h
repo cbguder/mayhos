@@ -11,7 +11,7 @@
 
 @interface PagedTableViewController : PagedViewController <UITableViewDataSource, UITableViewDelegate> {
 	BOOL clearsSelectionOnViewWillAppear;
-    UITableViewStyle tableViewStyle;
+	UITableViewStyle tableViewStyle;
 }
 
 @property (nonatomic, retain) UITableView *tableView;
