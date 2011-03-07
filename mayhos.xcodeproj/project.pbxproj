@@ -305,8 +305,6 @@
 				4C3FECFB118F822000AA6F39 /* Shared */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				4C3C5AF210F6B135001AA58B /* libxml2.dylib */,
-				4C1E09FC11B81B9D00D08DEC /* libicucore.A.dylib */,
 			);
 			name = mayhos;
 			sourceTree = "<group>";
@@ -317,6 +315,8 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
+				4C3C5AF210F6B135001AA58B /* libxml2.dylib */,
+				4C1E09FC11B81B9D00D08DEC /* libicucore.A.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
