@@ -98,7 +98,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.navigationController setToolbarHidden:(noToolbar || searchMode) animated:YES];
+	[self.navigationController setToolbarHidden:(noToolbar || searchMode) animated:animated];
 	[self.titleView setFrame:CGRectMake(0, 0, 480, 44)];
 }
 
