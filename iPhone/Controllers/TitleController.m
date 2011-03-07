@@ -23,8 +23,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 @interface TitleController (Private)
 - (void)checkEmptyTitle;
 - (void)showAlert;
-- (void)resetHeaderView;
-- (void)resetNavigationBar;
+- (void)reset;
 - (NSArray *)toolbarItemsIncludingTumuItem:(BOOL)includeTumuItem;
 @end
 
@@ -62,8 +61,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		self.currentPage = eksiTitle.currentPage;
 	}
 
-	[self resetNavigationBar];
-	[self resetHeaderView];
+	[self reset];
 }
 
 #pragma mark -
@@ -205,8 +203,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	self.numberOfPages = eksiTitle.pages;
 	self.currentPage = eksiTitle.currentPage;
 
-	[self resetHeaderView];
-	[self resetNavigationBar];
+	[self reset];
 
 	if ([title isEmpty] && self == self.navigationController.topViewController) {
 		[self showAlert];
@@ -250,17 +247,15 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[alertView release];
 }
 
-- (void)resetNavigationBar {
-	if (!searchMode && [self isViewLoaded]) {
-		self.toolbarItems = [self toolbarItemsIncludingTumuItem:[eksiTitle hasMoreToLoad]];
-	}
-}
-
-- (void)resetHeaderView {
+- (void)reset {
 	if (![self.title isEqualToString:eksiTitle.title]) {
 		self.navigationItem.title = eksiTitle.title;
 		self.titleView.text = eksiTitle.title;
 		self.navigationItem.titleView = titleView;
+	}
+
+	if (!searchMode && [self isViewLoaded]) {
+		self.toolbarItems = [self toolbarItemsIncludingTumuItem:[eksiTitle hasMoreToLoad]];
 	}
 }
 
