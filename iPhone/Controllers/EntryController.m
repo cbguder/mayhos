@@ -163,9 +163,7 @@
 - (void)refreshViewContent {
 	NSUInteger entryCount = [eksiTitle.entries count];
 
-	if (index < 0 || index >= entryCount) {
-		return;
-	}
+	if (index >= entryCount) return;
 
 	EksiEntry *entry = [eksiTitle.entries objectAtIndex:index];
 
