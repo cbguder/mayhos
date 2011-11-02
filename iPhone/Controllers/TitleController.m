@@ -229,11 +229,10 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Drawing
 
 - (void)showAlert {
-	NSString *message;
+	NSString *message = nil;
 
-	if ([eksiTitle.entries count]) {
-		EksiEntry *firstEntry = [eksiTitle.entries objectAtIndex:0];
-		message = firstEntry.plainTextContent;
+	if (eksiTitle.message) {
+		message = eksiTitle.message;
 	} else {
 		message = @"olmaması gereken şeyler oldu.";
 	}

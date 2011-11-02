@@ -199,18 +199,16 @@
 
 	[self resetToolbar];
 
-	NSMutableDictionary *variables = [NSMutableDictionary dictionaryWithObject:title.entries forKey:@"entries"];
+	NSMutableDictionary *variables = [NSMutableDictionary dictionary];
 
-	if ([title isEmpty]) {
-		NSString *message;
-		if ([title.entries count]) {
-			EksiEntry *firstEntry = [title.entries objectAtIndex:0];
-			message = firstEntry.plainTextContent;
-		} else {
-			message = @"olmaması gereken şeyler oldu.";
-		}
+	if (![title isEmpty]) {
+		[variables setObject:title.entries forKey:@"entries"];
+	}
 
-		[variables setObject:message forKey:@"errorMessage"];
+	if (title.message) {
+		[variables setObject:title.message forKey:@"errorMessage"];
+	} else if ([title isEmpty]) {
+		[variables setObject:@"olmaması gereken şeyler oldu." forKey:@"errorMessage"];
 	}
 
 	NSString *result = [templateEngine processTemplate:self.HTMLTemplate withVariables:variables];

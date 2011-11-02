@@ -16,7 +16,8 @@
 <body>
 {% if errorMessage %}
 	<ul><li id="ampul">{{ errorMessage }}</li></ul>
-{% else %}
+{% /if %}
+{% if entries %}
 	<ol id="entries">
 {% for e in entries %}
 		<li class="entry" value="{{ e.order }}">
