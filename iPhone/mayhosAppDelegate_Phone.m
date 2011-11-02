@@ -38,7 +38,7 @@
 }
 
 - (void)lockOrientation:(UIInterfaceOrientation)toOrientation {
-	orientation = toOrientation;
+	orientation = (UIDeviceOrientation)toOrientation;
 }
 
 - (void)unlockOrientation {
