@@ -122,13 +122,18 @@
 	[entries release];
 	entries = [aParser.results mutableCopy];
 
-	if ([entries count]) {
-		EksiEntry *firstEntry = [entries objectAtIndex:0];
-		if (firstEntry.author == nil) {
-			[message release];
-			message = [firstEntry.plainTextContent retain];
-			[(NSMutableArray *)entries removeObjectAtIndex:0];
-		}
+	int entriesToRemove = 0;
+	for (EksiEntry *entry in entries) {
+		if (entry.author) break;
+
+		[message release];
+		message = [entry.plainTextContent retain];
+
+		entriesToRemove++;
+	}
+
+	if (entriesToRemove > 0) {
+		[(NSMutableArray *)entries removeObjectsInRange:NSMakeRange(0, entriesToRemove)];
 	}
 
 	pages = aParser.pages;
