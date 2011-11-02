@@ -73,8 +73,8 @@
 	self.pagesControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	self.pagesControl.momentary = YES;
 	[self.pagesControl addTarget:self action:@selector(pagesClicked) forControlEvents:UIControlEventValueChanged];
-	[self.pagesControl setWidth:30 forSegmentAtIndex:0];
-	[self.pagesControl setWidth:30 forSegmentAtIndex:2];
+	[self.pagesControl setWidth:35 forSegmentAtIndex:0];
+	[self.pagesControl setWidth:35 forSegmentAtIndex:2];
 
 	self.pagesItem = [[[UIBarButtonItem alloc] initWithCustomView:pagesControl] autorelease];
 	[self setPagesItemTitle];
