@@ -28,6 +28,7 @@
 @synthesize hasMoreToLoad;
 @synthesize pages;
 @synthesize currentPage;
+@synthesize message;
 @synthesize parser;
 
 + (id)titleForLink:(EksiLink *)link {
@@ -73,6 +74,7 @@
 	[moreURL release];
 	[baseURL release];
 	[entries release];
+	[message release];
 
 	[super dealloc];
 }
@@ -80,16 +82,7 @@
 #pragma mark Accessors
 
 - (BOOL)isEmpty {
-	if ([entries count] > 0) {
-		EksiEntry *firstEntry = [entries objectAtIndex:0];
-		if (firstEntry.author == nil) {
-			return YES;
-		} else {
-			return NO;
-		}
-	}
-
-	return YES;
+	return ([entries count] == 0);
 }
 
 #pragma mark Other Methods
@@ -127,7 +120,16 @@
 
 - (void)parserDidFinishParsing:(RightFrameParser *)aParser {
 	[entries release];
-	entries = [aParser.results copy];
+	entries = [aParser.results mutableCopy];
+
+	if ([entries count]) {
+		EksiEntry *firstEntry = [entries objectAtIndex:0];
+		if (firstEntry.author == nil) {
+			[message release];
+			message = [firstEntry.plainTextContent retain];
+			[(NSMutableArray *)entries removeObjectAtIndex:0];
+		}
+	}
 
 	pages = aParser.pages;
 	currentPage = aParser.currentPage;

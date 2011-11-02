@@ -26,6 +26,8 @@
 	NSUInteger pages;
 	NSUInteger currentPage;
 
+	NSString *message;
+
 	id delegate;
 }
 
@@ -39,6 +41,8 @@
 
 @property (nonatomic, readonly) NSUInteger pages;
 @property (nonatomic, readonly) NSUInteger currentPage;
+
+@property (nonatomic, readonly) NSString *message;
 
 @property (nonatomic, assign) id<EksiTitleDelegate> delegate;
 
