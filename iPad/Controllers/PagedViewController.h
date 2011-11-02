@@ -15,6 +15,7 @@
 	NSUInteger currentPage;
 
 	UIBarButtonItem *pagesItem;
+	UISegmentedControl *pagesControl;
 	UIPopoverController *pagesPopover;
 }
 

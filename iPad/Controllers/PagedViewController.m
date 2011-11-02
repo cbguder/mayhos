@@ -11,6 +11,7 @@
 
 @interface PagedViewController ()
 @property (nonatomic, retain) UIBarButtonItem *pagesItem;
+@property (nonatomic, retain) UISegmentedControl *pagesControl;
 @property (nonatomic, retain) UIPopoverController *pagesPopover;
 @end
 
@@ -19,10 +20,28 @@
 @synthesize pages;
 @synthesize currentPage;
 @synthesize pagesItem;
+@synthesize pagesControl;
 @synthesize pagesPopover;
 
 - (void)setPagesItemTitle {
-	self.pagesItem.title = [NSString stringWithFormat:@"%d/%d", currentPage, pages];
+	[self.pagesControl setTitle:[NSString stringWithFormat:@"%d/%d", currentPage, pages]
+			  forSegmentAtIndex:1];
+	[self.pagesControl setEnabled:(currentPage != 1)
+				forSegmentAtIndex:0];
+	[self.pagesControl setEnabled:(currentPage != pages)
+				forSegmentAtIndex:2];
+
+	[self.pagesControl sizeToFit];
+}
+
+- (void)setPagesItemStyle {
+	if (self.navigationController.navigationBar.barStyle == UIBarStyleDefault) {
+		[pagesControl setImage:[UIImage imageNamed:@"Previous.png"] forSegmentAtIndex:0];
+		[pagesControl setImage:[UIImage imageNamed:@"Next.png"] forSegmentAtIndex:2];
+	} else {
+		[pagesControl setImage:[UIImage imageNamed:@"PreviousWhite.png"] forSegmentAtIndex:0];
+		[pagesControl setImage:[UIImage imageNamed:@"NextWhite.png"] forSegmentAtIndex:2];
+	}
 }
 
 - (void)setPages:(NSUInteger)thePages {
@@ -48,13 +67,26 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	self.pagesItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(pagesClicked)];
-	[pagesItem release];
+	NSArray *items = [NSArray arrayWithObjects:@"", @"", @"", nil];
+
+	self.pagesControl = [[[UISegmentedControl alloc] initWithItems:items] autorelease];
+	self.pagesControl.segmentedControlStyle = UISegmentedControlStyleBar;
+	self.pagesControl.momentary = YES;
+	[self.pagesControl addTarget:self action:@selector(pagesClicked) forControlEvents:UIControlEventValueChanged];
+	[self.pagesControl setWidth:30 forSegmentAtIndex:0];
+	[self.pagesControl setWidth:30 forSegmentAtIndex:2];
+
+	self.pagesItem = [[[UIBarButtonItem alloc] initWithCustomView:pagesControl] autorelease];
 	[self setPagesItemTitle];
 
 	PagePickerController *pagePicker = [[PagePickerController alloc] initWithDelegate:self];
 	self.pagesPopover = [[UIPopoverController alloc] initWithContentViewController:pagePicker];
 	[pagesPopover release];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self setPagesItemStyle];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -76,11 +108,19 @@
 #pragma mark -
 
 - (void)pagesClicked {
-	if (!pagesPopover.popoverVisible) {
-		PagePickerController *pagePickerController = (PagePickerController *)pagesPopover.contentViewController;
-		pagePickerController.currentPage = currentPage;
-		pagePickerController.totalPages = pages;
-		[pagesPopover presentPopoverFromBarButtonItem:self.pagesItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+	NSInteger i = pagesControl.selectedSegmentIndex;
+
+	if (i == 0) {
+		[self loadPage:currentPage-1];
+	} else if (i == 1) {
+		if (!pagesPopover.popoverVisible) {
+			PagePickerController *pagePickerController = (PagePickerController *)pagesPopover.contentViewController;
+			pagePickerController.currentPage = currentPage;
+			pagePickerController.totalPages = pages;
+			[pagesPopover presentPopoverFromBarButtonItem:self.pagesItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+		}
+	} else if (i == 2) {
+		[self loadPage:currentPage+1];
 	}
 }
 
@@ -93,11 +133,13 @@
 - (void)viewDidUnload {
 	[super viewDidUnload];
 	self.pagesItem = nil;
+	self.pagesControl = nil;
 	self.pagesPopover = nil;
 }
 
 - (void)dealloc {
 	[pagesItem release];
+	[pagesControl release];
 	[pagesPopover release];
 	[super dealloc];
 }
