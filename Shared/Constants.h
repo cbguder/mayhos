@@ -6,5 +6,5 @@
 //  Copyright 2010 Can Berk Güder. All rights reserved.
 //
 
-extern const NSString *kSozlukURL;
-extern const NSString *kFAQTitle;
+extern NSString * const kSozlukURL;
+extern NSString * const kFAQTitle;
