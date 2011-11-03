@@ -26,8 +26,6 @@
 	NSUInteger pages;
 	NSUInteger currentPage;
 
-	NSString *message;
-
 	id delegate;
 }
 
@@ -42,8 +40,6 @@
 @property (nonatomic, readonly) NSUInteger pages;
 @property (nonatomic, readonly) NSUInteger currentPage;
 
-@property (nonatomic, readonly) NSString *message;
-
 @property (nonatomic, assign) id<EksiTitleDelegate> delegate;
 
 + (id)titleForLink:(EksiLink *)link;
@@ -53,7 +49,6 @@
 
 - (id)initWithTitle:(NSString *)title URL:(NSURL *)URL;
 
-- (BOOL)isEmpty;
 - (void)loadEntries;
 - (void)loadAllEntries;
 - (void)loadPage:(NSUInteger)page;

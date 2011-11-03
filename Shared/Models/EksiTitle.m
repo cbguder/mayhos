@@ -28,7 +28,6 @@
 @synthesize hasMoreToLoad;
 @synthesize pages;
 @synthesize currentPage;
-@synthesize message;
 @synthesize parser;
 
 + (id)titleForLink:(EksiLink *)link {
@@ -58,7 +57,6 @@
 		self.title = theTitle;
 		self.URL = theURL;
 
-		entries = [[NSMutableArray alloc] init];
 		currentPage = 1;
 		pages = 1;
 	}
@@ -74,15 +72,8 @@
 	[moreURL release];
 	[baseURL release];
 	[entries release];
-	[message release];
 
 	[super dealloc];
-}
-
-#pragma mark Accessors
-
-- (BOOL)isEmpty {
-	return ([entries count] == 0);
 }
 
 #pragma mark Other Methods
@@ -120,21 +111,7 @@
 
 - (void)parserDidFinishParsing:(RightFrameParser *)aParser {
 	[entries release];
-	entries = [aParser.results mutableCopy];
-
-	int entriesToRemove = 0;
-	for (EksiEntry *entry in entries) {
-		if (entry.author) break;
-
-		[message release];
-		message = [entry.plainTextContent retain];
-
-		entriesToRemove++;
-	}
-
-	if (entriesToRemove > 0) {
-		[(NSMutableArray *)entries removeObjectsInRange:NSMakeRange(0, entriesToRemove)];
-	}
+	entries = [aParser.results retain];
 
 	pages = aParser.pages;
 	currentPage = aParser.currentPage;

@@ -201,14 +201,10 @@
 
 	NSMutableDictionary *variables = [NSMutableDictionary dictionary];
 
-	if (![title isEmpty]) {
+	if ([title.entries count] == 0) {
+		[variables setObject:@"burada pek bi'şey yok." forKey:@"errorMessage"];
+	} else {
 		[variables setObject:title.entries forKey:@"entries"];
-	}
-
-	if (title.message) {
-		[variables setObject:title.message forKey:@"errorMessage"];
-	} else if ([title isEmpty]) {
-		[variables setObject:@"olmaması gereken şeyler oldu." forKey:@"errorMessage"];
 	}
 
 	NSString *result = [templateEngine processTemplate:self.HTMLTemplate withVariables:variables];

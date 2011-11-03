@@ -108,8 +108,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	if ([eksiTitle.entries count] == 0) {
 		[self.navigationItem setRightBarButtonItem:activityItem];
 		[eksiTitle loadEntries];
-	} else if ([eksiTitle isEmpty]) {
-		[self showAlert];
 	} else {
 		[self.tableView reloadData];
 		self.navigationItem.titleView = titleView;
@@ -124,10 +122,6 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if ([eksiTitle isEmpty]) {
-		return 0;
-	}
-
 	return [eksiTitle.entries count];
 }
 
@@ -205,7 +199,7 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 
 	[self reset];
 
-	if ([title isEmpty] && self == self.navigationController.topViewController) {
+	if ([title.entries count] == 0 && self == self.navigationController.topViewController) {
 		[self showAlert];
 	} else {
 		[self.tableView reloadData];
@@ -229,16 +223,8 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 #pragma mark Drawing
 
 - (void)showAlert {
-	NSString *message = nil;
-
-	if (eksiTitle.message) {
-		message = eksiTitle.message;
-	} else {
-		message = @"olmaması gereken şeyler oldu.";
-	}
-
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:eksiTitle.title
-														message:message
+														message:@"burada pek bi'şey yok."
 													   delegate:self
 											  cancelButtonTitle:nil
 											  otherButtonTitles:@"geri git ne bileyim", nil];

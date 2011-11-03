@@ -192,7 +192,8 @@
 	[entry setContent:tempEntry];
 	[entry setPlainTextContent:tempPlainTextContent];
 	[entry setAuthorAndDateFromSignature:tempAuthor];
-	[results addObject:entry];
+	if (entry.author)
+		[results addObject:entry];
 	[entry release];
 
 	[tempPlainTextContent release];
