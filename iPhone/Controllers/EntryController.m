@@ -120,15 +120,14 @@
 		NSURL *realURL = [API URLForPath:rest];
 
 		if ([rest hasPrefix:@"/show.asp"]) {
-			NSString *titleText = [[[realURL queryDictionary] objectForKey:@"t"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+			NSString *titleText = [[realURL queryDictionary] objectForKey:@"t"];
 
 			EksiTitle *title = [EksiTitle titleWithTitle:titleText URL:realURL];
 			TitleController *titleController = [[TitleController alloc] initWithEksiTitle:title];
 			[self.navigationController pushViewController:titleController animated:YES];
 			[titleController release];
 		} else if ([rest hasPrefix:@"/index.asp"]) {
-			NSString *kw = [[realURL queryDictionary] objectForKey:@"kw"];
-			NSString *query = [kw stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+			NSString *query = [[realURL queryDictionary] objectForKey:@"kw"];
 
 			EksiLinkController *linkController = [[EksiLinkController alloc] init];
 			linkController.title = query;
