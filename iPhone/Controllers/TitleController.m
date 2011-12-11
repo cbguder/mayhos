@@ -6,6 +6,7 @@
 //  Copyright 2008 Can Berk Güder. All rights reserved.
 //
 
+#import <Twitter/Twitter.h>
 #import "TitleController.h"
 #import "EntryController.h"
 #import "PagePickerView.h"
@@ -24,13 +25,16 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)checkEmptyTitle;
 - (void)showAlert;
 - (void)reset;
-- (NSArray *)toolbarItemsIncludingTumuItem:(BOOL)includeTumuItem;
+
+- (BOOL)shouldHideToolbar;
+- (void)resetToolbar;
 @end
 
 @implementation TitleController
 
 @synthesize eksiTitle;
 @synthesize titleView;
+@synthesize actionItem;
 @synthesize tumuItem;
 @synthesize searchMode;
 @synthesize noToolbar;
@@ -70,11 +74,11 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
+	self.actionItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(action)] autorelease];
+
 	if (!searchMode) {
 		self.tumuItem = [[UIBarButtonItem alloc] initWithTitle:@"tümünü göster" style:UIBarButtonItemStyleBordered target:self action:@selector(tumu)];
 		[self.tumuItem release];
-
-		self.toolbarItems = [self toolbarItemsIncludingTumuItem:NO];
 
 		UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 		searchBar.placeholder = @"başlık içinde ara";
@@ -94,11 +98,13 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[titleView release];
 
 	self.navigationItem.titleView = titleView;
+
+	[self resetToolbar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.navigationController setToolbarHidden:(noToolbar || searchMode) animated:animated];
+	[self.navigationController setToolbarHidden:[self shouldHideToolbar] animated:animated];
 	[self.titleView setFrame:CGRectMake(0, 0, 480, 44)];
 }
 
@@ -239,12 +245,37 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 		self.navigationItem.titleView = titleView;
 	}
 
-	if (!searchMode && [self isViewLoaded]) {
-		self.toolbarItems = [self toolbarItemsIncludingTumuItem:[eksiTitle hasMoreToLoad]];
-	}
+	[self resetToolbar];
 }
 
-#pragma mark -
+#pragma mark - Toolbar
+
+- (BOOL)shouldHideToolbar {
+	return (noToolbar || searchMode);
+}
+
+- (void)resetToolbar {
+	if (![self isViewLoaded] || [self shouldHideToolbar]) {
+		self.toolbarItems = nil;
+		return;
+	}
+
+	NSMutableArray *items = [NSMutableArray array];
+
+	[items addObject:self.favoriteItem];
+
+	if ([eksiTitle hasMoreToLoad]) {
+		[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+		[items addObject:self.tumuItem];
+	}
+
+	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
+	[items addObject:self.actionItem];
+
+	self.toolbarItems = items;
+}
+
+#pragma mark - Actions
 
 - (void)loadPage:(NSUInteger)page {
 	[eksiTitle loadPage:page];
@@ -267,23 +298,71 @@ static CGFloat heightForEntry(EksiEntry *entry, CGFloat width) {
 	[super favorite];
 }
 
-- (NSArray *)toolbarItemsIncludingTumuItem:(BOOL)includeTumuItem {
-	NSMutableArray *items = [NSMutableArray array];
+- (void)action {
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+															 delegate:self
+													cancelButtonTitle:nil
+											   destructiveButtonTitle:nil
+													otherButtonTitles:nil];
 
-	if (includeTumuItem) {
-		[items addObject:self.tumuItem];
+	[actionSheet addButtonWithTitle:@"Safari'de Aç"];
+	[actionSheet addButtonWithTitle:@"Adresi Kopyala"];
+
+	NSInteger numberOfButtons = 2;
+
+	if ([MFMailComposeViewController canSendMail]) {
+		[actionSheet addButtonWithTitle:@"Email"];
+		numberOfButtons++;
 	}
 
-	[items addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease]];
-	[items addObject:self.favoriteItem];
+	Class tweetComposeViewControllerClass = NSClassFromString(@"TWTweetComposeViewController");
+	if (tweetComposeViewControllerClass != nil) {
+		[actionSheet addButtonWithTitle:@"Tweet"];
+		numberOfButtons++;
+	}
 
-	return items;
+	[actionSheet addButtonWithTitle:@"Vazgeç"];
+	[actionSheet setCancelButtonIndex:numberOfButtons];
+	[actionSheet showFromToolbar:self.navigationController.toolbar];
+	[actionSheet release];
+}
+
+#pragma mark - Action sheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == actionSheet.cancelButtonIndex) return;
+
+	if (buttonIndex == 0) {
+		[[UIApplication sharedApplication] openURL:eksiTitle.URL];
+	} else if (buttonIndex == 1) {
+		[[UIPasteboard generalPasteboard] setString:[eksiTitle.URL absoluteString]];
+	} else if (buttonIndex == 2) {
+		MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
+		[mailComposeViewController setMailComposeDelegate:self];
+		[mailComposeViewController setSubject:eksiTitle.title];
+		[mailComposeViewController setMessageBody:[eksiTitle.URL absoluteString] isHTML:NO];
+		[self presentModalViewController:mailComposeViewController animated:YES];
+		[mailComposeViewController release];
+	} else if (buttonIndex == 3) {
+		TWTweetComposeViewController *tweetComposeViewController = [[TWTweetComposeViewController alloc] init];
+		[tweetComposeViewController setInitialText:eksiTitle.title];
+		[tweetComposeViewController addURL:eksiTitle.URL];
+		[self presentModalViewController:tweetComposeViewController animated:YES];
+		[tweetComposeViewController release];
+	}
+}
+
+#pragma mark - Mail compose view controller delegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -
 #pragma mark Memory management
 
 - (void)viewDidUnload {
+	self.actionItem = nil;
 	self.tumuItem = nil;
 	self.titleView = nil;
 	self.toolbarItems = nil;

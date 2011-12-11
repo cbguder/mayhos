@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "FavoritedController.h"
 #import "PagePickerView.h"
 #import "EksiTitle.h"
 #import "EksiEntry.h"
 #import "TitleView.h"
 
-@interface TitleController : FavoritedController <EksiTitleDelegate, UIAlertViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
+@interface TitleController : FavoritedController <EksiTitleDelegate, UIAlertViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
+	UIBarButtonItem *actionItem;
 	UIBarButtonItem *tumuItem;
 	EksiTitle *eksiTitle;
 	TitleView *titleView;
@@ -22,6 +24,7 @@
 	BOOL noToolbar;
 }
 
+@property (nonatomic, retain) UIBarButtonItem *actionItem;
 @property (nonatomic, retain) UIBarButtonItem *tumuItem;
 @property (nonatomic, retain) EksiTitle *eksiTitle;
 @property (nonatomic, retain) TitleView *titleView;
