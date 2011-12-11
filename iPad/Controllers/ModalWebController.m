@@ -86,6 +86,10 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
+
+	if(![textField.text hasPrefix:@"http://"] && ![textField.text hasPrefix:@"https://"])
+		textField.text = [NSString stringWithFormat:@"http://%@", textField.text];
+
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:textField.text]]];
 	return YES;
 }
