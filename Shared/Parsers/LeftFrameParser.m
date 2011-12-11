@@ -8,13 +8,29 @@
 
 #import "LeftFrameParser.h"
 #import "EksiLink.h"
+#import "RegexKitLite.h"
 
 @interface LeftFrameParser (Private)
 - (void)processNode:(xmlNodePtr)node;
 - (void)processANode:(xmlNodePtr)node;
+- (void)processTextNode:(xmlNodePtr)node;
 @end
 
 @implementation LeftFrameParser
+
+- (id)initWithURL:(NSURL *)theURL delegate:(id<EksiParserDelegate>)theDelegate {
+	if ((self = [super initWithURL:theURL delegate:theDelegate])) {
+		whitespaceCharacterSet = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
+		[whitespaceCharacterSet addCharactersInRange:NSMakeRange(160, 1)];
+	}
+
+	return self;
+}
+
+- (void)dealloc {
+	[whitespaceCharacterSet release];
+	[super dealloc];
+}
 
 - (void)parseDocument {
 	[super parseDocument];
@@ -31,6 +47,8 @@
 			}
 
 			[self processNode:node->children];
+		} else if (node->type == XML_TEXT_NODE) {
+			[self processTextNode:node];
 		}
 
 		node = node->next;
@@ -56,6 +74,22 @@
 				[results addObject:link];
 				[link release];
 			}
+		}
+	}
+}
+
+- (void)processTextNode:(xmlNodePtr)node {
+	xmlChar *value = xmlNodeGetContent(node);
+	NSString *theText = [[NSString stringWithUTF8String:(const char *)value] stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+	xmlFree(value);
+
+	NSRange range = [theText rangeOfRegex:@"\\(\\d+\\)"];
+	if (range.location != NSNotFound) {
+		NSInteger number = [[theText substringWithRange:NSMakeRange(range.location + 1, range.length - 2)] integerValue];
+
+		if (number > 0) {
+			EksiLink *lastLink = [results lastObject];
+			lastLink.entryCount = number;
 		}
 	}
 }

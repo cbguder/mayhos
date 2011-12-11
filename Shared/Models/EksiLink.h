@@ -11,10 +11,12 @@
 @interface EksiLink : NSObject {
 	NSString *title;
 	NSURL *URL;
+	NSInteger entryCount;
 }
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, retain) NSURL *URL;
+@property (nonatomic) NSInteger entryCount;
 
 + (id)linkWithTitle:(NSString *)title URL:(NSURL *)URL;
 

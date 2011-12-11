@@ -10,6 +10,7 @@
 #import "EksiParser.h"
 
 @interface LeftFrameParser : EksiParser {
+	NSMutableCharacterSet *whitespaceCharacterSet;
 }
 
 @end

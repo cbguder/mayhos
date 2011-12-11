@@ -107,6 +107,7 @@
 		4CE1595A11BC08B600F22FFE /* lightbulb.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CE1595911BC08B600F22FFE /* lightbulb.png */; };
 		4CE15A5A11BC42AA00F22FFE /* FavoritesController_Base.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE15A5911BC42AA00F22FFE /* FavoritesController_Base.m */; };
 		4CE15ABF11BC499B00F22FFE /* UIViewController+ModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE15ABE11BC499B00F22FFE /* UIViewController+ModalPickerView.m */; };
+		4CE269A91472918D00A04FCF /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE269A81472918D00A04FCF /* TDBadgedCell.m */; };
 		4CECC27311C382B600702864 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CECC27211C382B600702864 /* Icon@2x.png */; };
 		4CECC29711C3872400702864 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CECC29611C3872400702864 /* Default@2x.png */; };
 		4CEFDCC611B6814E0008E428 /* AddressViewReload.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC211B6814E0008E428 /* AddressViewReload.png */; };
@@ -272,6 +273,8 @@
 		4CE15A5911BC42AA00F22FFE /* FavoritesController_Base.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesController_Base.m; sourceTree = "<group>"; };
 		4CE15ABD11BC499B00F22FFE /* UIViewController+ModalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ModalPickerView.h"; sourceTree = "<group>"; };
 		4CE15ABE11BC499B00F22FFE /* UIViewController+ModalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ModalPickerView.m"; sourceTree = "<group>"; };
+		4CE269A71472918D00A04FCF /* TDBadgedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBadgedCell.h; sourceTree = "<group>"; };
+		4CE269A81472918D00A04FCF /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBadgedCell.m; sourceTree = "<group>"; };
 		4CECC27211C382B600702864 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		4CECC29611C3872400702864 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4CEFDCC211B6814E0008E428 /* AddressViewReload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewReload.png; sourceTree = "<group>"; };
@@ -398,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				4C1E09AB11B8195D00D08DEC /* MGTemplateEngine */,
+				4CE269A61472918D00A04FCF /* TDBadgedCell */,
 				4CE15A5711BC428D00F22FFE /* Controllers */,
 				4C24A4B3118FAB13000D3B38 /* Helpers */,
 				4C24A4BC118FAB13000D3B38 /* Models */,
@@ -579,6 +583,15 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		4CE269A61472918D00A04FCF /* TDBadgedCell */ = {
+			isa = PBXGroup;
+			children = (
+				4CE269A71472918D00A04FCF /* TDBadgedCell.h */,
+				4CE269A81472918D00A04FCF /* TDBadgedCell.m */,
+			);
+			path = TDBadgedCell;
+			sourceTree = "<group>";
+		};
 		4CEFDC6A11B676920008E428 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -756,6 +769,7 @@
 				4CE15ABF11BC499B00F22FFE /* UIViewController+ModalPickerView.m in Sources */,
 				4C6E18C311C6C2D70005824F /* mayhosAppDelegate.m in Sources */,
 				4C096E9211FB9307002C038A /* EntryCell.m in Sources */,
+				4CE269A91472918D00A04FCF /* TDBadgedCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

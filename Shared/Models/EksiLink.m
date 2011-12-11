@@ -12,6 +12,7 @@
 
 @synthesize title;
 @synthesize URL;
+@synthesize entryCount;
 
 + (id)linkWithTitle:(NSString *)theTitle URL:(NSURL *)theURL {
 	return [[[EksiLink alloc] initWithTitle:theTitle URL:theURL] autorelease];

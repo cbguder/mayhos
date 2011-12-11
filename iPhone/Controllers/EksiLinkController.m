@@ -10,6 +10,7 @@
 #import "TitleController.h"
 #import "NSURL+Query.h"
 #import "FavoritesManager.h"
+#import "TDBadgedCell.h"
 
 @interface EksiLinkController ()
 @property (nonatomic, retain) LeftFrameParser *parser;
@@ -67,13 +68,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *linkCellIdentifier = @"Cell";
 
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:linkCellIdentifier];
+	TDBadgedCell *cell = (TDBadgedCell *)[tableView dequeueReusableCellWithIdentifier:linkCellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:linkCellIdentifier] autorelease];
+		cell = [[[TDBadgedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:linkCellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
-	cell.textLabel.text = [[links objectAtIndex:indexPath.row] title];
+	EksiLink *link = [links objectAtIndex:indexPath.row];
+	cell.textLabel.text = link.title;
+
+	if (link.entryCount > 0) {
+		cell.badgeString = [NSString stringWithFormat:@"%d", link.entryCount];
+	} else {
+		cell.badgeString = nil;
+	}
 
 	return cell;
 }
