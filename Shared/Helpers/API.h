@@ -24,6 +24,7 @@ typedef enum {
 + (NSURL *)yesterdayURL;
 + (NSURL *)randomURL;
 + (NSURL *)featuredURL;
++ (NSURL *)activeURL;
 
 + (NSURL *)URLForDate:(NSDate *)date;
 

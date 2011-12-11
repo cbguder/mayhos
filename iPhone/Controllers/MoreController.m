@@ -15,8 +15,10 @@ enum {
 	kRowYesterday,
 	kRowRandomDate,
 	kRowLastYear,
+	kRowActive,
 	kRowRandom,
-	kRowFAQ
+	kRowFAQ,
+	kRowLast
 };
 
 @implementation MoreController
@@ -38,7 +40,7 @@ enum {
 #pragma mark Table view data source
 
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-	return 6;
+	return kRowLast;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -57,6 +59,8 @@ enum {
 		cell.textLabel.text = @"dün";
 	} else if (indexPath.row == kRowRandomDate) {
 		cell.textLabel.text = @"bir gün";
+	} else if (indexPath.row == kRowActive) {
+		cell.textLabel.text = @"fokur";
 	} else if (indexPath.row == kRowRandom) {
 		cell.textLabel.text = @"rastgele";
 	} else if (indexPath.row == kRowFAQ) {
@@ -99,6 +103,12 @@ enum {
 		EksiLinkController *eksiLinkController = [[EksiLinkController alloc] init];
 		eksiLinkController.title = formatDate(date);
 		eksiLinkController.URL = [API URLForDate:date];
+		eksiLinkController.noToolbar = YES;
+		viewController = eksiLinkController;
+	} else if (indexPath.row == kRowActive) {
+		EksiLinkController *eksiLinkController = [[EksiLinkController alloc] init];
+		eksiLinkController.title = @"fokur";
+		eksiLinkController.URL = [API activeURL];
 		eksiLinkController.noToolbar = YES;
 		viewController = eksiLinkController;
 	} else if (indexPath.row == kRowRandom) {

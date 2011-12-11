@@ -18,6 +18,7 @@ enum {
 	kRowRandomDate,
 	kRowLastYear,
 	kRowFavorites,
+	kRowActive,
 	kRowRandom,
 	kRowFeatured,
 	kRowFAQ,
@@ -111,6 +112,8 @@ enum {
 		[gregorian release];
 
 		cell.textLabel.text = [NSString stringWithFormat:@"%d", dateComponents.year - 1];
+	} else if (indexPath.row == kRowActive) {
+		cell.textLabel.text = @"fokur";
 	} else if (indexPath.row == kRowRandom) {
 		cell.textLabel.text = @"rastgele";
 	} else if (indexPath.row == kRowFeatured) {
@@ -180,6 +183,9 @@ enum {
 
 			leftFrameController.title = formatDate(date);
 			leftFrameController.URL = [API URLForDate:date];
+		} else if (indexPath.row == kRowActive) {
+			leftFrameController.title = @"fokur";
+			leftFrameController.URL = [API activeURL];
 		} else if (indexPath.row == kRowRandom) {
 			leftFrameController.title = @"rastgele";
 			leftFrameController.URL = [API randomURL];

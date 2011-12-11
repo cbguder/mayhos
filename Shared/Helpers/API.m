@@ -31,6 +31,10 @@
 	return [API URLForPath:@"/pick.asp?p=g"];
 }
 
++ (NSURL *)activeURL {
+	return [API URLForPath:@"/index.asp?a=he"];
+}
+
 + (NSURL *)URLForDate:(NSDate *)date {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"dd.MM.YYYY"];
