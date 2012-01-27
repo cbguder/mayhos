@@ -12,17 +12,24 @@
 
 @implementation FavoritesController_Pad
 
+- (id)initWithStyle:(UITableViewStyle)style {
+	if ((self = [super initWithStyle:style])) {
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(favoritesSaved:)
+													 name:@"FavoritesSaved"
+												   object:nil];
+	}
+
+	return self;
+}
+
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[super dealloc];
+}
+
 #pragma mark -
 #pragma mark View lifecycle
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(favoritesSaved:)
-												 name:@"FavoritesSaved"
-											   object:nil];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return YES;
