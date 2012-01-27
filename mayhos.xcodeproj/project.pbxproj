@@ -112,6 +112,7 @@
 		4CE269A91472918D00A04FCF /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE269A81472918D00A04FCF /* TDBadgedCell.m */; };
 		4CECC27311C382B600702864 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CECC27211C382B600702864 /* Icon@2x.png */; };
 		4CECC29711C3872400702864 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CECC29611C3872400702864 /* Default@2x.png */; };
+		4CEFAACE14D223810091390C /* TitleActionsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEFAACD14D223810091390C /* TitleActionsHelper.m */; };
 		4CEFDCC611B6814E0008E428 /* AddressViewReload.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC211B6814E0008E428 /* AddressViewReload.png */; };
 		4CEFDCC711B6814E0008E428 /* AddressViewStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC311B6814E0008E428 /* AddressViewStop.png */; };
 		4CEFDCC811B6814E0008E428 /* iPadNavBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCC411B6814E0008E428 /* iPadNavBack.png */; };
@@ -281,6 +282,8 @@
 		4CE269A81472918D00A04FCF /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBadgedCell.m; sourceTree = "<group>"; };
 		4CECC27211C382B600702864 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		4CECC29611C3872400702864 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4CEFAACC14D223810091390C /* TitleActionsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleActionsHelper.h; sourceTree = "<group>"; };
+		4CEFAACD14D223810091390C /* TitleActionsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleActionsHelper.m; sourceTree = "<group>"; };
 		4CEFAACF14D2268F0091390C /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		4CEFDCC211B6814E0008E428 /* AddressViewReload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewReload.png; sourceTree = "<group>"; };
 		4CEFDCC311B6814E0008E428 /* AddressViewStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewStop.png; sourceTree = "<group>"; };
@@ -374,6 +377,8 @@
 				4C24A4B7118FAB13000D3B38 /* FavoritesManager.m */,
 				4C24A4B8118FAB13000D3B38 /* HistoryManager.h */,
 				4C24A4B9118FAB13000D3B38 /* HistoryManager.m */,
+				4CEFAACC14D223810091390C /* TitleActionsHelper.h */,
+				4CEFAACD14D223810091390C /* TitleActionsHelper.m */,
 				4C24A4BA118FAB13000D3B38 /* Util.h */,
 				4C24A4BB118FAB13000D3B38 /* Util.m */,
 			);
@@ -780,6 +785,7 @@
 				4C6E18C311C6C2D70005824F /* mayhosAppDelegate.m in Sources */,
 				4C096E9211FB9307002C038A /* EntryCell.m in Sources */,
 				4CE269A91472918D00A04FCF /* TDBadgedCell.m in Sources */,
+				4CEFAACE14D223810091390C /* TitleActionsHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

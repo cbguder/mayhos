@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h>
 #import "FavoritedController.h"
 #import "PagePickerView.h"
 #import "EksiTitle.h"
 #import "EksiEntry.h"
 #import "TitleView.h"
 
-@interface TitleController : FavoritedController <EksiTitleDelegate, UIAlertViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
+@interface TitleController : FavoritedController <EksiTitleDelegate, UIAlertViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
 	UIBarButtonItem *actionItem;
 	UIBarButtonItem *tumuItem;
 	EksiTitle *eksiTitle;
