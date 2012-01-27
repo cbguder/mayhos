@@ -43,6 +43,11 @@
 	toolbar.frame = CGRectMake(0.0, pickerPos - 44.0, self.frame.size.width, 44.0);
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	[delegate datePickerCancelled:self];
+	[self easeOutFromSuperview];
+}
+
 #pragma mark UIBarButtonItem Methods
 
 - (void)cancel {

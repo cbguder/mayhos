@@ -30,6 +30,10 @@
 	totalHeight = pickerHeight + 44.0;
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self easeOutFromSuperview];
+}
+
 - (void)easeOutFromSuperview {
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
