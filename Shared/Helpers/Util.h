@@ -10,6 +10,6 @@
 
 NSString *toString(id object);
 NSString *urlEncode(id object);
-NSDate *randomDate();
-NSDate *lastYear();
+NSDate *randomDate(void);
+NSDate *lastYear(void);
 NSString *formatDate(NSDate *date);

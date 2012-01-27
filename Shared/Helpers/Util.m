@@ -17,7 +17,7 @@ NSString *urlEncode(id object) {
 	return [(NSString *) CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)string, NULL, CFSTR("!*'();:@&=+$,/?#[]<> \"\n\t"), kCFStringEncodingUTF8) autorelease];
 }
 
-NSDate *randomDate() {
+NSDate *randomDate(void) {
 	int min = 10637; // 15.02.1999
 	int max = ([[NSDate date] timeIntervalSince1970] / 86400) - 2; // 2 days ago
 
@@ -27,7 +27,7 @@ NSDate *randomDate() {
 	return [NSDate dateWithTimeIntervalSince1970:86400*r];
 }
 
-NSDate *lastYear() {
+NSDate *lastYear(void) {
 	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 	NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:[NSDate date]];
 	dateComponents.year -= 1;
