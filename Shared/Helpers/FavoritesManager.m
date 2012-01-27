@@ -7,9 +7,8 @@
 //
 
 #import "FavoritesManager.h"
+#import "SynthesizeSingleton.h"
 #import "NSURL+Query.h"
-
-static FavoritesManager *SharedManager = nil;
 
 @interface FavoritesManager (Private)
 - (NSDictionary *)findFavoriteForURL:(NSURL *)URL;
@@ -19,17 +18,9 @@ static FavoritesManager *SharedManager = nil;
 
 @implementation FavoritesManager
 
+SYNTHESIZE_SINGLETON_FOR_CLASS(FavoritesManager, Manager);
+
 @synthesize favorites;
-
-+ (FavoritesManager *)sharedManager {
-	@synchronized(self) {
-		if (SharedManager == nil) {
-			SharedManager = [[self allocWithZone:NULL] init];
-		}
-	}
-
-	return SharedManager;
-}
 
 - (id)init {
 	if ((self = [super init])) {

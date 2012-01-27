@@ -281,6 +281,7 @@
 		4CE269A81472918D00A04FCF /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBadgedCell.m; sourceTree = "<group>"; };
 		4CECC27211C382B600702864 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		4CECC29611C3872400702864 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4CEFAACF14D2268F0091390C /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		4CEFDCC211B6814E0008E428 /* AddressViewReload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewReload.png; sourceTree = "<group>"; };
 		4CEFDCC311B6814E0008E428 /* AddressViewStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressViewStop.png; sourceTree = "<group>"; };
 		4CEFDCC411B6814E0008E428 /* iPadNavBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadNavBack.png; sourceTree = "<group>"; };
@@ -422,6 +423,7 @@
 				28A0AB4B0D9B1048005BE974 /* mayhos_Prefix.pch */,
 				4C6E18C111C6C2D70005824F /* mayhosAppDelegate.h */,
 				4C6E18C211C6C2D70005824F /* mayhosAppDelegate.m */,
+				4CEFAACF14D2268F0091390C /* SynthesizeSingleton.h */,
 			);
 			path = Shared;
 			sourceTree = "<group>";

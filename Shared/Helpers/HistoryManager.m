@@ -7,22 +7,13 @@
 //
 
 #import "HistoryManager.h"
-
-static HistoryManager *SharedManager = nil;
+#import "SynthesizeSingleton.h"
 
 @implementation HistoryManager
 
+SYNTHESIZE_SINGLETON_FOR_CLASS(HistoryManager, Manager);
+
 @synthesize history;
-
-+ (HistoryManager *)sharedManager {
-	@synchronized(self) {
-		if (SharedManager == nil) {
-			SharedManager = [[self allocWithZone:NULL] init];
-		}
-	}
-
-	return SharedManager;
-}
 
 - (id)init {
 	if ((self = [super init])) {
