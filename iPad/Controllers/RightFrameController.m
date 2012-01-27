@@ -160,6 +160,10 @@
 			leftFrameController.title = query;
 			leftFrameController.URL = realURL;
 
+			if (self.popoverController) {
+				[self.popoverController presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+			}
+
 			UINavigationController *leftNavigationController = [self.splitViewController.viewControllers objectAtIndex:0];
 			[leftNavigationController pushViewController:leftFrameController animated:YES];
 			[leftFrameController release];
