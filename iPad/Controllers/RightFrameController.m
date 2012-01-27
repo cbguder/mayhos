@@ -12,6 +12,7 @@
 #import "FavoritesManager.h"
 #import "EksiEntry.h"
 #import "NSURL+Query.h"
+#import "TitleActionsHelper.h"
 
 #import "MGTemplateEngine.h"
 #import "ICUTemplateMatcher.h"
@@ -20,6 +21,7 @@
 @property (nonatomic, retain) UIPopoverController *popoverController;
 @property (nonatomic, retain) UIBarButtonItem *tumuItem;
 @property (nonatomic, retain) UIBarButtonItem *favoriteItem;
+@property (nonatomic, retain) UIBarButtonItem *actionItem;
 @property (nonatomic, retain) MGTemplateEngine *templateEngine;
 @property (nonatomic, copy) NSString *HTMLTemplate;
 @property (nonatomic, retain) NSURL *baseURL;
@@ -34,6 +36,7 @@
 @synthesize popoverController;
 @synthesize tumuItem;
 @synthesize favoriteItem;
+@synthesize actionItem;
 @synthesize templateEngine;
 @synthesize HTMLTemplate;
 @synthesize baseURL;
@@ -114,6 +117,11 @@
 														action:@selector(favorite)];
 	favoriteItem.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
 	[favoriteItem release];
+
+	self.actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+																	target:self
+																	action:@selector(action:)];
+	[actionItem release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -223,12 +231,14 @@
 	self.popoverController = nil;
 	self.tumuItem = nil;
 	self.favoriteItem = nil;
+	self.actionItem = nil;
 }
 
 - (void)dealloc {
 	[popoverController release];
 	[tumuItem release];
 	[favoriteItem release];
+	[actionItem release];
 	[templateEngine release];
 	[HTMLTemplate release];
 	[baseURL release];
@@ -266,9 +276,15 @@
 	self.favorited = !self.favorited;
 }
 
+- (void)action:(UIBarButtonItem *)sender {
+	[[TitleActionsHelper sharedHelper] showActionSheetForViewController:self fromBarButtonItem:sender];
+}
+
 - (void)resetToolbar {
 	NSMutableArray *items = [NSMutableArray array];
 	UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+
+	[items addObject:favoriteItem];
 	[items addObject:flexibleSpace];
 
 	if ([self.eksiTitle hasMoreToLoad]) {
@@ -276,7 +292,7 @@
 		[items addObject:flexibleSpace];
 	}
 
-	[items addObject:favoriteItem];
+	[items addObject:actionItem];
 
 	[flexibleSpace release];
 	self.toolbarItems = items;

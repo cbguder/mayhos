@@ -16,6 +16,7 @@
 	UIPopoverController *popoverController;
 	UIBarButtonItem *tumuItem;
 	UIBarButtonItem *favoriteItem;
+	UIBarButtonItem *actionItem;
 	UIWebView *webView;
 
 	MGTemplateEngine *templateEngine;
