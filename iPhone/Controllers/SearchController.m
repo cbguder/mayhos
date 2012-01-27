@@ -8,7 +8,7 @@
 
 #import "SearchController.h"
 #import "AdvancedSearchController.h"
-#import "HistoryManager.h"
+#import "SearchHistoryManager.h"
 
 @interface SearchController (Private)
 - (void)filter:(NSString *)query;
@@ -66,7 +66,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		[[HistoryManager sharedManager] removeString:[self.matches objectAtIndex:indexPath.row]];
+		[[SearchHistoryManager sharedManager] removeString:[self.matches objectAtIndex:indexPath.row]];
 		[self.matches removeObjectAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
 	}
@@ -85,7 +85,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	NSString *query = searchBar.text;
 
-	[[HistoryManager sharedManager] addString:query];
+	[[SearchHistoryManager sharedManager] addString:query];
 	[self filter:query];
 	[self.searchDisplayController.searchResultsTableView reloadData];
 
@@ -117,7 +117,7 @@
 	}
 
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF like[c] %@", [NSString stringWithFormat:@"*%@*", query]];
-	self.matches = [NSMutableArray arrayWithArray:[[HistoryManager sharedManager].history allObjects]];
+	self.matches = [NSMutableArray arrayWithArray:[[SearchHistoryManager sharedManager].history allObjects]];
 	[matches filterUsingPredicate:predicate];
 	[matches sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }

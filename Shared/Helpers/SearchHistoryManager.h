@@ -1,5 +1,5 @@
 //
-//  HistoryManager.h
+//  SearchHistoryManager.h
 //  mayhos
 //
 //  Created by Can Berk Güder on 12/4/2010.
@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HistoryManager : NSObject {
+@interface SearchHistoryManager : NSObject {
 	NSMutableSet *history;
 }
 
 @property (nonatomic, readonly) NSSet *history;
 
-+ (HistoryManager *)sharedManager;
++ (SearchHistoryManager *)sharedManager;
 
 - (void)addString:(NSString *)string;
 - (void)removeString:(NSString *)string;

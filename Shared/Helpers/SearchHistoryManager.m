@@ -1,17 +1,17 @@
 //
-//  HistoryManager.m
+//  SearchHistoryManager.m
 //  mayhos
 //
 //  Created by Can Berk Güder on 12/4/2010.
 //  Copyright 2010 Can Berk Güder. All rights reserved.
 //
 
-#import "HistoryManager.h"
+#import "SearchHistoryManager.h"
 #import "SynthesizeSingleton.h"
 
-@implementation HistoryManager
+@implementation SearchHistoryManager
 
-SYNTHESIZE_SINGLETON_FOR_CLASS(HistoryManager, Manager);
+SYNTHESIZE_SINGLETON_FOR_CLASS(SearchHistoryManager, Manager);
 
 @synthesize history;
 

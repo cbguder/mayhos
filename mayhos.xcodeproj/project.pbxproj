@@ -25,7 +25,7 @@
 		4C24A473118FA896000D3B38 /* LeftFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A472118FA896000D3B38 /* LeftFrameController.m */; };
 		4C24A4CA118FAB13000D3B38 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4B5118FAB13000D3B38 /* API.m */; };
 		4C24A4CB118FAB13000D3B38 /* FavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4B7118FAB13000D3B38 /* FavoritesManager.m */; };
-		4C24A4CC118FAB13000D3B38 /* HistoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4B9118FAB13000D3B38 /* HistoryManager.m */; };
+		4C24A4CC118FAB13000D3B38 /* SearchHistoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4B9118FAB13000D3B38 /* SearchHistoryManager.m */; };
 		4C24A4CD118FAB13000D3B38 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4BB118FAB13000D3B38 /* Util.m */; };
 		4C24A4CE118FAB13000D3B38 /* EksiEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4BE118FAB13000D3B38 /* EksiEntry.m */; };
 		4C24A4CF118FAB13000D3B38 /* EksiLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24A4C0118FAB13000D3B38 /* EksiLink.m */; };
@@ -155,8 +155,8 @@
 		4C24A4B5118FAB13000D3B38 /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
 		4C24A4B6118FAB13000D3B38 /* FavoritesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesManager.h; sourceTree = "<group>"; };
 		4C24A4B7118FAB13000D3B38 /* FavoritesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesManager.m; sourceTree = "<group>"; };
-		4C24A4B8118FAB13000D3B38 /* HistoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryManager.h; sourceTree = "<group>"; };
-		4C24A4B9118FAB13000D3B38 /* HistoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryManager.m; sourceTree = "<group>"; };
+		4C24A4B8118FAB13000D3B38 /* SearchHistoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SearchHistoryManager.h; sourceTree = "<group>"; };
+		4C24A4B9118FAB13000D3B38 /* SearchHistoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryManager.m; sourceTree = "<group>"; };
 		4C24A4BA118FAB13000D3B38 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		4C24A4BB118FAB13000D3B38 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		4C24A4BD118FAB13000D3B38 /* EksiEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EksiEntry.h; sourceTree = "<group>"; };
@@ -375,8 +375,8 @@
 				4C24A4B5118FAB13000D3B38 /* API.m */,
 				4C24A4B6118FAB13000D3B38 /* FavoritesManager.h */,
 				4C24A4B7118FAB13000D3B38 /* FavoritesManager.m */,
-				4C24A4B8118FAB13000D3B38 /* HistoryManager.h */,
-				4C24A4B9118FAB13000D3B38 /* HistoryManager.m */,
+				4C24A4B8118FAB13000D3B38 /* SearchHistoryManager.h */,
+				4C24A4B9118FAB13000D3B38 /* SearchHistoryManager.m */,
 				4CEFAACC14D223810091390C /* TitleActionsHelper.h */,
 				4CEFAACD14D223810091390C /* TitleActionsHelper.m */,
 				4C24A4BA118FAB13000D3B38 /* Util.h */,
@@ -760,7 +760,7 @@
 				4C24A473118FA896000D3B38 /* LeftFrameController.m in Sources */,
 				4C24A4CA118FAB13000D3B38 /* API.m in Sources */,
 				4C24A4CB118FAB13000D3B38 /* FavoritesManager.m in Sources */,
-				4C24A4CC118FAB13000D3B38 /* HistoryManager.m in Sources */,
+				4C24A4CC118FAB13000D3B38 /* SearchHistoryManager.m in Sources */,
 				4C24A4CD118FAB13000D3B38 /* Util.m in Sources */,
 				4C24A4CE118FAB13000D3B38 /* EksiEntry.m in Sources */,
 				4C24A4CF118FAB13000D3B38 /* EksiLink.m in Sources */,
