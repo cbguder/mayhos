@@ -63,6 +63,8 @@
 		4C3FED85118F822A00AA6F39 /* PagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED56118F822A00AA6F39 /* PagePickerView.m */; };
 		4C3FED86118F822A00AA6F39 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED58118F822A00AA6F39 /* TitleView.m */; };
 		4C42BE3315AA3FF0006BAC66 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C42BE3215AA3FF0006BAC66 /* Icon-72@2x.png */; };
+		4C477A7215AA1E38000217B1 /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C477A7015AA1E38000217B1 /* Default-Landscape@2x.png */; };
+		4C477A7315AA1E38000217B1 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C477A7115AA1E38000217B1 /* Default-Portrait@2x.png */; };
 		4C6274CA146368E4006F97BB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6274C9146368E4006F97BB /* MessageUI.framework */; };
 		4C6A264A11B446DE0054F507 /* PagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A264911B446DE0054F507 /* PagePickerController.m */; };
 		4C6E18C311C6C2D70005824F /* mayhosAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E18C211C6C2D70005824F /* mayhosAppDelegate.m */; };
@@ -221,6 +223,8 @@
 		4C3FED57118F822A00AA6F39 /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
 		4C3FED58118F822A00AA6F39 /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
 		4C42BE3215AA3FF0006BAC66 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		4C477A7015AA1E38000217B1 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
+		4C477A7115AA1E38000217B1 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		4C6274C9146368E4006F97BB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4C6A264811B446DE0054F507 /* PagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagePickerController.h; sourceTree = "<group>"; };
 		4C6A264911B446DE0054F507 /* PagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagePickerController.m; sourceTree = "<group>"; };
@@ -518,7 +522,9 @@
 				4C72B154118F9276002B9330 /* Controllers */,
 				4CEFDC6A11B676920008E428 /* Images */,
 				4CB42A31118FBE1500EBFCCF /* Default-Landscape.png */,
+				4C477A7015AA1E38000217B1 /* Default-Landscape@2x.png */,
 				4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */,
+				4C477A7115AA1E38000217B1 /* Default-Portrait@2x.png */,
 				4C72B18F118F9535002B9330 /* Icon-72.png */,
 				4C42BE3215AA3FF0006BAC66 /* Icon-72@2x.png */,
 				4C72B110118F8A25002B9330 /* MainWindow_Pad.xib */,
