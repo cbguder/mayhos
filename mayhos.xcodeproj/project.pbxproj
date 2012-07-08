@@ -62,6 +62,7 @@
 		4C3FED84118F822A00AA6F39 /* ModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED54118F822A00AA6F39 /* ModalPickerView.m */; };
 		4C3FED85118F822A00AA6F39 /* PagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED56118F822A00AA6F39 /* PagePickerView.m */; };
 		4C3FED86118F822A00AA6F39 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FED58118F822A00AA6F39 /* TitleView.m */; };
+		4C42BE3315AA3FF0006BAC66 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C42BE3215AA3FF0006BAC66 /* Icon-72@2x.png */; };
 		4C6274CA146368E4006F97BB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6274C9146368E4006F97BB /* MessageUI.framework */; };
 		4C6A264A11B446DE0054F507 /* PagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A264911B446DE0054F507 /* PagePickerController.m */; };
 		4C6E18C311C6C2D70005824F /* mayhosAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E18C211C6C2D70005824F /* mayhosAppDelegate.m */; };
@@ -101,9 +102,6 @@
 		4CB42A33118FBE1500EBFCCF /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB42A31118FBE1500EBFCCF /* Default-Landscape.png */; };
 		4CB42A34118FBE1500EBFCCF /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */; };
 		4CBFB10711B439B900F9B7CD /* PagedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBFB10611B439B900F9B7CD /* PagedViewController.m */; };
-		4CC2A98111DA366000400476 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC2A98011DA366000400476 /* Icon-Small-50.png */; };
-		4CC2A98711DA366C00400476 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC2A98511DA366C00400476 /* Icon-Small.png */; };
-		4CC2A98811DA366C00400476 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC2A98611DA366C00400476 /* Icon-Small@2x.png */; };
 		4CD73D2D1191B1D9009855E6 /* ModalWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */; };
 		4CD73D301191B1EF009855E6 /* ModalWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD73D2F1191B1EF009855E6 /* ModalWebController.m */; };
 		4CE1595A11BC08B600F22FFE /* lightbulb.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CE1595911BC08B600F22FFE /* lightbulb.png */; };
@@ -222,6 +220,7 @@
 		4C3FED56118F822A00AA6F39 /* PagePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagePickerView.m; sourceTree = "<group>"; };
 		4C3FED57118F822A00AA6F39 /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
 		4C3FED58118F822A00AA6F39 /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
+		4C42BE3215AA3FF0006BAC66 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		4C6274C9146368E4006F97BB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4C6A264811B446DE0054F507 /* PagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagePickerController.h; sourceTree = "<group>"; };
 		4C6A264911B446DE0054F507 /* PagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagePickerController.m; sourceTree = "<group>"; };
@@ -267,9 +266,6 @@
 		4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		4CBFB10511B439B900F9B7CD /* PagedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedViewController.h; sourceTree = "<group>"; };
 		4CBFB10611B439B900F9B7CD /* PagedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedViewController.m; sourceTree = "<group>"; };
-		4CC2A98011DA366000400476 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
-		4CC2A98511DA366C00400476 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		4CC2A98611DA366C00400476 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalWebController.xib; sourceTree = "<group>"; };
 		4CD73D2E1191B1EF009855E6 /* ModalWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalWebController.h; sourceTree = "<group>"; };
 		4CD73D2F1191B1EF009855E6 /* ModalWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalWebController.m; sourceTree = "<group>"; };
@@ -445,8 +441,6 @@
 				4C3FED28118F822A00AA6F39 /* entry.html */,
 				4C72B0ED118F86E3002B9330 /* Icon.png */,
 				4CECC27211C382B600702864 /* Icon@2x.png */,
-				4CC2A98511DA366C00400476 /* Icon-Small.png */,
-				4CC2A98611DA366C00400476 /* Icon-Small@2x.png */,
 				4C3FED3E118F822A00AA6F39 /* MainWindow_Phone.xib */,
 				4C3FED3F118F822A00AA6F39 /* mayhosAppDelegate_Phone.h */,
 				4C3FED40118F822A00AA6F39 /* mayhosAppDelegate_Phone.m */,
@@ -526,7 +520,7 @@
 				4CB42A31118FBE1500EBFCCF /* Default-Landscape.png */,
 				4CB42A32118FBE1500EBFCCF /* Default-Portrait.png */,
 				4C72B18F118F9535002B9330 /* Icon-72.png */,
-				4CC2A98011DA366000400476 /* Icon-Small-50.png */,
+				4C42BE3215AA3FF0006BAC66 /* Icon-72@2x.png */,
 				4C72B110118F8A25002B9330 /* MainWindow_Pad.xib */,
 				4CD73D2B1191B1D9009855E6 /* ModalWebController.xib */,
 				4C72B119118F8A95002B9330 /* mayhosAppDelegate_Pad.h */,
@@ -714,14 +708,12 @@
 				4C9B147E11C63C350000CF8A /* Star@2x.png in Resources */,
 				4C9B147F11C63C350000CF8A /* Up.png in Resources */,
 				4C9B148011C63C350000CF8A /* Up@2x.png in Resources */,
-				4CC2A98111DA366000400476 /* Icon-Small-50.png in Resources */,
-				4CC2A98711DA366C00400476 /* Icon-Small.png in Resources */,
-				4CC2A98811DA366C00400476 /* Icon-Small@2x.png in Resources */,
 				4C86E94011DE59AB0078CD3E /* RootViewController.xib in Resources */,
 				4C772F991433D14F00CDF1D8 /* Next.png in Resources */,
 				4C772F9A1433D14F00CDF1D8 /* Previous.png in Resources */,
 				4C0A5F881460D1EC00CC0151 /* NextWhite.png in Resources */,
 				4C0A5F891460D1EC00CC0151 /* PreviousWhite.png in Resources */,
+				4C42BE3315AA3FF0006BAC66 /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
