@@ -75,6 +75,8 @@
 	[self.pagesControl addTarget:self action:@selector(pagesClicked) forControlEvents:UIControlEventValueChanged];
 	[self.pagesControl setWidth:35 forSegmentAtIndex:0];
 	[self.pagesControl setWidth:35 forSegmentAtIndex:2];
+	[self.pagesControl setContentOffset:CGSizeMake(0.0f, -1.0f) forSegmentAtIndex:0];
+	[self.pagesControl setContentOffset:CGSizeMake(0.0f, -1.0f) forSegmentAtIndex:2];
 
 	self.pagesItem = [[[UIBarButtonItem alloc] initWithCustomView:pagesControl] autorelease];
 	[self setPagesItemTitle];
