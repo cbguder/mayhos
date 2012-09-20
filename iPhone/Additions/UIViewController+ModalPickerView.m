@@ -13,19 +13,22 @@
 - (void)presentModalPickerView:(ModalPickerView *)modalPickerView {
 	[UIAppDelegatePhone lockOrientation:self.interfaceOrientation];
 
+	UIView *parentView = [UIAppDelegatePhone.window.subviews objectAtIndex:0];
+    CGFloat height = parentView.bounds.size.height;
+    CGFloat width = parentView.bounds.size.width;
+
 	CGRect initialFrame, finalFrame;
 
 	if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-		initialFrame = CGRectMake(0, 260, 320, 480);
-		finalFrame = CGRectMake(0, 0, 320, 480);
+		initialFrame = CGRectMake(0, 260, width, height);
+		finalFrame = CGRectMake(0, 0, width, height);
 	} else {
-		initialFrame = CGRectMake(0, 206, 480, 320);
-		finalFrame = CGRectMake(0, 0, 480, 320);
+		initialFrame = CGRectMake(0, 206, width, height);
+		finalFrame = CGRectMake(0, 0, width, height);
 	}
 
 	modalPickerView.frame = initialFrame;
 
-	UIView *parentView = [UIAppDelegatePhone.window.subviews objectAtIndex:0];
 	[parentView addSubview:modalPickerView];
 
 	[UIView beginAnimations:nil context:nil];
