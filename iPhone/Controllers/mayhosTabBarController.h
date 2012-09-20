@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface mayhosTabBarController : UITabBarController {
-}
+@interface mayhosTabBarController : UITabBarController
 
 @end
