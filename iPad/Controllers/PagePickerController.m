@@ -37,6 +37,7 @@
 
 - (void)resetSlider {
 	slider.maximumValue = totalPages;
+    slider.minimumValue = 1;
 	slider.value = currentPage;
 	label.text = [NSString stringWithFormat:@"%d of %d", currentPage, totalPages];
 }
