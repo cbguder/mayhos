@@ -14,4 +14,8 @@
 	return [UIAppDelegatePhone shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
+- (BOOL)shouldAutorotate {
+    return [UIAppDelegatePhone shouldAutorotate];
+}
+
 @end

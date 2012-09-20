@@ -24,5 +24,6 @@
 - (void)lockOrientation:(UIInterfaceOrientation)orientation;
 - (void)unlockOrientation;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
+- (BOOL)shouldAutorotate;
 
 @end

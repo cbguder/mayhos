@@ -20,7 +20,9 @@
 	tabBarController.selectedIndex = [defaults integerForKey:@"selectedIndex"];
 
 	// Add the tab bar controller's current view as a subview of the window
-	[window addSubview:tabBarController.view];
+    window.frame = [[UIScreen mainScreen] bounds];
+    window.rootViewController = tabBarController;
+
 	[window makeKeyAndVisible];
 
 	return YES;
@@ -51,6 +53,10 @@
 	} else {
 		return toInterfaceOrientation == orientation;
 	}
+}
+
+- (BOOL)shouldAutorotate {
+    return orientation == UIDeviceOrientationUnknown;
 }
 
 @end
