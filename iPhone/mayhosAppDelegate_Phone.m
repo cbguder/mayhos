@@ -8,6 +8,9 @@
 
 #import "mayhosAppDelegate_Phone.h"
 
+#import "TitleController.h"
+#import "NSURL+Query.h"
+
 @implementation mayhosAppDelegate_Phone
 
 @synthesize window;
@@ -26,6 +29,30 @@
 	[window makeKeyAndVisible];
 
 	return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([url.scheme isEqualToString:@"mayhos"]) {
+
+        NSString *rest = [url.absoluteString substringFromIndex:8];
+
+        if ([rest hasPrefix:@"/show.asp"]) {
+            tabBarController.selectedIndex = 0;
+            UINavigationController *navigationController = (UINavigationController *)tabBarController.selectedViewController;
+
+            NSURL *realURL = [API URLForPath:rest];
+            NSString *titleText = [[realURL queryDictionary] objectForKey:@"t"];
+
+            EksiTitle *title = [EksiTitle titleWithTitle:titleText URL:realURL];
+            TitleController *titleController = [[TitleController alloc] initWithEksiTitle:title];
+            [navigationController pushViewController:titleController animated:YES];
+            [titleController release];
+
+            return YES;
+        }
+    }
+
+    return NO;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
